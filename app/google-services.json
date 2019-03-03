@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "987711404223",
+    "firebase_url": "https://verymuchtodo-bb00d.firebaseio.com",
+    "project_id": "verymuchtodo-bb00d",
+    "storage_bucket": "verymuchtodo-bb00d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:987711404223:android:7cfb94e61892fdb1",
+        "android_client_info": {
+          "package_name": "com.andraganoid.verymuchtodo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "987711404223-rnb3tpj87kmhr9u59fd39l627cfamb1s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDekCl_7TTtu3B-vD1DYFGFgj52V_jisU8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
