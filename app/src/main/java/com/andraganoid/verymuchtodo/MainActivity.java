@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -60,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
         String email = ((EditText) findViewById(R.id.sign_in_username)).getText().toString();
         String password = ((EditText) findViewById(R.id.sign_in_password)).getText().toString();
 
-        if (!email.isEmpty() && !password.isEmpty()) {
+
+        if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener <AuthResult>() {
                         @Override
@@ -84,12 +86,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     public void registerConfirm(View v) {
+
+
         final String displayName = ((EditText) findViewById(R.id.register_username)).getText().toString();
         String email = ((EditText) findViewById(R.id.register_email)).getText().toString();
         String password = ((EditText) findViewById(R.id.register_password)).getText().toString();
 
-        if (!email.isEmpty() && !password.isEmpty()) {
+        if (isNameValid(displayName) && isEmailValid(email) && isPasswordValid(password)) {
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener <AuthResult>() {
                         @Override
@@ -115,11 +120,38 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private boolean isEmailValid(String email) {
+
+        boolean e = !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        if (!e) {
+            Toast.makeText(this, "Email address is not valid!", Toast.LENGTH_SHORT).show();
+        }
+        return e;
+
+    }
+
+    private boolean isNameValid(String name) {
+        boolean n = !TextUtils.isEmpty(name) && name.length() > 3;
+        if (!n) {
+            Toast.makeText(this, "Name must be min 4 chars long!", Toast.LENGTH_SHORT).show();
+        }
+        return n;
+    }
+
+    private boolean isPasswordValid(String pass) {
+        boolean p = !TextUtils.isEmpty(pass) && pass.length() > 3;
+        if (!p) {
+            Toast.makeText(this, "password must be min 4 chars long!", Toast.LENGTH_SHORT).show();
+        }
+        return p;
+    }
+
     private void loginSuccesfully(FirebaseUser user) {
 
         Intent intent = new Intent(this, Todo.class);
         intent.putExtra("userId", user.getUid());
         intent.putExtra("displayName", user.getDisplayName());
+        intent.putExtra("email", user.getEmail());
         startActivity(intent);
     }
 

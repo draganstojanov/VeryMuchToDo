@@ -4,7 +4,8 @@ public class Message {
 
     private String text;
     private long timestamp;
-    private boolean setForDeletion;
+    private boolean important;
+    private String importantByUser;
     private String from;
 
 }
