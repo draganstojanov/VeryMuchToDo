@@ -12,24 +12,29 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-
+    public static final String COLLECTION_USERS = "colUsers";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         mAuth = FirebaseAuth.getInstance();
-
 
     }
 
@@ -38,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            loginSuccesfully(currentUser);
+            loginSuccesfully();
         } else {
             findViewById(R.id.login_info).setVisibility(View.VISIBLE);
         }
@@ -72,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                                 // Log.d(TAG, "signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 //  updateUI(user);
-                                loginSuccesfully(user);
+                                loginSuccesfully();
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("SIGN IN FAIL", "signInWithEmail:failure" + task.getException());
@@ -107,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                                         .setDisplayName(displayName).build();
                                 user.updateProfile(profileUpdates);
                                 // updateUI(user);
-                                loginSuccesfully(user);
+                                registerSuccesfully(user);
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("REGISTER FAIL", "createUserWithEmail:failure" + task.getException());
@@ -146,12 +151,45 @@ public class MainActivity extends AppCompatActivity {
         return p;
     }
 
-    private void loginSuccesfully(FirebaseUser user) {
+    private void registerSuccesfully(FirebaseUser user) {
+
+
+        Map <String, Object> addUser = new HashMap <>();
+
+        addUser.put("id", user.getUid());
+        addUser.put("email", user.getEmail());
+        String name = user.getDisplayName();
+        if (name == null) {
+            name = "USER-" + String.valueOf(System.currentTimeMillis());
+        }
+        addUser.put("name", name);
+
+        FirebaseFirestore.getInstance().collection(COLLECTION_USERS)
+                .document(user.getDisplayName())
+                .set(addUser)
+                .addOnSuccessListener(new OnSuccessListener <Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        //  Log.d(TAG, "DocumentSnapshot successfully written!");
+                        loginSuccesfully();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        //   Log.w(TAG, "Error writing document", e);
+                    }
+                });
+
+    }
+
+
+    private void loginSuccesfully() {
 
         Intent intent = new Intent(this, Todo.class);
-        intent.putExtra("userId", user.getUid());
-        intent.putExtra("displayName", user.getDisplayName());
-        intent.putExtra("email", user.getEmail());
+//        intent.putExtra("userId", user.getUid());
+//        intent.putExtra("displayName", user.getDisplayName());
+//        intent.putExtra("email", user.getEmail());
         startActivity(intent);
     }
 

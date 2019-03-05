@@ -46,14 +46,6 @@ public class User {
         this.email = email;
     }
 
-    public boolean isOnline() {
-        return online;
-    }
-
-    public void setOnline(boolean online) {
-        this.online = online;
-    }
-
     public Location getLocation() {
         return location;
     }
