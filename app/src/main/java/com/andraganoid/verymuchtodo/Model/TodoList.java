@@ -13,9 +13,8 @@ public class TodoList {
     private long lastChangedTimestamp;
     private String createdByUser;
     private String lastChangedByUser;
-    private int category;
-    private boolean allDone;
-    private boolean setForDeletion;
+   // private int category;
+    private boolean completed;
 
     private List<TodoItem> todoItemList;
 }
