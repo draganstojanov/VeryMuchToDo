@@ -3,33 +3,25 @@ package com.andraganoid.verymuchtodo;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.andraganoid.verymuchtodo.Model.Message;
 import com.andraganoid.verymuchtodo.Model.TodoList;
 import com.andraganoid.verymuchtodo.Model.User;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
+import com.andraganoid.verymuchtodo.Views.ListsAdapter;
+import com.andraganoid.verymuchtodo.Views.ListsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
-import javax.annotation.Nullable;
 
 public class Todo extends AppCompatActivity {
 
@@ -54,7 +46,23 @@ public class Todo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.todo);
 
-        todo = FirebaseFirestore.getInstance();
+
+        todoList.add(new TodoList("Maxi","Kupi u maxiju"));
+        todoList.add(new TodoList("Roda","Kupi u rodi"));
+        todoList.add(new TodoList("Idea","Kupi u idei"));
+
+//        ActivityMainBinding binding;
+//        String[] data={"TUNISIA","ITALIE","GERMANY","ENGLAND"};
+//        CustomAdapter adapter;
+//        @Override
+//        protected void onCreate(Bundle savedInstanceState) {
+//            super.onCreate(savedInstanceState);
+
+          binding binding= DataBindingUtil.setContentView(this,R.layout.todo);
+           ListsAdapter adapter=new ListsAdapter(todoList);
+            binding
+        }
+     //   todo = FirebaseFirestore.getInstance();
         // fetchAllUsersData();
 
         setFragment(MAIN_MENU_LISTS);
@@ -84,42 +92,42 @@ public class Todo extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        todo.collection((COLLECTION_TODOS)).addSnapshotListener(this, new EventListener <QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                todoList.clear();
-                for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
-                    todoList.add(qs.toObject(TodoList.class));
-                    Log.d("COLLECTION_TODOS", String.valueOf(todoList.size()));
-                }
-            }
-        });
-
-        todo.collection((COLLECTION_MESSAGES)).addSnapshotListener(this, new EventListener <QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                messagesList.clear();
-                for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
-                    messagesList.add(qs.toObject(Message.class));
-                    Log.d("COLLECTION_MESSAGES", String.valueOf(messagesList.size()));
-                }
-            }
-        });
-
-        todo.collection((MainActivity.COLLECTION_USERS)).addSnapshotListener(this, new EventListener <QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                userList.clear();
-                for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
-                    userList.add(qs.toObject(User.class));
-                }
-            }
-        });
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//
+//        todo.collection((COLLECTION_TODOS)).addSnapshotListener(this, new EventListener <QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+//                todoList.clear();
+//                for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
+//                    todoList.add(qs.toObject(TodoList.class));
+//                    Log.d("COLLECTION_TODOS", String.valueOf(todoList.size()));
+//                }
+//            }
+//        });
+//
+//        todo.collection((COLLECTION_MESSAGES)).addSnapshotListener(this, new EventListener <QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+//                messagesList.clear();
+//                for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
+//                    messagesList.add(qs.toObject(Message.class));
+//                    Log.d("COLLECTION_MESSAGES", String.valueOf(messagesList.size()));
+//                }
+//            }
+//        });
+//
+//        todo.collection((MainActivity.COLLECTION_USERS)).addSnapshotListener(this, new EventListener <QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+//                userList.clear();
+//                for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
+//                    userList.add(qs.toObject(User.class));
+//                }
+//            }
+//        });
+//    }
 
 
     private void setFragment(int frag) {

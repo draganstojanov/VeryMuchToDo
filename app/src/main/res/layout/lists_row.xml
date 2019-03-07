@@ -1,100 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-    <androidx.cardview.widget.CardView
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="todoList"
+            type="com.andraganoid.verymuchtodo.Model.TodoList" />
+    </data>
+
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardElevation="4dp">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/lists_box"
-            android:padding="1dp">
+            app:cardElevation="4dp">
 
-            <EditText
-                android:id="@+id/lists_title"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorAccent"
-                android:enabled="false"
-                android:gravity="center"
-                android:hint="Title"
-                android:padding="4dp"
-                android:textColor="#fff"
-                android:textSize="24sp"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:background="@drawable/lists_box"
+                android:padding="1dp">
 
-            <EditText
-                android:id="@+id/lists_short_desc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
-                android:hint="Short description"
-                android:padding="4dp"
-                android:textColor="#000"
-                android:textSize="16sp"
-                app:layout_constraintTop_toBottomOf="@id/lists_title" />
+                <EditText
+                    android:id="@+id/lists_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:hint="Title"
+                    android:padding="4dp"
+                    android:text="@{todoList.name}"
+                    android:textColor="#fff"
+                    android:textSize="24sp"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/lists_created"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
-                android:paddingTop="2dp"
-                android:paddingRight="4dp"
-                android:paddingBottom="2dp"
-                android:textColor="#000"
-                android:textSize="12sp"
-                app:layout_constraintTop_toBottomOf="@id/lists_short_desc"
-                tools:text="Created : 06.03.2019. 12:34 by Filip" />
+                <EditText
+                    android:id="@+id/lists_short_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="false"
+                    android:hint="Short description"
+                    android:padding="4dp"
+                    android:text="@{todoList.shortDescription}"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@id/lists_title" />
 
-            <TextView
-                android:id="@+id/lists_edited"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
-                android:paddingTop="2dp"
-                android:paddingRight="4dp"
-                android:paddingBottom="2dp"
-                android:textColor="#000"
-                android:textSize="12sp"
-                app:layout_constraintTop_toBottomOf="@id/lists_created"
-                tools:text="Created : 07.03.2019. 23:45 by Ina" />
+                <TextView
+                    android:id="@+id/lists_created"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="4dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="4dp"
+                    android:paddingBottom="2dp"
+                    android:text="@{todoList.createdLine}"
+                    android:textColor="#000"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@id/lists_short_desc"
+                    tools:text="Created : 06.03.2019. 12:34 by Filip" />
 
-            <CheckBox
-                android:id="@+id/lists_completed"
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:gravity="center"
-                android:padding="4dp"
-                android:text="Completed"
-                android:textColor="#000"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/lists_edited" />
+                <TextView
+                    android:id="@+id/lists_edited"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="4dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="4dp"
+                    android:paddingBottom="2dp"
+                    android:text="@{todoList.editedLine}"
+                    android:textColor="#000"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@id/lists_created"
+                    tools:text="Edited : 07.03.2019. 23:45 by Ina" />
 
-            <Button
-                android:id="@+id/lists_del_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:background="@color/colorPrimary"
-                android:text="Delete"
-                android:textAllCaps="false"
-                android:textColor="#fff"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                <CheckBox
+                    android:id="@+id/lists_completed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:text="Completed"
+                    android:textColor="#000"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/lists_edited" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <Button
+                    android:id="@+id/lists_del_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:background="@color/colorPrimary"
+                    android:text="Delete"
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
 
-    </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
 
 
-</FrameLayout>
+    </FrameLayout>
 
 
-
+</layout>
