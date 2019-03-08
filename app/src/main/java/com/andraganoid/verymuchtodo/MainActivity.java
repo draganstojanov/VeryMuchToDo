@@ -24,11 +24,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.andraganoid.verymuchtodo.Todo.COLLECTION_USERS;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    public static final String COLLECTION_USERS = "colUsers";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

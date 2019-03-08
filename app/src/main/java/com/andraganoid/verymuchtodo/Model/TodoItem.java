@@ -11,7 +11,8 @@ public class TodoItem {
     private String changedUser;
     private long completedTimestamp;
     private String completedUser;
-    private int status;//100-completed  50-emergency 0-idle -1-not valid
+    private boolean emergency;
+ //   private int status;//100-completed  50-emergency 0-idle -1-not valid
 
 
 

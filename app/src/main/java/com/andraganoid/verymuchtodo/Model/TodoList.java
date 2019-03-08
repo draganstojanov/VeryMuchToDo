@@ -13,19 +13,19 @@ public class TodoList {
 
     private StringBuilder sb;
 
-    private String name;
-    private String shortDescription;
-    private long createdTimestamp;
-    private long editedTimestamp;
-    private String createdByUser;
-    private String editedByUser;
+    public String name;
+    public String shortDescription;
+    public long createdTimestamp;
+    public long editedTimestamp;
+    public String createdByUser;
+    public String editedByUser;
     // private int category;
-    private boolean emergency;
-    private boolean completed;
-    private String createdLine;
-    private String editedLine;
+    public boolean emergency;
+    public boolean completed;
+    public String createdLine;
+    public String editedLine;
 
-    private List <TodoItem> todoItemList;
+    public List <TodoItem> todoItemList;
 
     public TodoList() {
     }
@@ -58,7 +58,7 @@ public class TodoList {
 
 
     private String getTimeString(long ts) {
-        return DateFormat.format("dd-MM-yyyy hh:mm", new java.util.Date(ts)).toString();
+        return DateFormat.format("dd.MM.yyyy hh:mm", new java.util.Date(ts)).toString();
 
     }
 
