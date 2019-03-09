@@ -113,7 +113,7 @@
             android:layout_height="60dp"
             android:layout_margin="32dp"
             android:background="@drawable/input_box"
-            android:hint="Your name"
+            android:hint="Your title"
             android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"

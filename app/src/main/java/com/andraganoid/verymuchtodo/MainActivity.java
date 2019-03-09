@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            loginSuccesfully();
+            loginSuccesfully(currentUser, false);
         } else {
             findViewById(R.id.login_info).setVisibility(View.VISIBLE);
         }
@@ -79,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                                 // Log.d(TAG, "signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 //  updateUI(user);
-                                loginSuccesfully();
+                                loginSuccesfully(user, false);
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("SIGN IN FAIL", "signInWithEmail:failure" + task.getException());
@@ -113,8 +115,9 @@ public class MainActivity extends AppCompatActivity {
                                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                         .setDisplayName(displayName).build();
                                 user.updateProfile(profileUpdates);
-                                // updateUI(user);
-                                registerSuccesfully(user);
+                                // registerSuccesfully(user);
+                                loginSuccesfully(user, true);
+
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("REGISTER FAIL", "createUserWithEmail:failure" + task.getException());
@@ -153,45 +156,55 @@ public class MainActivity extends AppCompatActivity {
         return p;
     }
 
-    private void registerSuccesfully(FirebaseUser user) {
+//    xxx
+//
+//    private void registerSuccesfully(FirebaseUser user) {
+//
+//        Map <String, Object> addUser = new HashMap <>();
+//
+//        addUser.put("id", user.getUid());
+//        addUser.put("email", user.getEmail());
+//        String name = user.getDisplayName();
+//        if (name == null) {
+//            name = "USER-" + String.valueOf(System.currentTimeMillis());
+//        }
+//        addUser.put("title", name);
+//
+//        FirebaseFirestore.getInstance().collection(COLLECTION_USERS)
+//                .document(user.getDisplayName())
+//                .set(addUser)
+//                .addOnSuccessListener(new OnSuccessListener <Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        //  Log.d(TAG, "DocumentSnapshot successfully written!");
+//                        loginSuccesfully();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        //   Log.w(TAG, "Error writing document", e);
+//                    }
+//                });
+//
+//    }
 
 
-        Map <String, Object> addUser = new HashMap <>();
+    private void loginSuccesfully(FirebaseUser user, boolean register) {
 
-        addUser.put("id", user.getUid());
-        addUser.put("email", user.getEmail());
-        String name = user.getDisplayName();
-        if (name == null) {
-            name = "USER-" + String.valueOf(System.currentTimeMillis());
-        }
-        addUser.put("name", name);
-
-        FirebaseFirestore.getInstance().collection(COLLECTION_USERS)
-                .document(user.getDisplayName())
-                .set(addUser)
-                .addOnSuccessListener(new OnSuccessListener <Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        //  Log.d(TAG, "DocumentSnapshot successfully written!");
-                        loginSuccesfully();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        //   Log.w(TAG, "Error writing document", e);
-                    }
-                });
-
-    }
-
-
-    private void loginSuccesfully() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs.edit().putString("id", user.getUid())
+                .putString("name", user.getDisplayName())
+                .putString("email", user.getEmail())
+                .putBoolean("register", register)
+                .apply();
 
         Intent intent = new Intent(this, Todo.class);
-//        intent.putExtra("userId", user.getUid());
-//        intent.putExtra("displayName", user.getDisplayName());
+//        intent.putExtra("id", user.getUid());
+//        intent.putExtra("name", user.getDisplayName());
 //        intent.putExtra("email", user.getEmail());
+//        intent.putExtra("register", register);
+
         startActivity(intent);
     }
 

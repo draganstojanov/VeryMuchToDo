@@ -2,73 +2,51 @@ package com.andraganoid.verymuchtodo.Model;
 
 import android.text.format.DateFormat;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import androidx.databinding.BindingAdapter;
+import static com.andraganoid.verymuchtodo.Todo.myself;
 
 public class TodoList {
 
-//    private final String ITEM_CAT_SHOP_LIST="Shopping list";
-//    private final String ITEM_CAT_REMINDER="Reminder";
 
-    private StringBuilder sb;
+    private StringBuilder sb = new StringBuilder();
 
-    public String name;
-    public String shortDescription;
-    public long createdTimestamp;
-    public long editedTimestamp;
-    public String createdByUser;
-    public String editedByUser;
-    // private int category;
-    public boolean emergency;
-    public boolean completed;
-    public String createdLine;
-    public String editedLine;
+    private String title;
+    private String shortDescription;
+    private String lastEdit;
+    private boolean emergency;
+    private boolean completed;
 
-    public List <TodoItem> todoItemList;
+    private List <TodoItem> todoItemList;
 
     public TodoList() {
     }
 
-    //Test
 
-
-    public TodoList(String name, String shortDescription) {
-        this.name = name;
+    public TodoList(String title, String shortDescription, boolean emergency) {
+        setLastEdit();
+        this.title = title;
         this.shortDescription = shortDescription;
+        this.emergency = emergency;
+        this.completed = false;
+        this.todoItemList = new ArrayList <>();
     }
 
-    public void setCreatedLine() {
+    public void setLastEdit() {
         sb.setLength(0);
-        sb.append(getTimeString(createdTimestamp))
-                .append(" by ")
-                .append(createdByUser);
-
-        createdLine = sb.toString();
+        sb.append(myself.getName())
+                .append("@")
+                .append(DateFormat.format("dd.MM.yyyy HH:mm", new java.util.Date(System.currentTimeMillis())).toString());
+        this.lastEdit = sb.toString();
     }
 
-    public void setEditedLine() {
-        sb.setLength(0);
-        sb.append(getTimeString(editedTimestamp))
-                .append(" by ")
-                .append(editedByUser);
-
-        editedLine = sb.toString();
+    public String getTitle() {
+        return title;
     }
 
-
-    private String getTimeString(long ts) {
-        return DateFormat.format("dd.MM.yyyy hh:mm", new java.util.Date(ts)).toString();
-
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getShortDescription() {
@@ -79,36 +57,8 @@ public class TodoList {
         this.shortDescription = shortDescription;
     }
 
-    public long getCreatedTimestamp() {
-        return createdTimestamp;
-    }
-
-    public void setCreatedTimestamp(long createdTimestamp) {
-        this.createdTimestamp = createdTimestamp;
-    }
-
-    public long getEditedTimestamp() {
-        return editedTimestamp;
-    }
-
-    public void setEditedTimestamp(long editedTimestamp) {
-        this.editedTimestamp = editedTimestamp;
-    }
-
-    public String getCreatedByUser() {
-        return createdByUser;
-    }
-
-    public void setCreatedByUser(String createdByUser) {
-        this.createdByUser = createdByUser;
-    }
-
-    public String getEditedByUser() {
-        return editedByUser;
-    }
-
-    public void setEditedByUser(String editedByUser) {
-        this.editedByUser = editedByUser;
+    public String getLastEdit() {
+        return lastEdit;
     }
 
     public boolean isEmergency() {
@@ -135,11 +85,7 @@ public class TodoList {
         this.todoItemList = todoItemList;
     }
 
-    public String getCreatedLine() {
-        return createdLine;
-    }
-
-    public String getEditedLine() {
-        return editedLine;
+    public void setLastEdit(String lastEdit) {
+        this.lastEdit = lastEdit;
     }
 }

@@ -8,19 +8,21 @@ import androidx.fragment.app.Fragment;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 
 import com.andraganoid.verymuchtodo.Model.Message;
 import com.andraganoid.verymuchtodo.Model.TodoList;
 import com.andraganoid.verymuchtodo.Model.User;
-import com.andraganoid.verymuchtodo.Views.ListsFragment;
+import com.andraganoid.verymuchtodo.Views.ItemFragment;
+import com.andraganoid.verymuchtodo.Views.ListFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -45,12 +47,19 @@ public class Todo extends AppCompatActivity {
     private final int MAIN_MENU_USERS = 2;
     private final int MAIN_MENU_LIOGOUT = 3;
 
-    private final Fragment listsFragment = new ListsFragment();
+    private final Fragment listsFragment = new ListFragment();
     //  private final Fragment messagesFragment=new MessagesFragment();
     //  private final Fragment userFragment=new UserFragment();
 
     private FirebaseFirestore todo;
-    private CollectionReference saveLists;
+    //private CollectionReference collectionReference;
+    // private CollectionReference saveLists;
+    public static User myself;
+    public TodoList currentList;
+
+
+//    Map <String, Object> documentData = new HashMap <>();
+
 
     private List <User> userList = new ArrayList <>();
     public List <TodoList> todoList = new ArrayList <>();
@@ -62,38 +71,8 @@ public class Todo extends AppCompatActivity {
         setContentView(R.layout.todo);
         todo = FirebaseFirestore.getInstance();
 
-        saveLists = todo.collection(COLLECTION_TODOS);
+        setMyself();
 
-        Map <String, Object> data1 = new HashMap <>();
-        data1.put("name", "Maxi");
-        data1.put("shortDescription", "Kupi nesto u maxiju");
-        saveLists.document("Maxi").set(data1);
-
-        Map <String, Object> data2 = new HashMap <>();
-        data2.put("name", "Roda");
-        data2.put("shortDescription", "Kupi nesto najlepsije u rodi");
-        saveLists.document("Roda").set(data2);
-
-        Map <String, Object> data3 = new HashMap <>();
-        data3.put("name", "Idea");
-        data3.put("shortDescription", "Kupi nesto u idei");
-        saveLists.document("Idea").set(data3);
-
-        Map <String, Object> data4 = new HashMap <>();
-        data4.put("name", "Aman");
-        data4.put("shortDescription", "Kupi nesto u amanu");
-        saveLists.document("Aman").set(data4);
-
-        Map <String, Object> data5 = new HashMap <>();
-        data5.put("name", "Aroma");
-        data5.put("shortDescription", "Kupi nesto u aromi");
-        saveLists.document("Aroma").set(data5);
-
-        //   setFragment(MAIN_MENU_LISTS);
-
-//        todoList.add(new TodoList("Maxi", "Kupi u maxiju"));
-//        todoList.add(new TodoList("Roda", "Kupi u rodi"));
-//        todoList.add(new TodoList("Idea", "Kupi u idei"));
 
         setFragment(listsFragment);
 
@@ -135,7 +114,7 @@ public class Todo extends AppCompatActivity {
                     //   setFragment(MAIN_MENU_LISTS);
                     Log.d("COLLECTION_TODOS", String.valueOf(todoList.size()));
                 }
-                ListsFragment listsFragmentInstance = (ListsFragment) getSupportFragmentManager().findFragmentById(R.id.todo_fragment);
+                ListFragment listsFragmentInstance = (ListFragment) getSupportFragmentManager().findFragmentById(R.id.todo_fragment);
                 if (listsFragmentInstance != null) {
                     listsFragmentInstance.refreshLists();
                 }
@@ -165,6 +144,25 @@ public class Todo extends AppCompatActivity {
 //        });
     }
 
+    public void addDocument(String collection, String document, Map map) {
+        todo.collection(collection)
+                .document(document)
+                .set(map)
+                .addOnSuccessListener(new OnSuccessListener <Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("SAVE", "DocumentSnapshot successfully written!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("SAVE", "Error writing document", e);
+                    }
+                });
+
+    }
+
 
     public void deleteDocument(final String collection, String document) {
 
@@ -177,7 +175,7 @@ public class Todo extends AppCompatActivity {
 
                         switch (collection) {
                             case COLLECTION_TODOS:
-                                ListsFragment listsFragmentInstance = (ListsFragment) getSupportFragmentManager().findFragmentById(R.id.todo_fragment);
+                                ListFragment listsFragmentInstance = (ListFragment) getSupportFragmentManager().findFragmentById(R.id.todo_fragment);
                                 if (listsFragmentInstance != null) {
                                     listsFragmentInstance.refreshLists();
                                 }
@@ -186,7 +184,7 @@ public class Todo extends AppCompatActivity {
                                 break;
                         }
 
-                        ListsFragment listsFragmentInstance = (ListsFragment) getSupportFragmentManager().findFragmentById(R.id.todo_fragment);
+                        ListFragment listsFragmentInstance = (ListFragment) getSupportFragmentManager().findFragmentById(R.id.todo_fragment);
                         if (listsFragmentInstance != null) {
                             listsFragmentInstance.refreshLists();
                         }
@@ -203,19 +201,36 @@ public class Todo extends AppCompatActivity {
     }
 
 
-    private void setFragment(Fragment fragment) {
+    private void setMyself() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        myself = new User(prefs.getString("id", ""),
+                prefs.getString("name", ""),
+                prefs.getString("email", ""));
+        if (prefs.getBoolean("register", false)) {
+            prefs.edit().putBoolean("register", false).apply();
+            Map <String, Object> documentData = new HashMap <>();
+            documentData.clear();
+            documentData.put("id", myself.getId());
+            documentData.put("name", myself.getName());
+            documentData.put("email", myself.getEmail());
+            documentData.put("location", myself.getLocation());
 
-        // Fragment fragment = null;
-//        switch (frag) {
-//
-//            case MAIN_MENU_LISTS:
-//                fragment = new ListsFragment();
-//                break;
-//            case MAIN_MENU_MSG:
-//                break;
-//            case MAIN_MENU_USERS:
-//                break;
-//        }
+            addDocument(COLLECTION_USERS, myself.getId(), documentData);
+
+        }
+    }
+
+    public void saveList() {
+    }
+
+    public void goToItems(TodoList tl) {
+        currentList = tl;
+        setFragment(new ItemFragment());
+
+    }
+
+
+    private void setFragment(Fragment fragment) {
 
         if (fragment != null) {
             getSupportFragmentManager()
