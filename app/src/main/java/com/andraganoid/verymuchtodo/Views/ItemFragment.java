@@ -1,6 +1,7 @@
 package com.andraganoid.verymuchtodo.Views;
 
 
+import android.icu.text.UnicodeSetSpanner;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -22,10 +22,13 @@ import com.andraganoid.verymuchtodo.Model.TodoList;
 import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.Todo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.andraganoid.verymuchtodo.Todo.COLLECTION_TODOS;
+
 
 public class ItemFragment extends Fragment implements View.OnClickListener {
 
@@ -33,10 +36,11 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
     private View fiView;
     private Todo todoActivity;
     private RecyclerView itemRecView;
-    private ItemtAdapter itemAdapter;
+    private ItemAdapter itemAdapter;
     private RecyclerView.LayoutManager itemLayMan;
     private ConstraintLayout editView;
     private ConstraintLayout itemView;
+    private TodoItem currentItem;
 
     public ItemFragment() {
     }
@@ -50,12 +54,15 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
         editView = fiView.findViewById(R.id.new_todo_item_form);
 
         todoActivity = (Todo) getActivity();
-        xxx todoActivity.setTitle("Todo lists", "");
-        itemRecView = fiView.findViewById(R.id.lists_rec_view);
-        itemAdapter = new ListAdapter(todoActivity.todoList);
+        todoActivity.setTitle(todoActivity.currentList.getTitle(), "");
+        itemRecView = fiView.findViewById(R.id.item_rec_view);
+        itemAdapter = new ItemAdapter(todoActivity.currentList.getTodoItemList());
         itemLayMan = new LinearLayoutManager(getContext());
         itemRecView.setLayoutManager(itemLayMan);
         itemRecView.setAdapter(itemAdapter);
+
+
+
 
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
@@ -67,11 +74,34 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-
+                TodoItem ti = todoActivity.currentList.getTodoItemList().get(viewHolder.getAdapterPosition());
                 switch (swipeDir) {
-                    xxx case ItemTouchHelper.LEFT:
+
+                    case ItemTouchHelper.LEFT:
+                        if (!ti.isCompleted()) {
+                            showItemEdit(ti);
+
+//                            itemView.setVisibility(View.GONE);
+//
+//                            ((EditText) fiView.findViewById(R.id.new_todo_item_content)).setText(ti.getContent());
+//                            currentItem = ti;
+//
+//                            editView.setVisibility(View.VISIBLE);
+                        } else {
+                            itemAdapter.notifyDataSetChanged();
+                            Toast.makeText(todoActivity, "Task is completed!.", Toast.LENGTH_LONG).show();
+                        }
+
                         break;//edit
+
                     case ItemTouchHelper.RIGHT:
+
+                        if (ti.isCompleted()) {
+                            todoActivity.deleteDocument(COLLECTION_TODOS, todoActivity.currentList.getTitle());
+                        } else {
+                            itemAdapter.notifyDataSetChanged();
+                            Toast.makeText(todoActivity, "Task is not completed!.", Toast.LENGTH_LONG).show();
+                        }
                         break;//delete
                 }
 
@@ -97,7 +127,7 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
         return fiView;
     }
 
-    public void refreshLists() {
+    public void refreshItems() {
         itemAdapter.notifyDataSetChanged();
     }
 
@@ -107,10 +137,11 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
 
         switch (v.getId()) {
             case R.id.items_fab:
-
-                itemView.setVisibility(View.GONE);
-                ((EditText) fiView.findViewById(R.id.new_todo_item_content)).getText().clear();
-                editView.setVisibility(View.VISIBLE);
+                showItemEdit(new TodoItem(""));
+//                itemView.setVisibility(View.GONE);
+//                ((EditText) fiView.findViewById(R.id.new_todo_item_content)).getText().clear();
+//                currentItem = new TodoItem("");
+//                editView.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.new_todo_item_save:
@@ -119,17 +150,19 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
 
                 if (!content.isEmpty()) {
 
-                    TodoItem newTodoItem = new TodoItem(content);
+                    //  TodoItem newTodoItem = new TodoItem(content);
+                    currentItem.setContent(content);
                     itemView.setVisibility(View.VISIBLE);
                     editView.setVisibility(View.GONE);
-xxx
-                    Map <String, Object> documentData = new HashMap <>();
-                    documentData.put("content", content);
-                    documentData.put("lastEdit", newTodoItem.getLastEdit());
-                    documentData.put("completed", newTodoItem.isCompleted());
 
-                    todoActivity.addDocument(COLLECTION_TODOS, title, documentData);
+                    List <TodoItem> temp = todoActivity.currentList.getTodoItemList();
+                    temp.add(currentItem);
+                    todoActivity.currentList.setTodoItemList(temp);
+                    todoActivity.currentList.setLastEditTimestamp(currentItem.getLastEditTimestamp());
 
+                    Map<String, List<TodoItem>> map=new HashMap();
+                    map.put("todoItemList",temp);
+                    todoActivity.updateDocument(COLLECTION_TODOS,todoActivity.currentList.getTitle(),"todoItemList",temp);
 
                 }
 
@@ -138,5 +171,17 @@ xxx
 
 
     }
+
+    private void showItemEdit(TodoItem item) {
+
+        itemView.setVisibility(View.GONE);
+
+        currentItem = item;
+        ((EditText) fiView.findViewById(R.id.new_todo_item_content)).setText(currentItem.getContent());
+
+        editView.setVisibility(View.VISIBLE);
+
+    }
+
 
 }

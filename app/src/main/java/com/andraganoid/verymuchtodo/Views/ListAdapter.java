@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.andraganoid.verymuchtodo.Model.TodoList;
 import com.andraganoid.verymuchtodo.R;
+import com.andraganoid.verymuchtodo.VeryOnItemClickListener;
 
 import java.util.List;
 
@@ -19,9 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ListAdapter extends RecyclerView.Adapter <ListAdapter.ListsViewHolder> {
 
     private List <TodoList> lists;
+    private VeryOnItemClickListener click;
 
-    public ListAdapter(List <TodoList> lists) {
+    public ListAdapter(List <TodoList> lists, VeryOnItemClickListener click) {
         this.lists = lists;
+        this.click = click;
     }
 
     @NonNull
@@ -35,32 +38,37 @@ public class ListAdapter extends RecyclerView.Adapter <ListAdapter.ListsViewHold
         return vh;
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull ListAdapter.ListsViewHolder holder, final int position) {
-        TodoList tl = lists.get(position);
-        if (tl.isEmergency()) {
-            holder.title.setBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.colorAccent));
-        }
-        if (tl.isCompleted()) {
-            holder.completed.setVisibility(View.VISIBLE);
-        } else {
-            holder.completed.setVisibility(View.GONE);
-        }
-        holder.title.setText(tl.getTitle());
-        holder.shortDesc.setText(tl.getShortDescription());
-      //  holder.created.setText(tl.getCreatedLine());
-        holder.edited.setText(tl.getLastEdit());
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-             // open items fragment
-
-            }
-        });
-
+        holder.bind(lists.get(position), click);
     }
+
+
+//    @Override
+//    public void onBindViewHolder(@NonNull ListAdapter.ListsViewHolder holder, final int position) {
+//        TodoList tl = lists.get(position);
+//        if (tl.isEmergency()) {
+//            holder.title.setBackgroundColor(holder.itemView.getContext().getResources().getColor(R.color.colorAccent));
+//        }
+//        if (tl.isCompleted()) {
+//            holder.completed.setVisibility(View.VISIBLE);
+//        } else {
+//            holder.completed.setVisibility(View.GONE);
+//        }
+//        holder.title.setText(tl.getTitle());
+//        holder.shortDesc.setText(tl.getShortDescription());
+//      //  holder.created.setText(tl.getCreatedLine());
+//        holder.edited.setText(tl.getLastEdit());
+//
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//             // open items fragment
+//
+//            }
+//        });
+//
+//    }
 
     @Override
     public int getItemCount() {
@@ -71,7 +79,7 @@ public class ListAdapter extends RecyclerView.Adapter <ListAdapter.ListsViewHold
     public static class ListsViewHolder extends RecyclerView.ViewHolder {
         TextView title;
         TextView shortDesc;
-      //  TextView created;
+        //  TextView created;
         TextView edited;
         ImageView completed;
         //    CheckBox cBox;
@@ -82,13 +90,36 @@ public class ListAdapter extends RecyclerView.Adapter <ListAdapter.ListsViewHold
 
             title = itemView.findViewById(R.id.lists_title);
             shortDesc = itemView.findViewById(R.id.lists_short_desc);
-           // created = itemView.findViewById(R.id.lists_created);
+            // created = itemView.findViewById(R.id.lists_created);
             edited = itemView.findViewById(R.id.lists_edited);
             completed = itemView.findViewById(R.id.list_completed);
             //  cBox = itemView.findViewById(R.id.lists_completed);
             // delBtn = itemView.findViewById(R.id.lists_del_btn);
 
+        }
 
+
+        public void bind(final TodoList tl, final VeryOnItemClickListener click) {
+
+            if (tl.isEmergency()) {
+                title.setBackgroundColor(itemView.getContext().getResources().getColor(R.color.colorAccent));
+            }
+            if (tl.isCompleted()) {
+                completed.setVisibility(View.VISIBLE);
+            } else {
+                completed.setVisibility(View.GONE);
+            }
+            title.setText(tl.getTitle());
+            shortDesc.setText(tl.getShortDescription());
+            //  holder.created.setText(tl.getCreatedLine());
+            edited.setText(tl.getLastEdit());
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    click.listChoosed(tl);
+                }
+            });
 
         }
     }

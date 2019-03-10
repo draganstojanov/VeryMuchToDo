@@ -3,6 +3,8 @@ package com.andraganoid.verymuchtodo.Model;
 import android.text.format.DateFormat;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static com.andraganoid.verymuchtodo.Todo.myself;
@@ -17,27 +19,38 @@ public class TodoList {
     private String lastEdit;
     private boolean emergency;
     private boolean completed;
-
     private List <TodoItem> todoItemList;
+    private String lastEditTimestamp;
 
     public TodoList() {
     }
 
 
     public TodoList(String title, String shortDescription, boolean emergency) {
+        setLastEditTimestamp();
         setLastEdit();
         this.title = title;
         this.shortDescription = shortDescription;
         this.emergency = emergency;
         this.completed = false;
         this.todoItemList = new ArrayList <>();
+
     }
 
     public void setLastEdit() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(Long.parseLong(lastEditTimestamp));
+        String date = DateFormat.format("dd.MM.yyyy HH:mm", cal).toString();
+        setLastEdit(date);
+    }
+
+    public void setLastEdit(String date) {
+
         sb.setLength(0);
         sb.append(myself.getName())
                 .append("@")
-                .append(DateFormat.format("dd.MM.yyyy HH:mm", new java.util.Date(System.currentTimeMillis())).toString());
+//                .append(DateFormat.format("dd.MM.yyyy HH:mm", new Date(lastEditTimestamp)).toString());
+                .append(date);
         this.lastEdit = sb.toString();
     }
 
@@ -85,7 +98,17 @@ public class TodoList {
         this.todoItemList = todoItemList;
     }
 
-    public void setLastEdit(String lastEdit) {
-        this.lastEdit = lastEdit;
+
+    public String getLastEditTimestamp() {
+        return lastEditTimestamp;
+    }
+
+    public void setLastEditTimestamp() {
+        this.lastEditTimestamp = String.valueOf(System.currentTimeMillis());
+    }
+
+    public void setLastEditTimestamp(String ts) {
+        this.lastEditTimestamp = ts;
+        setLastEdit();
     }
 }

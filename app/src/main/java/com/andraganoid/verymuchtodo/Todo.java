@@ -13,8 +13,10 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.andraganoid.verymuchtodo.Model.Message;
+import com.andraganoid.verymuchtodo.Model.TodoItem;
 import com.andraganoid.verymuchtodo.Model.TodoList;
 import com.andraganoid.verymuchtodo.Model.User;
 import com.andraganoid.verymuchtodo.Views.ItemFragment;
@@ -30,12 +32,14 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-public class Todo extends AppCompatActivity {
+public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 
 
     public static final String COLLECTION_TODOS = "colToDos";
@@ -48,6 +52,7 @@ public class Todo extends AppCompatActivity {
     private final int MAIN_MENU_LIOGOUT = 3;
 
     private final Fragment listsFragment = new ListFragment();
+    private final Fragment itemFragment = new ItemFragment();
     //  private final Fragment messagesFragment=new MessagesFragment();
     //  private final Fragment userFragment=new UserFragment();
 
@@ -58,7 +63,7 @@ public class Todo extends AppCompatActivity {
     public TodoList currentList;
 
 
-//    Map <String, Object> documentData = new HashMap <>();
+    Map <String, Object> documentData = new HashMap <>();
 
 
     private List <User> userList = new ArrayList <>();
@@ -114,10 +119,30 @@ public class Todo extends AppCompatActivity {
                     //   setFragment(MAIN_MENU_LISTS);
                     Log.d("COLLECTION_TODOS", String.valueOf(todoList.size()));
                 }
-                ListFragment listsFragmentInstance = (ListFragment) getSupportFragmentManager().findFragmentById(R.id.todo_fragment);
-                if (listsFragmentInstance != null) {
-                    listsFragmentInstance.refreshLists();
+                if (todoList.size() > 0) {
+                    Collections.sort(todoList, new Comparator<TodoList>() {
+                        @Override
+                        public int compare(final TodoList object1, final TodoList object2) {
+                            return object2.getLastEditTimestamp().compareTo(object1.getLastEditTimestamp());
+                        }
+                    });
                 }
+                Fragment fragmentInstance = getSupportFragmentManager().findFragmentById(R.id.todo_fragment);
+                if (fragmentInstance != null) {
+                    if (fragmentInstance == listsFragment) {
+                        ((ListFragment) fragmentInstance).refreshLists();
+                    } else if (fragmentInstance == itemFragment) {
+                        ((ItemFragment) fragmentInstance).refreshItems();
+                    }
+
+
+                }
+               // System.out.println("MYFRAGMENT: " + getSupportFragmentManager().findFragmentById(R.id.todo_fragment));
+
+//                ListFragment listsFragmentInstance = (ListFragment) getSupportFragmentManager().findFragmentById(R.id.todo_fragment);
+//                if (listsFragmentInstance != null) {
+//                    listsFragmentInstance.refreshLists();
+//                }
 
             }
         });
@@ -147,57 +172,23 @@ public class Todo extends AppCompatActivity {
     public void addDocument(String collection, String document, Map map) {
         todo.collection(collection)
                 .document(document)
-                .set(map)
-                .addOnSuccessListener(new OnSuccessListener <Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("SAVE", "DocumentSnapshot successfully written!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("SAVE", "Error writing document", e);
-                    }
-                });
+                .set(map);
 
     }
 
+    public void updateDocument(String collection, String document, String attr,Object obj) {
+        todo.collection(collection)
+                .document(document)
+                .update(attr,obj);
+    }
+
+
+
 
     public void deleteDocument(final String collection, String document) {
-
-        todo.collection(collection).document(document)
-                .delete()
-                .addOnSuccessListener(new OnSuccessListener <Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("DELETE", "DocumentSnapshot successfully deleted!");
-
-                        switch (collection) {
-                            case COLLECTION_TODOS:
-                                ListFragment listsFragmentInstance = (ListFragment) getSupportFragmentManager().findFragmentById(R.id.todo_fragment);
-                                if (listsFragmentInstance != null) {
-                                    listsFragmentInstance.refreshLists();
-                                }
-                                break;
-                            case COLLECTION_MESSAGES:
-                                break;
-                        }
-
-                        ListFragment listsFragmentInstance = (ListFragment) getSupportFragmentManager().findFragmentById(R.id.todo_fragment);
-                        if (listsFragmentInstance != null) {
-                            listsFragmentInstance.refreshLists();
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("DELETE", "Error deleting document", e);
-                    }
-                });
-
-
+        todo.collection(collection)
+                .document(document)
+                .delete();
     }
 
 
@@ -208,7 +199,7 @@ public class Todo extends AppCompatActivity {
                 prefs.getString("email", ""));
         if (prefs.getBoolean("register", false)) {
             prefs.edit().putBoolean("register", false).apply();
-            Map <String, Object> documentData = new HashMap <>();
+
             documentData.clear();
             documentData.put("id", myself.getId());
             documentData.put("name", myself.getName());
@@ -220,14 +211,43 @@ public class Todo extends AppCompatActivity {
         }
     }
 
-    public void saveList() {
+    public void saveList(TodoList todoList) {
+
+        documentData.clear();
+        documentData.put("title", todoList.getTitle());
+        documentData.put("shortDescription", todoList.getShortDescription());
+        documentData.put("lastEdit", todoList.getLastEdit());
+        documentData.put("lastEditTimestamp", todoList.getLastEditTimestamp());
+        documentData.put("emergency", todoList.isEmergency());
+        documentData.put("completed", todoList.isCompleted());
+        documentData.put("todoItemList", todoList.getTodoItemList());
+
+        addDocument(COLLECTION_TODOS, todoList.getTitle(), documentData);
+
+        listChoosed(todoList);
+
     }
 
-    public void goToItems(TodoList tl) {
+    @Override
+    public void listChoosed(TodoList tl) {
+
+
         currentList = tl;
-        setFragment(new ItemFragment());
 
+
+        setFragment(itemFragment);
+        Toast.makeText(Todo.this, tl.getTitle(), Toast.LENGTH_SHORT).show();
     }
+
+
+//    public VeryOnItemClickListener clickListener = new VeryOnItemClickListener() {
+//        @Override
+//        public void listChoosed(TodoList tl) {
+//            currentList = tl;
+//            setFragment(new ItemFragment());
+//            Toast.makeText(Todo.this, tl.getTitle(), Toast.LENGTH_SHORT).show();
+//        }
+//    };
 
 
     private void setFragment(Fragment fragment) {
@@ -252,5 +272,6 @@ public class Todo extends AppCompatActivity {
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setSubtitle(subtitle);
     }
+
 
 }

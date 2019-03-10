@@ -5,7 +5,7 @@
     android:id="@+id/fragment_items"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Views.ListFragment">
+    tools:context=".Views.ItemFragment">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="32dp"
             android:background="@drawable/input_box"
-            android:hint="Title"
+            android:hint="Content"
             android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"

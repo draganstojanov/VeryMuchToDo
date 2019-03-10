@@ -20,12 +20,12 @@ import android.widget.Toast;
 import com.andraganoid.verymuchtodo.Model.TodoList;
 import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.Todo;
+import com.andraganoid.verymuchtodo.VeryOnItemClickListener;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.andraganoid.verymuchtodo.Todo.COLLECTION_TODOS;
-import static com.andraganoid.verymuchtodo.Todo.myself;
 
 
 public class ListFragment extends Fragment implements View.OnClickListener {
@@ -52,12 +52,12 @@ public class ListFragment extends Fragment implements View.OnClickListener {
         todoActivity = (Todo) getActivity();
         todoActivity.setTitle("Todo lists", "");
         listsRecView = flView.findViewById(R.id.lists_rec_view);
-        listsAdapter = new ListAdapter(todoActivity.todoList);
+        listsAdapter = new ListAdapter(todoActivity.todoList, todoActivity);
         listsLayMan = new LinearLayoutManager(getContext());
         listsRecView.setLayoutManager(listsLayMan);
         listsRecView.setAdapter(listsAdapter);
 
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0,  ItemTouchHelper.RIGHT) {
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
 
 
             @Override
@@ -117,18 +117,15 @@ public class ListFragment extends Fragment implements View.OnClickListener {
 
                             CheckBox cBox = flView.findViewById(R.id.new_todo_list_emergency);
 
-                            TodoList newTodoList = new TodoList(title, sDesc, cBox.isChecked());
+                          //  TodoList newTodoList = new TodoList(title, sDesc, cBox.isChecked());
                             listsView.setVisibility(View.VISIBLE);
                             createView.setVisibility(View.GONE);
 
-                            Map <String, Object> documentData = new HashMap <>();
-                            documentData.put("title", title);
-                            documentData.put("shortDescription", sDesc);
-                            documentData.put("lastEdit", newTodoList.getLastEdit());
-                            documentData.put("emergency", newTodoList.isEmergency());
-                            documentData.put("completed", newTodoList.isCompleted());
+                            todoActivity.saveList(new TodoList(title, sDesc, cBox.isChecked()));
+                          //  todoActivity.addDocument(COLLECTION_TODOS, title, documentData);
+                          //  todoActivity.listChoosed(new TodoList(title, sDesc, cBox.isChecked()));
 
-                            todoActivity.addDocument(COLLECTION_TODOS, title, documentData);
+//
                         } else {
                             Toast.makeText(todoActivity, "Description is too long", Toast.LENGTH_SHORT).show();
                         }
