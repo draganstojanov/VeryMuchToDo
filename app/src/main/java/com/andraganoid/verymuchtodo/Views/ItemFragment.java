@@ -32,7 +32,7 @@ import static com.andraganoid.verymuchtodo.Todo.COLLECTION_TODOS;
 
 public class ItemFragment extends Fragment implements View.OnClickListener {
 
-
+    private boolean isNew;
     private View fiView;
     private Todo todoActivity;
     private RecyclerView itemRecView;
@@ -56,12 +56,10 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
         todoActivity = (Todo) getActivity();
         todoActivity.setTitle(todoActivity.currentList.getTitle(), "");
         itemRecView = fiView.findViewById(R.id.item_rec_view);
-        itemAdapter = new ItemAdapter(todoActivity.currentList.getTodoItemList());
+        itemAdapter = new ItemAdapter(todoActivity.currentList.getTodoItemList(),todoActivity);
         itemLayMan = new LinearLayoutManager(getContext());
         itemRecView.setLayoutManager(itemLayMan);
         itemRecView.setAdapter(itemAdapter);
-
-
 
 
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -75,10 +73,12 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 TodoItem ti = todoActivity.currentList.getTodoItemList().get(viewHolder.getAdapterPosition());
+
                 switch (swipeDir) {
 
                     case ItemTouchHelper.LEFT:
                         if (!ti.isCompleted()) {
+                            isNew = false;
                             showItemEdit(ti);
 
 //                            itemView.setVisibility(View.GONE);
@@ -97,7 +97,8 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
                     case ItemTouchHelper.RIGHT:
 
                         if (ti.isCompleted()) {
-                            todoActivity.deleteDocument(COLLECTION_TODOS, todoActivity.currentList.getTitle());
+                            todoActivity.currentList.getTodoItemList().remove(viewHolder.getAdapterPosition());
+                           // todoActivity.deleteDocument(COLLECTION_TODOS, todoActivity.currentList.getTitle());
                         } else {
                             itemAdapter.notifyDataSetChanged();
                             Toast.makeText(todoActivity, "Task is not completed!.", Toast.LENGTH_LONG).show();
@@ -137,6 +138,7 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
 
         switch (v.getId()) {
             case R.id.items_fab:
+                isNew = true;
                 showItemEdit(new TodoItem(""));
 //                itemView.setVisibility(View.GONE);
 //                ((EditText) fiView.findViewById(R.id.new_todo_item_content)).getText().clear();
@@ -152,18 +154,26 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
 
                     //  TodoItem newTodoItem = new TodoItem(content);
                     currentItem.setContent(content);
+                    currentItem.setLastEdit();
+                    // System.out.println("3-" + currentItem.getContent());
+                    // System.out.println("3a-" + todoActivity.currentList.getTodoItemList().get(poos).getContent());
                     itemView.setVisibility(View.VISIBLE);
                     editView.setVisibility(View.GONE);
 
-                    List <TodoItem> temp = todoActivity.currentList.getTodoItemList();
-                    temp.add(currentItem);
-                    todoActivity.currentList.setTodoItemList(temp);
+                    // List <TodoItem> temp = todoActivity.currentList.getTodoItemList();
+                    // temp.add(currentItem);
+                    //  todoActivity.currentList.setTodoItemList(temp);
+                    if (isNew) {
+                        todoActivity.currentList.getTodoItemList().add(currentItem);
+                        todoActivity.currentList.setCompleted(false);
+                    }
                     todoActivity.currentList.setLastEditTimestamp(currentItem.getLastEditTimestamp());
 
-                    Map<String, List<TodoItem>> map=new HashMap();
-                    map.put("todoItemList",temp);
-                    todoActivity.updateDocument(COLLECTION_TODOS,todoActivity.currentList.getTitle(),"todoItemList",temp);
-
+                    Map <String, List <TodoItem>> map = new HashMap();
+                    //map.put("todoItemList",temp);
+                   todoActivity.updateDocument(COLLECTION_TODOS, todoActivity.currentList.getTitle(), "todoItemList", todoActivity.currentList.getTodoItemList());xxx
+                   todoActivity.updateDocument(COLLECTION_TODOS, todoActivity.currentList.getTitle(),"lastEditTimestamp" , currentItem.getLastEditTimestamp());
+                //    todoActivity.saveList(todoActivity.currentList);
                 }
 
                 break;
@@ -175,7 +185,7 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
     private void showItemEdit(TodoItem item) {
 
         itemView.setVisibility(View.GONE);
-
+        //   System.out.println("2-" + item.getContent());
         currentItem = item;
         ((EditText) fiView.findViewById(R.id.new_todo_item_content)).setText(currentItem.getContent());
 

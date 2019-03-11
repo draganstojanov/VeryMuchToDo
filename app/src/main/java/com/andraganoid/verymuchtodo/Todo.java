@@ -120,7 +120,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
                     Log.d("COLLECTION_TODOS", String.valueOf(todoList.size()));
                 }
                 if (todoList.size() > 0) {
-                    Collections.sort(todoList, new Comparator<TodoList>() {
+                    Collections.sort(todoList, new Comparator <TodoList>() {
                         @Override
                         public int compare(final TodoList object1, final TodoList object2) {
                             return object2.getLastEditTimestamp().compareTo(object1.getLastEditTimestamp());
@@ -137,7 +137,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 
 
                 }
-               // System.out.println("MYFRAGMENT: " + getSupportFragmentManager().findFragmentById(R.id.todo_fragment));
+                // System.out.println("MYFRAGMENT: " + getSupportFragmentManager().findFragmentById(R.id.todo_fragment));
 
 //                ListFragment listsFragmentInstance = (ListFragment) getSupportFragmentManager().findFragmentById(R.id.todo_fragment);
 //                if (listsFragmentInstance != null) {
@@ -176,13 +176,11 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 
     }
 
-    public void updateDocument(String collection, String document, String attr,Object obj) {
+    public void updateDocument(String collection, String document, String attr, Object obj) {
         todo.collection(collection)
                 .document(document)
-                .update(attr,obj);
+                .update(attr, obj);
     }
-
-
 
 
     public void deleteDocument(final String collection, String document) {
@@ -237,6 +235,23 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 
         setFragment(itemFragment);
         Toast.makeText(Todo.this, tl.getTitle(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void changedCompletition(int position) {
+        currentList.getTodoItemList().get(position).setCompleted(!currentList.getTodoItemList().get(position).isCompleted());
+        boolean co=true;
+        for(TodoItem ti:currentList.getTodoItemList()){
+            co= co&&ti.isCompleted();
+        }
+        currentList.setCompleted(co);
+
+        updateDocument(COLLECTION_TODOS,currentList.getTitle(),"completed",currentList.isCompleted());
+        updateDocument(COLLECTION_TODOS, currentList.getTitle(), "todoItemList", currentList.getTodoItemList());
+
+
+
+
     }
 
 
