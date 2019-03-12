@@ -18,16 +18,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.andraganoid.verymuchtodo.Model.TodoItem;
-import com.andraganoid.verymuchtodo.Model.TodoList;
 import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.Todo;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static com.andraganoid.verymuchtodo.Todo.COLLECTION_TODOS;
 
 
 public class ItemFragment extends Fragment implements View.OnClickListener {
@@ -56,7 +48,7 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
         todoActivity = (Todo) getActivity();
         todoActivity.setTitle(todoActivity.currentList.getTitle(), "");
         itemRecView = fiView.findViewById(R.id.item_rec_view);
-        itemAdapter = new ItemAdapter(todoActivity.currentList.getTodoItemList(),todoActivity);
+        itemAdapter = new ItemAdapter(todoActivity.currentList.getTodoItemList(), todoActivity);
         itemLayMan = new LinearLayoutManager(getContext());
         itemRecView.setLayoutManager(itemLayMan);
         itemRecView.setAdapter(itemAdapter);
@@ -81,12 +73,6 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
                             isNew = false;
                             showItemEdit(ti);
 
-//                            itemView.setVisibility(View.GONE);
-//
-//                            ((EditText) fiView.findViewById(R.id.new_todo_item_content)).setText(ti.getContent());
-//                            currentItem = ti;
-//
-//                            editView.setVisibility(View.VISIBLE);
                         } else {
                             itemAdapter.notifyDataSetChanged();
                             Toast.makeText(todoActivity, "Task is completed!.", Toast.LENGTH_LONG).show();
@@ -98,7 +84,8 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
 
                         if (ti.isCompleted()) {
                             todoActivity.currentList.getTodoItemList().remove(viewHolder.getAdapterPosition());
-                           // todoActivity.deleteDocument(COLLECTION_TODOS, todoActivity.currentList.getTitle());
+                            todoActivity.saveList(todoActivity.currentList);
+
                         } else {
                             itemAdapter.notifyDataSetChanged();
                             Toast.makeText(todoActivity, "Task is not completed!.", Toast.LENGTH_LONG).show();
@@ -107,13 +94,6 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
                 }
 
 
-//                TodoList tl = todoActivity.todoList.get(viewHolder.getAdapterPosition());
-//                if (tl.isCompleted()) {
-//                    todoActivity.deleteDocument(COLLECTION_TODOS, tl.getTitle());
-//                } else {
-//                    listsAdapter.notifyDataSetChanged();
-//                    Toast.makeText(todoActivity, "List is not completed!.", Toast.LENGTH_LONG).show();
-//                }
             }
         };
 
@@ -140,10 +120,7 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
             case R.id.items_fab:
                 isNew = true;
                 showItemEdit(new TodoItem(""));
-//                itemView.setVisibility(View.GONE);
-//                ((EditText) fiView.findViewById(R.id.new_todo_item_content)).getText().clear();
-//                currentItem = new TodoItem("");
-//                editView.setVisibility(View.VISIBLE);
+
                 break;
 
             case R.id.new_todo_item_save:
@@ -152,46 +129,31 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
 
                 if (!content.isEmpty()) {
 
-                    //  TodoItem newTodoItem = new TodoItem(content);
                     currentItem.setContent(content);
                     currentItem.setLastEdit();
-                    // System.out.println("3-" + currentItem.getContent());
-                    // System.out.println("3a-" + todoActivity.currentList.getTodoItemList().get(poos).getContent());
                     itemView.setVisibility(View.VISIBLE);
                     editView.setVisibility(View.GONE);
 
-                    // List <TodoItem> temp = todoActivity.currentList.getTodoItemList();
-                    // temp.add(currentItem);
-                    //  todoActivity.currentList.setTodoItemList(temp);
                     if (isNew) {
                         todoActivity.currentList.getTodoItemList().add(currentItem);
                         todoActivity.currentList.setCompleted(false);
                     }
                     todoActivity.currentList.setLastEditTimestamp(currentItem.getLastEditTimestamp());
 
-                    Map <String, List <TodoItem>> map = new HashMap();
-                    //map.put("todoItemList",temp);
-                   todoActivity.updateDocument(COLLECTION_TODOS, todoActivity.currentList.getTitle(), "todoItemList", todoActivity.currentList.getTodoItemList());xxx
-                   todoActivity.updateDocument(COLLECTION_TODOS, todoActivity.currentList.getTitle(),"lastEditTimestamp" , currentItem.getLastEditTimestamp());
-                //    todoActivity.saveList(todoActivity.currentList);
+                    todoActivity.saveList(todoActivity.currentList);
                 }
 
                 break;
         }
-
 
     }
 
     private void showItemEdit(TodoItem item) {
 
         itemView.setVisibility(View.GONE);
-        //   System.out.println("2-" + item.getContent());
         currentItem = item;
         ((EditText) fiView.findViewById(R.id.new_todo_item_content)).setText(currentItem.getContent());
-
         editView.setVisibility(View.VISIBLE);
-
     }
-
 
 }

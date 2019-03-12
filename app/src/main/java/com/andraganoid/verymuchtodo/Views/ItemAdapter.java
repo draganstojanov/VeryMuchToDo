@@ -88,7 +88,7 @@ public class ItemAdapter extends RecyclerView.Adapter <ItemAdapter.ItemViewHolde
                 @Override
                 public boolean onLongClick(View v) {
 
-                    click.changedCompletition(position);
+                    click.changedCompletion(position);
 
                     return false;
                 }

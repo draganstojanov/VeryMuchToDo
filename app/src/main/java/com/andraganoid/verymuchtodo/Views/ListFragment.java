@@ -20,10 +20,7 @@ import android.widget.Toast;
 import com.andraganoid.verymuchtodo.Model.TodoList;
 import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.Todo;
-import com.andraganoid.verymuchtodo.VeryOnItemClickListener;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.andraganoid.verymuchtodo.Todo.COLLECTION_TODOS;
 
@@ -81,7 +78,6 @@ public class ListFragment extends Fragment implements View.OnClickListener {
 
         itemTouchHelper.attachToRecyclerView(listsRecView);
 
-
         flView.findViewById(R.id.lists_fab).setOnClickListener(this);
         flView.findViewById(R.id.new_todo_list_create).setOnClickListener(this);
 
@@ -117,15 +113,11 @@ public class ListFragment extends Fragment implements View.OnClickListener {
 
                             CheckBox cBox = flView.findViewById(R.id.new_todo_list_emergency);
 
-                          //  TodoList newTodoList = new TodoList(title, sDesc, cBox.isChecked());
                             listsView.setVisibility(View.VISIBLE);
                             createView.setVisibility(View.GONE);
 
                             todoActivity.saveList(new TodoList(title, sDesc, cBox.isChecked()));
-                          //  todoActivity.addDocument(COLLECTION_TODOS, title, documentData);
-                          //  todoActivity.listChoosed(new TodoList(title, sDesc, cBox.isChecked()));
 
-//
                         } else {
                             Toast.makeText(todoActivity, "Description is too long", Toast.LENGTH_SHORT).show();
                         }
@@ -137,7 +129,6 @@ public class ListFragment extends Fragment implements View.OnClickListener {
 
                 break;
         }
-
 
     }
 }

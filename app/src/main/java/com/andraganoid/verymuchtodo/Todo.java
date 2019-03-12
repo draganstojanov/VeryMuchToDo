@@ -41,7 +41,6 @@ import java.util.Map;
 
 public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 
-
     public static final String COLLECTION_TODOS = "colToDos";
     public static final String COLLECTION_MESSAGES = "colMessages";
     public static final String COLLECTION_USERS = "colUsers";
@@ -53,12 +52,8 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 
     private final Fragment listsFragment = new ListFragment();
     private final Fragment itemFragment = new ItemFragment();
-    //  private final Fragment messagesFragment=new MessagesFragment();
-    //  private final Fragment userFragment=new UserFragment();
 
     private FirebaseFirestore todo;
-    //private CollectionReference collectionReference;
-    // private CollectionReference saveLists;
     public static User myself;
     public TodoList currentList;
 
@@ -116,7 +111,6 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
                 todoList.clear();
                 for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
                     todoList.add(qs.toObject(TodoList.class));
-                    //   setFragment(MAIN_MENU_LISTS);
                     Log.d("COLLECTION_TODOS", String.valueOf(todoList.size()));
                 }
                 if (todoList.size() > 0) {
@@ -211,6 +205,13 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 
     public void saveList(TodoList todoList) {
 
+            boolean co = true;
+            for (TodoItem ti : todoList.getTodoItemList()) {
+                co = co && ti.isCompleted();
+            }
+            todoList.setCompleted(co);
+
+
         documentData.clear();
         documentData.put("title", todoList.getTitle());
         documentData.put("shortDescription", todoList.getShortDescription());
@@ -229,40 +230,18 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
     @Override
     public void listChoosed(TodoList tl) {
 
-
         currentList = tl;
-
-
         setFragment(itemFragment);
         Toast.makeText(Todo.this, tl.getTitle(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void changedCompletition(int position) {
+    public void changedCompletion(int position) {
         currentList.getTodoItemList().get(position).setCompleted(!currentList.getTodoItemList().get(position).isCompleted());
-        boolean co=true;
-        for(TodoItem ti:currentList.getTodoItemList()){
-            co= co&&ti.isCompleted();
-        }
-        currentList.setCompleted(co);
-
-        updateDocument(COLLECTION_TODOS,currentList.getTitle(),"completed",currentList.isCompleted());
-        updateDocument(COLLECTION_TODOS, currentList.getTitle(), "todoItemList", currentList.getTodoItemList());
-
-
-
+        saveList(currentList);
 
     }
 
-
-//    public VeryOnItemClickListener clickListener = new VeryOnItemClickListener() {
-//        @Override
-//        public void listChoosed(TodoList tl) {
-//            currentList = tl;
-//            setFragment(new ItemFragment());
-//            Toast.makeText(Todo.this, tl.getTitle(), Toast.LENGTH_SHORT).show();
-//        }
-//    };
 
 
     private void setFragment(Fragment fragment) {
@@ -273,7 +252,6 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
                     .replace(R.id.todo_fragment, fragment)
                     .commit();
         }
-
     }
 
 
