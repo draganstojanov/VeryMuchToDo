@@ -61,9 +61,9 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
     Map <String, Object> documentData = new HashMap <>();
 
 
-    private List <User> userList = new ArrayList <>();
+    public List <User> userList = new ArrayList <>();
     public List <TodoList> todoList = new ArrayList <>();
-    private List <Message> messagesList = new ArrayList <>();
+    public List <Message> messagesList = new ArrayList <>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,11 +170,11 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 
     }
 
-    public void updateDocument(String collection, String document, String attr, Object obj) {
-        todo.collection(collection)
-                .document(document)
-                .update(attr, obj);
-    }
+//    public void updateDocument(String collection, String document, String attr, Object obj) {
+//        todo.collection(collection)
+//                .document(document)
+//                .update(attr, obj);
+//    }
 
 
     public void deleteDocument(final String collection, String document) {

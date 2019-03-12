@@ -39,19 +39,6 @@
                 android:textSize="16sp"
                 app:layout_constraintTop_toBottomOf="@id/lists_title" />
 
-            <!--<TextView-->
-                <!--android:id="@+id/lists_created"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:paddingLeft="4dp"-->
-                <!--android:paddingTop="2dp"-->
-                <!--android:paddingRight="4dp"-->
-                <!--android:paddingBottom="2dp"-->
-                <!--android:textColor="#000"-->
-                <!--android:textSize="12sp"-->
-                <!--app:layout_constraintTop_toBottomOf="@id/lists_short_desc"-->
-                <!--tools:text="Created : 06.03.2019. 12:34 by Filip" />-->
-
             <TextView
                 android:id="@+id/lists_edited"
                 android:layout_width="match_parent"
@@ -74,29 +61,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 tools:visibility="visible" />
-
-            <!--<CheckBox-->
-            <!--android:id="@+id/lists_completed"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="36dp"-->
-            <!--android:gravity="center"-->
-            <!--android:padding="4dp"-->
-            <!--android:text="Completed"-->
-            <!--android:textColor="#000"-->
-            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--app:layout_constraintLeft_toLeftOf="parent"-->
-            <!--app:layout_constraintTop_toBottomOf="@id/lists_edited" />-->
-
-            <!--<Button-->
-            <!--android:id="@+id/lists_del_btn"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="36dp"-->
-            <!--android:background="@color/colorPrimary"-->
-            <!--android:text="Delete"-->
-            <!--android:textAllCaps="false"-->
-            <!--android:textColor="#fff"-->
-            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--app:layout_constraintRight_toRightOf="parent" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

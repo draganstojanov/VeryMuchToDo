@@ -7,6 +7,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.andraganoid.verymuchtodo.Model.Message;
 import com.andraganoid.verymuchtodo.Model.TodoList;
 import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.VeryOnItemClickListener;
@@ -26,6 +27,7 @@ public class ListAdapter extends RecyclerView.Adapter <ListAdapter.ListsViewHold
         this.lists = lists;
         this.click = click;
     }
+
 
     @NonNull
     @Override
