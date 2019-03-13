@@ -14,19 +14,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.andraganoid.verymuchtodo.Todo.COLLECTION_USERS;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -49,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         if (currentUser != null) {
             loginSuccesfully(currentUser, false);
         } else {
+            findViewById(R.id.register_form).setVisibility(View.GONE);
+            findViewById(R.id.sign_in_form).setVisibility(View.GONE);
             findViewById(R.id.login_info).setVisibility(View.VISIBLE);
         }
 
@@ -62,13 +56,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void signIn(View v) {
         findViewById(R.id.login_info).setVisibility(View.GONE);
-        findViewById(R.id.sig_in_form).setVisibility(View.VISIBLE);
+        findViewById(R.id.sign_in_form).setVisibility(View.VISIBLE);
     }
 
     public void signInConfirm(View v) {
 
-        String email = ((EditText) findViewById(R.id.sign_in_username)).getText().toString();
-        String password = ((EditText) findViewById(R.id.sign_in_password)).getText().toString();
+        String password = ((EditText) findViewById(R.id.sign_in_password)).getText().toString().trim();
+        String email = ((EditText) findViewById(R.id.sign_in_email)).getText().toString().trim();
 
 
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
@@ -87,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                                 Log.w("SIGN IN FAIL", "signInWithEmail:failure" + task.getException());
                                 Toast.makeText(MainActivity.this, "Authentification failed.", Toast.LENGTH_LONG).show();
                                 findViewById(R.id.login_info).setVisibility(View.VISIBLE);
+                                findViewById(R.id.sign_in_form).setVisibility(View.GONE);
                                 findViewById(R.id.register_form).setVisibility(View.GONE);
                             }
 
@@ -99,9 +94,9 @@ public class MainActivity extends AppCompatActivity {
     public void registerConfirm(View v) {
 
 
-        final String displayName = ((EditText) findViewById(R.id.register_username)).getText().toString();
-        String email = ((EditText) findViewById(R.id.register_email)).getText().toString();
-        String password = ((EditText) findViewById(R.id.register_password)).getText().toString();
+        final String displayName = ((EditText) findViewById(R.id.register_username)).getText().toString().trim();
+        String email = ((EditText) findViewById(R.id.register_email)).getText().toString().trim();
+        String password = ((EditText) findViewById(R.id.register_password)).getText().toString().trim();
 
         if (isNameValid(displayName) && isEmailValid(email) && isPasswordValid(password)) {
             mAuth.createUserWithEmailAndPassword(email, password)
@@ -123,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
                                 Log.w("REGISTER FAIL", "createUserWithEmail:failure" + task.getException());
                                 Toast.makeText(MainActivity.this, "Authentification failed.", Toast.LENGTH_LONG).show();
                                 findViewById(R.id.login_info).setVisibility(View.VISIBLE);
+                                findViewById(R.id.sign_in_form).setVisibility(View.GONE);
                                 findViewById(R.id.register_form).setVisibility(View.GONE);
                             }
                         }
@@ -131,8 +127,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isEmailValid(String email) {
-
-        boolean e = !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        System.out.println("EMAIL: "+email);
+        boolean e = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
         if (!e) {
             Toast.makeText(this, "Email address is not valid!", Toast.LENGTH_SHORT).show();
         }

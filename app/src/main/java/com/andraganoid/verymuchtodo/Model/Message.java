@@ -12,25 +12,27 @@ public class Message {
     private long timestamp;
     private String from;
     private String title;
+    private String id;
 
-    private StringBuilder sb=new StringBuilder();
+    private StringBuilder sb = new StringBuilder();
 
-    public Message(String text) {
-        this.timestamp=System.currentTimeMillis();
-        this.text=text;
-        this.from=
-
-
-
+    public Message() {
     }
 
+    public Message(String text) {
+        this.timestamp = System.currentTimeMillis();
+        this.text = text;
+        this.from = myself.getName();
+        this.title = myself.getName() + String.valueOf(timestamp);
+        this.id=myself.getId();
+    }
 
-    public String getMsgData(){
+    public String getMsgData() {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(timestamp);
         String date = DateFormat.format("dd.MM.yyyy HH:mm", cal).toString();
         sb.setLength(0);
-        sb.append(myself.getName())
+        sb.append(from)
                 .append("@")
                 .append(date);
         return sb.toString();
@@ -66,5 +68,13 @@ public class Message {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

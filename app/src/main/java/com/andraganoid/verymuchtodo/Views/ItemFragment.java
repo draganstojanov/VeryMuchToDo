@@ -1,7 +1,7 @@
 package com.andraganoid.verymuchtodo.Views;
 
 
-import android.icu.text.UnicodeSetSpanner;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,12 +14,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.andraganoid.verymuchtodo.Model.TodoItem;
+import com.andraganoid.verymuchtodo.Model.TodoList;
 import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.Todo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ItemFragment extends Fragment implements View.OnClickListener {
@@ -33,6 +38,8 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
     private ConstraintLayout editView;
     private ConstraintLayout itemView;
     private TodoItem currentItem;
+    private List <TodoItem> tl = new ArrayList <>();
+
 
     public ItemFragment() {
     }
@@ -46,13 +53,15 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
         editView = fiView.findViewById(R.id.new_todo_item_form);
 
         todoActivity = (Todo) getActivity();
+        tl = todoActivity.currentList.getTodoItemList();
+
         todoActivity.setTitle(todoActivity.currentList.getTitle(), "");
         itemRecView = fiView.findViewById(R.id.item_rec_view);
-        itemAdapter = new ItemAdapter(todoActivity.currentList.getTodoItemList(), todoActivity);
+        itemAdapter = new ItemAdapter(tl, todoActivity);
         itemLayMan = new LinearLayoutManager(getContext());
         itemRecView.setLayoutManager(itemLayMan);
         itemRecView.setAdapter(itemAdapter);
-
+        closeKeyboard();
 
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
@@ -109,7 +118,10 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
     }
 
     public void refreshItems() {
+        tl.clear();
+        tl.addAll(todoActivity.currentList.getTodoItemList());
         itemAdapter.notifyDataSetChanged();
+        closeKeyboard();
     }
 
 
@@ -155,5 +167,12 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
         ((EditText) fiView.findViewById(R.id.new_todo_item_content)).setText(currentItem.getContent());
         editView.setVisibility(View.VISIBLE);
     }
+
+    private void closeKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(fiView.getWindowToken(), 0);
+        itemRecView.smoothScrollToPosition(10000);
+    }
+
 
 }

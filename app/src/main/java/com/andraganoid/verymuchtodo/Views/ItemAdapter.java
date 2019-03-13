@@ -37,6 +37,7 @@ public class ItemAdapter extends RecyclerView.Adapter <ItemAdapter.ItemViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, final int position) {
+        System.out.println("ADAPTER"+items.size());
         holder.bind(items.get(position), click, position);
     }
 
@@ -80,6 +81,7 @@ public class ItemAdapter extends RecyclerView.Adapter <ItemAdapter.ItemViewHolde
 
 
         public void bind(final TodoItem ti, final VeryOnItemClickListener click, final int position) {
+
             content.setText(ti.getContent());
             edited.setText((ti.getLastEdit()));
             completed.setVisibility(ti.isCompleted() ? View.VISIBLE : View.GONE);

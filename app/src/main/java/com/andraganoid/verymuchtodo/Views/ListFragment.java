@@ -1,6 +1,7 @@
 package com.andraganoid.verymuchtodo.Views;
 
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -43,6 +46,7 @@ public class ListFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         flView = inflater.inflate(R.layout.fragment_list, container, false);
 
+
         listsView = flView.findViewById(R.id.todo_lists_view);
         createView = flView.findViewById(R.id.new_todo_list_form);
 
@@ -53,7 +57,7 @@ public class ListFragment extends Fragment implements View.OnClickListener {
         listsLayMan = new LinearLayoutManager(getContext());
         listsRecView.setLayoutManager(listsLayMan);
         listsRecView.setAdapter(listsAdapter);
-
+        closeKeyboard();
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
 
 
@@ -86,6 +90,7 @@ public class ListFragment extends Fragment implements View.OnClickListener {
 
     public void refreshLists() {
         listsAdapter.notifyDataSetChanged();
+        closeKeyboard();
     }
 
 
@@ -129,6 +134,13 @@ public class ListFragment extends Fragment implements View.OnClickListener {
 
                 break;
         }
+
+    }
+
+    private void closeKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(flView.getWindowToken(), 0);
+       // listsRecView.smoothScrollToPosition(10000);
 
     }
 }

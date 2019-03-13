@@ -62,13 +62,13 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/sig_in_form"
+        android:id="@+id/sign_in_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
 
         <EditText
-            android:id="@+id/sign_in_username"
+            android:id="@+id/sign_in_email"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_margin="32dp"
@@ -87,7 +87,7 @@
             android:background="@drawable/input_box"
             android:hint="Password"
             android:padding="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/sign_in_username" />
+            app:layout_constraintTop_toBottomOf="@+id/sign_in_email" />
 
         <Button
             android:id="@+id/sign_in_button"

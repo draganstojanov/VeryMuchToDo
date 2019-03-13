@@ -21,6 +21,7 @@ import com.andraganoid.verymuchtodo.Model.TodoList;
 import com.andraganoid.verymuchtodo.Model.User;
 import com.andraganoid.verymuchtodo.Views.ItemFragment;
 import com.andraganoid.verymuchtodo.Views.ListFragment;
+import com.andraganoid.verymuchtodo.Views.MsgFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -52,10 +53,13 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 
     private final Fragment listsFragment = new ListFragment();
     private final Fragment itemFragment = new ItemFragment();
+    private final Fragment msgFragment = new MsgFragment();
 
     private FirebaseFirestore todo;
     public static User myself;
     public TodoList currentList;
+
+    public BottomNavigationView bottomMain;
 
 
     Map <String, Object> documentData = new HashMap <>();
@@ -76,7 +80,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 
         setFragment(listsFragment);
 
-        BottomNavigationView bottomMain = findViewById(R.id.main_bottom_bar);
+       bottomMain = findViewById(R.id.main_bottom_bar);
         bottomMain.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -84,8 +88,10 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
                 switch (menuItem.getItemId()) {
 
                     case R.id.main_lists:
+                        setFragment(listsFragment);
                         break;
                     case R.id.main_msg:
+                        setFragment(msgFragment);
                         break;
                     case R.id.main_users:
                         break;
@@ -94,8 +100,6 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
                         break;
 
                 }
-
-
                 return false;
             }
         });
@@ -110,8 +114,15 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 todoList.clear();
                 for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
-                    todoList.add(qs.toObject(TodoList.class));
-                    Log.d("COLLECTION_TODOS", String.valueOf(todoList.size()));
+                    TodoList t = qs.toObject(TodoList.class);
+                    if (currentList != null) {
+                        if (t.getTitle().equals(currentList.getTitle())) {
+                            currentList = t;
+                            System.out.println("SNAP: " + t.getTitle());
+                        }
+                    }
+
+                    todoList.add(t);
                 }
                 if (todoList.size() > 0) {
                     Collections.sort(todoList, new Comparator <TodoList>() {
@@ -124,43 +135,69 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
                 Fragment fragmentInstance = getSupportFragmentManager().findFragmentById(R.id.todo_fragment);
                 if (fragmentInstance != null) {
                     if (fragmentInstance == listsFragment) {
+                        System.out.println("WHAT FRAG LISTS");
                         ((ListFragment) fragmentInstance).refreshLists();
                     } else if (fragmentInstance == itemFragment) {
+                        System.out.println("WHAT FRAG ITEM");
                         ((ItemFragment) fragmentInstance).refreshItems();
+
+                    } else {
+                        findViewById(R.id.main_lists).setBackgroundColor(getResources().getColor(R.color.colorAccent));
                     }
-
-
                 }
-                // System.out.println("MYFRAGMENT: " + getSupportFragmentManager().findFragmentById(R.id.todo_fragment));
-
-//                ListFragment listsFragmentInstance = (ListFragment) getSupportFragmentManager().findFragmentById(R.id.todo_fragment);
-//                if (listsFragmentInstance != null) {
-//                    listsFragmentInstance.refreshLists();
-//                }
-
             }
         });
 
-//        todo.collection((COLLECTION_MESSAGES)).addSnapshotListener(this, new EventListener <QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-//                messagesList.clear();
-//                for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
-//                    messagesList.add(qs.toObject(Message.class));
-//                    Log.d("COLLECTION_MESSAGES", String.valueOf(messagesList.size()));
-//                }
-//            }
-//        });
+        todo.collection((COLLECTION_MESSAGES)).addSnapshotListener(this, new EventListener <QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                messagesList.clear();
+                for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
+                    messagesList.add(qs.toObject(Message.class));
+                }
+
+                Fragment fragmentInstance = getSupportFragmentManager().findFragmentById(R.id.todo_fragment);
+
+                if (fragmentInstance != null) {
+                    if (fragmentInstance == msgFragment) {
+                        System.out.println("WHAT FRAG MSG");
+                        ((MsgFragment) fragmentInstance).refreshMsg();
+                    }  else {
+                        findViewById(R.id.main_msg).setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    }
+                }
+            }
+        });
 //
 //        todo.collection((MainActivity.COLLECTION_USERS)).addSnapshotListener(this, new EventListener <QuerySnapshot>() {
 //            @Override
 //            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-//                userList.clear();
-//                for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
+        userList.clear();
+//                for (QueryDocum/entSnapshot qs : queryDocumentSnapshots) {
 //                    userList.add(qs.toObject(User.class));
 //                }
 //            }
 //        });
+    }
+
+    private void goFragment() {
+        Fragment fragmentInstance = getSupportFragmentManager().findFragmentById(R.id.todo_fragment);
+
+
+        if (fragmentInstance != null) {
+            if (fragmentInstance == listsFragment) {
+                System.out.println("WHAT FRAG LISTS");
+                ((ListFragment) fragmentInstance).refreshLists();
+            } else if (fragmentInstance == itemFragment) {
+                System.out.println("WHAT FRAG ITEM");
+                ((ItemFragment) fragmentInstance).refreshItems();
+
+            } else if (fragmentInstance == msgFragment) {
+                System.out.println("WHAT FRAG MSG");
+                ((MsgFragment) fragmentInstance).refreshMsg();
+            }
+        }
+
     }
 
     public void addDocument(String collection, String document, Map map) {
@@ -205,12 +242,13 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 
     public void saveList(TodoList todoList) {
 
+        if (todoList.getTodoItemList().size() > 0) {
             boolean co = true;
             for (TodoItem ti : todoList.getTodoItemList()) {
                 co = co && ti.isCompleted();
             }
             todoList.setCompleted(co);
-
+        }
 
         documentData.clear();
         documentData.put("title", todoList.getTitle());
@@ -229,19 +267,29 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 
     @Override
     public void listChoosed(TodoList tl) {
-
         currentList = tl;
         setFragment(itemFragment);
-        Toast.makeText(Todo.this, tl.getTitle(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void changedCompletion(int position) {
         currentList.getTodoItemList().get(position).setCompleted(!currentList.getTodoItemList().get(position).isCompleted());
         saveList(currentList);
-
     }
 
+
+    public void sendMessage(Message message) {
+        documentData.clear();
+        documentData.put("text", message.getText());
+        documentData.put("timestamp", message.getTimestamp());
+        documentData.put("from", message.getFrom());
+        documentData.put("title", message.getTitle());
+        documentData.put("id", message.getId());
+
+        addDocument(COLLECTION_MESSAGES, message.getTitle(), documentData);
+
+        // setFragment(msgFragment);
+    }
 
 
     private void setFragment(Fragment fragment) {
