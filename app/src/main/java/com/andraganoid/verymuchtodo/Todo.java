@@ -1,19 +1,16 @@
 package com.andraganoid.verymuchtodo;
 
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
-
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.andraganoid.verymuchtodo.Model.Message;
 import com.andraganoid.verymuchtodo.Model.TodoItem;
@@ -22,9 +19,9 @@ import com.andraganoid.verymuchtodo.Model.User;
 import com.andraganoid.verymuchtodo.Views.ItemFragment;
 import com.andraganoid.verymuchtodo.Views.ListFragment;
 import com.andraganoid.verymuchtodo.Views.MsgFragment;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.andraganoid.verymuchtodo.Views.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -39,21 +36,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.fragment.app.Fragment;
+
 
 public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
+
+    private SharedPreferences prefs;
+    private final String CHANNEL_ID="myNotif";
 
     public static final String COLLECTION_TODOS = "colToDos";
     public static final String COLLECTION_MESSAGES = "colMessages";
     public static final String COLLECTION_USERS = "colUsers";
 
-    private final int MAIN_MENU_LISTS = 0;
-    private final int MAIN_MENU_MSG = 1;
-    private final int MAIN_MENU_USERS = 2;
-    private final int MAIN_MENU_LIOGOUT = 3;
-
     private final Fragment listsFragment = new ListFragment();
     private final Fragment itemFragment = new ItemFragment();
     private final Fragment msgFragment = new MsgFragment();
+    private final Fragment userFragment = new UserFragment();
 
     private FirebaseFirestore todo;
     public static User myself;
@@ -61,9 +64,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 
     public BottomNavigationView bottomMain;
 
-
-    Map <String, Object> documentData = new HashMap <>();
-
+    private Map <String, Object> documentData = new HashMap <>();
 
     public List <User> userList = new ArrayList <>();
     public List <TodoList> todoList = new ArrayList <>();
@@ -74,13 +75,12 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.todo);
         todo = FirebaseFirestore.getInstance();
-
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
         setMyself();
-
 
         setFragment(listsFragment);
 
-       bottomMain = findViewById(R.id.main_bottom_bar);
+        bottomMain = findViewById(R.id.main_bottom_bar);
         bottomMain.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -94,6 +94,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
                         setFragment(msgFragment);
                         break;
                     case R.id.main_users:
+                        setFragment(userFragment);
                         break;
                     case R.id.main_logout:
                         logout();
@@ -105,24 +106,101 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
         });
     }
 
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            CharSequence name = getString(R.string.channel_name);
+//            String description = getString(R.string.channel_description);
+                        CharSequence name = "name";
+            String description = "description";
+
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
-
-        todo.collection((COLLECTION_TODOS)).addSnapshotListener(this, new EventListener <QuerySnapshot>() {
+        createNotificationChannel();
+        todo.collection(COLLECTION_MESSAGES).addSnapshotListener(this, new EventListener <QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                long lastMsg = prefs.getLong("lastMsg", 0L);
+                int newMsg = 0;
+                messagesList.clear();
+                for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
+                    Message mes = qs.toObject(Message.class);
+                    messagesList.add(mes);
+
+
+                    if (mes.getTimestamp() > lastMsg) {
+                        newMsg++;
+                    }
+                }
+
+                if (newMsg > 0) {
+                    prefs.edit().putLong("lastMsg", System.currentTimeMillis()).apply();
+                    findViewById(R.id.main_msg).setBackgroundColor(getResources().getColor(R.color.colorAccent));
+
+
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setContentTitle("New message")
+                            .setContentText("You have some new messages")
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+
+                    builder.setAutoCancel(true);
+                    builder.setLights(Color.BLUE, 500, 500);
+                    long[] pattern = {500,500,500,500,500,500,500,500,500};
+                    builder.setVibrate(pattern);
+                    Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                    builder.setSound(alarmSound);
+                    builder.setStyle(new NotificationCompat.InboxStyle());
+
+
+                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
+
+// notificationId is a unique int for each notification that you must define
+                    notificationManager.notify(1, builder.build());
+
+
+
+
+
+                }
+                goFragment();
+
+            }
+        });
+
+
+        todo.collection(COLLECTION_TODOS).addSnapshotListener(this, new EventListener <QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                long lastList = prefs.getLong("lastList", 0L);
+                int newLists = 0;
                 todoList.clear();
                 for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
                     TodoList t = qs.toObject(TodoList.class);
                     if (currentList != null) {
                         if (t.getTitle().equals(currentList.getTitle())) {
                             currentList = t;
-                            System.out.println("SNAP: " + t.getTitle());
                         }
                     }
 
                     todoList.add(t);
+                    if (Long.parseLong(t.getLastEditTimestamp()) > lastList) {
+                        newLists++;
+                    }
+
                 }
                 if (todoList.size() > 0) {
                     Collections.sort(todoList, new Comparator <TodoList>() {
@@ -132,57 +210,53 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
                         }
                     });
                 }
-                Fragment fragmentInstance = getSupportFragmentManager().findFragmentById(R.id.todo_fragment);
-                if (fragmentInstance != null) {
-                    if (fragmentInstance == listsFragment) {
-                        System.out.println("WHAT FRAG LISTS");
-                        ((ListFragment) fragmentInstance).refreshLists();
-                    } else if (fragmentInstance == itemFragment) {
-                        System.out.println("WHAT FRAG ITEM");
-                        ((ItemFragment) fragmentInstance).refreshItems();
 
-                    } else {
-                        findViewById(R.id.main_lists).setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                    }
+                if (newLists > 0) {
+                    prefs.edit().putLong("lastList", System.currentTimeMillis()).apply();
+                    findViewById(R.id.main_lists).setBackgroundColor(getResources().getColor(R.color.colorAccent));
+
+                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setContentTitle("New ToDo's")
+                            .setContentText("You have some new ToDo's to do!")
+                            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+
+                    builder.setAutoCancel(true);
+                    builder.setLights(Color.RED, 500, 500);
+                    long[] pattern = {500,500,500,500,500,500,500,500,500};
+                    builder.setVibrate(pattern);
+                    Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                    builder.setSound(alarmSound);
+                    builder.setStyle(new NotificationCompat.InboxStyle());
+
+
+                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
+
+// notificationId is a unique int for each notification that you must define
+                    notificationManager.notify(2, builder.build());
+
                 }
+                goFragment();
+
             }
         });
 
-        todo.collection((COLLECTION_MESSAGES)).addSnapshotListener(this, new EventListener <QuerySnapshot>() {
+
+        todo.collection((COLLECTION_USERS)).addSnapshotListener(this, new EventListener <QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                messagesList.clear();
+                userList.clear();
                 for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
-                    messagesList.add(qs.toObject(Message.class));
-                }
-
-                Fragment fragmentInstance = getSupportFragmentManager().findFragmentById(R.id.todo_fragment);
-
-                if (fragmentInstance != null) {
-                    if (fragmentInstance == msgFragment) {
-                        System.out.println("WHAT FRAG MSG");
-                        ((MsgFragment) fragmentInstance).refreshMsg();
-                    }  else {
-                        findViewById(R.id.main_msg).setBackgroundColor(getResources().getColor(R.color.colorAccent));
-                    }
+                    userList.add(qs.toObject(User.class));
+                    //   findViewById(R.id.main_users).setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 }
             }
         });
-//
-//        todo.collection((MainActivity.COLLECTION_USERS)).addSnapshotListener(this, new EventListener <QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-        userList.clear();
-//                for (QueryDocum/entSnapshot qs : queryDocumentSnapshots) {
-//                    userList.add(qs.toObject(User.class));
-//                }
-//            }
-//        });
-    }
+}
 
     private void goFragment() {
         Fragment fragmentInstance = getSupportFragmentManager().findFragmentById(R.id.todo_fragment);
-
 
         if (fragmentInstance != null) {
             if (fragmentInstance == listsFragment) {
@@ -204,14 +278,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
         todo.collection(collection)
                 .document(document)
                 .set(map);
-
     }
-
-//    public void updateDocument(String collection, String document, String attr, Object obj) {
-//        todo.collection(collection)
-//                .document(document)
-//                .update(attr, obj);
-//    }
 
 
     public void deleteDocument(final String collection, String document) {
@@ -287,8 +354,6 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
         documentData.put("id", message.getId());
 
         addDocument(COLLECTION_MESSAGES, message.getTitle(), documentData);
-
-        // setFragment(msgFragment);
     }
 
 

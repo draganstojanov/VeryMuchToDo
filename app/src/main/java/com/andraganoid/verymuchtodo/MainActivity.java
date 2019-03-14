@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -104,17 +106,23 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task <AuthResult> task) {
                             if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                //  Log.d(TAG, "createUserWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
+                                final FirebaseUser user = mAuth.getCurrentUser();
                                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                         .setDisplayName(displayName).build();
-                                user.updateProfile(profileUpdates);
-                                // registerSuccesfully(user);
-                                loginSuccesfully(user, true);
+                                user.updateProfile(profileUpdates).addOnSuccessListener(new OnSuccessListener <Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        loginSuccesfully(user, true);
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d("DISPLAYNAME-FAILURE: ", e.toString());
+                                    }
+                                });
+
 
                             } else {
-                                // If sign in fails, display a message to the user.
                                 Log.w("REGISTER FAIL", "createUserWithEmail:failure" + task.getException());
                                 Toast.makeText(MainActivity.this, "Authentification failed.", Toast.LENGTH_LONG).show();
                                 findViewById(R.id.login_info).setVisibility(View.VISIBLE);
@@ -127,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean isEmailValid(String email) {
-        System.out.println("EMAIL: "+email);
+        System.out.println("EMAIL: " + email);
         boolean e = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
         if (!e) {
             Toast.makeText(this, "Email address is not valid!", Toast.LENGTH_SHORT).show();
@@ -187,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void loginSuccesfully(FirebaseUser user, boolean register) {
-
+        Log.d("DISPLAYNAME-2: ", user.getDisplayName());
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.edit().putString("id", user.getUid())
                 .putString("name", user.getDisplayName())

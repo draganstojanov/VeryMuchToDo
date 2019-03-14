@@ -47,10 +47,10 @@ public class ListFragment extends Fragment implements View.OnClickListener {
         flView = inflater.inflate(R.layout.fragment_list, container, false);
 
 
+        todoActivity = (Todo) getActivity();
+        todoActivity.findViewById(R.id.main_lists).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         listsView = flView.findViewById(R.id.todo_lists_view);
         createView = flView.findViewById(R.id.new_todo_list_form);
-
-        todoActivity = (Todo) getActivity();
         todoActivity.setTitle("Todo lists", "");
         listsRecView = flView.findViewById(R.id.lists_rec_view);
         listsAdapter = new ListAdapter(todoActivity.todoList, todoActivity);
@@ -140,7 +140,7 @@ public class ListFragment extends Fragment implements View.OnClickListener {
     private void closeKeyboard() {
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(flView.getWindowToken(), 0);
-       // listsRecView.smoothScrollToPosition(10000);
+        // listsRecView.smoothScrollToPosition(10000);
 
     }
 }
