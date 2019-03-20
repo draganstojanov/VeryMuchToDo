@@ -54,7 +54,7 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
 
         todoActivity = (Todo) getActivity();
         tl = todoActivity.currentList.getTodoItemList();
-
+        todoActivity.findViewById(R.id.main_lists).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         todoActivity.setTitle(todoActivity.currentList.getTitle(), "");
         itemRecView = fiView.findViewById(R.id.item_rec_view);
         itemAdapter = new ItemAdapter(tl, todoActivity);
@@ -110,7 +110,6 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
 
         itemTouchHelper.attachToRecyclerView(itemRecView);
 
-
         fiView.findViewById(R.id.items_fab).setOnClickListener(this);
         fiView.findViewById(R.id.new_todo_item_save).setOnClickListener(this);
 
@@ -151,6 +150,7 @@ public class ItemFragment extends Fragment implements View.OnClickListener {
                         todoActivity.currentList.setCompleted(false);
                     }
                     todoActivity.currentList.setLastEditTimestamp(currentItem.getLastEditTimestamp());
+                    todoActivity.currentList.setLastEditId(todoActivity.myself.getId());
 
                     todoActivity.saveList(todoActivity.currentList);
                 }

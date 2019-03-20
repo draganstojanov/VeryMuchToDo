@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.andraganoid.verymuchtodo.Model.TodoList;
 import com.andraganoid.verymuchtodo.Model.User;
 import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.VeryOnItemClickListener;

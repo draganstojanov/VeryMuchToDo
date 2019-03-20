@@ -1,13 +1,8 @@
 package com.andraganoid.verymuchtodo;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
@@ -39,15 +34,12 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
 
 public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 
     private SharedPreferences prefs;
-    private final String CHANNEL_ID="myNotif";
 
     public static final String COLLECTION_TODOS = "colToDos";
     public static final String COLLECTION_MESSAGES = "colMessages";
@@ -85,6 +77,8 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
+                findViewById(menuItem.getItemId()).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+
                 switch (menuItem.getItemId()) {
 
                     case R.id.main_lists:
@@ -106,29 +100,11 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
         });
     }
 
-    private void createNotificationChannel() {
-        // Create the NotificationChannel, but only on API 26+ because
-        // the NotificationChannel class is new and not in the support library
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            CharSequence name = getString(R.string.channel_name);
-//            String description = getString(R.string.channel_description);
-                        CharSequence name = "name";
-            String description = "description";
-
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
-            // Register the channel with the system; you can't change the importance
-            // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
 
     @Override
     protected void onStart() {
         super.onStart();
-        createNotificationChannel();
+
         todo.collection(COLLECTION_MESSAGES).addSnapshotListener(this, new EventListener <QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -138,44 +114,33 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
                 for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
                     Message mes = qs.toObject(Message.class);
                     messagesList.add(mes);
-
-
                     if (mes.getTimestamp() > lastMsg) {
                         newMsg++;
                     }
                 }
 
+
+                if (messagesList.size() > 0) {
+                    Collections.sort(messagesList, new Comparator <Message>() {
+                        @Override
+                        public int compare(final Message object1, final Message object2) {
+                            return object1.getTimestampAsString().compareTo(object2.getTimestampAsString());
+                        }
+                    });
+                }
+
                 if (newMsg > 0) {
                     prefs.edit().putLong("lastMsg", System.currentTimeMillis()).apply();
-                    findViewById(R.id.main_msg).setBackgroundColor(getResources().getColor(R.color.colorAccent));
-
-
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
-                            .setSmallIcon(R.mipmap.ic_launcher)
-                            .setContentTitle("New message")
-                            .setContentText("You have some new messages")
-                            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-
-                    builder.setAutoCancel(true);
-                    builder.setLights(Color.BLUE, 500, 500);
-                    long[] pattern = {500,500,500,500,500,500,500,500,500};
-                    builder.setVibrate(pattern);
-                    Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                    builder.setSound(alarmSound);
-                    builder.setStyle(new NotificationCompat.InboxStyle());
-
-
-                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
-
-// notificationId is a unique int for each notification that you must define
-                    notificationManager.notify(1, builder.build());
-
-
-
-
+                    if (!messagesList.get(messagesList.size() - 1).getId().equals(myself.getId())) {
+                        findViewById(R.id.main_msg).setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    }
 
                 }
+
+                for (Message m:messagesList){
+
+                }
+
                 goFragment();
 
             }
@@ -197,6 +162,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
                     }
 
                     todoList.add(t);
+                    System.out.println("TODO: "+t.getLastEdit());
                     if (Long.parseLong(t.getLastEditTimestamp()) > lastList) {
                         newLists++;
                     }
@@ -213,28 +179,16 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 
                 if (newLists > 0) {
                     prefs.edit().putLong("lastList", System.currentTimeMillis()).apply();
-                    findViewById(R.id.main_lists).setBackgroundColor(getResources().getColor(R.color.colorAccent));
 
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
-                            .setSmallIcon(R.mipmap.ic_launcher)
-                            .setContentTitle("New ToDo's")
-                            .setContentText("You have some new ToDo's to do!")
-                            .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                    if (!todoList.get(0).getLastEditId().equals(myself.getId())) {
+                        findViewById(R.id.main_lists).setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                    }
 
+                }
 
-                    builder.setAutoCancel(true);
-                    builder.setLights(Color.RED, 500, 500);
-                    long[] pattern = {500,500,500,500,500,500,500,500,500};
-                    builder.setVibrate(pattern);
-                    Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                    builder.setSound(alarmSound);
-                    builder.setStyle(new NotificationCompat.InboxStyle());
+                for (TodoList m:todoList){
+                    System.out.println("TODOLIST: "+m.getTitle());
 
-
-                    NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getApplicationContext());
-
-// notificationId is a unique int for each notification that you must define
-                    notificationManager.notify(2, builder.build());
 
                 }
                 goFragment();
@@ -249,25 +203,21 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
                 userList.clear();
                 for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
                     userList.add(qs.toObject(User.class));
-                    //   findViewById(R.id.main_users).setBackgroundColor(getResources().getColor(R.color.colorAccent));
                 }
             }
         });
-}
+    }
+
 
     private void goFragment() {
         Fragment fragmentInstance = getSupportFragmentManager().findFragmentById(R.id.todo_fragment);
 
         if (fragmentInstance != null) {
             if (fragmentInstance == listsFragment) {
-                System.out.println("WHAT FRAG LISTS");
                 ((ListFragment) fragmentInstance).refreshLists();
             } else if (fragmentInstance == itemFragment) {
-                System.out.println("WHAT FRAG ITEM");
                 ((ItemFragment) fragmentInstance).refreshItems();
-
             } else if (fragmentInstance == msgFragment) {
-                System.out.println("WHAT FRAG MSG");
                 ((MsgFragment) fragmentInstance).refreshMsg();
             }
         }
@@ -302,6 +252,8 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
             documentData.put("email", myself.getEmail());
             documentData.put("location", myself.getLocation());
 
+
+
             addDocument(COLLECTION_USERS, myself.getId(), documentData);
 
         }
@@ -325,6 +277,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
         documentData.put("emergency", todoList.isEmergency());
         documentData.put("completed", todoList.isCompleted());
         documentData.put("todoItemList", todoList.getTodoItemList());
+        documentData.put("lastEditId", todoList.getLastEditId());
 
         addDocument(COLLECTION_TODOS, todoList.getTitle(), documentData);
 

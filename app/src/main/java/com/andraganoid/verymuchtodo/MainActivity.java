@@ -73,20 +73,14 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task <AuthResult> task) {
                             if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                // Log.d(TAG, "signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                //  updateUI(user);
                                 loginSuccesfully(user, false);
                             } else {
-                                // If sign in fails, display a message to the user.
-                                Log.w("SIGN IN FAIL", "signInWithEmail:failure" + task.getException());
                                 Toast.makeText(MainActivity.this, "Authentification failed.", Toast.LENGTH_LONG).show();
                                 findViewById(R.id.login_info).setVisibility(View.VISIBLE);
                                 findViewById(R.id.sign_in_form).setVisibility(View.GONE);
                                 findViewById(R.id.register_form).setVisibility(View.GONE);
                             }
-
                         }
                     });
         }
@@ -117,13 +111,11 @@ public class MainActivity extends AppCompatActivity {
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Log.d("DISPLAYNAME-FAILURE: ", e.toString());
                                     }
                                 });
 
 
                             } else {
-                                Log.w("REGISTER FAIL", "createUserWithEmail:failure" + task.getException());
                                 Toast.makeText(MainActivity.this, "Authentification failed.", Toast.LENGTH_LONG).show();
                                 findViewById(R.id.login_info).setVisibility(View.VISIBLE);
                                 findViewById(R.id.sign_in_form).setVisibility(View.GONE);
@@ -160,42 +152,7 @@ public class MainActivity extends AppCompatActivity {
         return p;
     }
 
-//    xxx
-//
-//    private void registerSuccesfully(FirebaseUser user) {
-//
-//        Map <String, Object> addUser = new HashMap <>();
-//
-//        addUser.put("id", user.getUid());
-//        addUser.put("email", user.getEmail());
-//        String name = user.getDisplayName();
-//        if (name == null) {
-//            name = "USER-" + String.valueOf(System.currentTimeMillis());
-//        }
-//        addUser.put("title", name);
-//
-//        FirebaseFirestore.getInstance().collection(COLLECTION_USERS)
-//                .document(user.getDisplayName())
-//                .set(addUser)
-//                .addOnSuccessListener(new OnSuccessListener <Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        //  Log.d(TAG, "DocumentSnapshot successfully written!");
-//                        loginSuccesfully();
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        //   Log.w(TAG, "Error writing document", e);
-//                    }
-//                });
-//
-//    }
-
-
     private void loginSuccesfully(FirebaseUser user, boolean register) {
-        Log.d("DISPLAYNAME-2: ", user.getDisplayName());
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.edit().putString("id", user.getUid())
                 .putString("name", user.getDisplayName())
@@ -204,12 +161,6 @@ public class MainActivity extends AppCompatActivity {
                 .apply();
 
         Intent intent = new Intent(this, Todo.class);
-//        intent.putExtra("id", user.getUid());
-//        intent.putExtra("name", user.getDisplayName());
-//        intent.putExtra("email", user.getEmail());
-//        intent.putExtra("register", register);
-
         startActivity(intent);
     }
-
 }

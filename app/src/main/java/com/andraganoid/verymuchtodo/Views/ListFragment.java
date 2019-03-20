@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -48,7 +47,6 @@ public class ListFragment extends Fragment implements View.OnClickListener {
 
 
         todoActivity = (Todo) getActivity();
-        todoActivity.findViewById(R.id.main_lists).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         listsView = flView.findViewById(R.id.todo_lists_view);
         createView = flView.findViewById(R.id.new_todo_list_form);
         todoActivity.setTitle("Todo lists", "");
@@ -140,7 +138,5 @@ public class ListFragment extends Fragment implements View.OnClickListener {
     private void closeKeyboard() {
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(flView.getWindowToken(), 0);
-        // listsRecView.smoothScrollToPosition(10000);
-
     }
 }

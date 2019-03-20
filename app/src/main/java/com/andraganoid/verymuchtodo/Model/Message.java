@@ -54,6 +54,10 @@ public class Message {
         this.timestamp = timestamp;
     }
 
+    public String getTimestampAsString( ) {
+        return String.valueOf(timestamp);
+    }
+
     public String getFrom() {
         return from;
     }

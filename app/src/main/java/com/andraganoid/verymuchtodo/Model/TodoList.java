@@ -4,13 +4,11 @@ import android.text.format.DateFormat;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import static com.andraganoid.verymuchtodo.Todo.myself;
 
 public class TodoList {
-
 
     private StringBuilder sb = new StringBuilder();
 
@@ -21,35 +19,34 @@ public class TodoList {
     private boolean completed;
     private List <TodoItem> todoItemList;
     private String lastEditTimestamp;
+    private String lastEditId;
 
     public TodoList() {
     }
 
-
     public TodoList(String title, String shortDescription, boolean emergency) {
         setLastEditTimestamp();
-        setLastEdit();
+        makeLastEdit();
+        this.lastEditId = myself.getId();
         this.title = title;
         this.shortDescription = shortDescription;
         this.emergency = emergency;
         this.completed = false;
         this.todoItemList = new ArrayList <>();
-
     }
 
-    public void setLastEdit() {
+    public void makeLastEdit() {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(Long.parseLong(lastEditTimestamp));
         String date = DateFormat.format("dd.MM.yyyy HH:mm", cal).toString();
-        setLastEdit(date);
+        makeLastEdit(date);
     }
 
-    public void setLastEdit(String date) {
+    public void makeLastEdit(String date) {
 
         sb.setLength(0);
         sb.append(myself.getName())
                 .append("@")
-//                .append(DateFormat.format("dd.MM.yyyy HH:mm", new Date(lastEditTimestamp)).toString());
                 .append(date);
         this.lastEdit = sb.toString();
     }
@@ -109,6 +106,18 @@ public class TodoList {
 
     public void setLastEditTimestamp(String ts) {
         this.lastEditTimestamp = ts;
-        setLastEdit();
+        makeLastEdit();
+    }
+
+    public String getLastEditId() {
+        return lastEditId;
+    }
+
+    public void setLastEditId(String lastEditId) {
+        this.lastEditId = lastEditId;
+    }
+
+    public void setLastEdit(String lastEdit) {
+        this.lastEdit = lastEdit;
     }
 }

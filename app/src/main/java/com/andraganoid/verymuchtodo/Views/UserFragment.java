@@ -43,7 +43,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         uView = inflater.inflate(R.layout.fragment_user, container, false);
 
         todoActivity = (Todo) getActivity();
-        todoActivity.findViewById(R.id.main_users).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         todoActivity.setTitle("Users", "");
         userRecView = uView.findViewById(R.id.user_rec_view);
         userAdapter = new UserAdapter(todoActivity.userList, todoActivity);

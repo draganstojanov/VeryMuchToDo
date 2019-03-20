@@ -71,15 +71,11 @@ public class ListAdapter extends RecyclerView.Adapter <ListAdapter.ListsViewHold
 
             completed.setVisibility(tl.isCompleted()?View.VISIBLE:View.GONE);
 
-
-//            if (tl.isCompleted()) {
-//                completed.setVisibility(View.VISIBLE);
-//            } else {
-//                completed.setVisibility(View.GONE);
-//            }
             title.setText(tl.getTitle());
             shortDesc.setText(tl.getShortDescription());
             edited.setText(tl.getLastEdit());
+
+            System.out.println("ADAPTER: "+tl.getLastEdit());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

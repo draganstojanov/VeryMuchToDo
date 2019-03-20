@@ -33,7 +33,7 @@
                 android:id="@+id/lists_short_desc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Short description"
+                tools:text="Short description"
                 android:padding="4dp"
                 android:textColor="#000"
                 android:textSize="16sp"

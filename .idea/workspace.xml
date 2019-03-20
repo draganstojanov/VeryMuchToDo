@@ -6,8 +6,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="displayname" />
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
     <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
   </component>
@@ -16,15 +15,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f1c441c-a69b-4c58-a2c9-273a864b41f4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_core_3_2_0_alpha02_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_espresso_espresso_idling_resource_3_2_0_alpha02_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_monitor_1_1_2_alpha02_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_test_runner_1_1_2_alpha02_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_auth_16_2_0_aar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/UserAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/UserFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_user.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/user_row.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.10.1/taskHistory/taskHistory.bin" afterDir="false" />
@@ -33,13 +23,22 @@
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/gradle_models.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/TodoItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/TodoItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/TodoList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/TodoList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Todo.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Todo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ItemAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ItemAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ItemFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ItemFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ListAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ListAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ListFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ListFragment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/MsgFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/MsgFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/UserAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/UserAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/UserFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/UserFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_row.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_row.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_row.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_row.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -58,92 +57,89 @@
     <session id="1339279973">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="12" />
+          <entry key="project.closed" value="15" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.15" value="2" />
           <entry key="project.open.time.16" value="1" />
-          <entry key="project.open.time.19" value="1" />
+          <entry key="project.open.time.19" value="3" />
           <entry key="project.open.time.20" value="3" />
-          <entry key="project.open.time.21" value="1" />
+          <entry key="project.open.time.21" value="2" />
           <entry key="project.open.time.22" value="1" />
           <entry key="project.open.time.23" value="2" />
           <entry key="project.open.time.24" value="1" />
           <entry key="project.open.time.25" value="1" />
           <entry key="project.open.time.28" value="1" />
           <entry key="project.open.time.3" value="1" />
-          <entry key="project.opened" value="16" />
+          <entry key="project.opened" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="gradle" value="8" />
-          <entry key="java" value="58" />
+          <entry key="gradle" value="9" />
+          <entry key="java" value="81" />
           <entry key="json" value="1" />
-          <entry key="xml" value="45" />
+          <entry key="xml" value="50" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Groovy" value="8" />
-          <entry key="JAVA" value="58" />
+          <entry key="Groovy" value="9" />
+          <entry key="JAVA" value="81" />
           <entry key="JSON" value="1" />
-          <entry key="XML" value="45" />
+          <entry key="XML" value="50" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="10" />
-          <entry key="gradle" value="62" />
-          <entry key="java" value="13872" />
+          <entry key="gradle" value="63" />
+          <entry key="java" value="14599" />
           <entry key="txt" value="5" />
-          <entry key="xml" value="3075" />
+          <entry key="xml" value="3120" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Groovy" value="62" />
-          <entry key="JAVA" value="13872" />
+          <entry key="Groovy" value="63" />
+          <entry key="JAVA" value="14599" />
           <entry key="PLAIN_TEXT" value="15" />
-          <entry key="XML" value="3075" />
+          <entry key="XML" value="3120" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Todo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="223" selection-start-line="223" selection-end-line="223" />
+            <state relative-caret-position="-1511">
+              <caret line="204" column="58" selection-start-line="204" selection-start-column="58" selection-end-line="204" selection-end-column="58" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2864#3630#0" expanded="true" />
-                <element signature="e#3629#3630#0" expanded="true" />
-                <element signature="e#4936#5886#0" expanded="true" />
-                <element signature="e#5885#5886#0" expanded="true" />
-                <element signature="e#5959#7557#0" expanded="true" />
-                <element signature="e#6907#7220#0" expanded="true" />
-                <element signature="e#7219#7220#0" expanded="true" />
-                <element signature="e#7556#7557#0" expanded="true" />
-                <element signature="e#7632#8143#0" expanded="true" />
-                <element signature="e#8142#8143#0" expanded="true" />
+                <element signature="e#2815#3700#0" expanded="true" />
+                <element signature="e#3699#3700#0" expanded="true" />
+                <element signature="e#4653#4963#0" expanded="true" />
+                <element signature="e#4962#4963#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/Message.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/VeryOnItemClickListener.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="952">
-              <caret line="72" column="27" selection-start-line="72" selection-start-column="27" selection-end-line="72" selection-end-column="27" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1608#1609#0" expanded="true" />
-                <element signature="e#1644#1645#0" expanded="true" />
-                <element signature="e#1672#1673#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="119">
+              <caret line="7" column="26" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ListAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="614">
+              <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
             </state>
           </provider>
         </entry>
@@ -151,8 +147,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ListFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="50" column="114" selection-start-line="50" selection-start-column="114" selection-end-line="50" selection-end-column="114" />
+            <state relative-caret-position="665">
+              <caret line="139" column="64" selection-start-line="139" selection-start-column="64" selection-end-line="139" selection-end-column="64" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -161,21 +157,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/MainActivity.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/MsgAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="198" column="7" selection-start-line="198" selection-start-column="7" selection-end-line="198" selection-end-column="86" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2242#3514#0" expanded="true" />
-                <element signature="e#3513#3514#0" expanded="true" />
-                <element signature="e#4105#5655#0" expanded="true" />
-                <element signature="e#4726#4989#0" expanded="true" />
-                <element signature="e#4988#4989#0" expanded="true" />
-                <element signature="e#5142#5408#0" expanded="true" />
-                <element signature="e#5407#5408#0" expanded="true" />
-                <element signature="e#5654#5655#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-32">
+              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -183,54 +168,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/UserFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="45" column="114" selection-start-line="45" selection-start-column="114" selection-end-line="45" selection-end-column="114" />
-              <folding>
-                <element signature="e#1905#1906#0" expanded="true" />
-                <element signature="e#1955#1956#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="374">
+              <caret line="44" column="44" selection-start-line="44" selection-start-column="44" selection-end-line="44" selection-end-column="44" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/main.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="64">
-              <caret line="115" column="35" selection-start-line="115" selection-start-column="35" selection-end-line="115" selection-end-column="35" />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/UserAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="461">
-              <caret line="50" selection-start-line="50" selection-end-line="50" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1809#1986#0" expanded="true" />
-                <element signature="e#1985#1986#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/User.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" selection-start-line="9" selection-end-line="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/TodoList.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="961">
-              <caret line="111" column="22" selection-start-line="111" selection-start-column="22" selection-end-line="111" selection-end-column="22" />
+            <state relative-caret-position="512">
+              <caret line="153" selection-start-line="153" selection-end-line="153" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -241,8 +189,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/MsgFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="48" selection-start-line="48" selection-end-line="48" />
+            <state relative-caret-position="374">
+              <caret line="49" column="44" selection-start-line="49" selection-start-column="44" selection-end-line="49" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/UserAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-287">
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ItemFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1375">
+              <caret line="55" selection-start-line="55" selection-end-line="55" />
             </state>
           </provider>
         </entry>
@@ -262,26 +228,10 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>save</find>
-      <find>title</find>
-      <find>1-</find>
-      <find>onclick</find>
-      <find>update</find>
-      <find>right</find>
-      <find>msgRecView</find>
-      <find>menu</find>
-      <find>noti</find>
-      <find>refresh</find>
-      <find>signInWithEmail</find>
-      <find>valid</find>
-      <find>comple</find>
-      <find>is not valid</find>
-      <find>currentList</find>
       <find>choosede</find>
       <find>currentlist</find>
       <find>notify</find>
       <find>create</find>
-      <find>click</find>
       <find>currentItem</find>
       <find>notif</find>
       <find>sout</find>
@@ -289,12 +239,29 @@
       <find>bott</find>
       <find>what</find>
       <find>prefs</find>
-      <find>myself</find>
-      <find>lastEditTimestamp</find>
       <find>main_msg</find>
+      <find>notification</find>
+      <find>lastEditTimestamp</find>
+      <find>currentList</find>
+      <find>timestamp</find>
+      <find>myself</find>
+      <find>setLastEdit</find>
+      <find>TODO</find>
+      <find>click</find>
+      <find>VeryOnItemClickListener</find>
+      <find>changedCompletion</find>
+      <find>main_</find>
+      <find>toast</find>
+      <find>EEE</find>
+      <find>saveList</find>
+      <find>new</find>
+      <find>lastEditId</find>
+      <find>lasted</find>
+      <find>Log</find>
     </findStrings>
     <dirStrings>
       <dir>C:\Projects\Android\VeryMuchToDo\app\src\main\java\com\andraganoid</dir>
+      <dir>C:\Projects\Android\VeryMuchToDo\app\src\main\java\com\andraganoid\verymuchtodo</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -320,30 +287,30 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ListsAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/lists_row.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_item.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_row.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/TodoList.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/TodoItem.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/VeryOnItemClickListener.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/MsgFragmrny.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/list_row.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/msg_row.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/MsgAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ListAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/Message.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_msg.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/User.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ItemAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ItemFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/main_menu.xml" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/UserAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/user_row.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_user.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/UserFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/Message.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ListAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ItemFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/list_row.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_item.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_row.xml" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/TodoItem.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/TodoList.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ItemAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ListFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/MsgFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/UserAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/UserFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Todo.java" />
       </list>
@@ -361,59 +328,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView">
-        <subPane>
-          <expand>
-            <path>
-              <item name="VeryMuchToDo" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="VeryMuchToDo" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-            </path>
-            <path>
-              <item name="VeryMuchToDo" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="verymuchtodo" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VeryMuchToDo" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="verymuchtodo" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="Model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VeryMuchToDo" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="verymuchtodo" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="Views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="VeryMuchToDo" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="VeryMuchToDo" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="VeryMuchToDo" type="1abcf292:AndroidViewProjectNode" />
-              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="ProjectPane" />
-      <pane id="PackagesPane" />
       <pane id="Scope">
         <subPane subId="Scope 'Default Changelist'; set:Default Changelist; class com.intellij.packageDependencies.ChangeListScope">
           <expand>
@@ -567,12 +481,71 @@
           <select />
         </subPane>
       </pane>
+      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="VeryMuchToDo" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+            </path>
+            <path>
+              <item name="VeryMuchToDo" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="VeryMuchToDo" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="verymuchtodo" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="VeryMuchToDo" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="verymuchtodo" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="Model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="VeryMuchToDo" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="verymuchtodo" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="Views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="VeryMuchToDo" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="VeryMuchToDo" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="VeryMuchToDo" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="menu" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="VeryMuchToDo" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="update&#9;PSI&#9;JAVA://com.andraganoid.verymuchtodo.Todo#updateDocument" />
     <property name="android.sdk.path" value="C:/Dev/AndroidSDK" />
-    <property name="device.picker.selection" value="6ee5ca467d94" />
+    <property name="device.picker.selection" value="NQL7N16125000059" />
     <property name="last_opened_file_path" value="C:/Dev/Git/bin/git.exe" />
     <property name="settings.editor.selected.configurable" value="AndroidSdkUpdater" />
     <property name="show.migrate.to.gradle.popup" value="false" />
@@ -673,9 +646,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.20354523" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.18215159" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Build Variants" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
@@ -691,7 +665,7 @@
       <window_info anchor="bottom" id="Event Log" order="6" side_tool="true" weight="0.32911393" />
       <window_info anchor="bottom" id="Flutter Performance" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Build" order="9" visible="true" weight="0.32911393" />
+      <window_info anchor="bottom" id="Build" order="9" weight="0.32911393" />
       <window_info anchor="bottom" id="Find" order="10" weight="0.32911393" />
       <window_info anchor="right" id="Assistant" order="0" weight="0.3294621" />
       <window_info anchor="right" id="Device File Explorer" order="1" side_tool="true" />
@@ -703,6 +677,36 @@
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info anchor="right" id="Preview" order="8" weight="0.3294621" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.18215159" />
+      <window_info id="Structure" order="2" side_tool="true" />
+      <window_info id="Build Variants" order="3" side_tool="true" />
+      <window_info id="Image Layers" order="4" />
+      <window_info id="Designer" order="5" />
+      <window_info id="Capture Tool" order="6" />
+      <window_info id="Favorites" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Run" order="0" weight="0.32911393" />
+      <window_info anchor="bottom" id="Logcat" order="1" weight="0.32911393" />
+      <window_info anchor="bottom" id="TODO" order="2" />
+      <window_info anchor="bottom" id="Android Profiler" order="3" />
+      <window_info anchor="bottom" id="Debug" order="4" />
+      <window_info anchor="bottom" id="Terminal" order="5" />
+      <window_info anchor="bottom" id="Event Log" order="6" side_tool="true" weight="0.32911393" />
+      <window_info anchor="bottom" id="Flutter Performance" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Build" order="9" weight="0.32911393" />
+      <window_info anchor="bottom" id="Find" order="10" weight="0.32911393" />
+      <window_info anchor="right" id="Assistant" order="0" weight="0.3294621" />
+      <window_info anchor="right" id="Device File Explorer" order="1" side_tool="true" />
+      <window_info anchor="right" id="Capture Analysis" order="2" />
+      <window_info anchor="right" id="Gradle" order="3" />
+      <window_info anchor="right" id="Theme Preview" order="4" />
+      <window_info anchor="right" id="Flutter Inspector" order="5" />
+      <window_info anchor="right" id="Flutter Outline" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Preview" order="8" weight="0.3294621" />
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -742,14 +746,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/build/generated/data_binding_base_class_source_out/debug/dataBindingGenBaseClassesDebug/out/com/andraganoid/verymuchtodo/databinding/ListsRowBinding.java" />
     <entry file="file://$PROJECT_DIR$/app/build/generated/data_binding_base_class_source_out/debug/dataBindingGenBaseClassesDebug/out/com/andraganoid/verymuchtodo/databinding/FragmentListsBinding.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/todo.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
     <entry file="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/appcompat-1.0.0.aar/0a46322aaeebb330c97f47b83d47db4c/res/values/values.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="177">
@@ -807,170 +803,124 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/TodoItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/VeryOnItemClickListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_row.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" column="21" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_list.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
           <caret line="42" column="48" lean-forward="true" selection-start-line="42" selection-start-column="48" selection-end-line="42" selection-end-column="48" />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_item.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="806">
-          <caret line="64" lean-forward="true" selection-start-line="1" selection-end-line="64" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/msg_row.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="36" column="52" selection-start-line="36" selection-start-column="52" selection-end-line="36" selection-end-column="52" />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/MsgAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ItemFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2533">
-          <caret line="172" column="18" selection-start-line="172" selection-start-column="18" selection-end-line="172" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ItemAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="39" column="42" selection-start-line="39" selection-start-column="42" selection-end-line="39" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/main_menu.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="35" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="35" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="447">
-          <caret line="39" selection-start-line="39" selection-end-line="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_row.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" selection-start-line="1" selection-end-line="68" selection-end-column="14" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/user_row.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="24" column="39" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="39" />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_msg.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="755">
           <caret line="50" selection-start-line="1" selection-end-line="50" />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_user.xml">
+      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/main.xml">
       <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ListAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1564">
-          <caret line="94" selection-start-line="20" selection-end-line="94" />
+        <state relative-caret-position="1955">
+          <caret line="115" column="35" selection-start-line="115" selection-start-column="35" selection-end-line="115" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/todo.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/main_menu.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="35" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_row.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="-193">
+          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_item.xml">
+      <provider selected="true" editor-type-id="android-designer2" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="-51">
+          <caret line="18" column="48" selection-start-line="18" selection-start-column="48" selection-end-line="18" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_row.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="833">
+          <caret line="49" column="40" selection-start-line="49" selection-start-column="40" selection-end-line="49" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/Message.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="32" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2668#2843#0" expanded="true" />
-            <element signature="e#2842#2843#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ListFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/TodoItem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="50" column="114" selection-start-line="50" selection-start-column="114" selection-end-line="50" selection-end-column="114" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="36">
+          <caret line="22" column="22" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/UserFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/TodoList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="45" column="114" selection-start-line="45" selection-start-column="114" selection-end-line="45" selection-end-column="114" />
-          <folding>
-            <element signature="e#1905#1906#0" expanded="true" />
-            <element signature="e#1955#1956#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/UserAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="461">
-          <caret line="50" selection-start-line="50" selection-end-line="50" />
+        <state relative-caret-position="-83">
+          <caret line="48" column="28" selection-start-line="48" selection-start-column="28" selection-end-line="48" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1809#1986#0" expanded="true" />
-            <element signature="e#1985#1986#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -982,56 +932,69 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/MsgFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ItemAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
+        <state relative-caret-position="716">
+          <caret line="85" selection-start-line="85" selection-end-line="85" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/main.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ItemFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="64">
-          <caret line="115" column="35" selection-start-line="115" selection-start-column="35" selection-end-line="115" selection-end-column="35" />
+        <state relative-caret-position="-1375">
+          <caret line="55" selection-start-line="55" selection-end-line="55" />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/Message.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ListAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="952">
-          <caret line="72" column="27" selection-start-line="72" selection-start-column="27" selection-end-line="72" selection-end-column="27" />
+        <state relative-caret-position="614">
+          <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/ListFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="665">
+          <caret line="139" column="64" selection-start-line="139" selection-start-column="64" selection-end-line="139" selection-end-column="64" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1608#1609#0" expanded="true" />
-            <element signature="e#1644#1645#0" expanded="true" />
-            <element signature="e#1672#1673#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/MsgAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-32">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/MsgFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="49" column="44" selection-start-line="49" selection-start-column="44" selection-end-line="49" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/UserAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-287">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Views/UserFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="44" column="44" selection-start-line="44" selection-start-column="44" selection-end-line="44" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="198" column="7" selection-start-line="198" selection-start-column="7" selection-end-line="198" selection-end-column="86" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2242#3514#0" expanded="true" />
-            <element signature="e#3513#3514#0" expanded="true" />
-            <element signature="e#4105#5655#0" expanded="true" />
-            <element signature="e#4726#4989#0" expanded="true" />
-            <element signature="e#4988#4989#0" expanded="true" />
-            <element signature="e#5142#5408#0" expanded="true" />
-            <element signature="e#5407#5408#0" expanded="true" />
-            <element signature="e#5654#5655#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Model/TodoList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="961">
-          <caret line="111" column="22" selection-start-line="111" selection-start-column="22" selection-end-line="111" selection-end-column="22" />
+        <state relative-caret-position="512">
+          <caret line="153" selection-start-line="153" selection-end-line="153" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1040,21 +1003,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/Todo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="223" selection-start-line="223" selection-end-line="223" />
+        <state relative-caret-position="-1511">
+          <caret line="204" column="58" selection-start-line="204" selection-start-column="58" selection-end-line="204" selection-end-column="58" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2864#3630#0" expanded="true" />
-            <element signature="e#3629#3630#0" expanded="true" />
-            <element signature="e#4936#5886#0" expanded="true" />
-            <element signature="e#5885#5886#0" expanded="true" />
-            <element signature="e#5959#7557#0" expanded="true" />
-            <element signature="e#6907#7220#0" expanded="true" />
-            <element signature="e#7219#7220#0" expanded="true" />
-            <element signature="e#7556#7557#0" expanded="true" />
-            <element signature="e#7632#8143#0" expanded="true" />
-            <element signature="e#8142#8143#0" expanded="true" />
+            <element signature="e#2815#3700#0" expanded="true" />
+            <element signature="e#3699#3700#0" expanded="true" />
+            <element signature="e#4653#4963#0" expanded="true" />
+            <element signature="e#4962#4963#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/VeryOnItemClickListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="26" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="26" />
         </state>
       </provider>
     </entry>

@@ -48,7 +48,6 @@ public class MsgFragment extends Fragment implements View.OnClickListener {
         msgText = mView.findViewById(R.id.new_msg);
 
         todoActivity = (Todo) getActivity();
-        todoActivity.findViewById(R.id.main_msg).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         todoActivity.setTitle("Messages", "");
         msgRecView = mView.findViewById(R.id.msg_rec_view);
         msgAdapter = new MsgAdapter(todoActivity.messagesList);

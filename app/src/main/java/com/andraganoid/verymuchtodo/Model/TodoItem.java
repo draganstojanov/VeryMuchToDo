@@ -20,9 +20,7 @@ public class TodoItem {
     }
 
     public TodoItem(String content) {
-        //  setLastEditTimestamp();
         setLastEdit();
-        //  this.content = content;
         setContent(content);
         this.completed = false;
 
@@ -48,7 +46,7 @@ public class TodoItem {
 
     public void setContent(String content) {
         this.content = content;
-       // setLastEdit();
+       // makeLastEdit();
     }
 
     public boolean isCompleted() {
