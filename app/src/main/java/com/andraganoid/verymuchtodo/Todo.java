@@ -7,13 +7,13 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
-import com.andraganoid.verymuchtodo.Model.Message;
-import com.andraganoid.verymuchtodo.Model.TodoItem;
-import com.andraganoid.verymuchtodo.Model.TodoList;
-import com.andraganoid.verymuchtodo.Model.User;
+import com.andraganoid.verymuchtodo.model.Message;
+import com.andraganoid.verymuchtodo.model.TodoItem;
+import com.andraganoid.verymuchtodo.model.TodoList;
+import com.andraganoid.verymuchtodo.model.User;
 import com.andraganoid.verymuchtodo.Views.ItemFragment;
 import com.andraganoid.verymuchtodo.Views.ListFragment;
-import com.andraganoid.verymuchtodo.Views.MsgFragment;
+import com.andraganoid.verymuchtodo.Views.MessageFragment;
 import com.andraganoid.verymuchtodo.Views.UserFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -47,7 +47,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 
     private final Fragment listsFragment = new ListFragment();
     private final Fragment itemFragment = new ItemFragment();
-    private final Fragment msgFragment = new MsgFragment();
+    private final Fragment msgFragment = new MessageFragment();
     private final Fragment userFragment = new UserFragment();
 
     private FirebaseFirestore todo;
@@ -218,7 +218,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
             } else if (fragmentInstance == itemFragment) {
                 ((ItemFragment) fragmentInstance).refreshItems();
             } else if (fragmentInstance == msgFragment) {
-                ((MsgFragment) fragmentInstance).refreshMsg();
+                ((MessageFragment) fragmentInstance).refreshMsg();
             }
         }
 

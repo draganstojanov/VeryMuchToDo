@@ -18,8 +18,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.andraganoid.verymuchtodo.Model.TodoItem;
-import com.andraganoid.verymuchtodo.Model.TodoList;
+import com.andraganoid.verymuchtodo.model.TodoItem;
 import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.Todo;
 

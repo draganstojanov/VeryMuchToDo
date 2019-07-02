@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.fragments;
+package com.andraganoid.verymuchtodo.auth.register;
 
 import androidx.lifecycle.ViewModel;
 

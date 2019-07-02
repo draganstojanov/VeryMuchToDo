@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.andraganoid.verymuchtodo.Model.Message;
+import com.andraganoid.verymuchtodo.model.Message;
 import com.andraganoid.verymuchtodo.R;
 
 import java.util.List;

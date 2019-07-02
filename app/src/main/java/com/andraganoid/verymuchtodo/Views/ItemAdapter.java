@@ -8,7 +8,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.andraganoid.verymuchtodo.Model.TodoItem;
+import com.andraganoid.verymuchtodo.model.TodoItem;
 import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.VeryOnItemClickListener;
 

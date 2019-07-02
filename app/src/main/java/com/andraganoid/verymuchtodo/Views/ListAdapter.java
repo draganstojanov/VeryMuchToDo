@@ -7,8 +7,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.andraganoid.verymuchtodo.Model.Message;
-import com.andraganoid.verymuchtodo.Model.TodoList;
+import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.VeryOnItemClickListener;
 

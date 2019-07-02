@@ -1,6 +1,6 @@
 package com.andraganoid.verymuchtodo;
 
-import com.andraganoid.verymuchtodo.Model.TodoList;
+import com.andraganoid.verymuchtodo.model.TodoList;
 
 public interface VeryOnItemClickListener {
     void listChoosed(TodoList tl);

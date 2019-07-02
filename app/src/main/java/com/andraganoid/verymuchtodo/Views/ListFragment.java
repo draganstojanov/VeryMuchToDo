@@ -19,7 +19,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.andraganoid.verymuchtodo.Model.TodoList;
+import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.Todo;
 

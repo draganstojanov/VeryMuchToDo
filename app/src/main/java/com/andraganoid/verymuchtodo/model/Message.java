@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.Model;
+package com.andraganoid.verymuchtodo.model;
 
 import android.text.format.DateFormat;
 

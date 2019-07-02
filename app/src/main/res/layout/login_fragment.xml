@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.LoginFragment">
 
-    <TextView
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="clicker"
+            type="com.andraganoid.verymuchtodo.auth.login.LoginClicker" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sign_in_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <EditText
+            android:id="@+id/sign_in_email"
+            style="@style/TextField"
+            android:hint="Your e-mail"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias=".2" />
+
+        <EditText
+            android:id="@+id/sign_in_password"
+            style="@style/TextField"
+            android:hint="Password"
+            app:layout_constraintTop_toBottomOf="@+id/sign_in_email" />
+
+        <Button
+            android:id="@+id/sign_in_button"
+            style="@style/TextField"
+            android:onClick="@{()->clicker.onLoginConfirm()}"
+            android:text="@string/login"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@+id/sign_in_password" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

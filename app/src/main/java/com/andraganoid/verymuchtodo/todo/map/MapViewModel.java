@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.fragments.map;
+package com.andraganoid.verymuchtodo.todo.map;
 
 import androidx.lifecycle.ViewModel;
 

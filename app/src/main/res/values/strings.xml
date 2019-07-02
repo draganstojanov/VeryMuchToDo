@@ -3,4 +3,15 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="register">Register</string>
+    <string name="or">or</string>
+    <string name="login">Login</string>
+    <string name="your_name">Enter your name...</string>
+    <string name="your_email">Enter your email...</string>
+    <string name="your_pass">Enter your password...</string>
+    <string name="auth_failed">Authentification failed</string>
+    <string name="error">ERROR!</string>
+    <string name="invalid_mail">Email address is not valid!</string>
+    <string name="invalid_name">Name must be min 3 chars long!</string>
+    <string name="invalid_pass">password must be min 6 chars long!</string>
 </resources>

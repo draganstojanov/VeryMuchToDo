@@ -1,13 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.RegisterFragment">
 
-    <TextView
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="clicker"
+            type="com.andraganoid.verymuchtodo.auth.register.RegisterClicker" />
+
+        <variable
+            name="viewModel"
+            type="com.andraganoid.verymuchtodo.ToDoViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/register_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <EditText
+            android:id="@+id/register_username"
+            style="@style/TextField"
+            android:hint="@string/your_name"
+            android:text="@={viewModel.registrationName}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias=".2" />
+
+        <EditText
+            android:id="@+id/register_email"
+            style="@style/TextField"
+            android:hint="@string/your_email"
+            android:text="@={viewModel.registrationMail}"
+            app:layout_constraintTop_toBottomOf="@+id/register_username" />
+
+        <EditText
+            android:id="@+id/register_password"
+            style="@style/TextField"
+            android:hint="@string/your_pass"
+            android:text="@={viewModel.registrationPass}"
+            app:layout_constraintTop_toBottomOf="@+id/register_email" />
+
+        <Button
+            android:id="@+id/register_button"
+            style="@style/TextField"
+            android:onClick="@{()->clicker.onRegisterConfirm()}"
+            android:text="@string/register"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@+id/register_password" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
