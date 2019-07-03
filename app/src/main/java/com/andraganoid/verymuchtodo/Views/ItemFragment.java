@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import com.andraganoid.verymuchtodo.model.TodoItem;
 import com.andraganoid.verymuchtodo.R;
-import com.andraganoid.verymuchtodo.Todo;
+import com.andraganoid.verymuchtodo.todo.Todo;
 
 import java.util.ArrayList;
 import java.util.List;

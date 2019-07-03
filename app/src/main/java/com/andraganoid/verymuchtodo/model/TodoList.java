@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import static com.andraganoid.verymuchtodo.Todo.myself;
+import static com.andraganoid.verymuchtodo.todo.Todo.myself;
 
 public class TodoList {
 

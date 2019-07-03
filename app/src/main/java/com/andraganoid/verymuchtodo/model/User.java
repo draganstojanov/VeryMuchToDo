@@ -7,6 +7,7 @@ public class User {
     private String name;
     private String email;
     private Location location;
+    private Long locationTimestamp;
 
 
     public User() {
@@ -17,6 +18,7 @@ public class User {
         this.name = name;
         this.email = email;
         this.location = null;
+        this.locationTimestamp = null;
     }
 
     public String getId() {
@@ -49,5 +51,13 @@ public class User {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public Long getLocationTimestamp() {
+        return locationTimestamp;
+    }
+
+    public void setLocationTimestamp(Long locationTimestamp) {
+        this.locationTimestamp = locationTimestamp;
     }
 }

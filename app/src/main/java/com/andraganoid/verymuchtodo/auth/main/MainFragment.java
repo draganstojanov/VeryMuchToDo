@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.andraganoid.verymuchtodo.MainActivity;
 import com.andraganoid.verymuchtodo.R;
-import com.andraganoid.verymuchtodo.ToDoViewModel;
+import com.andraganoid.verymuchtodo.MainViewModel;
 import com.andraganoid.verymuchtodo.databinding.MainFragmentBinding;
 
 import static com.andraganoid.verymuchtodo.MainActivity.LOGIN_FRAGMENT;
@@ -21,13 +21,13 @@ import static com.andraganoid.verymuchtodo.MainActivity.REGISTER_FRAGMENT;
 
 public class MainFragment extends Fragment implements MainClicker {
 
-    protected ToDoViewModel toDoViewModel;
+    protected MainViewModel mainViewModel;
     protected MainActivity main;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        toDoViewModel = ViewModelProviders.of(getActivity()).get(ToDoViewModel.class);
+        mainViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
         main = (MainActivity) getActivity();
     }
 
@@ -42,7 +42,7 @@ public class MainFragment extends Fragment implements MainClicker {
                 container,
                 false);
         binding.setClicker(this);
-        binding.setViewModel(toDoViewModel);
+        binding.setViewModel(mainViewModel);
 
         return binding.getRoot();
     }
@@ -50,8 +50,8 @@ public class MainFragment extends Fragment implements MainClicker {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (toDoViewModel.mAuth == null) {
-            main.loginSuccesfully(toDoViewModel.mAuth.getCurrentUser());
+        if (mainViewModel.mAuth == null) {
+            main.loginSuccesfully(mainViewModel.mAuth.getCurrentUser());
         }
     }
 

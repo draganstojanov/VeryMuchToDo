@@ -19,10 +19,10 @@ import android.widget.Toast;
 
 import com.andraganoid.verymuchtodo.model.Message;
 import com.andraganoid.verymuchtodo.R;
-import com.andraganoid.verymuchtodo.Todo;
+import com.andraganoid.verymuchtodo.todo.Todo;
 
-import static com.andraganoid.verymuchtodo.Todo.COLLECTION_MESSAGES;
-import static com.andraganoid.verymuchtodo.Todo.myself;
+import static com.andraganoid.verymuchtodo.todo.Todo.COLLECTION_MESSAGES;
+import static com.andraganoid.verymuchtodo.todo.Todo.myself;
 
 public class MessageFragment extends Fragment implements View.OnClickListener {
 

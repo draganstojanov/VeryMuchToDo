@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.andraganoid.verymuchtodo.R;
-import com.andraganoid.verymuchtodo.Todo;
+import com.andraganoid.verymuchtodo.todo.Todo;
 
 
 public class UserFragment extends Fragment implements View.OnClickListener {

@@ -11,7 +11,7 @@
 
         <variable
             name="viewModel"
-            type="com.andraganoid.verymuchtodo.ToDoViewModel" />
+            type="com.andraganoid.verymuchtodo.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

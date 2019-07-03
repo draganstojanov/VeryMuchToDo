@@ -21,10 +21,10 @@ import android.widget.Toast;
 
 import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.R;
-import com.andraganoid.verymuchtodo.Todo;
+import com.andraganoid.verymuchtodo.todo.Todo;
 
 
-import static com.andraganoid.verymuchtodo.Todo.COLLECTION_TODOS;
+import static com.andraganoid.verymuchtodo.todo.Todo.COLLECTION_TODOS;
 
 
 public class ListFragment extends Fragment implements View.OnClickListener {

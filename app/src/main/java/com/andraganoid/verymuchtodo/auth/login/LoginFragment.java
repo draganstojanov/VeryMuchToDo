@@ -1,6 +1,7 @@
 package com.andraganoid.verymuchtodo.auth.login;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,12 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
 import com.andraganoid.verymuchtodo.R;
-import com.andraganoid.verymuchtodo.databinding.LoginFragmentBinding;
 import com.andraganoid.verymuchtodo.auth.main.MainFragment;
+import com.andraganoid.verymuchtodo.databinding.LoginFragmentBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+
 
 public class LoginFragment extends MainFragment implements LoginClicker {
 
@@ -27,21 +32,31 @@ public class LoginFragment extends MainFragment implements LoginClicker {
                 container,
                 false);
         binding.setClicker(this);
-        //  binding.setViewModel(toDoViewModel);
+        binding.setViewModel(mainViewModel);
 
         return binding.getRoot();
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-//        if (toDoViewModel.mAuth == null) {
-//            main.navigateToFragment(LIST_FRAGMENT);
-//        }
-    }
 
     @Override
     public void onLoginConfirm() {
-        Toast.makeText(main, "LOGIN", Toast.LENGTH_SHORT).show();
+        if (!TextUtils.isEmpty(mainViewModel.userMail)
+                && !TextUtils.isEmpty(mainViewModel.userPass)) {
+            mainViewModel.mAuth.signInWithEmailAndPassword(
+                    mainViewModel.userMail,
+                    mainViewModel.userPass)
+                    .addOnCompleteListener(main, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                main.loginSuccesfully(mainViewModel.mAuth.getCurrentUser());
+                            } else {
+                                Toast.makeText(main, getString(R.string.auth_failed)+"\n"+task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+        }
     }
 }
+
+

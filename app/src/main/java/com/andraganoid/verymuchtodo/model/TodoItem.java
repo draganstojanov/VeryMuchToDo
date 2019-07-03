@@ -4,7 +4,7 @@ import android.text.format.DateFormat;
 
 import java.util.Calendar;
 
-import static com.andraganoid.verymuchtodo.Todo.myself;
+import static com.andraganoid.verymuchtodo.todo.Todo.myself;
 
 public class TodoItem {
 
