@@ -14,7 +14,7 @@ public class TodoList {
 
     private String title;
     private String shortDescription;
-    //  private String lastEdit;
+    private String lastEditDate;
     private boolean emergency;
     private boolean completed;
     private List<TodoItem> todoItemList;
@@ -32,7 +32,7 @@ public class TodoList {
 
     public TodoList(String title, String shortDescription, boolean emergency) {
         setLastEditTimestamp();
-        makeLastEdit();
+      //  makeLastEdit();
         this.lastEditId = myself.getId();
         this.title = title;
         this.shortDescription = shortDescription;
@@ -126,5 +126,17 @@ public class TodoList {
 
     public void setLastEdit(String lastEdit) {
         this.lastEdit = lastEdit;
+    }
+
+    public User getLastEditBy() {
+        return lastEditBy;
+    }
+
+    public void setLastEditBy(User lastEditBy) {
+        this.lastEditBy = lastEditBy;
+    }
+
+    public String getLastEditDate() {
+        return lastEditDate;
     }
 }

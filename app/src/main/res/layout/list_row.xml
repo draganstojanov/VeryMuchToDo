@@ -1,72 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="4dp">
 
-    <androidx.cardview.widget.CardView
+<layout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="todoListItem"
+            type="com.andraganoid.verymuchtodo.model.TodoList" />
+
+        <variable
+            name="clicker"
+            type="com.andraganoid.verymuchtodo.todo.list.ListClicker" />
+    </data>
+
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="4dp">
+        android:layout_marginBottom="4dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/lists_box"
-            android:padding="1dp">
+            app:cardElevation="4dp">
 
-            <TextView
-                android:id="@+id/lists_title"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:gravity="center"
-                android:hint="Title"
-                android:padding="4dp"
-                android:textColor="#fff"
-                android:textSize="24sp"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:background="@drawable/lists_box"
+                android:onClick="@{()->clicker.onItemClicked(todoListItem)}"
+                android:onLongClick="@{()->clicker.onItemLongClicked(todoListItem)}"
+                android:padding="1dp">
 
-            <TextView
-                android:id="@+id/lists_short_desc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="Short description"
-                android:padding="4dp"
-                android:textColor="#000"
-                android:textSize="16sp"
-                app:layout_constraintTop_toBottomOf="@id/lists_title" />
+                <TextView
+                    android:id="@+id/lists_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:text="@{todoListItem.title}"
+                    android:textColor="#fff"
+                    android:textSize="24sp"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/lists_edited"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
-                android:paddingTop="2dp"
-                android:paddingRight="4dp"
-                android:paddingBottom="2dp"
-                android:textColor="#000"
-                android:textSize="12sp"
-                app:layout_constraintTop_toBottomOf="@id/lists_short_desc"
-                tools:text="Edited : 07.03.2019. 23:45 by Ina" />
+                <TextView
+                    android:id="@+id/lists_short_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:text="@{todoListItem.shortDescription}"
+                    android:textColor="#000"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@id/lists_title" />
 
-            <ImageView
-                android:id="@+id/list_completed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_check_red_500_36dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                tools:visibility="visible" />
+                <TextView
+                    android:id="@+id/lists_edited"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="4dp"
+                    android:paddingTop="2dp"
+                    android:paddingRight="4dp"
+                    android:paddingBottom="2dp"
+                    android:text="@{todoListItem.lastEditBy.name+` `+todoListItem.lastEditDate}"
+                    android:textColor="#000"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@id/lists_short_desc" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <ImageView
+                    android:id="@+id/list_completed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_check_red_500_36dp"
+                    android:visibility="@{todoListItem.completed ? View.VISIBLE : View.INVISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
 
-    </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-</FrameLayout>
+        </androidx.cardview.widget.CardView>
+
+    </FrameLayout>
+
+</layout>
 
 
 

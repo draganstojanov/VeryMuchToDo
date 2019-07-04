@@ -284,7 +284,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
     }
 
 
-    private void navigateToFragment(Fragment fragment) {
+    public void navigateToFragment(Fragment fragment) {
 
         if (fragment != null) {
             getSupportFragmentManager()

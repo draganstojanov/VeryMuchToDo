@@ -17,7 +17,7 @@
         tools:context=".todo.list.ListFragment">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/lists_rec_view"
+            android:id="@+id/list_rec_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="60dp"

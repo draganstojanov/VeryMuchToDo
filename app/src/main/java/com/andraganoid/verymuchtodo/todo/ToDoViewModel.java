@@ -14,9 +14,9 @@ import java.util.ArrayList;
 
 public class ToDoViewModel extends ViewModel {
 
-    MutableLiveData<ArrayList<User>> userList = new MutableLiveData<>();
-    MutableLiveData<ArrayList<TodoList>> todoList = new MutableLiveData<>();
-    MutableLiveData<ArrayList<Message>> messageList = new MutableLiveData<>();
+  public  MutableLiveData<ArrayList<User>> userList = new MutableLiveData<>();
+   public MutableLiveData<ArrayList<TodoList>> todoList = new MutableLiveData<>();
+   public MutableLiveData<ArrayList<Message>> messageList = new MutableLiveData<>();
 
     public FirebaseFirestore todo;
     public ObservableField<User> user = new ObservableField<>();
