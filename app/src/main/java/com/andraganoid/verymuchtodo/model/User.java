@@ -2,12 +2,15 @@ package com.andraganoid.verymuchtodo.model;
 
 import android.location.Location;
 
+import java.util.HashMap;
+
 public class User {
     private String id;
     private String name;
     private String email;
     private Location location;
     private Long locationTimestamp;
+    final String COLLECTION_USERS = "colUsers";
 
 
     public User() {
@@ -59,5 +62,16 @@ public class User {
 
     public void setLocationTimestamp(Long locationTimestamp) {
         this.locationTimestamp = locationTimestamp;
+    }
+
+    public Document getDocument() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("name", name);
+        map.put("email", email);
+        map.put("location", location);
+        map.put("locationTimestamp", locationTimestamp);
+
+        return new Document(COLLECTION_USERS, id, map);
     }
 }

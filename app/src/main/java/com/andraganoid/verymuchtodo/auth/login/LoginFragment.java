@@ -51,7 +51,7 @@ public class LoginFragment extends MainFragment implements LoginClicker {
                             if (task.isSuccessful()) {
                                 main.loginSuccesfully(mainViewModel.mAuth.getCurrentUser());
                             } else {
-                                Toast.makeText(main, getString(R.string.auth_failed)+"\n"+task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                Toast.makeText(main, getString(R.string.auth_failed) + "\n" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             }
                         }
                     });

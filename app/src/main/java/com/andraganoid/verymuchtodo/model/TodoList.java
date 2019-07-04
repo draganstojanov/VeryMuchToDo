@@ -14,14 +14,20 @@ public class TodoList {
 
     private String title;
     private String shortDescription;
-    private String lastEdit;
+    //  private String lastEdit;
     private boolean emergency;
     private boolean completed;
-    private List <TodoItem> todoItemList;
-    private String lastEditTimestamp;
-    private String lastEditId;
+    private List<TodoItem> todoItemList;
+    private Long lastEditTimestamp;
+    // private String lastEditId;
+    private User lastEditBy;
 
     public TodoList() {
+    }
+
+
+    public TodoList(User user) {
+        this.lastEditBy = user;
     }
 
     public TodoList(String title, String shortDescription, boolean emergency) {
@@ -32,10 +38,11 @@ public class TodoList {
         this.shortDescription = shortDescription;
         this.emergency = emergency;
         this.completed = false;
-        this.todoItemList = new ArrayList <>();
+        this.todoItemList = new ArrayList<>();
     }
 
     public void makeLastEdit() {
+
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(Long.parseLong(lastEditTimestamp));
         String date = DateFormat.format("dd.MM.yyyy HH:mm", cal).toString();
@@ -87,11 +94,11 @@ public class TodoList {
         this.completed = completed;
     }
 
-    public List <TodoItem> getTodoItemList() {
+    public List<TodoItem> getTodoItemList() {
         return todoItemList;
     }
 
-    public void setTodoItemList(List <TodoItem> todoItemList) {
+    public void setTodoItemList(List<TodoItem> todoItemList) {
         this.todoItemList = todoItemList;
     }
 

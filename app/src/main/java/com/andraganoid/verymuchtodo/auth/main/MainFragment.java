@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.andraganoid.verymuchtodo.MainActivity;
-import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.MainViewModel;
+import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.databinding.MainFragmentBinding;
 
 import static com.andraganoid.verymuchtodo.MainActivity.LOGIN_FRAGMENT;
@@ -27,8 +27,8 @@ public class MainFragment extends Fragment implements MainClicker {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
         main = (MainActivity) getActivity();
+        mainViewModel = ViewModelProviders.of(main).get(MainViewModel.class);
     }
 
     @Override
