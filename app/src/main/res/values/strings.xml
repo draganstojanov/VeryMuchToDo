@@ -18,4 +18,5 @@
     <string name="short_desc">Short description</string>
     <string name="emergency">Emergrncy</string>
     <string name="create_list">Create ToDo list</string>
+    <string name="list_not_completed">List is not completed!</string>
 </resources>

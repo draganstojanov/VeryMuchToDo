@@ -14,14 +14,14 @@ import java.util.ArrayList;
 
 public class ToDoViewModel extends ViewModel {
 
-  public  MutableLiveData<ArrayList<User>> userList = new MutableLiveData<>();
-   public MutableLiveData<ArrayList<TodoList>> todoList = new MutableLiveData<>();
-   public MutableLiveData<ArrayList<Message>> messageList = new MutableLiveData<>();
+    public MutableLiveData<ArrayList<User>> userList = new MutableLiveData<>();
+    public MutableLiveData<ArrayList<TodoList>> todoList = new MutableLiveData<>();
+    public MutableLiveData<ArrayList<Message>> messageList = new MutableLiveData<>();
 
     public FirebaseFirestore todo;
     public ObservableField<User> user = new ObservableField<>();
 
-    MutableLiveData<Document> addDocument = new MutableLiveData<>();
-    MutableLiveData<Document> deleteDocument = new MutableLiveData<>();
+    public MutableLiveData<Document> addDocument = new MutableLiveData<>();
+    public MutableLiveData<Document> deleteDocument = new MutableLiveData<>();
 
 }

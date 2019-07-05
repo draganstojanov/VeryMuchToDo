@@ -39,7 +39,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
     ToDoViewModel toDoViewModel;
     private SharedPreferences prefs;
 
-    public static final String COLLECTION_TODOS = "colToDos";
+//    public static final String COLLECTION_TODOS = "colToDos";
     public static final String COLLECTION_MESSAGES = "colMessages";
     //  final String COLLECTION_USERS = "colUsers";
 
@@ -72,6 +72,13 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
             @Override
             public void onChanged(Document document) {
                 addDocument(document);
+            }
+        });
+
+        toDoViewModel.deleteDocument.observe(this, new Observer<Document>() {
+            @Override
+            public void onChanged(Document document) {
+                deleteDocument(document);
             }
         });
 
@@ -243,17 +250,17 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
             todoList.setCompleted(co);
         }
 
-        documentData.clear();
-        documentData.put("title", todoList.getTitle());
-        documentData.put("shortDescription", todoList.getShortDescription());
-        documentData.put("lastEdit", todoList.getLastEdit());
-        documentData.put("lastEditTimestamp", todoList.getLastEditTimestamp());
-        documentData.put("emergency", todoList.isEmergency());
-        documentData.put("completed", todoList.isCompleted());
-        documentData.put("todoItemList", todoList.getTodoItemList());
-        documentData.put("lastEditId", todoList.getLastEditId());
+//        documentData.clear();
+//        documentData.put("title", todoList.getTitle());
+//        documentData.put("shortDescription", todoList.getShortDescription());
+//        documentData.put("lastEdit", todoList.getLastEdit());
+//        documentData.put("lastEditTimestamp", todoList.getLastEditTimestamp());
+//        documentData.put("emergency", todoList.isEmergency());
+//        documentData.put("completed", todoList.isCompleted());
+//        documentData.put("todoItemList", todoList.getTodoItemList());
+//        documentData.put("lastEditId", todoList.getLastEditId());
 
-        addDocument(COLLECTION_TODOS, todoList.getTitle(), documentData);
+   //     addDocument(COLLECTION_TODOS, todoList.getTitle(), documentData);
 
         listChoosed(todoList);
 
@@ -280,7 +287,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
         documentData.put("title", message.getTitle());
         documentData.put("id", message.getId());
 
-        addDocument(COLLECTION_MESSAGES, message.getTitle(), documentData);
+       // addDocument(COLLECTION_MESSAGES, message.getTitle(), documentData);
     }
 
 

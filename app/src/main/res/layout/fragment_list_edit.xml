@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="viewModel"
+            name="clicker"
+            type="com.andraganoid.verymuchtodo.todo.listedit.ListEditClicker" />
+
+        <variable
+            name="todoList"
             type="com.andraganoid.verymuchtodo.model.TodoList" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".todo.list.ListEditFragment">
+        tools:context=".todo.listedit.ListEditFragment">
 
         <EditText
             android:id="@+id/new_todo_list_title"
@@ -23,6 +27,7 @@
             android:background="@drawable/input_box"
             android:hint="@string/list_name"
             android:padding="8dp"
+            android:text="@={todoList.title}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias=".25" />
@@ -35,6 +40,7 @@
             android:background="@drawable/input_box"
             android:hint="@string/short_desc"
             android:padding="8dp"
+            android:text="@={todoList.shortDescription}"
             app:layout_constraintTop_toBottomOf="@+id/new_todo_list_title" />
 
         <CheckBox
@@ -42,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="32dp"
+            android:checked="@={todoList.emergency}"
             android:text="@string/emergency"
             app:layout_constraintTop_toBottomOf="@+id/new_todo_list_desc" />
 
@@ -53,8 +60,8 @@
             android:background="@drawable/input_box"
             android:text="@string/create_list"
             android:textAllCaps="false"
+            android:onClick="@{()->clicker.onCreateClicked(todoList)}"
             app:layout_constraintTop_toBottomOf="@+id/new_todo_list_emergency" />
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

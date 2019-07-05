@@ -18,14 +18,14 @@ import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.databinding.ListFragmentBinding;
 import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.todo.TodoBaseFragment;
+import com.andraganoid.verymuchtodo.todo.listedit.ListEditFragment;
 
 import java.util.ArrayList;
 
-import static com.andraganoid.verymuchtodo.todo.Todo.COLLECTION_TODOS;
 
 public class ListFragment extends TodoBaseFragment implements ListClicker {
 
-    ListFragmentBinding binding;
+    private ListFragmentBinding binding;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -39,8 +39,6 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
                 false);
         binding.setClicker(this);
 
-        //  binding.setViewModel(todoViewModel);
-
         return binding.getRoot();
     }
 
@@ -48,35 +46,6 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         closeKeyboard();
-
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
-                new ItemTouchHelper.SimpleCallback(
-                        0,
-                        ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-
-
-                    @Override
-                    public boolean onMove(@NonNull RecyclerView recyclerView,
-                                          @NonNull RecyclerView.ViewHolder viewHolder,
-                                          @NonNull RecyclerView.ViewHolder target) {
-                        return false;
-                    }
-
-                    @Override
-                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                        TodoList tl = todoActivity.todoList.get(viewHolder.getAdapterPosition());
-                        if (tl.isCompleted()) {
-                            todoActivity.deleteDocument(COLLECTION_TODOS, tl.getTitle());
-                        } else {
-                            listsAdapter.notifyDataSetChanged();
-                            Toast.makeText(todoActivity, "List is not completed!.", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                };
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-
-        itemTouchHelper.attachToRecyclerView(binding.listRecView);
 
 
         binding.listRecView.setLayoutManager(new LinearLayoutManager(toDo));
@@ -89,11 +58,44 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
                 adapter.notifyDataSetChanged();
             }
         });
+
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
+                new ItemTouchHelper.SimpleCallback(
+                        0,
+                        ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView recyclerView,
+                                          @NonNull RecyclerView.ViewHolder viewHolder,
+                                          @NonNull RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                        TodoList todoList = todoViewModel.todoList.getValue().get(viewHolder.getAdapterPosition());
+
+                        switch (swipeDir) {
+                            case ItemTouchHelper.RIGHT:
+                                if (todoList.isCompleted()) {
+                                    todoViewModel.deleteDocument.setValue(todoList.getDocument());
+                                } else {
+                                    adapter.notifyDataSetChanged();
+                                    Toast.makeText(toDo, getString(R.string.list_not_completed), Toast.LENGTH_LONG).show();
+                                }
+                            case ItemTouchHelper.LEFT:
+                                toDo.navigateToFragment(new ListEditFragment(todoList));
+                        }
+                    }
+                };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(binding.listRecView);
     }
 
     @Override
     public void onFabClicked() {
-        // toDo.navigateToFragment(new ListEditFragment());
+       toDo.navigateToFragment(new ListEditFragment());
         Toast.makeText(toDo, "FAB CLICKED", Toast.LENGTH_SHORT).show();
     }
 

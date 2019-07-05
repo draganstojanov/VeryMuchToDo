@@ -4,11 +4,14 @@ import android.text.format.DateFormat;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import static com.andraganoid.verymuchtodo.todo.Todo.myself;
 
 public class TodoList {
+
+    private final String COLLECTION_TODOS = "colToDos";
 
     private StringBuilder sb = new StringBuilder();
 
@@ -31,8 +34,9 @@ public class TodoList {
     }
 
     public TodoList(String title, String shortDescription, boolean emergency) {
+
         setLastEditTimestamp();
-      //  makeLastEdit();
+        //  makeLastEdit();
         this.lastEditId = myself.getId();
         this.title = title;
         this.shortDescription = shortDescription;
@@ -139,4 +143,18 @@ public class TodoList {
     public String getLastEditDate() {
         return lastEditDate;
     }
+
+    public Document getDocument() {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("title", title);
+        map.put("shortDescription", shortDescription);
+        map.put("emergency", emergency);
+        map.put("completed", completed);
+        map.put("todoItemList", todoItemList);
+        map.put("complelastEditTimestampted", lastEditTimestamp);
+        map.put("lastEditBy", lastEditBy);
+
+        return new Document(COLLECTION_TODOS, title, map);
+    }
+
 }
