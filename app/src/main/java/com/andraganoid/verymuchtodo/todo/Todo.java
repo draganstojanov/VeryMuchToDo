@@ -17,7 +17,6 @@ import com.andraganoid.verymuchtodo.MainActivity;
 import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.VeryOnItemClickListener;
 import com.andraganoid.verymuchtodo.Views.ItemFragment;
-import com.andraganoid.verymuchtodo.Views.ListFragment;
 import com.andraganoid.verymuchtodo.Views.MessageFragment;
 import com.andraganoid.verymuchtodo.Views.UserFragment;
 import com.andraganoid.verymuchtodo.model.Document;
@@ -30,6 +29,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,7 +39,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
     ToDoViewModel toDoViewModel;
     private SharedPreferences prefs;
 
-//    public static final String COLLECTION_TODOS = "colToDos";
+    //    public static final String COLLECTION_TODOS = "colToDos";
     public static final String COLLECTION_MESSAGES = "colMessages";
     //  final String COLLECTION_USERS = "colUsers";
 
@@ -50,12 +50,13 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
     public static final Fragment MAP_FRAGMENT = new MapFragment();
 
     //  private FirebaseFirestore todo;
-    //  public static User myself;
+    public static User myself;
     public TodoList currentList;
 
     public BottomNavigationView bottomMain;
 
     private Map<String, Object> documentData = new HashMap<>();
+
 
 //    public List<User> userList = new ArrayList<>();
 //    public List<TodoList> todoList = new ArrayList<>();
@@ -67,6 +68,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
         setContentView(R.layout.activity_todo);
         toDoViewModel = ViewModelProviders.of(this).get(ToDoViewModel.class);
         toDoViewModel.todo = FirebaseFirestore.getInstance();
+        toDoViewModel.todoList.setValue(new ArrayList<TodoList>());
 
         toDoViewModel.addDocument.observe(this, new Observer<Document>() {
             @Override
@@ -229,7 +231,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 
         if (fragmentInstance != null) {
             if (fragmentInstance == LIST_FRAGMENT) {
-                ((ListFragment) fragmentInstance).refreshLists();
+                //((ListFragment) fragmentInstance).refreshLists();
             } else if (fragmentInstance == ITEM_FRAGMENT) {
                 ((ItemFragment) fragmentInstance).refreshItems();
             } else if (fragmentInstance == MESSAGE_FRAGMENT) {
@@ -260,7 +262,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 //        documentData.put("todoItemList", todoList.getTodoItemList());
 //        documentData.put("lastEditId", todoList.getLastEditId());
 
-   //     addDocument(COLLECTION_TODOS, todoList.getTitle(), documentData);
+        //     addDocument(COLLECTION_TODOS, todoList.getTitle(), documentData);
 
         listChoosed(todoList);
 
@@ -287,7 +289,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
         documentData.put("title", message.getTitle());
         documentData.put("id", message.getId());
 
-       // addDocument(COLLECTION_MESSAGES, message.getTitle(), documentData);
+        // addDocument(COLLECTION_MESSAGES, message.getTitle(), documentData);
     }
 
 
@@ -322,33 +324,24 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
                 prefs.getString("PREFS_EMAIL", ""));
         toDoViewModel.user.set(user);
 
-        if (prefs.getBoolean("PREFS_IS_USER_REGISTRED", false)) {
+        if (!prefs.getBoolean("PREFS_IS_USER_REGISTRED", false)) {
             prefs.edit().putBoolean("PREFS_IS_USER_REGISTRED", true).apply();
 
-            toDoViewModel.addDocument.setValue(user.getDocument());
-
-
-//            documentData.clear();
-//            documentData.put("id", user.getId());
-//            documentData.put("name", user.getName());
-//            documentData.put("email", user.getEmail());
-//            documentData.put("location", user.getLocation());
-//            documentData.put("locationTimestamp", user.getLocationTimestamp());
-
-            //   addDocument(COLLECTION_USERS, user.getId(), documentData);
+            toDoViewModel.addDocument.setValue(new Document(user));
+            
         }
     }
 
 
     public void addDocument(Document document) {
         toDoViewModel.todo.collection(document.getCollection())
-                .document(document.getDocument())
+                .document(document.getDocumentName())
                 .set(document.getMap());
     }
 
     public void deleteDocument(Document document) {
         toDoViewModel.todo.collection(document.getCollection())
-                .document(document.getDocument())
+                .document(document.getDocumentName())
                 .delete();
     }
 
