@@ -10,28 +10,24 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.ListFragment;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.andraganoid.verymuchtodo.MainActivity;
 import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.VeryOnItemClickListener;
-import com.andraganoid.verymuchtodo.Views.ItemFragment;
-import com.andraganoid.verymuchtodo.Views.MessageFragment;
-import com.andraganoid.verymuchtodo.Views.UserFragment;
 import com.andraganoid.verymuchtodo.model.Document;
 import com.andraganoid.verymuchtodo.model.Message;
 import com.andraganoid.verymuchtodo.model.TodoItem;
 import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.model.User;
-import com.andraganoid.verymuchtodo.todo.map.MapFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
@@ -43,11 +39,11 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
     public static final String COLLECTION_MESSAGES = "colMessages";
     //  final String COLLECTION_USERS = "colUsers";
 
-    public static final Fragment LIST_FRAGMENT = new com.andraganoid.verymuchtodo.todo.list.ListFragment();
-    public static final Fragment ITEM_FRAGMENT = new ItemFragment();
-    public static final Fragment MESSAGE_FRAGMENT = new MessageFragment();
-    public static final Fragment USER_FRAGMENT = new UserFragment();
-    public static final Fragment MAP_FRAGMENT = new MapFragment();
+//    public static final Fragment LIST_FRAGMENT = new com.andraganoid.verymuchtodo.todo.list.ListFragment();
+//    public static final Fragment ITEM_FRAGMENT = new ItemFragment();
+//    public static final Fragment MESSAGE_FRAGMENT = new MessageFragment();
+//    public static final Fragment USER_FRAGMENT = new UserFragment();
+//    public static final Fragment MAP_FRAGMENT = new MapFragment();
 
     //  private FirebaseFirestore todo;
     public static User myself;
@@ -55,7 +51,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 
     public BottomNavigationView bottomMain;
 
-    private Map<String, Object> documentData = new HashMap<>();
+  //  private Map<String, Object> documentData = new HashMap<>();
 
 
 //    public List<User> userList = new ArrayList<>();
@@ -70,14 +66,14 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
         toDoViewModel.todo = FirebaseFirestore.getInstance();
         toDoViewModel.todoList.setValue(new ArrayList<TodoList>());
 
-        toDoViewModel.addDocument.observe(this, new Observer<Document>() {
+        toDoViewModel.getAddDocument().observe( this, new Observer<Document>() {
             @Override
             public void onChanged(Document document) {
                 addDocument(document);
             }
         });
 
-        toDoViewModel.deleteDocument.observe(this, new Observer<Document>() {
+        toDoViewModel.getDeleteDocument().observe( this, new Observer<Document>() {
             @Override
             public void onChanged(Document document) {
                 deleteDocument(document);
@@ -87,7 +83,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         setMyself();
 
-        navigateToFragment(LIST_FRAGMENT);
+  navigateToFragment(new ListFragment());
 
         bottomMain = findViewById(R.id.main_bottom_bar);
         bottomMain.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -96,22 +92,22 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 
                 findViewById(menuItem.getItemId()).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
-                switch (menuItem.getItemId()) {
-
-                    case R.id.main_lists:
-                        navigateToFragment(LIST_FRAGMENT);
-                        break;
-                    case R.id.main_msg:
-                        navigateToFragment(MESSAGE_FRAGMENT);
-                        break;
-                    case R.id.main_users:
-                        navigateToFragment(USER_FRAGMENT);
-                        break;
-                    case R.id.main_logout:
-                        logout();
-                        break;
-
-                }
+//                switch (menuItem.getItemId()) {
+//
+//                    case R.id.main_lists:
+//                        navigateToFragment(LIST_FRAGMENT);
+//                        break;
+//                    case R.id.main_msg:
+//                        navigateToFragment(MESSAGE_FRAGMENT);
+//                        break;
+//                    case R.id.main_users:
+//                        navigateToFragment(USER_FRAGMENT);
+//                        break;
+//                    case R.id.main_logout:
+//                        logout();
+//                        break;
+//
+//                }
                 return false;
             }
         });
@@ -229,15 +225,15 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
     private void goFragment() {
         Fragment fragmentInstance = getSupportFragmentManager().findFragmentById(R.id.main_fragment);
 
-        if (fragmentInstance != null) {
-            if (fragmentInstance == LIST_FRAGMENT) {
-                //((ListFragment) fragmentInstance).refreshLists();
-            } else if (fragmentInstance == ITEM_FRAGMENT) {
-                ((ItemFragment) fragmentInstance).refreshItems();
-            } else if (fragmentInstance == MESSAGE_FRAGMENT) {
-                ((MessageFragment) fragmentInstance).refreshMsg();
-            }
-        }
+//        if (fragmentInstance != null) {
+//            if (fragmentInstance == LIST_FRAGMENT) {
+//                //((ListFragment) fragmentInstance).refreshLists();
+//            } else if (fragmentInstance == ITEM_FRAGMENT) {
+//                ((ItemFragment) fragmentInstance).refreshItems();
+//            } else if (fragmentInstance == MESSAGE_FRAGMENT) {
+//                ((MessageFragment) fragmentInstance).refreshMsg();
+//            }
+      //  }
 
     }
 
@@ -271,7 +267,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
     @Override
     public void listChoosed(TodoList tl) {
         currentList = tl;
-        navigateToFragment(ITEM_FRAGMENT);
+      //  navigateToFragment(ITEM_FRAGMENT);
     }
 
     @Override
@@ -282,12 +278,12 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 
 
     public void sendMessage(Message message) {
-        documentData.clear();
-        documentData.put("text", message.getText());
-        documentData.put("timestamp", message.getTimestamp());
-        documentData.put("from", message.getFrom());
-        documentData.put("title", message.getTitle());
-        documentData.put("id", message.getId());
+//        documentData.clear();
+//        documentData.put("text", message.getText());
+//        documentData.put("timestamp", message.getTimestamp());
+//        documentData.put("from", message.getFrom());
+//        documentData.put("title", message.getTitle());
+//        documentData.put("id", message.getId());
 
         // addDocument(COLLECTION_MESSAGES, message.getTitle(), documentData);
     }
@@ -345,17 +341,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
                 .delete();
     }
 
-//    public void addDocument(String collection, String addDocument, Map map) {
-//        toDoViewModel.todo.collection(collection)
-//                .addDocument(addDocument)
-//                .set(map);
-//    }
 
-//    public void deleteDocument(final String collection, String addDocument) {
-//        todo.collection(collection)
-//                .addDocument(addDocument)
-//                .delete();
-//    }
 
 
 }

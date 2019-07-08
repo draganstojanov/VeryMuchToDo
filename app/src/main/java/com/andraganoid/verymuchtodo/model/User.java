@@ -8,9 +8,8 @@ public class User {
     private String id;
     private String name;
     private String email;
-    private Location location;
-    private Long locationTimestamp;
-    final String COLLECTION_USERS = "colUsers";
+  //  private Location location=null;
+  //  private Long locationTimestamp=null;
 
 
     public User() {
@@ -20,8 +19,6 @@ public class User {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.location = null;
-        this.locationTimestamp = null;
     }
 
     public String getId() {
@@ -48,30 +45,19 @@ public class User {
         this.email = email;
     }
 
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
-
-    public Long getLocationTimestamp() {
-        return locationTimestamp;
-    }
-
-    public void setLocationTimestamp(Long locationTimestamp) {
-        this.locationTimestamp = locationTimestamp;
-    }
-
-    public Document getDocument() {
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("id", id);
-        map.put("name", name);
-        map.put("email", email);
-        map.put("location", location);
-        map.put("locationTimestamp", locationTimestamp);
-
-        return new Document(COLLECTION_USERS, id, map);
-    }
+//    public Location getLocation() {
+//        return location;
+//    }
+//
+//    public void setLocation(Location location) {
+//        this.location = location;
+//    }
+//
+//    public Long getLocationTimestamp() {
+//        return locationTimestamp;
+//    }
+//
+//    public void setLocationTimestamp(Long locationTimestamp) {
+//        this.locationTimestamp = locationTimestamp;
+//    }
 }

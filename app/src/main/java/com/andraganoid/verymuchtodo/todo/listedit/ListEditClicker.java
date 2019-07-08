@@ -4,4 +4,5 @@ import com.andraganoid.verymuchtodo.model.TodoList;
 
 public interface ListEditClicker {
     void onCreateClicked(TodoList todoList);
+    void onCancelClicked();
 }

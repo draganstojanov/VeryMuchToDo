@@ -14,7 +14,7 @@ import com.andraganoid.verymuchtodo.model.TodoList;
 import java.util.ArrayList;
 
 public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapter.ListHolder> {
-    private ArrayList<TodoList> tlList;
+    private ArrayList<TodoList> tlList=new ArrayList<>();
     private ListClicker clicker;
 
     ListFragmentAdapter(ArrayList<TodoList> tlList, ListClicker clicker) {
@@ -40,7 +40,7 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
 
     @Override
     public int getItemCount() {
-        return tlList.size();
+       return tlList.size();
     }
 
     class ListHolder extends RecyclerView.ViewHolder {

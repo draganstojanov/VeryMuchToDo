@@ -1,6 +1,7 @@
 package com.andraganoid.verymuchtodo.todo;
 
 import androidx.databinding.ObservableField;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -23,5 +24,18 @@ public class ToDoViewModel extends ViewModel {
 
     public MutableLiveData<Document> addDocument = new MutableLiveData<>();
     public MutableLiveData<Document> deleteDocument = new MutableLiveData<>();
+
+    public LiveData<Document> getAddDocument() {
+        return addDocument;
+    }
+
+    public LiveData<Document> getDeleteDocument() {
+        return deleteDocument;
+    }
+
+    public LiveData<ArrayList<TodoList>> getTodoList() {
+        return todoList;
+    }
+
 
 }

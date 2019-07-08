@@ -19,4 +19,7 @@
     <string name="emergency">Emergrncy</string>
     <string name="create_list">Create ToDo list</string>
     <string name="list_not_completed">List is not completed!</string>
+    <string name="desc_too_long">Description is too long</string>
+    <string name="title_to_long">Title is too long</string>
+    <string name="cancel">Cancel</string>
 </resources>

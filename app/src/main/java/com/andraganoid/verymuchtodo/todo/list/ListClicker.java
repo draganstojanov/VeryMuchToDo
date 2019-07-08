@@ -7,5 +7,5 @@ public interface ListClicker {
 
     void onItemClicked(TodoList todoList);
 
-    void onItemLongClicked(TodoList todoList);
+   // void onItemLongClicked(TodoList todoList);
 }

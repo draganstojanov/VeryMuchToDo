@@ -24,7 +24,6 @@
 //import com.andraganoid.verymuchtodo.todo.Todo;
 //
 //
-//import static com.andraganoid.verymuchtodo.todo.Todo.COLLECTION_TODOS;
 //
 //
 //public class ListFragment extends Fragment implements View.OnClickListener {

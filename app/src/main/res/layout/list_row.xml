@@ -32,15 +32,14 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/lists_box"
                 android:onClick="@{()->clicker.onItemClicked(todoListItem)}"
-                android:onLongClick="@{()->clicker.onItemLongClicked(todoListItem)}"
                 android:padding="1dp">
-
+                <!--android:onLongClick="@{(view)->clicker.onItemLongClicked(view,todoListItem)}"-->
                 <TextView
                     android:id="@+id/lists_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
                     android:gravity="center"
+                    android:background="@{todoListItem.emergency?@color/colorAccent:@color/colorPrimary}"
                     android:padding="4dp"
                     android:text="@{todoListItem.title}"
                     android:textColor="#fff"
@@ -52,7 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="4dp"
-                    android:text="@{todoListItem.shortDescription}"
+                    android:text="@{todoListItem.description}"
                     android:textColor="#000"
                     android:textSize="16sp"
                     app:layout_constraintTop_toBottomOf="@id/lists_title" />
@@ -65,7 +64,7 @@
                     android:paddingTop="2dp"
                     android:paddingRight="4dp"
                     android:paddingBottom="2dp"
-                    android:text="@{todoListItem.lastEditBy.name+` `+todoListItem.lastEditDate}"
+                    android:text="@{todoListItem.user.name+` `+todoListItem.timestamp}"
                     android:textColor="#000"
                     android:textSize="12sp"
                     app:layout_constraintTop_toBottomOf="@id/lists_short_desc" />
