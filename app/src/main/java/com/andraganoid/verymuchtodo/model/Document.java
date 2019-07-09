@@ -32,18 +32,28 @@ public class Document {
         //  return new Document(COLLECTION_USERS, user.getId(), map);
     }
 
-    public Document(TodoList todolist) {
+    public Document(TodoList todoList) {
+
+        boolean co = true;
+        if (todoList.getTodoItemList().size() > 0) {
+            for (TodoItem ti : todoList.getTodoItemList()) {
+                co = co && ti.isCompleted();
+            }
+        }
+        todoList.setCompleted(co);
+
+
         map = new HashMap<>();
-        map.put("title", todolist.getTitle());
-        map.put("description", todolist.getDescription());
-        map.put("emergency", todolist.isEmergency());
-        map.put("completed", todolist.isCompleted());
-        map.put("todoItemList", todolist.getTodoItemList());
-        map.put("timestamp", System.currentTimeMillis());
-        map.put("user", todolist.getUser());
+        map.put("title", todoList.getTitle());
+        map.put("description", todoList.getDescription());
+        map.put("emergency", todoList.isEmergency());
+        map.put("completed", todoList.isCompleted());
+        map.put("todoItemList", todoList.getTodoItemList());
+        map.put("timestamp", todoList.getTimestamp());
+        map.put("user", todoList.getUser());
 
         collection = COLLECTION_TODO_LISTS;
-        documentName = todolist.getTitle();
+        documentName = todoList.getTitle();
 
         // return new Document(COLLECTION_TODOS, title, map);
     }

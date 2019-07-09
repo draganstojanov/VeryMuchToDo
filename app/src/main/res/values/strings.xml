@@ -22,4 +22,8 @@
     <string name="desc_too_long">Description is too long</string>
     <string name="title_to_long">Title is too long</string>
     <string name="cancel">Cancel</string>
+    <string name="content">Content</string>
+    <string name="create_item">Create todo list item</string>
+    <string name="task_completed">Task is completed!</string>
+    <string name="task_not_completed">Task is not completed!</string>
 </resources>

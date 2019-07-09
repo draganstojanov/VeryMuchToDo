@@ -19,7 +19,7 @@ public class ToDoViewModel extends ViewModel {
     public MutableLiveData<ArrayList<TodoList>> todoList = new MutableLiveData<>();
     public MutableLiveData<ArrayList<Message>> messageList = new MutableLiveData<>();
 
-    public FirebaseFirestore todo;
+//    public FirebaseFirestore todo;
     public ObservableField<User> user = new ObservableField<>();
 
     public MutableLiveData<Document> addDocument = new MutableLiveData<>();
@@ -37,5 +37,6 @@ public class ToDoViewModel extends ViewModel {
         return todoList;
     }
 
+    public TodoList currentToDoList;
 
 }

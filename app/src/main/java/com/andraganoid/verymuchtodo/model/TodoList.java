@@ -4,12 +4,12 @@ import android.text.format.DateFormat;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-//import java.util.HashMap;
 import java.util.List;
+
+//import java.util.HashMap;
 
 
 public class TodoList {
-
 
 
     private String title = "";
@@ -25,30 +25,17 @@ public class TodoList {
         this.user = user;
     }
 
-    public TodoList(User user, String title, String description, boolean emergency) {
-
-        this.user = user;
-        this.timestamp = System.currentTimeMillis();
-        this.title = title;
-        this.description = description;
-        this.emergency = emergency;
-    }
+//    public TodoList(User user, String title, String description, boolean emergency) {
+//
+//        this.user = user;
+//        this.timestamp = System.currentTimeMillis();
+//        this.title = title;
+//        this.description = description;
+//        this.emergency = emergency;
+//    }
 
     public TodoList() {
     }
-
-//    public Document getDocument() {
-//        HashMap<String, Object> map = new HashMap<>();
-//        map.put("title", title);
-//        map.put("description", description);
-//        map.put("emergency", emergency);
-//        map.put("completed", completed);
-//        map.put("todoItemList", todoItemList);
-//        map.put("timestampt", timestamp);
-//        map.put("user", user);
-//
-//        return new Document(COLLECTION_TODOS, title, map);
-//    }
 
 
     public String getLastEdit() {
@@ -121,6 +108,10 @@ public class TodoList {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public void setTimestampNow() {
+        this.timestamp = System.currentTimeMillis();
     }
 
     //    public void makeLastEdit() {

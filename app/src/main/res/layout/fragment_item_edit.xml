@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="clicker"
+            type="com.andraganoid.verymuchtodo.todo.itemedit.ItemEditClicker" />
+
+        <variable
+            name="itemItem"
+            type="com.andraganoid.verymuchtodo.model.TodoItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/todo_item_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/todo_item_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="32dp"
+            android:background="@drawable/input_box"
+            android:hint="@string/content"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias=".2" />
+
+        <Button
+            android:id="@+id/todo_item_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="32dp"
+            android:background="@drawable/input_box"
+            android:text="@string/create_item"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@+id/todo_item_content" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -9,14 +9,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.andraganoid.verymuchtodo.R;
-import com.andraganoid.verymuchtodo.databinding.ListFragmentBinding;
+
+import com.andraganoid.verymuchtodo.databinding.FragmentListBinding;
 import com.andraganoid.verymuchtodo.model.Document;
 import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.todo.TodoBaseFragment;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class ListFragment extends TodoBaseFragment implements ListClicker {
 
-    private ListFragmentBinding binding;
+    private FragmentListBinding binding;
     private ListFragmentAdapter adapter;
 
     @Override
@@ -37,7 +37,7 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
 
         binding = DataBindingUtil.inflate(
                 inflater,
-                R.layout.list_fragment,
+                R.layout.fragment_list,
                 container,
                 false);
         binding.setClicker(this);
@@ -85,8 +85,12 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
                                     adapter.notifyDataSetChanged();
                                     Toast.makeText(toDo, getString(R.string.list_not_completed), Toast.LENGTH_LONG).show();
                                 }
+                                break;
                             case ItemTouchHelper.LEFT:
-                                toDo.navigateToFragment(new ListEditFragment(todoList));
+//                                toDo.navigateToFragment(new ListEditFragment(todoList));
+                                toDoViewModel.currentToDoList=todoList;
+                                toDo.navigateToFragment(toDo.LIST_EDIT_FRAGMENT);
+                                break;
                         }
                     }
                 };
@@ -97,7 +101,9 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
 
     @Override
     public void onFabClicked() {
-        toDo.navigateToFragment(new ListEditFragment(new TodoList(toDoViewModel.user.get())));
+        //toDo.navigateToFragment(new ListEditFragment(new TodoList(toDoViewModel.user.get())));
+        toDoViewModel.currentToDoList=new TodoList(toDoViewModel.user.get());
+        toDo.navigateToFragment(toDo.LIST_EDIT_FRAGMENT);
     }
 
     @Override
@@ -105,9 +111,4 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
         Toast.makeText(toDo, "ITEM CLICKED", Toast.LENGTH_SHORT).show();
     }
 
-//    @Override
-//    public boolean onItemLongClicked(View view,TodoList todoList) {
-//        Toast.makeText(toDo, "ITEM LONG CLICKED", Toast.LENGTH_SHORT).show();
-//        return true;
-//    }
 }

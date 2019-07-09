@@ -32,7 +32,7 @@
 //    private View fiView;
 //    private Todo todoActivity;
 //    private RecyclerView itemRecView;
-//    private ItemAdapter itemAdapter;
+//    private ItemFragmentAdapter itemAdapter;
 //    private RecyclerView.LayoutManager itemLayMan;
 //    private ConstraintLayout editView;
 //    private ConstraintLayout itemView;
@@ -56,7 +56,7 @@
 //        todoActivity.findViewById(R.id.main_lists).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 //        todoActivity.setTitle(todoActivity.currentList.getTitle(), "");
 //        itemRecView = fiView.findViewById(R.id.item_rec_view);
-//        itemAdapter = new ItemAdapter(tl, todoActivity);
+//        itemAdapter = new ItemFragmentAdapter(tl, todoActivity);
 //        itemLayMan = new LinearLayoutManager(getContext());
 //        itemRecView.setLayoutManager(itemLayMan);
 //        itemRecView.setAdapter(itemAdapter);

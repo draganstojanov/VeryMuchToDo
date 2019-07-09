@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
 import com.andraganoid.verymuchtodo.R;
@@ -24,7 +25,7 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
     private TodoList todoListItemNew;
     private FragmentListEditBinding binding;
 
-    public ListEditFragment(TodoList todoListItem) {
+    private void init (TodoList todoListItem) {
         this.todoListItemNew = new TodoList();
         this.todoListItemNew.setTitle(todoListItem.getTitle());
         this.todoListItemNew.setDescription(todoListItem.getDescription());
@@ -39,6 +40,12 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init(toDoViewModel.currentToDoList);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,7 +56,8 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
                 container,
                 false
         );
-        binding.setTodoListItem(todoListItemNew);
+       binding.setTodoListItem(todoListItemNew);
+        //      binding.setTodoListItem(toDoViewModel.currentToDoList);
         binding.setClicker(this);
         return binding.getRoot();
     }
@@ -63,8 +71,10 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
         if (!title.isEmpty()) {
             if (title.length() < 32) {
                 if (desc.length() < 100) {
-                    toDoViewModel.addDocument.setValue(new Document(todoListItemNew));
-
+                    todoListItemNew.setTimestampNow();
+                   toDoViewModel.addDocument.setValue(new Document(todoListItemNew));
+                    //    toDoViewModel.currentToDoList.setTimestampNow();
+                    //     toDoViewModel.addDocument.setValue(new Document(toDoViewModel.currentToDoList));
 
                     //TEST
                     ArrayList<TodoList> tl = new ArrayList<>();
@@ -76,7 +86,7 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
                     toDoViewModel.todoList.setValue(tl);
                     //TEST
 
-                    toDo.navigateToFragment(new ListFragment());
+                    toDo.navigateToFragment(toDo.LIST_FRAGMENT);
 
                 } else {
                     Toast.makeText(toDo, R.string.desc_too_long, Toast.LENGTH_SHORT).show();
@@ -89,6 +99,6 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
 
     @Override
     public void onCancelClicked() {
-        toDo.navigateToFragment(new ListFragment());
+        toDo.navigateToFragment(toDo.LIST_FRAGMENT);
     }
 }
