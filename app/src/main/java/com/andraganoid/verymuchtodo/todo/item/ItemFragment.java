@@ -22,8 +22,6 @@ import com.andraganoid.verymuchtodo.model.TodoItem;
 import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.todo.TodoBaseFragment;
 import com.andraganoid.verymuchtodo.todo.itemedit.ItemEditFragment;
-import com.andraganoid.verymuchtodo.todo.list.ListFragmentAdapter;
-import com.andraganoid.verymuchtodo.todo.listedit.ListEditFragment;
 
 import java.util.ArrayList;
 
@@ -47,11 +45,12 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
         super.onViewCreated(view, savedInstanceState);
         // closeKeyboard(binding.getRoot());
 
+        Toast.makeText(toDo, String.valueOf(toDoViewModel.currentToDoList.getTodoItemList().size()), Toast.LENGTH_SHORT).show();
         binding.itemRecView.setLayoutManager(new LinearLayoutManager(toDo));
-  adapter = new ItemFragmentAdapter(toDoViewModel.currentToDoList.getTodoItemList(), this);
+        adapter = new ItemFragmentAdapter(toDoViewModel.currentToDoList.getTodoItemList(), this);
         binding.itemRecView.setAdapter(adapter);
 
-        toDoViewModel.getTodoList().observe( toDo, new Observer<ArrayList<TodoList>>() {
+        toDoViewModel.getTodoList().observe(toDo, new Observer<ArrayList<TodoList>>() {
             @Override
             public void onChanged(ArrayList<TodoList> todoLists) {
 
@@ -59,6 +58,8 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
                 adapter.notifyDataSetChanged();
             }
         });
+
+
 
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
@@ -74,9 +75,10 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
 
                     case ItemTouchHelper.LEFT:
                         if (!todoItem.isCompleted()) {
-                           // isNew = false;
-                           // showItemEdit(ti);
-                            toDo.navigateToFragment(new ItemEditFragment(todoItem));
+                            // isNew = false;
+                            // showItemEdit(ti);
+                            toDoViewModel.currentToDoItem = todoItem;
+                            toDo.navigateToFragment(new ItemEditFragment());
 
                         } else {
                             adapter.notifyDataSetChanged();
@@ -89,7 +91,7 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
 
                         if (todoItem.isCompleted()) {
                             toDoViewModel.currentToDoList.getTodoItemList().remove(viewHolder.getAdapterPosition());
-                          //  todoActivity.saveList(todoActivity.currengtList);
+                            //  todoActivity.saveList(todoActivity.currengtList);
                             toDoViewModel.addDocument.setValue(new Document(toDoViewModel.currentToDoList));
 
                         } else {
@@ -103,17 +105,19 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(binding.itemRecView);
-    }
 
+
+    }
 
 
     @Override
     public void onFabClicked() {
-
+        toDoViewModel.currentToDoItem = new TodoItem(toDoViewModel.user.get());
+        toDo.navigateToFragment(toDo.ITEM_EDIT_FRAGMENT);
     }
 
     @Override
-    public void onItemLongClicked(View view,TodoItem todoItem) {
+    public void onItemLongClicked(View view, TodoItem todoItem) {
 
     }
 }

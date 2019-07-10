@@ -114,6 +114,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant_run_merged_manifests" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/instant_run_split_apk_resources" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javac" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/lint_jar" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifest-checker" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/merged_assets" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/merged_jni_libs" />
@@ -168,6 +169,7 @@
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-base:17.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-livedata-core:2.2.0-alpha02@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.core:core:1.1.0-rc01@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.databinding:databinding-common:3.4.2@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.coordinatorlayout:coordinatorlayout:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: io.opencensus:opencensus-api:0.21.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: io.grpc:grpc-context:1.21.0@jar" level="project" />
@@ -183,9 +185,7 @@
     <orderEntry type="library" name="Gradle: androidx.lifecycle:lifecycle-viewmodel:2.2.0-alpha02@aar" level="project" />
     <orderEntry type="library" name="Gradle: io.grpc:grpc-api:1.21.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-measurement-sdk:17.0.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: androidx.databinding:databinding-adapters:3.4.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-stats:17.0.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: androidx.databinding:databinding-common:3.4.1@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation:1.1.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.swiperefreshlayout:swiperefreshlayout:1.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.viewpager:viewpager:1.0.0@aar" level="project" />
@@ -194,6 +194,8 @@
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-ads-identifier:17.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: io.opencensus:opencensus-contrib-grpc-metrics:0.21.0@jar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-core:17.0.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.databinding:databinding-runtime:3.4.2@aar" level="project" />
+    <orderEntry type="library" name="Gradle: androidx.databinding:databinding-adapters:3.4.2@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-auth:18.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-common:18.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.squareup.okio:okio:1.13.0@jar" level="project" />
@@ -226,7 +228,6 @@
     <orderEntry type="library" name="Gradle: androidx.arch.core:core-runtime:2.1.0-rc01@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.firebase:firebase-iid:19.0.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava@jar" level="project" />
-    <orderEntry type="library" name="Gradle: androidx.databinding:databinding-runtime:3.4.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android.gms:play-services-measurement-sdk-api:17.0.0@aar" level="project" />
   </component>
 </module>

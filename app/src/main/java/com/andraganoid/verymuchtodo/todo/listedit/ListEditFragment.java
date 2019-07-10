@@ -15,7 +15,6 @@ import com.andraganoid.verymuchtodo.databinding.FragmentListEditBinding;
 import com.andraganoid.verymuchtodo.model.Document;
 import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.todo.TodoBaseFragment;
-import com.andraganoid.verymuchtodo.todo.list.ListFragment;
 
 import java.util.ArrayList;
 
@@ -25,16 +24,6 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
     private TodoList todoListItemNew;
     private FragmentListEditBinding binding;
 
-    private void init (TodoList todoListItem) {
-        this.todoListItemNew = new TodoList();
-        this.todoListItemNew.setTitle(todoListItem.getTitle());
-        this.todoListItemNew.setDescription(todoListItem.getDescription());
-        this.todoListItemNew.setUser(todoListItem.getUser());
-        this.todoListItemNew.setCompleted(todoListItem.isCompleted());
-        this.todoListItemNew.setEmergency(todoListItem.isEmergency());
-        this.todoListItemNew.setTimestamp(todoListItem.getTimestamp());
-        this.todoListItemNew.setTodoItemList(todoListItem.getTodoItemList());
-    }
 
     public ListEditFragment() {
     }
@@ -42,7 +31,14 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        init(toDoViewModel.currentToDoList);
+        this.todoListItemNew = new TodoList();
+        this.todoListItemNew.setTitle(toDoViewModel.currentToDoList.getTitle());
+        this.todoListItemNew.setDescription(toDoViewModel.currentToDoList.getDescription());
+        this.todoListItemNew.setUser(toDoViewModel.currentToDoList.getUser());
+        this.todoListItemNew.setCompleted(toDoViewModel.currentToDoList.isCompleted());
+        this.todoListItemNew.setEmergency(toDoViewModel.currentToDoList.isEmergency());
+        this.todoListItemNew.setTimestamp(toDoViewModel.currentToDoList.getTimestamp());
+        this.todoListItemNew.setTodoItemList(toDoViewModel.currentToDoList.getTodoItemList());
     }
 
     @Override
@@ -63,17 +59,17 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
     }
 
     @Override
-    public void onCreateClicked(TodoList todoListItem) {
-        String title = todoListItem.getTitle();
-        String desc = todoListItem.getDescription();
+    public void onCreateClicked( ) {
+        String title = todoListItemNew.getTitle();
+        String desc = todoListItemNew.getDescription();
 
 
         if (!title.isEmpty()) {
             if (title.length() < 32) {
                 if (desc.length() < 100) {
-                    todoListItemNew.setTimestampNow();
+                    todoListItemNew.setTimestampAndCompleted();
                    toDoViewModel.addDocument.setValue(new Document(todoListItemNew));
-                    //    toDoViewModel.currentToDoList.setTimestampNow();
+                    //    toDoViewModel.currentToDoList.setTimestampAndCompleted();
                     //     toDoViewModel.addDocument.setValue(new Document(toDoViewModel.currentToDoList));
 
                     //TEST
@@ -82,7 +78,7 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
 
                     tl = toDoViewModel.todoList.getValue();
 
-                    tl.add(todoListItem);
+                    tl.add(todoListItemNew);
                     toDoViewModel.todoList.setValue(tl);
                     //TEST
 

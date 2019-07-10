@@ -64,7 +64,7 @@ public class ItemAdapter extends RecyclerView.Adapter <ItemAdapter.ItemViewHolde
         public void bind(final TodoItem ti, final VeryOnItemClickListener click, final int position) {
 
             content.setText(ti.getContent());
-            edited.setText((ti.getLastEdit()));
+            edited.setText((ti.getContent()));
             completed.setVisibility(ti.isCompleted() ? View.VISIBLE : View.GONE);
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {

@@ -16,7 +16,7 @@ public class TodoList {
     private String description = "";
     private boolean emergency = false;
     private boolean completed = false;
-    private List<TodoItem> todoItemList = new ArrayList<>();
+    private ArrayList<TodoItem> todoItemList = new ArrayList<>();
     private Long timestamp;
     private User user;
 
@@ -86,11 +86,11 @@ public class TodoList {
         this.completed = completed;
     }
 
-    public List<TodoItem> getTodoItemList() {
+    public ArrayList<TodoItem> getTodoItemList() {
         return todoItemList;
     }
 
-    public void setTodoItemList(List<TodoItem> todoItemList) {
+    public void setTodoItemList(ArrayList<TodoItem> todoItemList) {
         this.todoItemList = todoItemList;
     }
 
@@ -110,8 +110,20 @@ public class TodoList {
         this.user = user;
     }
 
-    public void setTimestampNow() {
+    public void setTimestampAndCompleted() {
         this.timestamp = System.currentTimeMillis();
+
+        boolean co = true;
+        if (todoItemList.size() > 0) {
+            for (TodoItem ti : todoItemList) {
+                //  co = co && ti.isCompleted();
+                if (!ti.isCompleted()) {
+                    co = false;
+                    break;
+                }
+            }
+        }
+        this.completed = co;
     }
 
     //    public void makeLastEdit() {
@@ -176,7 +188,7 @@ public class TodoList {
 //    }
 //
 //
-//    public String getLastEditTimestamp() {
+//    public String getTimestamp() {
 //        return lastEditTimestamp;
 //    }
 //

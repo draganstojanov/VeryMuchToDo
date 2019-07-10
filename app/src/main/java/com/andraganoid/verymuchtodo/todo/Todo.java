@@ -179,7 +179,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 //
 //                    todoList.add(t);
 //                    System.out.println("TODO: " + t.getLastEdit());
-//                    if (Long.parseLong(t.getLastEditTimestamp()) > lastList) {
+//                    if (Long.parseLong(t.getTimestamp()) > lastList) {
 //                        newLists++;
 //                    }
 //
@@ -188,7 +188,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 //                    Collections.sort(todoList, new Comparator<TodoList>() {
 //                        @Override
 //                        public int compare(final TodoList object1, final TodoList object2) {
-//                            return object2.getLastEditTimestamp().compareTo(object1.getLastEditTimestamp());
+//                            return object2.getTimestamp().compareTo(object1.getTimestamp());
 //                        }
 //                    });
 //                }
@@ -255,7 +255,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 //        documentData.put("title", todoList.getTitle());
 //        documentData.put("shortDescription", todoList.getShortDescription());
 //        documentData.put("lastEdit", todoList.getLastEdit());
-//        documentData.put("lastEditTimestamp", todoList.getLastEditTimestamp());
+//        documentData.put("lastEditTimestamp", todoList.getTimestamp());
 //        documentData.put("emergency", todoList.isEmergency());
 //        documentData.put("completed", todoList.isCompleted());
 //        documentData.put("todoItemList", todoList.getTodoItemList());

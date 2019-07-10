@@ -148,7 +148,7 @@
 //                        todoActivity.currentList.getTodoItemList().add(currentItem);
 //                        todoActivity.currentList.setCompleted(false);
 //                    }
-//                    todoActivity.currentList.setLastEditTimestamp(currentItem.getLastEditTimestamp());
+//                    todoActivity.currentList.setLastEditTimestamp(currentItem.getTimestamp());
 //                    todoActivity.currentList.setLastEditId(todoActivity.myself.getId());
 //
 //                    todoActivity.saveList(todoActivity.currentList);

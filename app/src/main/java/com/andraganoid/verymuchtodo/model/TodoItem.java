@@ -13,10 +13,18 @@ public class TodoItem {
 
     private String content;
     private boolean completed;
-    private String lastEdit;
-    private String lastEditTimestamp;
+   // private String lastEdit;
+    private Long timestamp;
+    private User user;
+
 
     public TodoItem() {
+    }
+
+    public TodoItem(User user) {
+        this.user = user;
+        this.content="";
+        this.completed = false;
     }
 
     public TodoItem(String content) {
@@ -27,16 +35,16 @@ public class TodoItem {
     }
 
     public void setLastEdit() {
-        this.lastEditTimestamp = String.valueOf(System.currentTimeMillis());
+      //  this.timestamp = String.valueOf(System.currentTimeMillis());
         Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(Long.parseLong(lastEditTimestamp));
+        cal.setTimeInMillis(timestamp);
         String date = DateFormat.format("dd.MM.yyyy HH:mm", cal).toString();
 
         sb.setLength(0);
         sb.append(myself.getName())
                 .append("@")
                 .append(date);
-        this.lastEdit = sb.toString();
+      //  this.lastEdit = sb.toString();
 
     }
 
@@ -57,16 +65,27 @@ public class TodoItem {
         this.completed = completed;
     }
 
-    public String getLastEdit() {
-        return lastEdit;
-    }
+ //   public String getLastEdit() {
+      //  return lastEdit;
+   // }
 
-    public String getLastEditTimestamp() {
-        return lastEditTimestamp;
+    public Long getTimestamp() {
+        return timestamp;
     }
 
     public void setLastEditTimestamp() {
-        this.lastEditTimestamp = String.valueOf(System.currentTimeMillis());
+        this.timestamp = (System.currentTimeMillis());
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setTimestamp(Long timestamp) {
+        this.timestamp = timestamp;
+    }
 }

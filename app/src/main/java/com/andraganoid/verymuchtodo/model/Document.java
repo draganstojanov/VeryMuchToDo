@@ -34,14 +34,14 @@ public class Document {
 
     public Document(TodoList todoList) {
 
-        boolean co = true;
-        if (todoList.getTodoItemList().size() > 0) {
-            for (TodoItem ti : todoList.getTodoItemList()) {
-                co = co && ti.isCompleted();
-            }
-        }
-        todoList.setCompleted(co);
-
+//        boolean co = true;
+//        if (todoList.getTodoItemList().size() > 0) {
+//            for (TodoItem ti : todoList.getTodoItemList()) {
+//                co = co && ti.isCompleted();
+//            }
+//        }
+//        todoList.setCompleted(co);
+//
 
         map = new HashMap<>();
         map.put("title", todoList.getTitle());

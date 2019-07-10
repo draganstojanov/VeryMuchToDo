@@ -26,4 +26,5 @@
     <string name="create_item">Create todo list item</string>
     <string name="task_completed">Task is completed!</string>
     <string name="task_not_completed">Task is not completed!</string>
+    <string name="create_item_add_new">Create todo list item and add new</string>
 </resources>

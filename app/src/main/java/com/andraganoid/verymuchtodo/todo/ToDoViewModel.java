@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.andraganoid.verymuchtodo.model.Document;
 import com.andraganoid.verymuchtodo.model.Message;
+import com.andraganoid.verymuchtodo.model.TodoItem;
 import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.model.User;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -38,5 +39,5 @@ public class ToDoViewModel extends ViewModel {
     }
 
     public TodoList currentToDoList;
-
+    public TodoItem currentToDoItem;
 }
