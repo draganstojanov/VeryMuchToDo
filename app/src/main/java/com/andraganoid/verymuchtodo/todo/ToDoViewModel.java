@@ -10,8 +10,8 @@ import com.andraganoid.verymuchtodo.model.Message;
 import com.andraganoid.verymuchtodo.model.TodoItem;
 import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.model.User;
-import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class ToDoViewModel extends ViewModel {
@@ -20,7 +20,7 @@ public class ToDoViewModel extends ViewModel {
     public MutableLiveData<ArrayList<TodoList>> todoList = new MutableLiveData<>();
     public MutableLiveData<ArrayList<Message>> messageList = new MutableLiveData<>();
 
-//    public FirebaseFirestore todo;
+    //    public FirebaseFirestore todo;
     public ObservableField<User> user = new ObservableField<>();
 
     public MutableLiveData<Document> addDocument = new MutableLiveData<>();
@@ -40,4 +40,18 @@ public class ToDoViewModel extends ViewModel {
 
     public TodoList currentToDoList;
     public TodoItem currentToDoItem;
+
+
+    public Object clone(Object original,Object cloned) {
+        for (Field field : original.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            try {
+                field.set(cloned, field.get(original));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return cloned;
+    }
+
 }

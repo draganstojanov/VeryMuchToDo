@@ -126,6 +126,9 @@ public class TodoList {
         this.completed = co;
     }
 
+    public void clone(TodoList todoList) {
+    }
+
     //    public void makeLastEdit() {
 //
 //        Calendar cal = Calendar.getInstance();

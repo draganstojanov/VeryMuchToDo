@@ -24,66 +24,53 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
     private TodoList todoListItemNew;
     private FragmentListEditBinding binding;
 
-
     public ListEditFragment() {
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.todoListItemNew = new TodoList();
-        this.todoListItemNew.setTitle(toDoViewModel.currentToDoList.getTitle());
-        this.todoListItemNew.setDescription(toDoViewModel.currentToDoList.getDescription());
-        this.todoListItemNew.setUser(toDoViewModel.currentToDoList.getUser());
-        this.todoListItemNew.setCompleted(toDoViewModel.currentToDoList.isCompleted());
-        this.todoListItemNew.setEmergency(toDoViewModel.currentToDoList.isEmergency());
-        this.todoListItemNew.setTimestamp(toDoViewModel.currentToDoList.getTimestamp());
-        this.todoListItemNew.setTodoItemList(toDoViewModel.currentToDoList.getTodoItemList());
+        this.todoListItemNew = (TodoList) toDoViewModel.clone(
+                toDoViewModel.currentToDoList,
+                todoListItemNew);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-
         binding = DataBindingUtil.inflate(
                 inflater,
                 R.layout.fragment_list_edit,
                 container,
                 false
         );
-       binding.setTodoListItem(todoListItemNew);
-        //      binding.setTodoListItem(toDoViewModel.currentToDoList);
+        binding.setTodoListItem(todoListItemNew);
         binding.setClicker(this);
         return binding.getRoot();
     }
 
     @Override
-    public void onCreateClicked( ) {
+    public void onCreateClicked() {
         String title = todoListItemNew.getTitle();
         String desc = todoListItemNew.getDescription();
-
 
         if (!title.isEmpty()) {
             if (title.length() < 32) {
                 if (desc.length() < 100) {
                     todoListItemNew.setTimestampAndCompleted();
-                   toDoViewModel.addDocument.setValue(new Document(todoListItemNew));
-                    //    toDoViewModel.currentToDoList.setTimestampAndCompleted();
-                    //     toDoViewModel.addDocument.setValue(new Document(toDoViewModel.currentToDoList));
+                    toDoViewModel.addDocument.setValue(new Document(todoListItemNew));
 
                     //TEST
                     ArrayList<TodoList> tl = new ArrayList<>();
-
-
-                    tl = toDoViewModel.todoList.getValue();
-
+                    if (toDoViewModel.todoList.getValue() != null) {
+                        tl.addAll(toDoViewModel.todoList.getValue());
+                    }
                     tl.add(todoListItemNew);
                     toDoViewModel.todoList.setValue(tl);
                     //TEST
 
                     toDo.navigateToFragment(toDo.LIST_FRAGMENT);
-
                 } else {
                     Toast.makeText(toDo, R.string.desc_too_long, Toast.LENGTH_SHORT).show();
                 }

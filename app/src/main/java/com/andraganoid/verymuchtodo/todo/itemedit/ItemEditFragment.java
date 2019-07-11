@@ -95,7 +95,6 @@ public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicke
     public void onSaveAndNew( ) {
         if (editCheck()) { Toast.makeText(toDo, "OK1", Toast.LENGTH_SHORT).show();
             toDoViewModel.currentToDoItem = new TodoItem(toDoViewModel.user.get()); Toast.makeText(toDo, "OK2", Toast.LENGTH_SHORT).show();
-           // toDo.navigateToFragment(toDo.ITEM_EDIT_FRAGMENT);
    init();
 
         }
