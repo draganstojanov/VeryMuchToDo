@@ -1,6 +1,6 @@
 # VeryMuchToDo
 
-## This is the Firebase test application for Android devices.
+## Firebase, MVVM, Databinding Android application.
 
 In the first phase, Firestore and Authentification are used.
 
