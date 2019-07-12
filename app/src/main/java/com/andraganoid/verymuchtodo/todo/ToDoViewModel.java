@@ -20,7 +20,6 @@ public class ToDoViewModel extends ViewModel {
     public MutableLiveData<ArrayList<TodoList>> todoList = new MutableLiveData<>();
     public MutableLiveData<ArrayList<Message>> messageList = new MutableLiveData<>();
 
-    //    public FirebaseFirestore todo;
     public ObservableField<User> user = new ObservableField<>();
 
     public MutableLiveData<Document> addDocument = new MutableLiveData<>();
@@ -38,11 +37,10 @@ public class ToDoViewModel extends ViewModel {
         return todoList;
     }
 
-    public TodoList currentToDoList;
-    public TodoItem currentToDoItem;
+    public ObservableField<TodoList> currentToDoList = new ObservableField<>();
+    public ObservableField<TodoItem> currentToDoItem = new ObservableField<>();
 
-
-    public Object clone(Object original,Object cloned) {
+    public Object clone(Object original, Object cloned) {
         for (Field field : original.getClass().getDeclaredFields()) {
             field.setAccessible(true);
             try {
@@ -53,5 +51,7 @@ public class ToDoViewModel extends ViewModel {
         }
         return cloned;
     }
+
+    public ObservableField<TodoItem> todoItemNew = new ObservableField<>();
 
 }

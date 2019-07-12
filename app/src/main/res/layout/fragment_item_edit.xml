@@ -62,7 +62,7 @@
             android:onClick="@{()->clicker.onCancel()}"
             android:text="@string/cancel"
             android:textAllCaps="false"
-            app:layout_constraintTop_toBottomOf="@+id/todo_item_save_add_new" />
+            app:layout_constraintTop_toBottomOf="@+id/todo_item_save" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -49,6 +49,7 @@ public class ItemFragmentAdapter extends RecyclerView.Adapter<ItemFragmentAdapte
 
         public ItemHolder(@NonNull ItemRowBinding binding) {
             super(binding.getRoot());
+            this.binding=binding;
             binding.setClicker(clicker);
         }
 

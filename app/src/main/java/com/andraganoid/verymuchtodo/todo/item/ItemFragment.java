@@ -35,7 +35,11 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_item, container, false);
+        binding = DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_item,
+                container,
+                false);
         binding.setClicker(this);
         return binding.getRoot();
     }
@@ -45,9 +49,9 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
         super.onViewCreated(view, savedInstanceState);
         // closeKeyboard(binding.getRoot());
 
-        Toast.makeText(toDo, String.valueOf(toDoViewModel.currentToDoList.getTodoItemList().size()), Toast.LENGTH_SHORT).show();
+        Toast.makeText(toDo, String.valueOf(toDoViewModel.currentToDoList.get().getTodoItemList().size()), Toast.LENGTH_SHORT).show();
         binding.itemRecView.setLayoutManager(new LinearLayoutManager(toDo));
-        adapter = new ItemFragmentAdapter(toDoViewModel.currentToDoList.getTodoItemList(), this);
+        adapter = new ItemFragmentAdapter(toDoViewModel.currentToDoList.get().getTodoItemList(), this);
         binding.itemRecView.setAdapter(adapter);
 
         toDoViewModel.getTodoList().observe(toDo, new Observer<ArrayList<TodoList>>() {
@@ -60,7 +64,6 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
         });
 
 
-
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
             @Override
@@ -70,14 +73,14 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                TodoItem todoItem = toDoViewModel.currentToDoList.getTodoItemList().get(viewHolder.getAdapterPosition());
+                TodoItem todoItem = toDoViewModel.currentToDoList.get().getTodoItemList().get(viewHolder.getAdapterPosition());
                 switch (swipeDir) {
 
                     case ItemTouchHelper.LEFT:
                         if (!todoItem.isCompleted()) {
                             // isNew = false;
                             // showItemEdit(ti);
-                            toDoViewModel.currentToDoItem = todoItem;
+                            toDoViewModel.currentToDoItem.set(todoItem);
                             toDo.navigateToFragment(new ItemEditFragment());
 
                         } else {
@@ -90,9 +93,9 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
                     case ItemTouchHelper.RIGHT:
 
                         if (todoItem.isCompleted()) {
-                            toDoViewModel.currentToDoList.getTodoItemList().remove(viewHolder.getAdapterPosition());
+                            toDoViewModel.currentToDoList.get().getTodoItemList().remove(viewHolder.getAdapterPosition());
                             //  todoActivity.saveList(todoActivity.currengtList);
-                            toDoViewModel.addDocument.setValue(new Document(toDoViewModel.currentToDoList));
+                            toDoViewModel.addDocument.setValue(new Document(toDoViewModel.currentToDoList.get()));
 
                         } else {
                             adapter.notifyDataSetChanged();
@@ -112,12 +115,18 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
 
     @Override
     public void onFabClicked() {
-        toDoViewModel.currentToDoItem = new TodoItem(toDoViewModel.user.get());
+        toDoViewModel.currentToDoItem.set(new TodoItem(toDoViewModel.user.get()));
         toDo.navigateToFragment(toDo.ITEM_EDIT_FRAGMENT);
     }
 
-    @Override
-    public void onItemLongClicked(View view, TodoItem todoItem) {
 
+    public void onItemLongClicked(View view, TodoItem todoItem) {
+        //  toDo.navigateToFragment(toDo.ITEM_EDIT_FRAGMENT);
+    }
+
+    @Override
+    public void onItemClicked( TodoItem todoItem) {
+        toDoViewModel.currentToDoItem.set(todoItem);
+        toDo.navigateToFragment(toDo.ITEM_EDIT_FRAGMENT);
     }
 }

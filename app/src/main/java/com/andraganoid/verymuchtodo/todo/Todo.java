@@ -19,7 +19,6 @@ import com.andraganoid.verymuchtodo.Repository;
 import com.andraganoid.verymuchtodo.VeryOnItemClickListener;
 import com.andraganoid.verymuchtodo.model.Document;
 import com.andraganoid.verymuchtodo.model.Message;
-import com.andraganoid.verymuchtodo.model.TodoItem;
 import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.model.User;
 import com.andraganoid.verymuchtodo.todo.item.ItemFragment;

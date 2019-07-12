@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +29,7 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
     private FragmentListBinding binding;
     private ListFragmentAdapter adapter;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
@@ -39,7 +41,6 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
                 container,
                 false);
         binding.setClicker(this);
-
         return binding.getRoot();
     }
 
@@ -98,7 +99,7 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
                                 adapter.notifyDataSetChanged();
                                 break;
                             case ItemTouchHelper.LEFT:
-                                toDoViewModel.currentToDoList = todoList;
+                                toDoViewModel.currentToDoList.set(todoList);
                                 toDo.navigateToFragment(toDo.LIST_EDIT_FRAGMENT);
                                 break;
                         }
@@ -111,13 +112,13 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
 
     @Override
     public void onFabClicked() {
-        toDoViewModel.currentToDoList = new TodoList(toDoViewModel.user.get());
+        toDoViewModel.currentToDoList.set(new TodoList(toDoViewModel.user.get()));
         toDo.navigateToFragment(toDo.LIST_EDIT_FRAGMENT);
     }
 
     @Override
     public void onItemClicked(TodoList todoList) {
-        toDoViewModel.currentToDoList = todoList;
+        toDoViewModel.currentToDoList.set(todoList);
         toDo.navigateToFragment(toDo.ITEM_FRAGMENT);
     }
 

@@ -15,6 +15,7 @@ import com.andraganoid.verymuchtodo.databinding.FragmentListEditBinding;
 import com.andraganoid.verymuchtodo.model.Document;
 import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.todo.TodoBaseFragment;
+import com.andraganoid.verymuchtodo.todo.listedit.ListEditClicker;
 
 import java.util.ArrayList;
 
@@ -30,8 +31,9 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.todoListItemNew = new TodoList();
         this.todoListItemNew = (TodoList) toDoViewModel.clone(
-                toDoViewModel.currentToDoList,
+                toDoViewModel.currentToDoList.get(),
                 todoListItemNew);
     }
 
@@ -52,12 +54,12 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
 
     @Override
     public void onCreateClicked() {
-        String title = todoListItemNew.getTitle();
-        String desc = todoListItemNew.getDescription();
+        //  String title = todoListItemNew.getTitle();
+        //  String desc = todoListItemNew.getDescription();
 
-        if (!title.isEmpty()) {
-            if (title.length() < 32) {
-                if (desc.length() < 100) {
+        if (!todoListItemNew.getTitle().isEmpty()) {
+            if (todoListItemNew.getTitle().length() < 32) {
+                if (todoListItemNew.getDescription().length() < 100) {
                     todoListItemNew.setTimestampAndCompleted();
                     toDoViewModel.addDocument.setValue(new Document(todoListItemNew));
 
