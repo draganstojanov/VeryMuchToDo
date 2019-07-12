@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -58,23 +57,23 @@ public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicke
     private boolean editCheck() {
 
         String content = toDoViewModel.currentToDoItem.getContent();
-        Toast.makeText(toDo, content, Toast.LENGTH_SHORT).show();
         if (content.isEmpty()) {
             return false;
         } else {
 
             ArrayList<TodoItem> til = toDoViewModel.currentToDoList.getTodoItemList();
             for (int i = 0; i < til.size(); i++) {
-
                 if (til.get(i).getContent().equals(content)) {
                     til.remove(i);
                     break;
                 }
             }
+            toDoViewModel.currentToDoItem.setTimestamp(System.currentTimeMillis());
             til.add(toDoViewModel.currentToDoItem);
             TodoList tl = toDoViewModel.currentToDoList;
             tl.setTodoItemList(til);
-            toDoViewModel.currentToDoList=tl;
+            toDoViewModel.currentToDoList = tl;
+            toDoViewModel.currentToDoList.setTimestampAndCompleted();
             toDoViewModel.addDocument.setValue(new Document(toDoViewModel.currentToDoList));
             return true;
         }
@@ -92,7 +91,7 @@ public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicke
     public void onSaveAndNew() {
 
         if (editCheck()) {
-            toDoViewModel.currentToDoItem=new TodoItem(toDoViewModel.user.get());
+            toDoViewModel.currentToDoItem = new TodoItem(toDoViewModel.user.get());
             binding.setItemItem(toDoViewModel.currentToDoItem);
         }
     }

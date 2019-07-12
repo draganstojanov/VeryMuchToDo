@@ -16,8 +16,6 @@ import com.andraganoid.verymuchtodo.model.Document;
 import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.todo.TodoBaseFragment;
 
-import java.util.ArrayList;
-
 
 public class ListEditFragment extends TodoBaseFragment implements ListEditClicker {
 
@@ -55,26 +53,27 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
         if (!todoListItemNew.getTitle().isEmpty()) {
             if (todoListItemNew.getTitle().length() < 32) {
                 if (todoListItemNew.getDescription().length() < 100) {
-                    toDoViewModel.deleteDocument.setValue(new Document(toDoViewModel.currentToDoList));
-
-                    //TEST
-                    ArrayList<TodoList> tl = new ArrayList<>();
-                    if (toDoViewModel.todoList.getValue() != null) {
-                        tl.addAll(toDoViewModel.todoList.getValue());
-
-                        for (int i = 0; i < tl.size(); i++) {
-
-                            if (tl.get(i).getTitle().equals(toDoViewModel.currentToDoList.getTitle())) {
-                                tl.remove(i);
-                                break;
-                            }
-                        }
-
+                    if (toDoViewModel.currentToDoList.getTimestamp() != 0) {
+                        toDoViewModel.deleteDocument.setValue(new Document(toDoViewModel.currentToDoList));
                     }
-                    tl.add(todoListItemNew);
-                    toDoViewModel.todoList.setValue(tl);
-                    //TEST
 
+                    //TEST
+//                    ArrayList<TodoList> tl = new ArrayList<>();
+//                    if (toDoViewModel.todoList.getValue() != null) {
+//                        tl.addAll(toDoViewModel.todoList.getValue());
+//
+//                        for (int i = 0; i < tl.size(); i++) {
+//
+//                            if (tl.get(i).getTitle().equals(toDoViewModel.currentToDoList.getTitle())) {
+//                                tl.remove(i);
+//                                break;
+//                            }
+//                        }
+//
+//                    }
+//                    tl.add(todoListItemNew);
+//                    toDoViewModel.todoList.setValue(tl);
+                    //TEST
 
 
                     todoListItemNew.setTimestampAndCompleted();

@@ -1,5 +1,6 @@
 package com.andraganoid.verymuchtodo.todo;
 
+import android.text.format.DateFormat;
 import android.util.Log;
 
 import androidx.databinding.ObservableField;
@@ -17,6 +18,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -24,7 +26,7 @@ public class ToDoViewModel extends ViewModel {
 
 
     public MutableLiveData<ArrayList<User>> userList = new MutableLiveData<>();
-    public MutableLiveData<ArrayList<TodoList>> todoList = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<TodoList>> todoList = new MutableLiveData<>();
     public MutableLiveData<ArrayList<Message>> messageList = new MutableLiveData<>();
 
     public ObservableField<User> user = new ObservableField<>();
@@ -40,9 +42,14 @@ public class ToDoViewModel extends ViewModel {
         return deleteDocument;
     }
 
+    public void setTodoList(ArrayList<TodoList> todoLists) {
+        todoList.setValue(todoLists);
+    }
+
     public LiveData<ArrayList<TodoList>> getTodoList() {
         return todoList;
     }
+
 
     public TodoList currentToDoList;
     public TodoItem currentToDoItem;
@@ -59,14 +66,31 @@ public class ToDoViewModel extends ViewModel {
         return cloned;
     }
 
+    private StringBuilder sb = new StringBuilder();
+    private Calendar cal = Calendar.getInstance();
+
+    public String getLastEdit(String name, Long timestamp) {
+        sb.setLength(0);
+        sb.append(name)
+                .append("@")
+                .append(getFormattedDate(timestamp));
+        return sb.toString();
+    }
+
+    private String getFormattedDate(Long timestamp) {
+        cal.setTimeInMillis(timestamp);
+        return DateFormat.format("dd.MM.yyyy HH:mm", cal).toString();
+    }
+
+
     public void parseToDoListCollection(QuerySnapshot queryDocumentSnapshots) {
         ArrayList<TodoList> tList = new ArrayList<>();
 
         for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
 
 
-                TodoList  t=   qs.toObject(TodoList.class);
-             Log.d("QUERY",t.getTitle()) ;
+            TodoList t = qs.toObject(TodoList.class);
+            Log.d("QUERY", t.getTitle());
             tList.add(qs.toObject(TodoList.class));
         }
 
@@ -78,6 +102,8 @@ public class ToDoViewModel extends ViewModel {
                 }
             });
         }
-        todoList.setValue(tList);
+        setTodoList(tList);
     }
+
+
 }

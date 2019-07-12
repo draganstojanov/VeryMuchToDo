@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -37,7 +38,7 @@ import java.util.ArrayList;
 import javax.annotation.Nullable;
 
 
-public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
+public class Todo extends AppCompatActivity {
 
     ToDoViewModel toDoViewModel;
     private SharedPreferences prefs;
@@ -49,7 +50,7 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
     public final Fragment ITEM_FRAGMENT = new ItemFragment();
     public final Fragment ITEM_EDIT_FRAGMENT = new ItemEditFragment();
 
-    public static final String COLLECTION_MESSAGES = "colMessages";
+
 
 
     public static User myself;
@@ -64,11 +65,10 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
         setContentView(R.layout.activity_todo);
         toDoViewModel = ViewModelProviders.of(this).get(ToDoViewModel.class);
         todo = FirebaseFirestore.getInstance();
-        //  toDoViewModel.registerFirebaseListeners();
         //  repo = Repository.getInstance();
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         registerObservers();
-        toDoViewModel.todoList.setValue(new ArrayList<TodoList>());
+        toDoViewModel.setTodoList(new ArrayList<TodoList>());
         setMyself();
         navigateToFragment(LIST_FRAGMENT);
 
@@ -106,12 +106,9 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
     protected void onStart() {
         super.onStart();
 
-
         todo.collection(Document.COLLECTION_TODO_LISTS).addSnapshotListener(this, new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-
-                Toast.makeText(Todo.this, "AAAAAAAAAAAAAAAA", Toast.LENGTH_SHORT).show();
                 toDoViewModel.parseToDoListCollection(queryDocumentSnapshots);
             }
         });
@@ -240,43 +237,18 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
     }
 
 
-    public void saveList(TodoList todoList) {
 
-//        if (todoList.getTodoItemList().size() > 0) {
-//            boolean co = true;
-//            for (TodoItem ti : todoList.getTodoItemList()) {
-//                co = co && ti.isCompleted();
-//            }
-//            todoList.setCompleted(co);
-//        }
+//    @Override
+//    public void listChoosed(TodoList tl) {
+//        currentList = tl;
+//        //  navigateToFragment(ITEM_FRAGMENT);
+//    }
 
-//        documentData.clear();
-//        documentData.put("title", todoList.getTitle());
-//        documentData.put("shortDescription", todoList.getShortDescription());
-//        documentData.put("lastEdit", todoList.getLastEdit());
-//        documentData.put("lastEditTimestamp", todoList.getTimestamp());
-//        documentData.put("emergency", todoList.isEmergency());
-//        documentData.put("completed", todoList.isCompleted());
-//        documentData.put("todoItemList", todoList.getTodoItemList());
-//        documentData.put("lastEditId", todoList.getLastEditId());
-
-        //     addDocument(COLLECTION_TODOS, todoList.getTitle(), documentData);
-
-        listChoosed(todoList);
-
-    }
-
-    @Override
-    public void listChoosed(TodoList tl) {
-        currentList = tl;
-        //  navigateToFragment(ITEM_FRAGMENT);
-    }
-
-    @Override
-    public void changedCompletion(int position) {
-        currentList.getTodoItemList().get(position).setCompleted(!currentList.getTodoItemList().get(position).isCompleted());
-        saveList(currentList);
-    }
+//    @Override
+//    public void changedCompletion(int position) {
+//        currentList.getTodoItemList().get(position).setCompleted(!currentList.getTodoItemList().get(position).isCompleted());
+//     //   saveList(currentList);
+//    }
 
 
     public void sendMessage(Message message) {
@@ -331,22 +303,43 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
     }
 
     private void registerObservers() {
+        Log.d("REGISTER",String.valueOf(System.currentTimeMillis()));
         toDoViewModel.getAddDocument().observe(this, new Observer<Document>() {
             @Override
             public void onChanged(Document document) {
+
+               // addDocument(document);
+
                 todo.collection(document.getCollection())
                         .document(document.getDocumentName())
                         .set(document.getMap());
-            }
+           }
         });
 
         toDoViewModel.getDeleteDocument().observe(this, new Observer<Document>() {
             @Override
             public void onChanged(Document document) {
+
+              //  deleteDocument(document);
                 todo.collection(document.getCollection())
                         .document(document.getDocumentName())
                         .delete();
             }
         });
     }
+
+//    public void addDocument(Document document) {
+//        todo.collection(document.getCollection())
+//                .document(document.getDocumentName())
+//                .set(document.getMap());
+//    }
+//
+//    public void deleteDocument(Document document) {
+//
+//        todo.collection(document.getCollection())
+//                .document(document.getDocumentName())
+//                .delete();
+//    }
+
+
 }

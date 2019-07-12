@@ -22,6 +22,7 @@ import com.andraganoid.verymuchtodo.model.TodoItem;
 import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.todo.TodoBaseFragment;
 import com.andraganoid.verymuchtodo.todo.itemedit.ItemEditFragment;
+import com.andraganoid.verymuchtodo.todo.list.ListFragmentAdapter;
 
 import java.util.ArrayList;
 
@@ -49,12 +50,14 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
         super.onViewCreated(view, savedInstanceState);
         // closeKeyboard(binding.getRoot());
 
-        // Toast.makeText(toDo, String.valueOf(toDoViewModel.currentToDoList.getTodoItemList().size()), Toast.LENGTH_SHORT).show();
+
+
+
         binding.itemRecView.setLayoutManager(new LinearLayoutManager(toDo));
-        adapter = new ItemFragmentAdapter(toDoViewModel.currentToDoList.getTodoItemList(), this);
+        adapter = new ItemFragmentAdapter(toDoViewModel.currentToDoList.getTodoItemList(), toDoViewModel,this);
         binding.itemRecView.setAdapter(adapter);
 
-        toDoViewModel.getTodoList().observe(toDo, new Observer<ArrayList<TodoList>>() {
+        toDoViewModel.getTodoList().observe(this, new Observer<ArrayList<TodoList>>() {
             @Override
             public void onChanged(ArrayList<TodoList> todoLists) {
 
@@ -63,7 +66,8 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
               //  toDoViewModel.currentToDoList.getTitle();
 
 
-                adapter.notifyDataSetChanged();
+                Toast.makeText(toDo, "OBSERVER" + String.valueOf(todoLists.size()), Toast.LENGTH_SHORT).show();
+             //   adapter.setList(todoLists.);
             }
         });
 
@@ -83,7 +87,7 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
                     case ItemTouchHelper.LEFT:
                         if (!todoItem.isCompleted()) {
                             toDoViewModel.currentToDoItem = todoItem;
-                            toDo.navigateToFragment(new ItemEditFragment());
+                            toDo.navigateToFragment(toDo.ITEM_EDIT_FRAGMENT);
 
                         } else {
                             adapter.notifyDataSetChanged();
@@ -97,7 +101,7 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
                         if (todoItem.isCompleted()) {
                             toDoViewModel.currentToDoList.getTodoItemList().remove(viewHolder.getAdapterPosition());
                             //  todoActivity.saveList(todoActivity.currengtList);
-                            toDoViewModel.addDocument.setValue(new Document(toDoViewModel.currentToDoList));
+                            toDoViewModel.deleteDocument.setValue(new Document(toDoViewModel.currentToDoList));
 
                         } else {
                             adapter.notifyDataSetChanged();
@@ -111,7 +115,6 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(binding.itemRecView);
 
-
     }
 
 
@@ -121,10 +124,12 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
         toDo.navigateToFragment(toDo.ITEM_EDIT_FRAGMENT);
     }
 
-
+    @Override
     public void onItemLongClicked(View view, TodoItem todoItem) {
-        //  toDo.navigateToFragment(toDo.ITEM_EDIT_FRAGMENT);
+        todoItem.setCompleted(!todoItem.isCompleted());
+        binding.invalidateAll();
     }
 
 
 }
+

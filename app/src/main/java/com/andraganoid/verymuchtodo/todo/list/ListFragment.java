@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,6 +22,7 @@ import com.andraganoid.verymuchtodo.model.Document;
 import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.todo.TodoBaseFragment;
 
+
 import java.util.ArrayList;
 
 
@@ -29,6 +31,12 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
     private FragmentListBinding binding;
     private ListFragmentAdapter adapter;
 
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -44,22 +52,26 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
         return binding.getRoot();
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // closeKeyboard(binding.getRoot());
 
         binding.listRecView.setLayoutManager(new LinearLayoutManager(toDo));
-        adapter = new ListFragmentAdapter(toDoViewModel.getTodoList().getValue(), this);
+
+        adapter = new ListFragmentAdapter(toDoViewModel.getTodoList().getValue(), toDoViewModel,this);
         binding.listRecView.setAdapter(adapter);
 
-        toDoViewModel.getTodoList().observe(toDo, new Observer<ArrayList<TodoList>>() {
+        toDoViewModel.getTodoList().observe(this, new Observer<ArrayList<TodoList>>() {
             @Override
             public void onChanged(ArrayList<TodoList> todoLists) {
-                Toast.makeText(toDo, "OBSERVER", Toast.LENGTH_SHORT).show();
-                adapter.notifyDataSetChanged();
+                Toast.makeText(toDo, "OBSERVER" + String.valueOf(todoLists.size()), Toast.LENGTH_SHORT).show();
+                adapter.setList(todoLists);
             }
         });
+
+
 
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
                 new ItemTouchHelper.SimpleCallback(
@@ -80,19 +92,19 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
                         switch (swipeDir) {
                             case ItemTouchHelper.RIGHT:
                                 if (todoList.isCompleted()) {
-                                    toDoViewModel.deleteDocument.setValue(new Document(todoList));
+                                       toDoViewModel.deleteDocument.setValue(new Document(todoList));
 
                                     //TEST
-                                    ArrayList<TodoList> tll = toDoViewModel.todoList.getValue();
-                                    for (int i = 0; i < tll.size(); i++) {
-                                        if (tll.get(i).getTitle().equals(todoList.getTitle())) {
-                                            tll.remove(i);
-                                            break;
-                                        }
-                                    }
+//                                    ArrayList<TodoList> tll = toDoViewModel.todoList.getValue();
+//                                    for (int i = 0; i < tll.size(); i++) {
+//                                        if (tll.get(i).getTitle().equals(todoList.getTitle())) {
+//                                            tll.remove(i);
+//                                            break;
+//                                        }
+//                                    }
                                     //TEST
 
-                                    toDoViewModel.todoList.setValue(tll);
+                                //    toDoViewModel.todoList.setValue(tll);
 
                                 } else {
                                     Toast.makeText(toDo, getString(R.string.list_not_completed), Toast.LENGTH_LONG).show();
@@ -100,7 +112,7 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
                                 adapter.notifyDataSetChanged();
                                 break;
                             case ItemTouchHelper.LEFT:
-                                toDoViewModel.currentToDoList=todoList;
+                                toDoViewModel.currentToDoList = todoList;
                                 toDo.navigateToFragment(toDo.LIST_EDIT_FRAGMENT);
                                 break;
                         }
@@ -113,13 +125,13 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
 
     @Override
     public void onFabClicked() {
-        toDoViewModel.currentToDoList=new TodoList(toDoViewModel.user.get());
+        toDoViewModel.currentToDoList = new TodoList(toDoViewModel.user.get());
         toDo.navigateToFragment(toDo.LIST_EDIT_FRAGMENT);
     }
 
     @Override
     public void onItemClicked(TodoList todoList) {
-        toDoViewModel.currentToDoList=todoList;
+        toDoViewModel.currentToDoList = todoList;
         toDo.navigateToFragment(toDo.ITEM_FRAGMENT);
     }
 

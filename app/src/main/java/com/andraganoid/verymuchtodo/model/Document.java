@@ -6,17 +6,12 @@ public class Document {
 
     public static final String COLLECTION_USERS = "collectionUsers";
     public static final String COLLECTION_TODO_LISTS = "collectionToDoList";
-
+    public static final String COLLECTION_MESSAGES = "collectionMessages";
 
     private String collection;
     private String documentName;
     private HashMap<String, Object> map;
 
-//    public Document(String collection, String document, HashMap<String, Object> map) {
-//        this.collection = collection;
-//        this.documentName = document;
-//        this.map = map;
-//    }
 
     public Document(User user) {
         map = new HashMap<>();
@@ -25,24 +20,11 @@ public class Document {
         map.put("email", user.getEmail());
 //        map.put("location", user.getLocation());
 //        map.put("locationTimestamp", user.getLocationTimestamp());
-
         collection = COLLECTION_USERS;
         documentName = user.getId();
-
-        //  return new Document(COLLECTION_USERS, user.getId(), map);
     }
 
     public Document(TodoList todoList) {
-
-//        boolean co = true;
-//        if (todoList.getTodoItemList().size() > 0) {
-//            for (TodoItem ti : todoList.getTodoItemList()) {
-//                co = co && ti.isCompleted();
-//            }
-//        }
-//        todoList.setCompleted(co);
-//
-
         map = new HashMap<>();
         map.put("title", todoList.getTitle());
         map.put("description", todoList.getDescription());
@@ -51,11 +33,8 @@ public class Document {
         map.put("todoItemList", todoList.getTodoItemList());
         map.put("timestamp", todoList.getTimestamp());
         map.put("user", todoList.getUser());
-
         collection = COLLECTION_TODO_LISTS;
         documentName = todoList.getTitle();
-
-        // return new Document(COLLECTION_TODOS, title, map);
     }
 
 

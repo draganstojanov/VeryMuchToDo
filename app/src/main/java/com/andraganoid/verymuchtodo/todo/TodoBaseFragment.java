@@ -19,8 +19,8 @@ public class TodoBaseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         toDo = (Todo) getActivity();
-        toDoViewModel = ViewModelProviders.of(toDo).get(ToDoViewModel.class);
-        // toDoViewModel = toDo.toDoViewModel;
+        //toDoViewModel = ViewModelProviders.of(toDo).get(ToDoViewModel.class);
+        toDoViewModel = toDo.toDoViewModel;
     }
 
     public void closeKeyboard(View view) {
