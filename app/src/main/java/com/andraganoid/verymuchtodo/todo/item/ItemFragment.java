@@ -49,9 +49,9 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
         super.onViewCreated(view, savedInstanceState);
         // closeKeyboard(binding.getRoot());
 
-        Toast.makeText(toDo, String.valueOf(toDoViewModel.currentToDoList.get().getTodoItemList().size()), Toast.LENGTH_SHORT).show();
+        // Toast.makeText(toDo, String.valueOf(toDoViewModel.currentToDoList.getTodoItemList().size()), Toast.LENGTH_SHORT).show();
         binding.itemRecView.setLayoutManager(new LinearLayoutManager(toDo));
-        adapter = new ItemFragmentAdapter(toDoViewModel.currentToDoList.get().getTodoItemList(), this);
+        adapter = new ItemFragmentAdapter(toDoViewModel.currentToDoList.getTodoItemList(), this);
         binding.itemRecView.setAdapter(adapter);
 
         toDoViewModel.getTodoList().observe(toDo, new Observer<ArrayList<TodoList>>() {
@@ -59,6 +59,10 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
             public void onChanged(ArrayList<TodoList> todoLists) {
 
                 // DA LI JE NULL
+
+              //  toDoViewModel.currentToDoList.getTitle();
+
+
                 adapter.notifyDataSetChanged();
             }
         });
@@ -73,14 +77,12 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-                TodoItem todoItem = toDoViewModel.currentToDoList.get().getTodoItemList().get(viewHolder.getAdapterPosition());
+                TodoItem todoItem = toDoViewModel.currentToDoList.getTodoItemList().get(viewHolder.getAdapterPosition());
                 switch (swipeDir) {
 
                     case ItemTouchHelper.LEFT:
                         if (!todoItem.isCompleted()) {
-                            // isNew = false;
-                            // showItemEdit(ti);
-                            toDoViewModel.currentToDoItem.set(todoItem);
+                            toDoViewModel.currentToDoItem = todoItem;
                             toDo.navigateToFragment(new ItemEditFragment());
 
                         } else {
@@ -93,9 +95,9 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
                     case ItemTouchHelper.RIGHT:
 
                         if (todoItem.isCompleted()) {
-                            toDoViewModel.currentToDoList.get().getTodoItemList().remove(viewHolder.getAdapterPosition());
+                            toDoViewModel.currentToDoList.getTodoItemList().remove(viewHolder.getAdapterPosition());
                             //  todoActivity.saveList(todoActivity.currengtList);
-                            toDoViewModel.addDocument.setValue(new Document(toDoViewModel.currentToDoList.get()));
+                            toDoViewModel.addDocument.setValue(new Document(toDoViewModel.currentToDoList));
 
                         } else {
                             adapter.notifyDataSetChanged();
@@ -115,7 +117,7 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
 
     @Override
     public void onFabClicked() {
-        toDoViewModel.currentToDoItem.set(new TodoItem(toDoViewModel.user.get()));
+        toDoViewModel.currentToDoItem = new TodoItem(toDoViewModel.user.get());
         toDo.navigateToFragment(toDo.ITEM_EDIT_FRAGMENT);
     }
 
@@ -124,9 +126,5 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
         //  toDo.navigateToFragment(toDo.ITEM_EDIT_FRAGMENT);
     }
 
-    @Override
-    public void onItemClicked( TodoItem todoItem) {
-        toDoViewModel.currentToDoItem.set(todoItem);
-        toDo.navigateToFragment(toDo.ITEM_EDIT_FRAGMENT);
-    }
+
 }

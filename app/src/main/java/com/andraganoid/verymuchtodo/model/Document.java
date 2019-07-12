@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 public class Document {
 
-    final String COLLECTION_USERS = "collectionUsers";
-    private final String COLLECTION_TODO_LISTS = "collectionToDoList";
+    public static final String COLLECTION_USERS = "collectionUsers";
+    public static final String COLLECTION_TODO_LISTS = "collectionToDoList";
 
 
     private String collection;

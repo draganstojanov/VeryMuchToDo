@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +16,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.andraganoid.verymuchtodo.MainActivity;
 import com.andraganoid.verymuchtodo.R;
-import com.andraganoid.verymuchtodo.Repository;
 import com.andraganoid.verymuchtodo.VeryOnItemClickListener;
 import com.andraganoid.verymuchtodo.model.Document;
 import com.andraganoid.verymuchtodo.model.Message;
@@ -27,15 +27,22 @@ import com.andraganoid.verymuchtodo.todo.list.ListFragment;
 import com.andraganoid.verymuchtodo.todo.listedit.ListEditFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+
+import javax.annotation.Nullable;
 
 
 public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 
     ToDoViewModel toDoViewModel;
     private SharedPreferences prefs;
-    Repository repo;
+    private FirebaseFirestore todo;
+    // Repository repo;
 
     public final Fragment LIST_FRAGMENT = new ListFragment();
     public final Fragment LIST_EDIT_FRAGMENT = new ListEditFragment();
@@ -45,47 +52,26 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
     public static final String COLLECTION_MESSAGES = "colMessages";
 
 
-    //  private FirebaseFirestore todo;
     public static User myself;
     public TodoList currentList;
 
     public BottomNavigationView bottomMain;
 
-    //  private Map<String, Object> documentData = new HashMap<>();
-
-
-//    public List<User> userList = new ArrayList<>();
-//    public List<TodoList> todoList = new ArrayList<>();
-//    public List<Message> messagesList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo);
         toDoViewModel = ViewModelProviders.of(this).get(ToDoViewModel.class);
-//        toDoViewModel.todo = FirebaseFirestore.getInstance();
-        repo = Repository.getInstance();
-
-        toDoViewModel.todoList.setValue(new ArrayList<TodoList>());
-
-        toDoViewModel.getAddDocument().observe(this, new Observer<Document>() {
-            @Override
-            public void onChanged(Document document) {
-                repo.addDocument(document);
-            }
-        });
-
-        toDoViewModel.getDeleteDocument().observe(this, new Observer<Document>() {
-            @Override
-            public void onChanged(Document document) {
-                repo.deleteDocument(document);
-            }
-        });
-
+        todo = FirebaseFirestore.getInstance();
+        //  toDoViewModel.registerFirebaseListeners();
+        //  repo = Repository.getInstance();
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        registerObservers();
+        toDoViewModel.todoList.setValue(new ArrayList<TodoList>());
         setMyself();
-
         navigateToFragment(LIST_FRAGMENT);
+
 
         bottomMain = findViewById(R.id.main_bottom_bar);
         bottomMain.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -120,49 +106,18 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
     protected void onStart() {
         super.onStart();
 
-//        todo.collection(COLLECTION_MESSAGES).addSnapshotListener(this, new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-//                long lastMsg = prefs.getLong("lastMsg", 0L);
-//                int newMsg = 0;
-//                messagesList.clear();
-//                for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
-//                    Message mes = qs.toObject(Message.class);
-//                    messagesList.add(mes);
-//                    if (mes.getTimestamp() > lastMsg) {
-//                        newMsg++;
-//                    }
-//                }
-//
-//
-//                if (messagesList.size() > 0) {
-//                    Collections.sort(messagesList, new Comparator<Message>() {
-//                        @Override
-//                        public int compare(final Message object1, final Message object2) {
-//                            return object1.getTimestampAsString().compareTo(object2.getTimestampAsString());
-//                        }
-//                    });
-//                }
-//
-//                if (newMsg > 0) {
-//                    prefs.edit().putLong("lastMsg", System.currentTimeMillis()).apply();
-//                    if (!messagesList.get(messagesList.size() - 1).getId().equals(myself.getId())) {
-//                        findViewById(R.id.main_msg).setBackgroundColor(getResources().getColor(R.color.colorAccent));
-//                    }
-//
-//                }
-//
-//                for (Message m : messagesList) {
-//
-//                }
-//
-//                goFragment();
-//
-//            }
-//        });
-//
-//
-//        todo.collection(COLLECTION_TODOS).addSnapshotListener(this, new EventListener<QuerySnapshot>() {
+
+        todo.collection(Document.COLLECTION_TODO_LISTS).addSnapshotListener(this, new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+
+                Toast.makeText(Todo.this, "AAAAAAAAAAAAAAAA", Toast.LENGTH_SHORT).show();
+                toDoViewModel.parseToDoListCollection(queryDocumentSnapshots);
+            }
+        });
+
+
+        //        todo.collection(COLLECTION_TODOS).addSnapshotListener(this, new EventListener<QuerySnapshot>() {
 //            @Override
 //            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 //                long lastList = prefs.getLong("lastList", 0L);
@@ -210,6 +165,51 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
 //
 //            }
 //        });
+
+
+//        todo.collection(COLLECTION_MESSAGES).addSnapshotListener(this, new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+//                long lastMsg = prefs.getLong("lastMsg", 0L);
+//                int newMsg = 0;
+//                messagesList.clear();
+//                for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
+//                    Message mes = qs.toObject(Message.class);
+//                    messagesList.add(mes);
+//                    if (mes.getTimestamp() > lastMsg) {
+//                        newMsg++;
+//                    }
+//                }
+//
+//
+//                if (messagesList.size() > 0) {
+//                    Collections.sort(messagesList, new Comparator<Message>() {
+//                        @Override
+//                        public int compare(final Message object1, final Message object2) {
+//                            return object1.getTimestampAsString().compareTo(object2.getTimestampAsString());
+//                        }
+//                    });
+//                }
+//
+//                if (newMsg > 0) {
+//                    prefs.edit().putLong("lastMsg", System.currentTimeMillis()).apply();
+//                    if (!messagesList.get(messagesList.size() - 1).getId().equals(myself.getId())) {
+//                        findViewById(R.id.main_msg).setBackgroundColor(getResources().getColor(R.color.colorAccent));
+//                    }
+//
+//                }
+//
+//                for (Message m : messagesList) {
+//
+//                }
+//
+//                goFragment();
+//
+//            }
+//        });
+//
+//
+
 //
 //
 //        todo.collection((COLLECTION_USERS)).addSnapshotListener(this, new EventListener<QuerySnapshot>() {
@@ -330,18 +330,23 @@ public class Todo extends AppCompatActivity implements VeryOnItemClickListener {
         }
     }
 
+    private void registerObservers() {
+        toDoViewModel.getAddDocument().observe(this, new Observer<Document>() {
+            @Override
+            public void onChanged(Document document) {
+                todo.collection(document.getCollection())
+                        .document(document.getDocumentName())
+                        .set(document.getMap());
+            }
+        });
 
-//    public void addDocument(Document document) {
-//        toDoViewModel.todo.collection(document.getCollection())
-//                .document(document.getDocumentName())
-//                .set(document.getMap());
-//    }
-//
-//    public void deleteDocument(Document document) {
-//        toDoViewModel.todo.collection(document.getCollection())
-//                .document(document.getDocumentName())
-//                .delete();
-//    }
-
-
+        toDoViewModel.getDeleteDocument().observe(this, new Observer<Document>() {
+            @Override
+            public void onChanged(Document document) {
+                todo.collection(document.getCollection())
+                        .document(document.getDocumentName())
+                        .delete();
+            }
+        });
+    }
 }

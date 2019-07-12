@@ -29,64 +29,41 @@ public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicke
     public ItemEditFragment() {
     }
 
-
-    private void init() {
-
-//        TodoItem todoItem = new TodoItem();
-//        toDoViewModel.todoItemNew.set((TodoItem) toDoViewModel.clone(
-//                toDoViewModel.currentToDoItem.get(),
-//                todoItem));
-//       Toast.makeText(toDo, toDoViewModel.todoItemNew.get().getContent(), Toast.LENGTH_SHORT).show();
-//        if (binding != null) {
-//            binding.setItemItem(toDoViewModel.todoItemNew.get());
-//        }
-//        this.todoItemNew = new TodoItem();
-//        this.todoItemNew.setContent(toDoViewModel.currentToDoItem.get().getContent());
-//        this.todoItemNew.setUser(toDoViewModel.currentToDoItem.get().getUser());
-//        this.todoItemNew.setTimestamp(toDoViewModel.currentToDoItem.get().getTimestamp());
-//        this.todoItemNew.setCompleted(toDoViewModel.currentToDoItem.get().isCompleted());
-//        Toast.makeText(toDo, "START", Toast.LENGTH_SHORT).show();
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //  init();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        // toDoViewModel = ViewModelProviders.of(this).get(MapViewModel.class);
         binding = DataBindingUtil.inflate(
                 inflater,
                 R.layout.fragment_item_edit,
                 container,
                 false
         );
-
         binding.setClicker(this);
-      //  binding.executePendingBindings();
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.setItemItem(toDoViewModel.currentToDoItem.get());
+        binding.setItemItem(toDoViewModel.currentToDoItem);
     }
 
     private boolean editCheck() {
 
-
-        String content = toDoViewModel.currentToDoItem.get().getContent();
+        String content = toDoViewModel.currentToDoItem.getContent();
         Toast.makeText(toDo, content, Toast.LENGTH_SHORT).show();
         if (content.isEmpty()) {
             return false;
         } else {
 
-            ArrayList<TodoItem> til = toDoViewModel.currentToDoList.get().getTodoItemList();
+            ArrayList<TodoItem> til = toDoViewModel.currentToDoList.getTodoItemList();
             for (int i = 0; i < til.size(); i++) {
 
                 if (til.get(i).getContent().equals(content)) {
@@ -94,15 +71,13 @@ public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicke
                     break;
                 }
             }
-            til.add(toDoViewModel.currentToDoItem.get());
-            TodoList tl = toDoViewModel.currentToDoList.get();
+            til.add(toDoViewModel.currentToDoItem);
+            TodoList tl = toDoViewModel.currentToDoList;
             tl.setTodoItemList(til);
-            toDoViewModel.currentToDoList.set(tl);
-            toDoViewModel.addDocument.setValue(new Document(toDoViewModel.currentToDoList.get()));
+            toDoViewModel.currentToDoList=tl;
+            toDoViewModel.addDocument.setValue(new Document(toDoViewModel.currentToDoList));
             return true;
         }
-
-
     }
 
 
@@ -117,23 +92,13 @@ public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicke
     public void onSaveAndNew() {
 
         if (editCheck()) {
-            toDoViewModel.currentToDoItem.set(new TodoItem(toDoViewModel.user.get()));
-            binding.setItemItem(toDoViewModel.currentToDoItem.get());
-            //  toDoViewModel.currentToDoItem.notifyChange();
-           // init();
-          //  binding.invalidateAll();
-
+            toDoViewModel.currentToDoItem=new TodoItem(toDoViewModel.user.get());
+            binding.setItemItem(toDoViewModel.currentToDoItem);
         }
     }
 
     @Override
     public void onCancel() {
-        //  TodoItem ti=new TodoItem(toDoViewModel.user.get()) ;
-        // ti.setContent(String.valueOf(System.currentTimeMillis()));
-        // toDoViewModel.todoItemNew.set(ti);
-//binding.invalidateAll();
-
-
         toDo.navigateToFragment(toDo.ITEM_FRAGMENT);
     }
 }
