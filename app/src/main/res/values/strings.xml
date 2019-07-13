@@ -27,4 +27,10 @@
     <string name="task_completed">Task is completed!</string>
     <string name="task_not_completed">Task is not completed!</string>
     <string name="create_item_add_new">Create todo list item and add new</string>
+    <string name="item_list_deleted">List is deleted or changed by another user.</string>
+    <string name="lists">Lists</string>
+    <string name="messages">Messages</string>
+    <string name="users">Users</string>
+    <string name="logout">Logout</string>
+    <string name="map">Map</string>
 </resources>

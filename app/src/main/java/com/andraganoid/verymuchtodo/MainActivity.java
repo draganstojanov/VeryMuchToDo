@@ -4,14 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.andraganoid.verymuchtodo.auth.AuthBaseFragment;
 import com.andraganoid.verymuchtodo.auth.login.LoginFragment;
-import com.andraganoid.verymuchtodo.auth.main.MainFragment;
 import com.andraganoid.verymuchtodo.auth.register.RegisterFragment;
 import com.andraganoid.verymuchtodo.todo.Todo;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,8 +20,9 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
 
     MainViewModel mainViewModel;
+    SharedPreferences prefs;
 
-    public static final Fragment MAIN_FRAGMENT = new MainFragment();
+    public static final Fragment MAIN_FRAGMENT = new AuthBaseFragment();
     public static final Fragment REGISTER_FRAGMENT = new RegisterFragment();
     public static final Fragment LOGIN_FRAGMENT = new LoginFragment();
 
@@ -31,9 +31,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         mainViewModel.mAuth = FirebaseAuth.getInstance();
-        navigateToFragment(MAIN_FRAGMENT);
+        // navigateToFragment(MAIN_FRAGMENT);
+        checkLoginStatus();
+    }
+
+    private void checkLoginStatus() {
+
+        if (prefs.getString("PREFS_ID", "").isEmpty()) {
+            navigateToFragment(LOGIN_FRAGMENT);
+        } else {
+            startActivity(new Intent(this, Todo.class));
+        }
+
     }
 
 
@@ -47,12 +59,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void loginSuccesfully(FirebaseUser user) {
+    public void setUser(FirebaseUser user) {
 
-        Toast.makeText(this, user.getDisplayName(), Toast.LENGTH_SHORT).show();
-
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.edit().putString("PREFS_ID", user.getUid())
                 .putString("PREFS_NAME", user.getDisplayName())
                 .putString("PREFS_EMAIL", user.getEmail())

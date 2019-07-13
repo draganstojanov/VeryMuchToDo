@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
 import com.andraganoid.verymuchtodo.R;
-import com.andraganoid.verymuchtodo.auth.main.MainFragment;
+import com.andraganoid.verymuchtodo.auth.AuthBaseFragment;
 import com.andraganoid.verymuchtodo.databinding.RegisterFragmentBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -22,7 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-public class RegisterFragment extends MainFragment implements RegisterClicker {
+public class RegisterFragment extends AuthBaseFragment implements RegisterClicker {
 
 
     @Override
@@ -61,7 +61,7 @@ public class RegisterFragment extends MainFragment implements RegisterClicker {
                                     user.updateProfile(profileUpdates).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            main.loginSuccesfully(user);
+                                            main.setUser(user);
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override

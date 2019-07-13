@@ -12,14 +12,14 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
 import com.andraganoid.verymuchtodo.R;
-import com.andraganoid.verymuchtodo.auth.main.MainFragment;
+import com.andraganoid.verymuchtodo.auth.AuthBaseFragment;
 import com.andraganoid.verymuchtodo.databinding.LoginFragmentBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 
 
-public class LoginFragment extends MainFragment implements LoginClicker {
+public class LoginFragment extends AuthBaseFragment implements LoginClicker {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -51,13 +51,18 @@ public class LoginFragment extends MainFragment implements LoginClicker {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                main.loginSuccesfully(mainViewModel.mAuth.getCurrentUser());
+                                main.setUser(mainViewModel.mAuth.getCurrentUser());
                             } else {
                                 Toast.makeText(main, getString(R.string.auth_failed) + "\n" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             }
                         }
                     });
         }
+    }
+
+    @Override
+    public void onNotRegistred() {
+
     }
 }
 

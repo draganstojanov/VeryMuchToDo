@@ -21,8 +21,6 @@ import com.andraganoid.verymuchtodo.model.Document;
 import com.andraganoid.verymuchtodo.model.TodoItem;
 import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.todo.TodoBaseFragment;
-import com.andraganoid.verymuchtodo.todo.itemedit.ItemEditFragment;
-import com.andraganoid.verymuchtodo.todo.list.ListFragmentAdapter;
 
 import java.util.ArrayList;
 
@@ -51,23 +49,29 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
         // closeKeyboard(binding.getRoot());
 
 
-
-
         binding.itemRecView.setLayoutManager(new LinearLayoutManager(toDo));
-        adapter = new ItemFragmentAdapter(toDoViewModel.currentToDoList.getTodoItemList(), toDoViewModel,this);
+        adapter = new ItemFragmentAdapter(toDoViewModel.currentToDoList.getTodoItemList(), toDoViewModel, this);
         binding.itemRecView.setAdapter(adapter);
 
         toDoViewModel.getTodoList().observe(this, new Observer<ArrayList<TodoList>>() {
             @Override
             public void onChanged(ArrayList<TodoList> todoLists) {
-
-                // DA LI JE NULL
-
-              //  toDoViewModel.currentToDoList.getTitle();
-
-
+                boolean isInList = false;
+                int index = -1;
+                for (int i = 0; i < todoLists.size(); i++) {
+                    if (todoLists.get(i).getTitle().equals(toDoViewModel.currentToDoList.getTitle())) {
+                        isInList = true;
+                        index = i;
+                        break;
+                    }
+                }
+                if (isInList) {
+                    adapter.setList(todoLists.get(index).getTodoItemList());
+                } else {
+                    Toast.makeText(toDo, R.string.item_list_deleted, Toast.LENGTH_SHORT).show();
+                    toDo.navigateToFragment(toDo.LIST_FRAGMENT);
+                }
                 Toast.makeText(toDo, "OBSERVER" + String.valueOf(todoLists.size()), Toast.LENGTH_SHORT).show();
-             //   adapter.setList(todoLists.);
             }
         });
 

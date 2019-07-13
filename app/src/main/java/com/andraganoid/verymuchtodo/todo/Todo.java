@@ -6,10 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.MenuItem;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -17,7 +14,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.andraganoid.verymuchtodo.MainActivity;
 import com.andraganoid.verymuchtodo.R;
-import com.andraganoid.verymuchtodo.VeryOnItemClickListener;
 import com.andraganoid.verymuchtodo.model.Document;
 import com.andraganoid.verymuchtodo.model.Message;
 import com.andraganoid.verymuchtodo.model.TodoList;
@@ -26,7 +22,6 @@ import com.andraganoid.verymuchtodo.todo.item.ItemFragment;
 import com.andraganoid.verymuchtodo.todo.itemedit.ItemEditFragment;
 import com.andraganoid.verymuchtodo.todo.list.ListFragment;
 import com.andraganoid.verymuchtodo.todo.listedit.ListEditFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -43,7 +38,6 @@ public class Todo extends AppCompatActivity {
     ToDoViewModel toDoViewModel;
     private SharedPreferences prefs;
     private FirebaseFirestore todo;
-    // Repository repo;
 
     public final Fragment LIST_FRAGMENT = new ListFragment();
     public final Fragment LIST_EDIT_FRAGMENT = new ListEditFragment();
@@ -51,13 +45,16 @@ public class Todo extends AppCompatActivity {
     public final Fragment ITEM_EDIT_FRAGMENT = new ItemEditFragment();
 
 
-
-
     public static User myself;
     public TodoList currentList;
 
-    public BottomNavigationView bottomMain;
+    //  public BottomNavigationView bottomMain;
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        navigateToFragment(LIST_FRAGMENT);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,40 +62,10 @@ public class Todo extends AppCompatActivity {
         setContentView(R.layout.activity_todo);
         toDoViewModel = ViewModelProviders.of(this).get(ToDoViewModel.class);
         todo = FirebaseFirestore.getInstance();
-        //  repo = Repository.getInstance();
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         registerObservers();
         toDoViewModel.setTodoList(new ArrayList<TodoList>());
         setMyself();
-        navigateToFragment(LIST_FRAGMENT);
-
-
-        bottomMain = findViewById(R.id.main_bottom_bar);
-        bottomMain.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-
-                findViewById(menuItem.getItemId()).setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-
-//                switch (menuItem.getItemId()) {
-//
-//                    case R.id.main_lists:
-//                        navigateToFragment(LIST_FRAGMENT);
-//                        break;
-//                    case R.id.main_msg:
-//                        navigateToFragment(MESSAGE_FRAGMENT);
-//                        break;
-//                    case R.id.main_users:
-//                        navigateToFragment(USER_FRAGMENT);
-//                        break;
-//                    case R.id.main_logout:
-//                        logout();
-//                        break;
-//
-//                }
-                return false;
-            }
-        });
     }
 
 
@@ -109,7 +76,9 @@ public class Todo extends AppCompatActivity {
         todo.collection(Document.COLLECTION_TODO_LISTS).addSnapshotListener(this, new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                toDoViewModel.parseToDoListCollection(queryDocumentSnapshots);
+                if (queryDocumentSnapshots != null) {
+                    toDoViewModel.parseToDoListCollection(queryDocumentSnapshots);
+                }
             }
         });
 
@@ -237,7 +206,6 @@ public class Todo extends AppCompatActivity {
     }
 
 
-
 //    @Override
 //    public void listChoosed(TodoList tl) {
 //        currentList = tl;
@@ -263,28 +231,10 @@ public class Todo extends AppCompatActivity {
     }
 
 
-    public void navigateToFragment(Fragment fragment) {
-
-        if (fragment != null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.todo_fragment, fragment)
-                    .commit();
-        }
-    }
-
-
-    private void logout() {
-        FirebaseAuth.getInstance().signOut();
-        this.startActivity(new Intent(this, MainActivity.class));
-        this.finishAffinity();
-    }
-
     public void setTitle(String title, String subtitle) {
         getSupportActionBar().setTitle(title);
         getSupportActionBar().setSubtitle(subtitle);
     }
-
 
     // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
@@ -303,24 +253,19 @@ public class Todo extends AppCompatActivity {
     }
 
     private void registerObservers() {
-        Log.d("REGISTER",String.valueOf(System.currentTimeMillis()));
+        Log.d("REGISTER", String.valueOf(System.currentTimeMillis()));
         toDoViewModel.getAddDocument().observe(this, new Observer<Document>() {
             @Override
             public void onChanged(Document document) {
-
-               // addDocument(document);
-
                 todo.collection(document.getCollection())
                         .document(document.getDocumentName())
                         .set(document.getMap());
-           }
+            }
         });
 
         toDoViewModel.getDeleteDocument().observe(this, new Observer<Document>() {
             @Override
             public void onChanged(Document document) {
-
-              //  deleteDocument(document);
                 todo.collection(document.getCollection())
                         .document(document.getDocumentName())
                         .delete();
@@ -328,18 +273,26 @@ public class Todo extends AppCompatActivity {
         });
     }
 
-//    public void addDocument(Document document) {
-//        todo.collection(document.getCollection())
-//                .document(document.getDocumentName())
-//                .set(document.getMap());
-//    }
-//
-//    public void deleteDocument(Document document) {
-//
-//        todo.collection(document.getCollection())
-//                .document(document.getDocumentName())
-//                .delete();
-//    }
+    public void logout() {
+        prefs.edit().putString("PREFS_ID", "")
+                .putString("PREFS_NAME", "")
+                .putString("PREFS_EMAIL", "")
+                .putBoolean("PREFS_IS_USER_REGISTRED", false)
+                .apply();
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(this, MainActivity.class));
+        finishAffinity();
+    }
+
+    public void navigateToFragment(Fragment fragment) {
+
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.todo_fragment, fragment)
+                    .commit();
+        }
+    }
 
 
 }
