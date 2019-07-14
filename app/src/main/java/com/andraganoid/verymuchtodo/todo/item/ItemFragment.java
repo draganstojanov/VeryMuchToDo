@@ -29,7 +29,11 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
 
     private FragmentItemBinding binding;
     private ItemFragmentAdapter adapter;
-
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        toDo.setBars(toDoViewModel.currentToDoList.getTitle(), "");
+//    }
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
@@ -46,6 +50,7 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        toDoViewModel.setTodoBars(toDoViewModel.currentToDoList.getTitle(), "");
         // closeKeyboard(binding.getRoot());
 
 

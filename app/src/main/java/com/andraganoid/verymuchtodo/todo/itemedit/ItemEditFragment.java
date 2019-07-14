@@ -27,12 +27,12 @@ public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicke
 
     public ItemEditFragment() {
     }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
+//
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        toDo.setBars();
+//    }toDoViewModel.currentToDoList.getTitle(), ""
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -51,6 +51,7 @@ public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicke
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        toDoViewModel.setTodoBars(toDoViewModel.currentToDoList.getTitle(), "");
         binding.setItemItem(toDoViewModel.currentToDoItem);
     }
 

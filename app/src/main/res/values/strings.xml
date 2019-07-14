@@ -33,4 +33,5 @@
     <string name="users">Users</string>
     <string name="logout">Logout</string>
     <string name="map">Map</string>
+    <string name="todo_lists">ToDo lists</string>
 </resources>

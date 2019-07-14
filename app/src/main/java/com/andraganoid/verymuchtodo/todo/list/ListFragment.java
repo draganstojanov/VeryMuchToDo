@@ -10,8 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +19,6 @@ import com.andraganoid.verymuchtodo.databinding.FragmentListBinding;
 import com.andraganoid.verymuchtodo.model.Document;
 import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.todo.TodoBaseFragment;
-
 
 import java.util.ArrayList;
 
@@ -35,6 +32,7 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        toDoViewModel.setTodoBars(getString(R.string.todo_lists), "");
 
     }
 
@@ -48,7 +46,7 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
                 R.layout.fragment_list,
                 container,
                 false);
-        binding.setClicker(this);
+        binding.setClicker(this);   toDoViewModel.setTodoBars(getString(R.string.todo_lists), "");
         return binding.getRoot();
     }
 
@@ -56,6 +54,7 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         // closeKeyboard(binding.getRoot());
 
         binding.listRecView.setLayoutManager(new LinearLayoutManager(toDo));
@@ -66,7 +65,6 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
         toDoViewModel.getTodoList().observe(this, new Observer<ArrayList<TodoList>>() {
             @Override
             public void onChanged(ArrayList<TodoList> todoLists) {
-                Toast.makeText(toDo, "OBSERVER" + String.valueOf(todoLists.size()), Toast.LENGTH_SHORT).show();
                 adapter.setList(todoLists);
             }
         });

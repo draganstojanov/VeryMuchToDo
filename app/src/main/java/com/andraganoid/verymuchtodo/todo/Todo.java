@@ -6,14 +6,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.andraganoid.verymuchtodo.MainActivity;
 import com.andraganoid.verymuchtodo.R;
+import com.andraganoid.verymuchtodo.databinding.ActivityTodoBinding;
 import com.andraganoid.verymuchtodo.model.Document;
 import com.andraganoid.verymuchtodo.model.Message;
 import com.andraganoid.verymuchtodo.model.TodoList;
@@ -22,6 +25,10 @@ import com.andraganoid.verymuchtodo.todo.item.ItemFragment;
 import com.andraganoid.verymuchtodo.todo.itemedit.ItemEditFragment;
 import com.andraganoid.verymuchtodo.todo.list.ListFragment;
 import com.andraganoid.verymuchtodo.todo.listedit.ListEditFragment;
+import com.andraganoid.verymuchtodo.todo.map.MapFragment;
+import com.andraganoid.verymuchtodo.todo.menu.MenuAlert;
+import com.andraganoid.verymuchtodo.todo.menu.MenuClicker;
+import com.andraganoid.verymuchtodo.todo.menu.TodoBars;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -33,22 +40,23 @@ import java.util.ArrayList;
 import javax.annotation.Nullable;
 
 
-public class Todo extends AppCompatActivity {
+public class Todo extends AppCompatActivity implements MenuClicker {
 
     ToDoViewModel toDoViewModel;
     private SharedPreferences prefs;
     private FirebaseFirestore todo;
+    ActivityTodoBinding binding;
 
     public final Fragment LIST_FRAGMENT = new ListFragment();
     public final Fragment LIST_EDIT_FRAGMENT = new ListEditFragment();
     public final Fragment ITEM_FRAGMENT = new ItemFragment();
     public final Fragment ITEM_EDIT_FRAGMENT = new ItemEditFragment();
-
+    // public final Fragment MESSAGE_FRAGMENT = new MessagesFragment();
+    // public final Fragment USER_FRAGMENT = new UserFragment();
+    public final Fragment MAP_FRAGMENT = new MapFragment();
 
     public static User myself;
     public TodoList currentList;
-
-    //  public BottomNavigationView bottomMain;
 
     @Override
     protected void onResume() {
@@ -59,13 +67,17 @@ public class Todo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_todo);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_todo);
         toDoViewModel = ViewModelProviders.of(this).get(ToDoViewModel.class);
         todo = FirebaseFirestore.getInstance();
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         registerObservers();
         toDoViewModel.setTodoList(new ArrayList<TodoList>());
         setMyself();
+        toDoViewModel.setTodoBars(getString(R.string.app_name), "");
+        toDoViewModel.menuAlert.set(new MenuAlert());
+        binding.setMenuAlert(toDoViewModel.menuAlert.get());
+        binding.setClicker(this);
     }
 
 
@@ -82,8 +94,116 @@ public class Todo extends AppCompatActivity {
             }
         });
 
+    }
 
-        //        todo.collection(COLLECTION_TODOS).addSnapshotListener(this, new EventListener<QuerySnapshot>() {
+
+
+    public void sendMessage(Message message) {
+//        documentData.clear();
+//        documentData.put("text", message.getText());
+//        documentData.put("timestamp", message.getTimestamp());
+//        documentData.put("from", message.getFrom());
+//        documentData.put("title", message.getTitle());
+//        documentData.put("id", message.getId());
+
+        // addDocument(COLLECTION_MESSAGES, message.getTitle(), documentData);
+    }
+
+
+    // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+    private void setMyself() {
+        User user = new User(prefs.getString("PREFS_ID", ""),
+                prefs.getString("PREFS_NAME", ""),
+                prefs.getString("PREFS_EMAIL", ""));
+        toDoViewModel.user.set(user);
+
+        if (!prefs.getBoolean("PREFS_IS_USER_REGISTRED", false)) {
+            prefs.edit().putBoolean("PREFS_IS_USER_REGISTRED", true).apply();
+
+            toDoViewModel.addDocument.setValue(new Document(user));
+
+        }
+    }
+
+    private void registerObservers() {
+        Log.d("REGISTER", String.valueOf(System.currentTimeMillis()));
+        toDoViewModel.getAddDocument().observe(this, new Observer<Document>() {
+            @Override
+            public void onChanged(Document document) {
+                todo.collection(document.getCollection())
+                        .document(document.getDocumentName())
+                        .set(document.getMap());
+            }
+        });
+
+        toDoViewModel.getDeleteDocument().observe(this, new Observer<Document>() {
+            @Override
+            public void onChanged(Document document) {
+                todo.collection(document.getCollection())
+                        .document(document.getDocumentName())
+                        .delete();
+            }
+        });
+
+        toDoViewModel.todoBars.observe(this, new Observer<TodoBars>() {
+            @Override
+            public void onChanged(TodoBars todoBars) {
+                binding.todoToolbar.setTitle(todoBars.getTitle());
+                binding.todoToolbar.setSubtitle(todoBars.getSubtitle());
+            }
+        });
+    }
+
+    public void navigateToFragment(Fragment fragment) {
+
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.todo_fragment, fragment)
+                    .commit();
+        }
+    }
+
+
+    @Override
+    public void onListItemClicked() {
+        navigateToFragment(LIST_FRAGMENT);
+    }
+
+    @Override
+    public void onMessageItemClicked() {
+        Toast.makeText(this, "MESSAGES", Toast.LENGTH_SHORT).show();
+        // navigateToFragment(MESSAGE_FRAGMENT);
+    }
+
+    @Override
+    public void onUserItemClicked() {
+        Toast.makeText(this, "USERS", Toast.LENGTH_SHORT).show();
+        // navigateToFragment(USER_FRAGMENT);
+    }
+
+    @Override
+    public void onMapItemClicked() {
+        navigateToFragment(MAP_FRAGMENT);
+    }
+
+    @Override
+    public void onLogoutItemClicked() {
+        prefs.edit().putString("PREFS_ID", "")
+                .putString("PREFS_NAME", "")
+                .putString("PREFS_EMAIL", "")
+                .putBoolean("PREFS_IS_USER_REGISTRED", false)
+                .apply();
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(this, MainActivity.class));
+        finishAffinity();
+    }
+}
+
+
+
+//        todo.collection(COLLECTION_TODOS).addSnapshotListener(this, new EventListener<QuerySnapshot>() {
 //            @Override
 //            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
 //                long lastList = prefs.getLong("lastList", 0L);
@@ -187,23 +307,7 @@ public class Todo extends AppCompatActivity {
 //                }
 //            }
 //        });
-    }
 
-
-    private void goFragment() {
-        Fragment fragmentInstance = getSupportFragmentManager().findFragmentById(R.id.main_fragment);
-
-//        if (fragmentInstance != null) {
-//            if (fragmentInstance == LIST_FRAGMENT) {
-//                //((ListFragment) fragmentInstance).refreshLists();
-//            } else if (fragmentInstance == ITEM_FRAGMENT) {
-//                ((ItemFragment) fragmentInstance).refreshItems();
-//            } else if (fragmentInstance == MESSAGE_FRAGMENT) {
-//                ((MessageFragment) fragmentInstance).refreshMsg();
-//            }
-        //  }
-
-    }
 
 
 //    @Override
@@ -217,82 +321,3 @@ public class Todo extends AppCompatActivity {
 //        currentList.getTodoItemList().get(position).setCompleted(!currentList.getTodoItemList().get(position).isCompleted());
 //     //   saveList(currentList);
 //    }
-
-
-    public void sendMessage(Message message) {
-//        documentData.clear();
-//        documentData.put("text", message.getText());
-//        documentData.put("timestamp", message.getTimestamp());
-//        documentData.put("from", message.getFrom());
-//        documentData.put("title", message.getTitle());
-//        documentData.put("id", message.getId());
-
-        // addDocument(COLLECTION_MESSAGES, message.getTitle(), documentData);
-    }
-
-
-    public void setTitle(String title, String subtitle) {
-        getSupportActionBar().setTitle(title);
-        getSupportActionBar().setSubtitle(subtitle);
-    }
-
-    // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-    private void setMyself() {
-        User user = new User(prefs.getString("PREFS_ID", ""),
-                prefs.getString("PREFS_NAME", ""),
-                prefs.getString("PREFS_EMAIL", ""));
-        toDoViewModel.user.set(user);
-
-        if (!prefs.getBoolean("PREFS_IS_USER_REGISTRED", false)) {
-            prefs.edit().putBoolean("PREFS_IS_USER_REGISTRED", true).apply();
-
-            toDoViewModel.addDocument.setValue(new Document(user));
-
-        }
-    }
-
-    private void registerObservers() {
-        Log.d("REGISTER", String.valueOf(System.currentTimeMillis()));
-        toDoViewModel.getAddDocument().observe(this, new Observer<Document>() {
-            @Override
-            public void onChanged(Document document) {
-                todo.collection(document.getCollection())
-                        .document(document.getDocumentName())
-                        .set(document.getMap());
-            }
-        });
-
-        toDoViewModel.getDeleteDocument().observe(this, new Observer<Document>() {
-            @Override
-            public void onChanged(Document document) {
-                todo.collection(document.getCollection())
-                        .document(document.getDocumentName())
-                        .delete();
-            }
-        });
-    }
-
-    public void logout() {
-        prefs.edit().putString("PREFS_ID", "")
-                .putString("PREFS_NAME", "")
-                .putString("PREFS_EMAIL", "")
-                .putBoolean("PREFS_IS_USER_REGISTRED", false)
-                .apply();
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(this, MainActivity.class));
-        finishAffinity();
-    }
-
-    public void navigateToFragment(Fragment fragment) {
-
-        if (fragment != null) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.todo_fragment, fragment)
-                    .commit();
-        }
-    }
-
-
-}

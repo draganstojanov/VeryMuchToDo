@@ -26,6 +26,7 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        toDoViewModel.setTodoBars(toDoViewModel.currentToDoList.getTitle(), "");
         super.onCreate(savedInstanceState);
         this.todoListItemNew = new TodoList();
         this.todoListItemNew = (TodoList) toDoViewModel.clone(

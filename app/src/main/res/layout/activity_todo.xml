@@ -1,42 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".todo.Todo">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/todo_toolbar"
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="menuAlert"
+            type="com.andraganoid.verymuchtodo.todo.menu.MenuAlert" />
+
+        <variable
+            name="clicker"
+            type="com.andraganoid.verymuchtodo.todo.menu.MenuClicker" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        android:layout_height="match_parent"
+        tools:context=".todo.Todo">
 
-    <FrameLayout
-        android:id="@+id/todo_fragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/main_bottom_bar"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/todo_toolbar" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/todo_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:subtitleTextColor="@color/colorWhite"
+            app:titleTextColor="@color/colorWhite"
+            tools:ignore="MissingConstraints" />
+
+        <FrameLayout
+            android:id="@+id/todo_fragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/main_bottom_bar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/todo_toolbar" />
 
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/main_bottom_bar"
-        android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="#fff"
-        app:itemTextColor="#fff"
-        app:labelVisibilityMode="labeled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/main_menu" />
+        <LinearLayout
+            android:id="@+id/main_bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:baselineAligned="true"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="@{()->clicker.onListItemClicked()}"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_list_white_24dp"
+                    android:tint="@{menuAlert.listAlert ? @color/colorAccent : @color/colorWhite}" />
+
+                <TextView
+                    style="@style/MenuItemText"
+                    android:text="@string/lists"
+                    android:textColor="@{menuAlert.listAlert ? @color/colorAccent : @color/colorWhite}" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="@{()->clicker.onMessageItemClicked()}"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_message_white_24dp"
+                    android:tint="@{menuAlert.messageAlert ? @color/colorAccent : @color/colorWhite}" />
+
+                <TextView
+                    style="@style/MenuItemText"
+                    android:text="@string/messages"
+                    android:textColor="@{menuAlert.messageAlert ? @color/colorAccent : @color/colorWhite}" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="@{()->clicker.onUserItemClicked()}"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_people_white_24dp"
+                    android:tint="@{menuAlert.userAlert ? @color/colorAccent : @color/colorWhite}" />
+
+                <TextView
+                    style="@style/MenuItemText"
+                    android:text="@string/users"
+                    android:textColor="@{menuAlert.userAlert ? @color/colorAccent : @color/colorWhite}" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="@{()->clicker.onMapItemClicked()}"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_map_white_24dp"
+                    android:tint="@{menuAlert.mapAlert ? @color/colorAccent : @color/colorWhite}" />
+
+                <TextView
+                    style="@style/MenuItemText"
+                    android:text="@string/map"
+                    android:textColor="@{menuAlert.mapAlert ? @color/colorAccent : @color/colorWhite}" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="@{()->clicker.onLogoutItemClicked()}"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_close_white_24dp" />
+
+                <TextView
+                    style="@style/MenuItemText"
+                    android:text="@string/logout" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

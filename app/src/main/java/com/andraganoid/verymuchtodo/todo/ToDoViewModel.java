@@ -1,7 +1,6 @@
 package com.andraganoid.verymuchtodo.todo;
 
 import android.text.format.DateFormat;
-import android.util.Log;
 
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.LiveData;
@@ -13,6 +12,8 @@ import com.andraganoid.verymuchtodo.model.Message;
 import com.andraganoid.verymuchtodo.model.TodoItem;
 import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.model.User;
+import com.andraganoid.verymuchtodo.todo.menu.MenuAlert;
+import com.andraganoid.verymuchtodo.todo.menu.TodoBars;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -25,24 +26,24 @@ import java.util.Comparator;
 public class ToDoViewModel extends ViewModel {
 
 
-    public MutableLiveData<ArrayList<User>> userList = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<User>> userList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<TodoList>> todoList = new MutableLiveData<>();
-    public MutableLiveData<ArrayList<Message>> messageList = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<Message>> messageList = new MutableLiveData<>();
 
     public ObservableField<User> user = new ObservableField<>();
 
     public MutableLiveData<Document> addDocument = new MutableLiveData<>();
     public MutableLiveData<Document> deleteDocument = new MutableLiveData<>();
 
-    public LiveData<Document> getAddDocument() {
+    LiveData<Document> getAddDocument() {
         return addDocument;
     }
 
-    public LiveData<Document> getDeleteDocument() {
+    LiveData<Document> getDeleteDocument() {
         return deleteDocument;
     }
 
-    public void setTodoList(ArrayList<TodoList> todoLists) {
+    void setTodoList(ArrayList<TodoList> todoLists) {
         todoList.setValue(todoLists);
     }
 
@@ -50,9 +51,18 @@ public class ToDoViewModel extends ViewModel {
         return todoList;
     }
 
-
     public TodoList currentToDoList;
     public TodoItem currentToDoItem;
+
+
+    //public ObservableField<TodoBars> todoBars =new ObservableField<>();
+    public MutableLiveData<TodoBars> todoBars = new MutableLiveData<>();
+
+    public void setTodoBars(String title, String subtitle) {
+        todoBars.setValue(new TodoBars(title, subtitle));
+    }
+
+    public ObservableField<MenuAlert> menuAlert = new ObservableField<>();
 
     public Object clone(Object original, Object cloned) {
         for (Field field : original.getClass().getDeclaredFields()) {
@@ -83,14 +93,10 @@ public class ToDoViewModel extends ViewModel {
     }
 
 
-    public void parseToDoListCollection(QuerySnapshot queryDocumentSnapshots) {
+    void parseToDoListCollection(QuerySnapshot queryDocumentSnapshots) {
         ArrayList<TodoList> tList = new ArrayList<>();
 
         for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
-
-
-            TodoList t = qs.toObject(TodoList.class);
-            Log.d("QUERY", t.getTitle());
             tList.add(qs.toObject(TodoList.class));
         }
 
