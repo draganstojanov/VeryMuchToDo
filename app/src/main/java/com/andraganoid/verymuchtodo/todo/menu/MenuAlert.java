@@ -8,7 +8,7 @@ public class MenuAlert {
 
 
     public MenuAlert() {
-        listAlert = true;
+        listAlert = false;
         messageAlert = false;
         userAlert = false;
         mapAlert = false;

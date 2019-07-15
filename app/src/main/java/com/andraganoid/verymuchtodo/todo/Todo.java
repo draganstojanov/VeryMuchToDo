@@ -17,10 +17,6 @@ import androidx.lifecycle.ViewModelProviders;
 import com.andraganoid.verymuchtodo.MainActivity;
 import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.databinding.ActivityTodoBinding;
-import com.andraganoid.verymuchtodo.model.Document;
-import com.andraganoid.verymuchtodo.model.Message;
-import com.andraganoid.verymuchtodo.model.TodoList;
-import com.andraganoid.verymuchtodo.model.User;
 import com.andraganoid.verymuchtodo.todo.item.ItemFragment;
 import com.andraganoid.verymuchtodo.todo.itemedit.ItemEditFragment;
 import com.andraganoid.verymuchtodo.todo.list.ListFragment;
@@ -29,34 +25,27 @@ import com.andraganoid.verymuchtodo.todo.map.MapFragment;
 import com.andraganoid.verymuchtodo.todo.menu.MenuAlert;
 import com.andraganoid.verymuchtodo.todo.menu.MenuClicker;
 import com.andraganoid.verymuchtodo.todo.menu.TodoBars;
+import com.andraganoid.verymuchtodo.todo.message.MessageFragment;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
-
-import javax.annotation.Nullable;
 
 
 public class Todo extends AppCompatActivity implements MenuClicker {
 
     ToDoViewModel toDoViewModel;
     private SharedPreferences prefs;
-    private FirebaseFirestore todo;
-    ActivityTodoBinding binding;
+    //  private FirebaseFirestore todo;
+    public ActivityTodoBinding binding;
 
     public final Fragment LIST_FRAGMENT = new ListFragment();
     public final Fragment LIST_EDIT_FRAGMENT = new ListEditFragment();
     public final Fragment ITEM_FRAGMENT = new ItemFragment();
     public final Fragment ITEM_EDIT_FRAGMENT = new ItemEditFragment();
-    // public final Fragment MESSAGE_FRAGMENT = new MessagesFragment();
+    public final Fragment MESSAGE_FRAGMENT = new MessageFragment();
     // public final Fragment USER_FRAGMENT = new UserFragment();
     public final Fragment MAP_FRAGMENT = new MapFragment();
 
-    public static User myself;
-    public TodoList currentList;
+   // public static User myself;
+   // public TodoList currentList;
 
     @Override
     protected void onResume() {
@@ -69,14 +58,14 @@ public class Todo extends AppCompatActivity implements MenuClicker {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_todo);
         toDoViewModel = ViewModelProviders.of(this).get(ToDoViewModel.class);
-        todo = FirebaseFirestore.getInstance();
+        //  todo = FirebaseFirestore.getInstance();
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         registerObservers();
-        toDoViewModel.setTodoList(new ArrayList<TodoList>());
-        setMyself();
-        toDoViewModel.setTodoBars(getString(R.string.app_name), "");
-        toDoViewModel.menuAlert.set(new MenuAlert());
-        binding.setMenuAlert(toDoViewModel.menuAlert.get());
+//        toDoViewModel.setTodoList(new ArrayList<TodoList>());
+//        toDoViewModel.setMyself();
+//        toDoViewModel.setTodoBars(getString(R.string.app_name), "");
+//        toDoViewModel.setAlerts("all", false);
+        binding.setMenuAlert(toDoViewModel.menuAlert.getValue());
         binding.setClicker(this);
     }
 
@@ -85,66 +74,66 @@ public class Todo extends AppCompatActivity implements MenuClicker {
     protected void onStart() {
         super.onStart();
 
-        todo.collection(Document.COLLECTION_TODO_LISTS).addSnapshotListener(this, new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if (queryDocumentSnapshots != null) {
-                    toDoViewModel.parseToDoListCollection(queryDocumentSnapshots);
-                }
-            }
-        });
+        toDoViewModel.setFirebaseListeners();
 
-    }
+//        todo.collection(Document.COLLECTION_TODO_LISTS).addSnapshotListener(this, new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+//                if (queryDocumentSnapshots != null) {
+//                    toDoViewModel.parseToDoListCollection(queryDocumentSnapshots);
+//                }
+//            }
+//        });
+//
+//        todo.collection(Document.COLLECTION_MESSAGES).addSnapshotListener(this, new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+//                if (queryDocumentSnapshots != null) {
+//                    toDoViewModel.parseMessageCollection(queryDocumentSnapshots);
+//                }
+//            }
+//        });
 
 
-
-    public void sendMessage(Message message) {
-//        documentData.clear();
-//        documentData.put("text", message.getText());
-//        documentData.put("timestamp", message.getTimestamp());
-//        documentData.put("from", message.getFrom());
-//        documentData.put("title", message.getTitle());
-//        documentData.put("id", message.getId());
-
-        // addDocument(COLLECTION_MESSAGES, message.getTitle(), documentData);
     }
 
 
     // XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-    private void setMyself() {
-        User user = new User(prefs.getString("PREFS_ID", ""),
-                prefs.getString("PREFS_NAME", ""),
-                prefs.getString("PREFS_EMAIL", ""));
-        toDoViewModel.user.set(user);
-
-        if (!prefs.getBoolean("PREFS_IS_USER_REGISTRED", false)) {
-            prefs.edit().putBoolean("PREFS_IS_USER_REGISTRED", true).apply();
-
-            toDoViewModel.addDocument.setValue(new Document(user));
-
-        }
-    }
+//    private void setMyself() {
+//        User mUser = new User(prefs.getString("PREFS_ID", ""),
+//                prefs.getString("PREFS_NAME", ""),
+//                prefs.getString("PREFS_EMAIL", ""));
+//        toDoViewModel.mUser.set(mUser);
+//
+//        if (!prefs.getBoolean("PREFS_IS_USER_REGISTRED", false)) {
+//            prefs.edit().putBoolean("PREFS_IS_USER_REGISTRED", true).apply();
+//
+//           // toDoViewModel.addDocument.setValue(new Document(mUser));
+//            toDoViewModel.addDocument(new Document(mUser));
+//
+//        }
+//    }
 
     private void registerObservers() {
-        Log.d("REGISTER", String.valueOf(System.currentTimeMillis()));
-        toDoViewModel.getAddDocument().observe(this, new Observer<Document>() {
-            @Override
-            public void onChanged(Document document) {
-                todo.collection(document.getCollection())
-                        .document(document.getDocumentName())
-                        .set(document.getMap());
-            }
-        });
-
-        toDoViewModel.getDeleteDocument().observe(this, new Observer<Document>() {
-            @Override
-            public void onChanged(Document document) {
-                todo.collection(document.getCollection())
-                        .document(document.getDocumentName())
-                        .delete();
-            }
-        });
+//        Log.d("REGISTER", String.valueOf(System.currentTimeMillis()));
+//        toDoViewModel.getAddDocument().observe(this, new Observer<Document>() {
+//            @Override
+//            public void onChanged(Document document) {
+//                todo.collection(document.getCollection())
+//                        .document(document.getDocumentName())
+//                        .set(document.getMap());
+//            }
+//        });
+//
+//        toDoViewModel.getDeleteDocument().observe(this, new Observer<Document>() {
+//            @Override
+//            public void onChanged(Document document) {
+//                todo.collection(document.getCollection())
+//                        .document(document.getDocumentName())
+//                        .delete();
+//            }
+//        });
 
         toDoViewModel.todoBars.observe(this, new Observer<TodoBars>() {
             @Override
@@ -153,7 +142,17 @@ public class Todo extends AppCompatActivity implements MenuClicker {
                 binding.todoToolbar.setSubtitle(todoBars.getSubtitle());
             }
         });
+
+        toDoViewModel.menuAlert.observe(this, new Observer<MenuAlert>() {
+            @Override
+            public void onChanged(MenuAlert menuAlert) {
+                //    Toast.makeText(Todo.this, "ALERT", Toast.LENGTH_SHORT).show();
+                Log.d("ALERT", String.valueOf(System.currentTimeMillis()) + String.valueOf(menuAlert.isMessageAlert()));
+                binding.invalidateAll();
+            }
+        });
     }
+
 
     public void navigateToFragment(Fragment fragment) {
 
@@ -173,8 +172,8 @@ public class Todo extends AppCompatActivity implements MenuClicker {
 
     @Override
     public void onMessageItemClicked() {
-        Toast.makeText(this, "MESSAGES", Toast.LENGTH_SHORT).show();
-        // navigateToFragment(MESSAGE_FRAGMENT);
+        // Toast.makeText(this, "MESSAGES", Toast.LENGTH_SHORT).show();
+        navigateToFragment(MESSAGE_FRAGMENT);
     }
 
     @Override
@@ -199,8 +198,8 @@ public class Todo extends AppCompatActivity implements MenuClicker {
         startActivity(new Intent(this, MainActivity.class));
         finishAffinity();
     }
-}
 
+}
 
 
 //        todo.collection(COLLECTION_TODOS).addSnapshotListener(this, new EventListener<QuerySnapshot>() {
@@ -307,7 +306,6 @@ public class Todo extends AppCompatActivity implements MenuClicker {
 //                }
 //            }
 //        });
-
 
 
 //    @Override

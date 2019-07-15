@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
@@ -26,7 +27,7 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        toDoViewModel.setTodoBars(toDoViewModel.currentToDoList.getTitle(), "");
+
         super.onCreate(savedInstanceState);
         this.todoListItemNew = new TodoList();
         this.todoListItemNew = (TodoList) toDoViewModel.clone(
@@ -50,12 +51,19 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        toDoViewModel.setTodoBars(toDoViewModel.currentToDoList.getTitle(), "");
+    }
+
+    @Override
     public void onCreateClicked() {
         if (!todoListItemNew.getTitle().isEmpty()) {
             if (todoListItemNew.getTitle().length() < 32) {
                 if (todoListItemNew.getDescription().length() < 100) {
                     if (toDoViewModel.currentToDoList.getTimestamp() != 0) {
-                        toDoViewModel.deleteDocument.setValue(new Document(toDoViewModel.currentToDoList));
+//                        toDoViewModel.deleteDocument.setValue(new Document(toDoViewModel.currentToDoList));
+                        toDoViewModel.deleteDocument(new Document(toDoViewModel.currentToDoList));
                     }
 
                     //TEST
@@ -78,7 +86,8 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
 
 
                     todoListItemNew.setTimestampAndCompleted();
-                    toDoViewModel.addDocument.setValue(new Document(todoListItemNew));
+//                    toDoViewModel.addDocument.setValue(new Document(todoListItemNew));
+                    toDoViewModel.addDocument(new Document(todoListItemNew));
 
                     toDo.navigateToFragment(toDo.LIST_FRAGMENT);
                 } else {

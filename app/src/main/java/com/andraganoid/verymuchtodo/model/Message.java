@@ -1,42 +1,37 @@
 package com.andraganoid.verymuchtodo.model;
 
-import android.text.format.DateFormat;
-
-import java.util.Calendar;
-
-import static com.andraganoid.verymuchtodo.todo.Todo.myself;
-
 public class Message {
 
     private String text;
     private long timestamp;
-    private String from;
+    private User user;
     private String title;
     private String id;
+    //  private ArrayList<User> receiver;
 
-    private StringBuilder sb = new StringBuilder();
+    // private StringBuilder sb = new StringBuilder();
 
     public Message() {
     }
+//
+//    public Message(String text) {
+//        this.timestamp = System.currentTimeMillis();
+//        this.text = text;
+//        this.from = myself.getName();
+//        this.title = myself.getName() + String.valueOf(timestamp);
+//        this.id=myself.getId();
+//    }
 
-    public Message(String text) {
-        this.timestamp = System.currentTimeMillis();
-        this.text = text;
-        this.from = myself.getName();
-        this.title = myself.getName() + String.valueOf(timestamp);
-        this.id=myself.getId();
-    }
-
-    public String getMsgData() {
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(timestamp);
-        String date = DateFormat.format("dd.MM.yyyy HH:mm", cal).toString();
-        sb.setLength(0);
-        sb.append(from)
-                .append("@")
-                .append(date);
-        return sb.toString();
-    }
+//    public String getMsgData() {
+//        Calendar cal = Calendar.getInstance();
+//        cal.setTimeInMillis(timestamp);
+//        String date = DateFormat.format("dd.MM.yyyy HH:mm", cal).toString();
+//        sb.setLength(0);
+//        sb.append(from)
+//                .append("@")
+//                .append(date);
+//        return sb.toString();
+//    }
 
     public String getText() {
         return text;
@@ -54,17 +49,17 @@ public class Message {
         this.timestamp = timestamp;
     }
 
-    public String getTimestampAsString( ) {
+    public String getTimestampAsString() {
         return String.valueOf(timestamp);
     }
 
-    public String getFrom() {
-        return from;
-    }
+    //  public String getFrom() {
+    //      return from;
+    //  }
 
-    public void setFrom(String from) {
-        this.from = from;
-    }
+    //  public void setFrom(String from) {
+    //     this.from = from;
+    //  }
 
     public String getTitle() {
         return title;
@@ -80,5 +75,13 @@ public class Message {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

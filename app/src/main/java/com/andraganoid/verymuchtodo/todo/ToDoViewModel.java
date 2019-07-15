@@ -1,11 +1,16 @@
 package com.andraganoid.verymuchtodo.todo;
 
+import android.app.Application;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.andraganoid.verymuchtodo.model.Document;
 import com.andraganoid.verymuchtodo.model.Message;
@@ -14,6 +19,9 @@ import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.model.User;
 import com.andraganoid.verymuchtodo.todo.menu.MenuAlert;
 import com.andraganoid.verymuchtodo.todo.menu.TodoBars;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -23,25 +31,69 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class ToDoViewModel extends ViewModel {
+import javax.annotation.Nullable;
 
+public class ToDoViewModel extends AndroidViewModel {
+
+    public ToDoViewModel(@NonNull Application application) {
+        super(application);
+        prefs = PreferenceManager.getDefaultSharedPreferences(getApplication());
+        todo = FirebaseFirestore.getInstance();
+        setTodoList(new ArrayList<TodoList>());
+        setMessageList(new ArrayList<Message>());
+        setMyself();
+        setTodoBars("", "");
+        setAlerts("all", false);
+    }
+
+
+    private SharedPreferences prefs;
+    private FirebaseFirestore todo;
 
     private MutableLiveData<ArrayList<User>> userList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<TodoList>> todoList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Message>> messageList = new MutableLiveData<>();
 
-    public ObservableField<User> user = new ObservableField<>();
+    private void setMyself() {
+        User user = new User(prefs.getString("PREFS_ID", ""),
+                prefs.getString("PREFS_NAME", ""),
+                prefs.getString("PREFS_EMAIL", ""));
+        mUser.set(user);
 
+        if (!prefs.getBoolean("PREFS_IS_USER_REGISTRED", false)) {
+            prefs.edit().putBoolean("PREFS_IS_USER_REGISTRED", true).apply();
+
+            // toDoViewModel.addDocument.setValue(new Document(mUser));
+            addDocument(new Document(user));
+
+        }
+    }
+
+
+    public void addDocument(Document document) {
+        todo.collection(document.getCollection())
+                .document(document.getDocumentName())
+                .set(document.getMap());
+    }
+
+    public void deleteDocument(Document document) {
+        todo.collection(document.getCollection())
+                .document(document.getDocumentName())
+                .delete();
+    }
+
+    public ObservableField<User> mUser = new ObservableField<>();
     public MutableLiveData<Document> addDocument = new MutableLiveData<>();
+
     public MutableLiveData<Document> deleteDocument = new MutableLiveData<>();
 
-    LiveData<Document> getAddDocument() {
-        return addDocument;
-    }
-
-    LiveData<Document> getDeleteDocument() {
-        return deleteDocument;
-    }
+//    LiveData<Document> getAddDocument() {
+//        return addDocument;
+//    }
+//
+//    LiveData<Document> getDeleteDocument() {
+//        return deleteDocument;
+//    }
 
     void setTodoList(ArrayList<TodoList> todoLists) {
         todoList.setValue(todoLists);
@@ -51,18 +103,56 @@ public class ToDoViewModel extends ViewModel {
         return todoList;
     }
 
+    void setMessageList(ArrayList<Message> msgList) {
+        messageList.setValue(msgList);
+    }
+
+    public LiveData<ArrayList<Message>> getMessageList() {
+        return messageList;
+    }
+
     public TodoList currentToDoList;
     public TodoItem currentToDoItem;
 
-
-    //public ObservableField<TodoBars> todoBars =new ObservableField<>();
     public MutableLiveData<TodoBars> todoBars = new MutableLiveData<>();
 
     public void setTodoBars(String title, String subtitle) {
         todoBars.setValue(new TodoBars(title, subtitle));
     }
 
-    public ObservableField<MenuAlert> menuAlert = new ObservableField<>();
+
+    public MutableLiveData<MenuAlert> menuAlert = new MutableLiveData<>();
+
+    public void setAlerts(String alertName, boolean alert) {
+        MenuAlert ma = menuAlert.getValue();
+        switch (alertName) {
+
+            case "all":
+                ma = new MenuAlert();
+                break;
+
+            case "list":
+                ma.setListAlert(alert);
+                //  ma.setListAlert(!ma.isListAlert());
+                break;
+            case "msg":
+                ma.setMessageAlert(alert);
+                break;
+            case "mUser":
+                ma.setUserAlert(alert);
+                break;
+            case "map":
+                ma.setMapAlert(alert);
+                break;
+        }
+
+        menuAlert.setValue(ma);
+
+
+        Log.d("ALERT SET", String.valueOf(System.currentTimeMillis()) + alertName);
+
+    }
+
 
     public Object clone(Object original, Object cloned) {
         for (Field field : original.getClass().getDeclaredFields()) {
@@ -93,23 +183,58 @@ public class ToDoViewModel extends ViewModel {
     }
 
 
-    void parseToDoListCollection(QuerySnapshot queryDocumentSnapshots) {
-        ArrayList<TodoList> tList = new ArrayList<>();
+    public void setFirebaseListeners() {
 
-        for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
-            tList.add(qs.toObject(TodoList.class));
-        }
+        todo.collection(Document.COLLECTION_TODO_LISTS).addSnapshotListener( new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if (queryDocumentSnapshots != null) {
+                    ArrayList<TodoList> tList = new ArrayList<>();
+                    for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
+                        tList.add(qs.toObject(TodoList.class));
+                    }
 
-        if (tList.size() > 0) {
-            Collections.sort(tList, new Comparator<TodoList>() {
-                @Override
-                public int compare(final TodoList object1, final TodoList object2) {
-                    return String.valueOf(object2.getTimestamp()).compareTo(String.valueOf(object1.getTimestamp()));
+                    if (tList.size() > 0) {
+                        Collections.sort(tList, new Comparator<TodoList>() {
+                            @Override
+                            public int compare(final TodoList object1, final TodoList object2) {
+                                return String.valueOf(object2.getTimestamp()).compareTo(String.valueOf(object1.getTimestamp()));
+                            }
+                        });
+                    }
+
+                    setTodoList(tList);
+
+                    setAlerts("list", true);
                 }
-            });
-        }
-        setTodoList(tList);
+            }
+        });
+
+        todo.collection(Document.COLLECTION_MESSAGES).addSnapshotListener( new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if (queryDocumentSnapshots != null) {
+                    ArrayList<Message> mList = new ArrayList<>();
+                    for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
+                        mList.add(qs.toObject(Message.class));
+                    }
+
+                    if (mList.size() > 0) {
+                        Collections.sort(mList, new Comparator<Message>() {
+                            @Override
+                            public int compare(final Message object1, final Message object2) {
+                                return String.valueOf(object2.getTimestamp()).compareTo(String.valueOf(object1.getTimestamp()));
+                            }
+                        });
+                    }
+                    setMessageList(mList);
+                    setAlerts("msg", true);
+                }
+            }
+        });
+
+
     }
 
-
 }
+

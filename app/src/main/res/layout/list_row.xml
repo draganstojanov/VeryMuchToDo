@@ -71,7 +71,7 @@
                     android:textColor="#000"
                     android:textSize="12sp"
                     app:layout_constraintTop_toBottomOf="@id/lists_short_desc" />
-                <!--android:text="@{todoListItem.user.name+` `+todoListItem.timestamp}"-->
+                <!--android:text="@{todoListItem.mUser.name+` `+todoListItem.timestamp}"-->
 
                 <ImageView
                     android:id="@+id/list_completed"

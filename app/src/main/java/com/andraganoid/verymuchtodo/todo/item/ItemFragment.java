@@ -29,11 +29,17 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
 
     private FragmentItemBinding binding;
     private ItemFragmentAdapter adapter;
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        toDo.setBars(toDoViewModel.currentToDoList.getTitle(), "");
-//    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        toDoViewModel.setTodoBars(toDoViewModel.currentToDoList.getTitle(), "");
+        toDoViewModel.setAlerts("list", false);
+
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
@@ -50,7 +56,7 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        toDoViewModel.setTodoBars(toDoViewModel.currentToDoList.getTitle(), "");
+
         // closeKeyboard(binding.getRoot());
 
 
@@ -58,7 +64,7 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
         adapter = new ItemFragmentAdapter(toDoViewModel.currentToDoList.getTodoItemList(), toDoViewModel, this);
         binding.itemRecView.setAdapter(adapter);
 
-        toDoViewModel.getTodoList().observe(this, new Observer<ArrayList<TodoList>>() {
+        toDoViewModel.getTodoList().observe(getViewLifecycleOwner(), new Observer<ArrayList<TodoList>>() {
             @Override
             public void onChanged(ArrayList<TodoList> todoLists) {
                 boolean isInList = false;
@@ -76,7 +82,6 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
                     Toast.makeText(toDo, R.string.item_list_deleted, Toast.LENGTH_SHORT).show();
                     toDo.navigateToFragment(toDo.LIST_FRAGMENT);
                 }
-                Toast.makeText(toDo, "OBSERVER" + String.valueOf(todoLists.size()), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -110,7 +115,8 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
                         if (todoItem.isCompleted()) {
                             toDoViewModel.currentToDoList.getTodoItemList().remove(viewHolder.getAdapterPosition());
                             //  todoActivity.saveList(todoActivity.currengtList);
-                            toDoViewModel.deleteDocument.setValue(new Document(toDoViewModel.currentToDoList));
+//                            toDoViewModel.deleteDocument.setValue(new Document(toDoViewModel.currentToDoList));
+                            toDoViewModel.deleteDocument(new Document(toDoViewModel.currentToDoList));
 
                         } else {
                             adapter.notifyDataSetChanged();
@@ -129,7 +135,7 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
 
     @Override
     public void onFabClicked() {
-        toDoViewModel.currentToDoItem = new TodoItem(toDoViewModel.user.get());
+        toDoViewModel.currentToDoItem = new TodoItem(toDoViewModel.mUser.get());
         toDo.navigateToFragment(toDo.ITEM_EDIT_FRAGMENT);
     }
 
