@@ -105,12 +105,14 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_people_white_24dp"
-                    android:tint="@{menuAlert.userAlert ? @color/colorAccent : @color/colorWhite}" />
+                 />
+                <!--android:tint="@{menuAlert.userAlert ? @color/colorAccent : @color/colorWhite}"-->
 
                 <TextView
                     style="@style/MenuItemText"
                     android:text="@string/users"
-                    android:textColor="@{menuAlert.userAlert ? @color/colorAccent : @color/colorWhite}" />
+                   />
+                <!--android:textColor="@{menuAlert.userAlert ? @color/colorAccent : @color/colorWhite}"-->
             </LinearLayout>
 
             <LinearLayout
@@ -125,12 +127,13 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_map_white_24dp"
-                    android:tint="@{menuAlert.mapAlert ? @color/colorAccent : @color/colorWhite}" />
-
+                    />
+                <!--android:tint="@{menuAlert.mapAlert ? @color/colorAccent : @color/colorWhite}"-->
                 <TextView
                     style="@style/MenuItemText"
                     android:text="@string/map"
-                    android:textColor="@{menuAlert.mapAlert ? @color/colorAccent : @color/colorWhite}" />
+                   />
+                <!--android:textColor="@{menuAlert.mapAlert ? @color/colorAccent : @color/colorWhite}"-->
             </LinearLayout>
 
             <LinearLayout

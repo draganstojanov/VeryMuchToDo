@@ -7,6 +7,7 @@ public class Document {
     public static final String COLLECTION_USERS = "collectionUsers";
     public static final String COLLECTION_TODO_LISTS = "collectionToDoList";
     public static final String COLLECTION_MESSAGES = "collectionMessages";
+    public static final String COLLECTION_LOCATION = "collectionLocation";
 
     private String collection;
     private String documentName;
@@ -18,8 +19,6 @@ public class Document {
         map.put("id", user.getId());
         map.put("name", user.getName());
         map.put("email", user.getEmail());
-     //   map.put("location", user.getLocation());
-     //   map.put("locationTimestamp", user.getLocationTimestamp());
         collection = COLLECTION_USERS;
         documentName = user.getId();
     }
@@ -44,9 +43,17 @@ public class Document {
         map.put("user", message.getUser());
         map.put("id", message.getId());
         // map.put("title", message.getTitle());
-
         documentName = message.getId();
         collection = COLLECTION_MESSAGES;
+    }
+
+    public Document(ToDoLocation location) {
+        map = new HashMap<>();
+        map.put("location", location.getLocation());
+        map.put("timestamp", location.getTimestamp());
+        map.put("user", location.getUser());
+        collection = COLLECTION_LOCATION;
+        documentName = location.getUser().getId();
     }
 
 

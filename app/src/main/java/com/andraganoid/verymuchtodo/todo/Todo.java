@@ -57,6 +57,8 @@ public class Todo extends AppCompatActivity implements MenuClicker {
         registerObservers();
         binding.setMenuAlert(toDoViewModel.menuAlert.getValue());
         binding.setClicker(this);
+        new LocationHandler(getApplication()).getCurrentLocation();
+
     }
 
 

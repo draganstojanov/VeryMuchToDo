@@ -47,7 +47,7 @@ public class ToDoViewModel extends AndroidViewModel {
     }
 
 
-    private SharedPreferences prefs;
+    protected SharedPreferences prefs;
     private FirebaseFirestore todo;
 
     private MutableLiveData<ArrayList<User>> userList = new MutableLiveData<>();
@@ -82,10 +82,16 @@ public class ToDoViewModel extends AndroidViewModel {
                 .delete();
     }
 
-    public ObservableField<User> mUser = new ObservableField<>();
-    public MutableLiveData<Document> addDocument = new MutableLiveData<>();
+    public void updateDocument(Document document) {
+        todo.collection(document.getCollection())
+                .document(document.getDocumentName())
+                .update(document.getMap());
+    }
 
-    public MutableLiveData<Document> deleteDocument = new MutableLiveData<>();
+    public ObservableField<User> mUser = new ObservableField<>();
+   // public MutableLiveData<Document> addDocument = new MutableLiveData<>();
+
+   // public MutableLiveData<Document> deleteDocument = new MutableLiveData<>();
 
     void setTodoList(ArrayList<TodoList> todoLists) {
         todoList.setValue(todoLists);

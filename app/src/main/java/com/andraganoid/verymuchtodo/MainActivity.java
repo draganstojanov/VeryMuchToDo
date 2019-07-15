@@ -1,5 +1,6 @@
 package com.andraganoid.verymuchtodo;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,23 +10,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.andraganoid.verymuchtodo.auth.AuthBaseFragment;
 import com.andraganoid.verymuchtodo.auth.login.LoginFragment;
-import com.andraganoid.verymuchtodo.auth.register.RegisterFragment;
 import com.andraganoid.verymuchtodo.todo.Todo;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
+
 
 public class MainActivity extends AppCompatActivity {
 
+    private final int LOCATION =111 ;
     MainViewModel mainViewModel;
     SharedPreferences prefs;
-
-    public static final Fragment MAIN_FRAGMENT = new AuthBaseFragment();
-    public static final Fragment REGISTER_FRAGMENT = new RegisterFragment();
-    public static final Fragment LOGIN_FRAGMENT = new LoginFragment();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,14 +32,34 @@ public class MainActivity extends AppCompatActivity {
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         mainViewModel.mAuth = FirebaseAuth.getInstance();
-        // navigateToFragment(MAIN_FRAGMENT);
-        checkLoginStatus();
+   getPermission();
+
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+    @AfterPermissionGranted(LOCATION)
+    private void getPermission() {
+        String[] perms = { Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION};
+        if (EasyPermissions.hasPermissions(this, perms)) {
+            checkLoginStatus();
+        } else {
+            EasyPermissions.requestPermissions(this, getString(R.string.get_permission), LOCATION, perms);
+        }
+
+
+    }
+
+
+
 
     private void checkLoginStatus() {
 
         if (prefs.getString("PREFS_ID", "").isEmpty()) {
-            navigateToFragment(LOGIN_FRAGMENT);
+            navigateToFragment(new LoginFragment());
         } else {
             startActivity(new Intent(this, Todo.class));
         }
