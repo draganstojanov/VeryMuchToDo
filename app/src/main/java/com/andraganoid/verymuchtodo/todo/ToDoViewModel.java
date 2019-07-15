@@ -87,14 +87,6 @@ public class ToDoViewModel extends AndroidViewModel {
 
     public MutableLiveData<Document> deleteDocument = new MutableLiveData<>();
 
-//    LiveData<Document> getAddDocument() {
-//        return addDocument;
-//    }
-//
-//    LiveData<Document> getDeleteDocument() {
-//        return deleteDocument;
-//    }
-
     void setTodoList(ArrayList<TodoList> todoLists) {
         todoList.setValue(todoLists);
     }
@@ -110,6 +102,15 @@ public class ToDoViewModel extends AndroidViewModel {
     public LiveData<ArrayList<Message>> getMessageList() {
         return messageList;
     }
+
+    void setUserList(ArrayList<User> uList) {
+        userList.setValue(uList);
+    }
+
+    public LiveData<ArrayList<User>> getUserList() {
+        return userList;
+    }
+
 
     public TodoList currentToDoList;
     public TodoItem currentToDoItem;
@@ -138,12 +139,12 @@ public class ToDoViewModel extends AndroidViewModel {
             case "msg":
                 ma.setMessageAlert(alert);
                 break;
-            case "mUser":
-                ma.setUserAlert(alert);
-                break;
-            case "map":
-                ma.setMapAlert(alert);
-                break;
+//            case "mUser":
+//                ma.setUserAlert(alert);
+//                break;
+//            case "map":
+//                ma.setMapAlert(alert);
+//                break;
         }
 
         menuAlert.setValue(ma);
@@ -178,14 +179,18 @@ public class ToDoViewModel extends AndroidViewModel {
     }
 
     private String getFormattedDate(Long timestamp) {
-        cal.setTimeInMillis(timestamp);
-        return DateFormat.format("dd.MM.yyyy HH:mm", cal).toString();
+        if (timestamp != null) {
+            cal.setTimeInMillis(timestamp);
+            return DateFormat.format("dd.MM.yyyy HH:mm", cal).toString();
+        } else {
+            return "";
+        }
     }
 
 
     public void setFirebaseListeners() {
 
-        todo.collection(Document.COLLECTION_TODO_LISTS).addSnapshotListener( new EventListener<QuerySnapshot>() {
+        todo.collection(Document.COLLECTION_TODO_LISTS).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 if (queryDocumentSnapshots != null) {
@@ -210,7 +215,7 @@ public class ToDoViewModel extends AndroidViewModel {
             }
         });
 
-        todo.collection(Document.COLLECTION_MESSAGES).addSnapshotListener( new EventListener<QuerySnapshot>() {
+        todo.collection(Document.COLLECTION_MESSAGES).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 if (queryDocumentSnapshots != null) {
@@ -230,6 +235,28 @@ public class ToDoViewModel extends AndroidViewModel {
                     setMessageList(mList);
                     setAlerts("msg", true);
                 }
+            }
+        });
+
+
+        todo.collection(Document.COLLECTION_USERS).addSnapshotListener(new EventListener<QuerySnapshot>() {
+
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                ArrayList<User> uList = new ArrayList<>();
+                for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
+                    uList.add(qs.toObject(User.class));
+                }
+
+                if (uList.size() > 0) {
+                    Collections.sort(uList, new Comparator<User>() {
+                        @Override
+                        public int compare(final User object1, final User object2) {
+                            return String.valueOf(object1.getName()).compareTo(String.valueOf(object2.getName()));
+                        }
+                    });
+                }
+                setUserList(uList);
             }
         });
 

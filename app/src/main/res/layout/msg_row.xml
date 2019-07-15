@@ -43,7 +43,7 @@
                     android:paddingTop="2dp"
                     android:paddingRight="4dp"
                     android:paddingBottom="2dp"
-                    android:text="@{lastEdit.getLastEdit(message.user.name,message.timestamp)}"
+                    android:text="@{lastEdit.getLastEdit(message.user.name, message.timestamp)}"
                     android:textColor="#000"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toTopOf="@id/msg_text"

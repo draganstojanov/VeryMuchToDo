@@ -18,8 +18,8 @@ public class Document {
         map.put("id", user.getId());
         map.put("name", user.getName());
         map.put("email", user.getEmail());
-//        map.put("location", mUser.getLocation());
-//        map.put("locationTimestamp", mUser.getLocationTimestamp());
+     //   map.put("location", user.getLocation());
+     //   map.put("locationTimestamp", user.getLocationTimestamp());
         collection = COLLECTION_USERS;
         documentName = user.getId();
     }
@@ -32,7 +32,7 @@ public class Document {
         map.put("completed", todoList.isCompleted());
         map.put("todoItemList", todoList.getTodoItemList());
         map.put("timestamp", todoList.getTimestamp());
-        map.put("mUser", todoList.getUser());
+        map.put("user", todoList.getUser());
         collection = COLLECTION_TODO_LISTS;
         documentName = todoList.getTitle();
     }
@@ -41,11 +41,11 @@ public class Document {
         map = new HashMap<>();
         map.put("text", message.getText());
         map.put("timestamp", message.getTimestamp());
-        map.put("from", message.getUser());
-        map.put("title", message.getTitle());
+        map.put("user", message.getUser());
         map.put("id", message.getId());
+        // map.put("title", message.getTitle());
 
-        documentName = message.getTitle();
+        documentName = message.getId();
         collection = COLLECTION_MESSAGES;
     }
 

@@ -1,7 +1,10 @@
 package com.andraganoid.verymuchtodo.model;
 
-public class Location {
-    private android.location.Location location;
+import android.location.Location;
+
+public class ToDoLocation {
+
+    private Location location;
     private Long timestamp;
     private User user;
 }

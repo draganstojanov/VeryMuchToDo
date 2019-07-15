@@ -1,10 +1,6 @@
 package com.andraganoid.verymuchtodo.model;
 
-import android.text.format.DateFormat;
-
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 //import java.util.HashMap;
 
@@ -17,7 +13,7 @@ public class TodoList {
     private boolean emergency = false;
     private boolean completed = false;
     private ArrayList<TodoItem> todoItemList = new ArrayList<>();
-    private Long timestamp=0L;
+    private Long timestamp = 0L;
     private User user;
 
 
@@ -27,21 +23,21 @@ public class TodoList {
 
     public TodoList() {
     }
-
-    public String getLastEdit() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(user.getName())
-                .append("@")
-                .append(getFormattedDate());
-        return sb.toString();
-
-    }
-
-    public String getFormattedDate() {
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(timestamp);
-        return DateFormat.format("dd.MM.yyyy HH:mm", cal).toString();
-    }
+//
+//    public String getLastEdit() {
+//        StringBuilder sb = new StringBuilder();
+//        sb.append(user.getName())
+//                .append("@")
+//                .append(getFormattedDate());
+//        return sb.toString();
+//
+//    }
+//
+//    public String getFormattedDate() {
+//        Calendar cal = Calendar.getInstance();
+//        cal.setTimeInMillis(timestamp);
+//        return DateFormat.format("dd.MM.yyyy HH:mm", cal).toString();
+//    }
 
 
     public String getTitle() {

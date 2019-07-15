@@ -66,25 +66,6 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
                         toDoViewModel.deleteDocument(new Document(toDoViewModel.currentToDoList));
                     }
 
-                    //TEST
-//                    ArrayList<TodoList> tl = new ArrayList<>();
-//                    if (toDoViewModel.todoList.getValue() != null) {
-//                        tl.addAll(toDoViewModel.todoList.getValue());
-//
-//                        for (int i = 0; i < tl.size(); i++) {
-//
-//                            if (tl.get(i).getTitle().equals(toDoViewModel.currentToDoList.getTitle())) {
-//                                tl.remove(i);
-//                                break;
-//                            }
-//                        }
-//
-//                    }
-//                    tl.add(todoListItemNew);
-//                    toDoViewModel.todoList.setValue(tl);
-                    //TEST
-
-
                     todoListItemNew.setTimestampAndCompleted();
 //                    toDoViewModel.addDocument.setValue(new Document(todoListItemNew));
                     toDoViewModel.addDocument(new Document(todoListItemNew));

@@ -100,8 +100,9 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
                                     toDoViewModel.deleteDocument(new Document(todoList));
                                 } else {
                                     Toast.makeText(toDo, getString(R.string.list_not_completed), Toast.LENGTH_LONG).show();
+                                    adapter.notifyDataSetChanged();
                                 }
-                                adapter.notifyDataSetChanged();
+
                                 break;
                             case ItemTouchHelper.LEFT:
                                 toDoViewModel.currentToDoList = todoList;

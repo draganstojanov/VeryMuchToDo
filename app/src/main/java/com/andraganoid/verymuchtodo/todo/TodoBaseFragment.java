@@ -2,7 +2,6 @@ package com.andraganoid.verymuchtodo.todo;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.Nullable;
@@ -28,9 +27,9 @@ public class TodoBaseFragment extends Fragment {
 //
 //    }
 
-    public void closeKeyboard(View view) {
+    public void closeKeyboard() {
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(toDo.binding.getRoot().getWindowToken(), 0);
     }
 
 }
