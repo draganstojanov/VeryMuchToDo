@@ -5,15 +5,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.databinding.FragmentMessageBinding;
+import com.andraganoid.verymuchtodo.model.Document;
 import com.andraganoid.verymuchtodo.model.Message;
 import com.andraganoid.verymuchtodo.todo.TodoBaseFragment;
 
@@ -23,7 +27,7 @@ import java.util.ArrayList;
 public class MessageFragment extends TodoBaseFragment implements MessageClicker {
 
     FragmentMessageBinding binding;
-    String newMsgText;
+    public String newMsgText;
     MessageFragmentAdapter adapter;
 
 
@@ -44,8 +48,7 @@ public class MessageFragment extends TodoBaseFragment implements MessageClicker 
                 container,
                 false);
         binding.setClicker(this);
-        binding.setMessage(newMsgText);
-
+        binding.setMessage(this);
         return binding.getRoot();
     }
 
@@ -56,57 +59,54 @@ public class MessageFragment extends TodoBaseFragment implements MessageClicker 
         // closeKeyboard(binding.getRoot());
 
         binding.msgRecView.setLayoutManager(new LinearLayoutManager(toDo));
-        adapter = new MessageFragmentAdapter(toDoViewModel.getMessageList().getValue(), toDoViewModel,this);
+        adapter = new MessageFragmentAdapter(toDoViewModel.getMessageList().getValue(), toDoViewModel, this);
         binding.msgRecView.setAdapter(adapter);
 
         toDoViewModel.getMessageList().observe(this, new Observer<ArrayList<Message>>() {
             @Override
             public void onChanged(ArrayList<Message> messages) {
-                  adapter.setList(messages);
+                adapter.setList(messages);
             }
         });
 
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
 
-//        ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
-//                new ItemTouchHelper.SimpleCallback(
-//                        0,
-//                        ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-//
-//                    @Override
-//                    public boolean onMove(@NonNull RecyclerView recyclerView,
-//                                          @NonNull RecyclerView.ViewHolder viewHolder,
-//                                          @NonNull RecyclerView.ViewHolder target) {
-//                        return false;
-//                    }
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
 
-//                    @Override
-//                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-//                        TodoList todoList = toDoViewModel.getTodoList().getValue().get(viewHolder.getAdapterPosition());
-//
-//                        switch (swipeDir) {
-//                            case ItemTouchHelper.RIGHT:
-//                                if (todoList.isCompleted()) {
-//                                    toDoViewModel.deleteDocument.setValue(new Document(todoList));
-//                                } else {
-//                                    Toast.makeText(toDo, getString(R.string.list_not_completed), Toast.LENGTH_LONG).show();
-//                                }
-//                                adapter.notifyDataSetChanged();
-//                                break;
-//                            case ItemTouchHelper.LEFT:
-//                                toDoViewModel.currentToDoList = todoList;
-//                                toDo.navigateToFragment(toDo.LIST_EDIT_FRAGMENT);
-//                                break;
-//                        }
-//                    }
-//                };
-//
-//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-//        itemTouchHelper.attachToRecyclerView(binding.listRecView);
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+
+                Message message = toDoViewModel.getMessageList().getValue().get(viewHolder.getAdapterPosition());
+                if (message.getUser().getId().equals(toDoViewModel.mUser.get().getId())) {
+                    toDoViewModel.deleteDocument(new Document(message));
+                } else {
+                    Toast.makeText(toDo, R.string.not_msg_creator, Toast.LENGTH_LONG).show();
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(binding.msgRecView);
+
     }
 
 
     @Override
     public void sendMessage() {
 
+        if (!newMsgText.isEmpty()) {
+            if (newMsgText.length() < 100) {
+                toDoViewModel.addDocument(new Document(new Message(toDoViewModel.mUser.get(), newMsgText)));
+                closeKeyboard();
+                newMsgText = "";
+                binding.invalidateAll();
+            } else {
+                Toast.makeText(toDo, R.string.msg_too_long, Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
