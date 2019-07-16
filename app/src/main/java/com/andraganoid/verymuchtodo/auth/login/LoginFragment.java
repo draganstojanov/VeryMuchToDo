@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil;
 
 import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.auth.AuthBaseFragment;
+import com.andraganoid.verymuchtodo.auth.register.RegisterFragment;
 import com.andraganoid.verymuchtodo.databinding.LoginFragmentBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,8 +41,8 @@ public class LoginFragment extends AuthBaseFragment implements LoginClicker {
 
     @Override
     public void onLoginConfirm() {
-        mainViewModel.userMail="dragan.stojanov@gmail.com";
-        mainViewModel.userPass="dushek";
+        mainViewModel.userMail = "dragan.stojanov@gmail.com";
+        mainViewModel.userPass = "dushek";
         if (!TextUtils.isEmpty(mainViewModel.userMail)
                 && !TextUtils.isEmpty(mainViewModel.userPass)) {
             mainViewModel.mAuth.signInWithEmailAndPassword(
@@ -62,7 +63,7 @@ public class LoginFragment extends AuthBaseFragment implements LoginClicker {
 
     @Override
     public void onNotRegistred() {
-
+        main.navigateToFragment(new RegisterFragment());
     }
 }
 

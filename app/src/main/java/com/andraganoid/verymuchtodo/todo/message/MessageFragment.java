@@ -80,7 +80,7 @@ public class MessageFragment extends TodoBaseFragment implements MessageClicker 
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
 
                 Message message = toDoViewModel.getMessageList().getValue().get(viewHolder.getAdapterPosition());
-                if (message.getUser().getId().equals(toDoViewModel.mUser.get().getId())) {
+                if (message.getUser().getId().equals(toDoViewModel.mUser.getId())) {
                     toDoViewModel.deleteDocument(new Document(message));
                 } else {
                     Toast.makeText(toDo, R.string.not_msg_creator, Toast.LENGTH_LONG).show();
@@ -100,7 +100,7 @@ public class MessageFragment extends TodoBaseFragment implements MessageClicker 
 
         if (!newMsgText.isEmpty()) {
             if (newMsgText.length() < 100) {
-                toDoViewModel.addDocument(new Document(new Message(toDoViewModel.mUser.get(), newMsgText)));
+                toDoViewModel.addDocument(new Document(new Message(toDoViewModel.mUser, newMsgText)));
                 closeKeyboard();
                 newMsgText = "";
                 binding.invalidateAll();

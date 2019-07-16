@@ -4,22 +4,37 @@ import android.location.Location;
 
 public class ToDoLocation {
 
-    private Location location;
+
+    private double latitude;
+    private double longitude;
     private Long timestamp;
     private User user;
 
     public ToDoLocation(User user, Location location) {
-        this.location = location;
-        this.timestamp = System.currentTimeMillis();
+        this.latitude = location.getLatitude();
+        this.longitude = location.getLongitude();
+        this.timestamp = location.getTime();
         this.user = user;
     }
 
-    public Location getLocation() {
-        return location;
+
+    public ToDoLocation() {
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public Long getTimestamp() {

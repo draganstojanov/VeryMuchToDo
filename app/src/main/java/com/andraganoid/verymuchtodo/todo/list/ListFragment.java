@@ -34,9 +34,6 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
         super.onCreate(savedInstanceState);
         toDoViewModel.setTodoBars(getString(R.string.todo_lists), "");
         toDoViewModel.setAlerts("list", false);
-
-
-
     }
 
     @Override
@@ -55,11 +52,9 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
     }
 
 
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
 
 
         // closeKeyboard(binding.getRoot());
@@ -71,7 +66,7 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
 
         toDoViewModel.getTodoList().observe(getViewLifecycleOwner(), new Observer<ArrayList<TodoList>>() {
             @Override
-            public void onChanged(ArrayList<TodoList> todoLists) {    Toast.makeText(toDo, "OBSERVER" + String.valueOf(todoLists.size()), Toast.LENGTH_SHORT).show();
+            public void onChanged(ArrayList<TodoList> todoLists) {
                 adapter.setList(todoLists);
             }
         });
@@ -96,7 +91,7 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
                         switch (swipeDir) {
                             case ItemTouchHelper.RIGHT:
                                 if (todoList.isCompleted()) {
-                                  //  toDoViewModel.deleteDocument.setValue(new Document(todoList));
+                                    //  toDoViewModel.deleteDocument.setValue(new Document(todoList));
                                     toDoViewModel.deleteDocument(new Document(todoList));
                                 } else {
                                     Toast.makeText(toDo, getString(R.string.list_not_completed), Toast.LENGTH_LONG).show();
@@ -118,7 +113,7 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
 
     @Override
     public void onFabClicked() {
-        toDoViewModel.currentToDoList = new TodoList(toDoViewModel.mUser.get());
+        toDoViewModel.currentToDoList = new TodoList(toDoViewModel.mUser);
         toDo.navigateToFragment(toDo.LIST_EDIT_FRAGMENT);
     }
 

@@ -25,6 +25,7 @@ public class Document {
 
     public Document(TodoList todoList) {
         map = new HashMap<>();
+        map.put("id", todoList.getId());
         map.put("title", todoList.getTitle());
         map.put("description", todoList.getDescription());
         map.put("emergency", todoList.isEmergency());
@@ -33,7 +34,7 @@ public class Document {
         map.put("timestamp", todoList.getTimestamp());
         map.put("user", todoList.getUser());
         collection = COLLECTION_TODO_LISTS;
-        documentName = todoList.getTitle();
+        documentName = todoList.getId();
     }
 
     public Document(Message message) {
@@ -49,7 +50,8 @@ public class Document {
 
     public Document(ToDoLocation location) {
         map = new HashMap<>();
-        map.put("location", location.getLocation());
+        map.put("latitude", location.getLatitude());
+        map.put("longitude", location.getLongitude());
         map.put("timestamp", location.getTimestamp());
         map.put("user", location.getUser());
         collection = COLLECTION_LOCATION;

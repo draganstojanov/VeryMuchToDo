@@ -30,9 +30,10 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class Todo extends AppCompatActivity implements MenuClicker {
 
-    ToDoViewModel toDoViewModel;
+    public ToDoViewModel toDoViewModel;
     private SharedPreferences prefs;
     public ActivityTodoBinding binding;
+    public LocationHandler toDoLocation;
 
     public final Fragment LIST_FRAGMENT = new ListFragment();
     public final Fragment LIST_EDIT_FRAGMENT = new ListEditFragment();
@@ -57,7 +58,8 @@ public class Todo extends AppCompatActivity implements MenuClicker {
         registerObservers();
         binding.setMenuAlert(toDoViewModel.menuAlert.getValue());
         binding.setClicker(this);
-        new LocationHandler(getApplication()).getCurrentLocation();
+       // toDoLocation = new LocationHandler(toDoViewModel.getApplication());
+        toDoViewModel.getCurrentLocation();
 
     }
 

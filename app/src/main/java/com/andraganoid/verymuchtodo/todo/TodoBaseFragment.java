@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 
 public class TodoBaseFragment extends Fragment {
 
-
     public ToDoViewModel toDoViewModel;
     public Todo toDo;
 
@@ -20,12 +19,12 @@ public class TodoBaseFragment extends Fragment {
         //toDoViewModel = ViewModelProviders.of(toDo).get(ToDoViewModel.class);
         toDoViewModel = toDo.toDoViewModel;
     }
-//
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//
-//    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        toDoViewModel.getCurrentLocation();
+    }
 
     public void closeKeyboard() {
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);

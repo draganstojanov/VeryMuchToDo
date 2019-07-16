@@ -2,8 +2,6 @@ package com.andraganoid.verymuchtodo.model;
 
 import java.util.ArrayList;
 
-//import java.util.HashMap;
-
 
 public class TodoList {
 
@@ -15,30 +13,28 @@ public class TodoList {
     private ArrayList<TodoItem> todoItemList = new ArrayList<>();
     private Long timestamp = 0L;
     private User user;
+    private String id;
 
 
     public TodoList(User user) {
         this.user = user;
+        this.id = "new";
     }
 
     public TodoList() {
     }
-//
-//    public String getLastEdit() {
-//        StringBuilder sb = new StringBuilder();
-//        sb.append(user.getName())
-//                .append("@")
-//                .append(getFormattedDate());
-//        return sb.toString();
-//
-//    }
-//
-//    public String getFormattedDate() {
-//        Calendar cal = Calendar.getInstance();
-//        cal.setTimeInMillis(timestamp);
-//        return DateFormat.format("dd.MM.yyyy HH:mm", cal).toString();
-//    }
 
+    public void setId() {
+        this.id = user.getId() + "-" + System.currentTimeMillis();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -111,5 +107,6 @@ public class TodoList {
         }
         this.completed = co;
     }
+
 
 }

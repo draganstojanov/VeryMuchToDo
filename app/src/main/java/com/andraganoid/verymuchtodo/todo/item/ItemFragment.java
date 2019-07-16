@@ -135,7 +135,7 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
 
     @Override
     public void onFabClicked() {
-        toDoViewModel.currentToDoItem = new TodoItem(toDoViewModel.mUser.get());
+        toDoViewModel.currentToDoItem = new TodoItem(toDoViewModel.mUser);
         toDo.navigateToFragment(toDo.ITEM_EDIT_FRAGMENT);
     }
 

@@ -1,29 +1,35 @@
 package com.andraganoid.verymuchtodo.todo;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.andraganoid.verymuchtodo.model.Document;
 import com.andraganoid.verymuchtodo.model.Message;
+import com.andraganoid.verymuchtodo.model.ToDoLocation;
 import com.andraganoid.verymuchtodo.model.TodoItem;
 import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.model.User;
 import com.andraganoid.verymuchtodo.todo.menu.MenuAlert;
 import com.andraganoid.verymuchtodo.todo.menu.TodoBars;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.maps.android.SphericalUtil;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -39,6 +45,7 @@ public class ToDoViewModel extends AndroidViewModel {
         super(application);
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplication());
         todo = FirebaseFirestore.getInstance();
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(application);
         setTodoList(new ArrayList<TodoList>());
         setMessageList(new ArrayList<Message>());
         setMyself();
@@ -53,12 +60,13 @@ public class ToDoViewModel extends AndroidViewModel {
     private MutableLiveData<ArrayList<User>> userList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<TodoList>> todoList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Message>> messageList = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<ToDoLocation>> locationList = new MutableLiveData<>();
 
     private void setMyself() {
         User user = new User(prefs.getString("PREFS_ID", ""),
                 prefs.getString("PREFS_NAME", ""),
                 prefs.getString("PREFS_EMAIL", ""));
-        mUser.set(user);
+        mUser = user;
 
         if (!prefs.getBoolean("PREFS_IS_USER_REGISTRED", false)) {
             prefs.edit().putBoolean("PREFS_IS_USER_REGISTRED", true).apply();
@@ -88,10 +96,13 @@ public class ToDoViewModel extends AndroidViewModel {
                 .update(document.getMap());
     }
 
-    public ObservableField<User> mUser = new ObservableField<>();
-   // public MutableLiveData<Document> addDocument = new MutableLiveData<>();
+    //  public ObservableField<User> mUser = new ObservableField<>();
+    public User mUser;
+    public Location mLocation = new Location("");
+    // public ObservableField<Location> mLocation = new ObservableField<>();
+    // public MutableLiveData<Document> addDocument = new MutableLiveData<>();
 
-   // public MutableLiveData<Document> deleteDocument = new MutableLiveData<>();
+    // public MutableLiveData<Document> deleteDocument = new MutableLiveData<>();
 
     void setTodoList(ArrayList<TodoList> todoLists) {
         todoList.setValue(todoLists);
@@ -117,6 +128,13 @@ public class ToDoViewModel extends AndroidViewModel {
         return userList;
     }
 
+    void setLocationList(ArrayList<ToDoLocation> lList) {
+        locationList.setValue(lList);
+    }
+
+    public LiveData<ArrayList<ToDoLocation>> getLocationList() {
+        return locationList;
+    }
 
     public TodoList currentToDoList;
     public TodoItem currentToDoItem;
@@ -184,7 +202,7 @@ public class ToDoViewModel extends AndroidViewModel {
         return sb.toString();
     }
 
-    private String getFormattedDate(Long timestamp) {
+    public String getFormattedDate(Long timestamp) {
         if (timestamp != null) {
             cal.setTimeInMillis(timestamp);
             return DateFormat.format("dd.MM.yyyy HH:mm", cal).toString();
@@ -266,7 +284,61 @@ public class ToDoViewModel extends AndroidViewModel {
             }
         });
 
+        todo.collection(Document.COLLECTION_LOCATION).addSnapshotListener(new EventListener<QuerySnapshot>() {
 
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                ArrayList<ToDoLocation> lList = new ArrayList<>();
+                for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
+                    lList.add(qs.toObject(ToDoLocation.class));
+                }
+
+                setLocationList(lList);
+
+
+            }
+        });
+
+    }
+
+    private FusedLocationProviderClient fusedLocationClient;
+
+//    public LocationHandler(@NonNull Application application) {
+//        super(application);
+//        fusedLocationClient = LocationServices.getFusedLocationProviderClient(application);
+//    }
+
+    @SuppressLint("MissingPermission")
+    public void getCurrentLocation() {
+       // Toast.makeText(getApplication(), "GET LOCATION", Toast.LENGTH_SHORT).show();
+        fusedLocationClient.getLastLocation().addOnSuccessListener(location -> saveCurrentLocation(location));
+
+    }
+
+    void saveCurrentLocation(Location location) {
+        // Toast.makeText(getApplication(), String.valueOf(location.getTime()), Toast.LENGTH_SHORT).show();
+        LatLng lastSavedLocation = new LatLng(prefs.getFloat("PREFS_LATITUDE",
+                0), prefs.getFloat("PREFS_LONGITUDE", 0));
+        LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+        mLocation = location;
+
+
+//        Toast.makeText(getApplication(), String.valueOf(mLocation.getLatitude()), Toast.LENGTH_SHORT).show();
+        if (lastSavedLocation.latitude == 0 && lastSavedLocation.longitude == 0) {
+            addDocument(new Document(new ToDoLocation(mUser, location)));
+
+        } else {
+            if (SphericalUtil.computeDistanceBetween(lastSavedLocation, currentLocation) > 100) {
+                updateDocument(new Document(new ToDoLocation(mUser, location)));
+                prefs.edit()
+                        .putFloat("PREFS_LATITUDE", (float) currentLocation.latitude)
+                        .putFloat("PREFS_LONGITUDE", (float) currentLocation.longitude)
+                        .apply();
+                // mLocation = location;
+
+            }
+        }
+        // Toast.makeText(getApplication(), String.valueOf(mLocation.getLatitude()), Toast.LENGTH_SHORT).show();
     }
 
 }

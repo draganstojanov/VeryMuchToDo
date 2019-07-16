@@ -75,7 +75,6 @@ public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicke
             tl.setTodoItemList(til);
             toDoViewModel.currentToDoList = tl;
             toDoViewModel.currentToDoList.setTimestampAndCompleted();
-//            toDoViewModel.addDocument.setValue(new Document(toDoViewModel.currentToDoList));
             toDoViewModel.addDocument(new Document(toDoViewModel.currentToDoList));
             return true;
         }
@@ -93,7 +92,7 @@ public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicke
     public void onSaveAndNew() {
 
         if (editCheck()) {
-            toDoViewModel.currentToDoItem = new TodoItem(toDoViewModel.mUser.get());
+            toDoViewModel.currentToDoItem = new TodoItem(toDoViewModel.mUser);
             binding.setItemItem(toDoViewModel.currentToDoItem);
         }
     }
