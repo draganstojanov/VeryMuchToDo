@@ -3,13 +3,12 @@ package com.andraganoid.verymuchtodo.model;
 
 public class TodoItem {
 
-    private StringBuilder sb = new StringBuilder();
+
 
     private String content = "";
     private boolean completed = false;
     private Long timestamp = 0L;
     private User user;
-
 
     public TodoItem() {
     }

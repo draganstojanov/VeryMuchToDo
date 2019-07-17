@@ -8,6 +8,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -32,6 +33,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.rw.keyboardlistener.KeyboardUtils;
 
 
 public class Todo extends AppCompatActivity implements MenuClicker {
@@ -87,6 +89,21 @@ public class Todo extends AppCompatActivity implements MenuClicker {
                 }
             }
         };
+
+        KeyboardUtils.addKeyboardToggleListener(this, new KeyboardUtils.SoftKeyboardToggleListener() {
+            @Override
+            public void onToggleSoftKeyboard(boolean isVisible) {
+                if (isVisible) {
+                    findViewById(R.id.main_bottom_bar).setVisibility(View.GONE);
+                } else {
+                    findViewById(R.id.main_bottom_bar).setVisibility(View.VISIBLE);
+                }
+
+
+              //  Log.d("keyboard", "keyboard visible: " + isVisible);
+               // Toast.makeText(Todo.this, String.valueOf(isVisible), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<layout xmlns:tools="http://schemas.android.com/tools">
+<layout>
 
     <data>
 
@@ -26,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
+        android:onLongClick="@{(view) -> clicker.onItemLongClicked(view,itemItem)}"
 
         android:padding="4dp">
         <!--android:onLongClick="@{(view)->clicker.onItemLongClicked(view,itemItem)}"-->
@@ -35,9 +36,9 @@
             android:layout_width="match_parent"
             android:layout_height="28dp"
             android:padding="4dp"
+            android:text="@{itemItem.content}"
             android:textColor="#000"
             android:textSize="16sp"
-            android:text="@{itemItem.content}"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -58,10 +59,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_check_red_500_36dp"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            tools:visibility="@{itemItem.completed ? View.VISIBLE : View.GONE}" />
+            android:visibility="@{itemItem.completed ? View.VISIBLE : View.GONE}" />
 
         <View
             android:layout_width="match_parent"

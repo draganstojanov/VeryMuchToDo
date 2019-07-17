@@ -236,7 +236,7 @@ public class ToDoViewModel extends AndroidViewModel {
                     long last = prefs.getLong("PREFS_LAST_TODO_LIST", 0);
                     boolean alert = false;
                     for (TodoList tl : tList) {
-                        if (tl.getTimestamp()>last  && !mUser.getId().equals(tl.getUser().getId())) {
+                        if (tl.getTimestamp() > last && !mUser.getId().equals(tl.getUser().getId())) {
                             alert = true;
                             break;
                         }
@@ -246,7 +246,9 @@ public class ToDoViewModel extends AndroidViewModel {
                         setAlerts("list", true);
                     }
 
-                    prefs.edit().putLong("PREFS_LAST_TODO_LIST", tList.get(0).getTimestamp()).apply();
+                    if (tList.size() > 0) {
+                        prefs.edit().putLong("PREFS_LAST_TODO_LIST", tList.get(0).getTimestamp()).apply();
+                    }
                     setTodoList(tList);
 
                 }
@@ -272,13 +274,12 @@ public class ToDoViewModel extends AndroidViewModel {
                     }
 
 
-
                     long last = prefs.getLong("PREFS_LAST_MESSAGE", 0);
                     boolean alert = false;
                     for (Message ml : mList) {
-                        if (ml.getTimestamp()>last && !mUser.getId().equals(ml.getUser().getId())) {
+                        if (ml.getTimestamp() > last && !mUser.getId().equals(ml.getUser().getId())) {
                             alert = true;
-                          break;
+                            break;
                         }
                     }
 
@@ -288,9 +289,10 @@ public class ToDoViewModel extends AndroidViewModel {
                     }
 
 
-                    prefs.edit().putLong("PREFS_LAST_MESSAGE", mList.get(0).getTimestamp()).apply();
+                    if (mList.size() > 0) {
+                        prefs.edit().putLong("PREFS_LAST_MESSAGE", mList.get(0).getTimestamp()).apply();
+                    }
                     setMessageList(mList);
-
 
 
                 }
@@ -349,36 +351,41 @@ public class ToDoViewModel extends AndroidViewModel {
     @SuppressLint("MissingPermission")
     public void getCurrentLocation() {
         // Toast.makeText(getApplication(), "GET LOCATION", Toast.LENGTH_SHORT).show();
+
         fusedLocationClient.getLastLocation().addOnSuccessListener(location -> saveCurrentLocation(location));
 
     }
 
     void saveCurrentLocation(Location location) {
-        // Toast.makeText(getApplication(), String.valueOf(location.getTime()), Toast.LENGTH_SHORT).show();
-        LatLng lastSavedLocation = new LatLng(prefs.getFloat("PREFS_LATITUDE",
-                0), prefs.getFloat("PREFS_LONGITUDE", 0));
-        LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-        mLocation = location;
+        if (location != null) {
+            // Toast.makeText(getApplication(), String.valueOf(location.getTime()), Toast.LENGTH_SHORT).show();
+            LatLng lastSavedLocation = new LatLng(prefs.getFloat("PREFS_LATITUDE",
+                    0), prefs.getFloat("PREFS_LONGITUDE", 0));
+            LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+            mLocation = location;
 
 
 //        Toast.makeText(getApplication(), String.valueOf(mLocation.getLatitude()), Toast.LENGTH_SHORT).show();
-        if (lastSavedLocation.latitude == 0 && lastSavedLocation.longitude == 0) {
-            addDocument(new Document(new ToDoLocation(mUser, location)));
+            if (lastSavedLocation.latitude == 0 && lastSavedLocation.longitude == 0) {
+                addDocument(new Document(new ToDoLocation(mUser, location)));
 
-        } else {
-            if (SphericalUtil.computeDistanceBetween(lastSavedLocation, currentLocation) > 100) {
-                updateDocument(new Document(new ToDoLocation(mUser, location)));
-                prefs.edit()
-                        .putFloat("PREFS_LATITUDE", (float) currentLocation.latitude)
-                        .putFloat("PREFS_LONGITUDE", (float) currentLocation.longitude)
-                        .apply();
-                // mLocation = location;
+            } else {
+                if (SphericalUtil.computeDistanceBetween(lastSavedLocation, currentLocation) > 100) {
+                    updateDocument(new Document(new ToDoLocation(mUser, location)));
+                    prefs.edit()
+                            .putFloat("PREFS_LATITUDE", (float) currentLocation.latitude)
+                            .putFloat("PREFS_LONGITUDE", (float) currentLocation.longitude)
+                            .apply();
+                    // mLocation = location;
 
+                }
             }
+            String provider;
+        } else {
+            mLocation = new Location("");
+            // Toast.makeText(getApplication(), String.valueOf(mLocation.getLatitude()), Toast.LENGTH_SHORT).show();
         }
-        // Toast.makeText(getApplication(), String.valueOf(mLocation.getLatitude()), Toast.LENGTH_SHORT).show();
+
     }
-
-
 }
 

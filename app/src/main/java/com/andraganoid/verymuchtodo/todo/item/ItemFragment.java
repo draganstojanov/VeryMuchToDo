@@ -76,8 +76,8 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
                         break;
                     }
                 }
-                if (isInList) {
-                    adapter.setList(todoLists.get(index).getTodoItemList());
+                if (isInList) {   adapter.notifyDataSetChanged();
+                   // adapter.setList(todoLists.get(index).getTodoItemList());
                 } else {
                     Toast.makeText(toDo, R.string.item_list_deleted, Toast.LENGTH_SHORT).show();
                     toDo.navigateToFragment(toDo.LIST_FRAGMENT);
@@ -140,9 +140,15 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
     }
 
     @Override
-    public void onItemLongClicked(View view, TodoItem todoItem) {
+    public boolean onItemLongClicked(View view, TodoItem todoItem) {
         todoItem.setCompleted(!todoItem.isCompleted());
-        binding.invalidateAll();
+
+        toDoViewModel.currentToDoList.setTimestampAndCompleted();
+        toDoViewModel.addDocument(new Document(toDoViewModel.currentToDoList));
+
+
+      // binding.invalidateAll();
+        return true;
     }
 
 

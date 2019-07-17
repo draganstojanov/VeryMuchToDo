@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">VeryMuchToDo</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="register">Register</string>
     <string name="or">or</string>
     <string name="login">Login</string>
@@ -37,7 +34,7 @@
     <string name="type_message">Type your message</string>
     <string name="not_msg_creator">You are not creator of this message!</string>
     <string name="msg_too_long">Message is to long!</string>
+    <string name="get_permission">Get Location permission</string>
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false"></string>
-    <string name="get_permission">Get Location permission</string>
 </resources>

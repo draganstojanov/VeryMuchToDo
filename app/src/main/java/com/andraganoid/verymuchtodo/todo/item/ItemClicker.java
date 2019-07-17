@@ -7,6 +7,6 @@ import com.andraganoid.verymuchtodo.model.TodoItem;
 public interface ItemClicker {
     void onFabClicked();
 
-    void onItemLongClicked(View view, TodoItem todoItem);
+   boolean onItemLongClicked( View  view,TodoItem todoItem);
 
 }

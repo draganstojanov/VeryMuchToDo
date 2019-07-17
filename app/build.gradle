@@ -45,10 +45,12 @@ dependencies {
 
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha02'
     implementation 'pub.devrel:easypermissions:3.0.0'
+ implementation 'com.github.ravindu1024:android-keyboardlistener:1.0.0'
 
-//    testImplementation 'junit:junit:4.12'
-//    androidTestImplementation 'androidx.test:runner:1.1.2-alph01'
-//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha02'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha01'
 
 
 
