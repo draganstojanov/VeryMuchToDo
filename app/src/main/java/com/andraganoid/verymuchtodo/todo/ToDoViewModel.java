@@ -232,9 +232,23 @@ public class ToDoViewModel extends AndroidViewModel {
                         });
                     }
 
+
+                    long last = prefs.getLong("PREFS_LAST_TODO_LIST", 0);
+                    boolean alert = false;
+                    for (TodoList tl : tList) {
+                        if (tl.getTimestamp()>last  && !mUser.getId().equals(tl.getUser().getId())) {
+                            alert = true;
+                            break;
+                        }
+                    }
+
+                    if (alert) {
+                        setAlerts("list", true);
+                    }
+
+                    prefs.edit().putLong("PREFS_LAST_TODO_LIST", tList.get(0).getTimestamp()).apply();
                     setTodoList(tList);
 
-                    setAlerts("list", true);
                 }
             }
         });
@@ -256,8 +270,29 @@ public class ToDoViewModel extends AndroidViewModel {
                             }
                         });
                     }
+
+
+
+                    long last = prefs.getLong("PREFS_LAST_MESSAGE", 0);
+                    boolean alert = false;
+                    for (Message ml : mList) {
+                        if (ml.getTimestamp()>last && !mUser.getId().equals(ml.getUser().getId())) {
+                            alert = true;
+                          break;
+                        }
+                    }
+
+
+                    if (alert) {
+                        setAlerts("msg", true);
+                    }
+
+
+                    prefs.edit().putLong("PREFS_LAST_MESSAGE", mList.get(0).getTimestamp()).apply();
                     setMessageList(mList);
-                    setAlerts("msg", true);
+
+
+
                 }
             }
         });
@@ -267,20 +302,22 @@ public class ToDoViewModel extends AndroidViewModel {
 
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                ArrayList<User> uList = new ArrayList<>();
-                for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
-                    uList.add(qs.toObject(User.class));
-                }
+                if (queryDocumentSnapshots != null) {
+                    ArrayList<User> uList = new ArrayList<>();
+                    for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
+                        uList.add(qs.toObject(User.class));
+                    }
 
-                if (uList.size() > 0) {
-                    Collections.sort(uList, new Comparator<User>() {
-                        @Override
-                        public int compare(final User object1, final User object2) {
-                            return String.valueOf(object1.getName()).compareTo(String.valueOf(object2.getName()));
-                        }
-                    });
+                    if (uList.size() > 0) {
+                        Collections.sort(uList, new Comparator<User>() {
+                            @Override
+                            public int compare(final User object1, final User object2) {
+                                return String.valueOf(object1.getName()).compareTo(String.valueOf(object2.getName()));
+                            }
+                        });
+                    }
+                    setUserList(uList);
                 }
-                setUserList(uList);
             }
         });
 
@@ -288,20 +325,21 @@ public class ToDoViewModel extends AndroidViewModel {
 
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                ArrayList<ToDoLocation> lList = new ArrayList<>();
-                for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
-                    lList.add(qs.toObject(ToDoLocation.class));
+                if (queryDocumentSnapshots != null) {
+                    ArrayList<ToDoLocation> lList = new ArrayList<>();
+                    for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
+                        lList.add(qs.toObject(ToDoLocation.class));
+                    }
+
+                    setLocationList(lList);
+
                 }
-
-                setLocationList(lList);
-
-
             }
         });
 
     }
 
-    private FusedLocationProviderClient fusedLocationClient;
+    public FusedLocationProviderClient fusedLocationClient;
 
 //    public LocationHandler(@NonNull Application application) {
 //        super(application);
@@ -310,7 +348,7 @@ public class ToDoViewModel extends AndroidViewModel {
 
     @SuppressLint("MissingPermission")
     public void getCurrentLocation() {
-       // Toast.makeText(getApplication(), "GET LOCATION", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(getApplication(), "GET LOCATION", Toast.LENGTH_SHORT).show();
         fusedLocationClient.getLastLocation().addOnSuccessListener(location -> saveCurrentLocation(location));
 
     }
@@ -340,6 +378,7 @@ public class ToDoViewModel extends AndroidViewModel {
         }
         // Toast.makeText(getApplication(), String.valueOf(mLocation.getLatitude()), Toast.LENGTH_SHORT).show();
     }
+
 
 }
 

@@ -39,5 +39,5 @@
     <string name="msg_too_long">Message is to long!</string>
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false"></string>
-    <string name="get_permission">Get permission</string>
+    <string name="get_permission">Get Location permission</string>
 </resources>

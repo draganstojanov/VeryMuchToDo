@@ -21,8 +21,9 @@
     </style>
 
     <style name="MenuItemText">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
 
         <item name="android:textSize">12sp</item>

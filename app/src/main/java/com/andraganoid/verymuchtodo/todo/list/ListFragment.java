@@ -33,7 +33,7 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         toDoViewModel.setTodoBars(getString(R.string.todo_lists), "");
-        toDoViewModel.setAlerts("list", false);
+
     }
 
     @Override
@@ -68,6 +68,7 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
             @Override
             public void onChanged(ArrayList<TodoList> todoLists) {
                 adapter.setList(todoLists);
+                toDoViewModel.setAlerts("list", false);
             }
         });
 

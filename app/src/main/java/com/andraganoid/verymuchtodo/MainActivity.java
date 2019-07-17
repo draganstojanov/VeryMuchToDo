@@ -25,7 +25,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
-    private final int LOCATION =111 ;
+    private final int LOCATION = 111;
     MainViewModel mainViewModel;
     SharedPreferences prefs;
 
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         mainViewModel.mAuth = FirebaseAuth.getInstance();
-   getPermission();
+        getPermission();
 
     }
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
     @AfterPermissionGranted(LOCATION)
     private void getPermission() {
-        String[] perms = { Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION};
+        String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
         if (EasyPermissions.hasPermissions(this, perms)) {
             checkLoginStatus();
         } else {
@@ -58,8 +58,6 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
 
     }
-
-
 
 
     private void checkLoginStatus() {
@@ -103,6 +101,6 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     @Override
     public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
         Toast.makeText(this, "DENIED", Toast.LENGTH_SHORT).show();
-        checkLoginStatus();
+        getPermission();
     }
 }

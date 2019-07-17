@@ -52,107 +52,41 @@
             android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="parent">
 
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+            <TextView
+                style="@style/MenuItemText"
+                android:drawableTop="@drawable/ic_list_white_24dp"
                 android:onClick="@{()->clicker.onListItemClicked()}"
-                android:orientation="vertical">
+                android:text="@string/lists"
+                android:textColor="@{menuAlert.listAlert ? @color/colorAccent : @color/colorWhite}"
+                app:drawableTint="@{menuAlert.listAlert ? @color/colorAccent : @color/colorWhite}" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_list_white_24dp"
-                    android:tint="@{menuAlert.listAlert ? @color/colorAccent : @color/colorWhite}" />
-
-                <TextView
-                    style="@style/MenuItemText"
-                    android:text="@string/lists"
-                    android:textColor="@{menuAlert.listAlert ? @color/colorAccent : @color/colorWhite}" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+            <TextView
+                style="@style/MenuItemText"
+                android:drawableTop="@drawable/ic_message_white_24dp"
                 android:onClick="@{()->clicker.onMessageItemClicked()}"
-                android:orientation="vertical">
+                android:text="@string/messages"
+                android:textColor="@{menuAlert.messageAlert ? @color/colorAccent : @color/colorWhite}"
+                app:drawableTint="@{menuAlert.messageAlert ? @color/colorAccent : @color/colorWhite}" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_message_white_24dp"
-                    android:tint="@{menuAlert.messageAlert ? @color/colorAccent : @color/colorWhite}" />
 
-                <TextView
-                    style="@style/MenuItemText"
-                    android:text="@string/messages"
-                    android:textColor="@{menuAlert.messageAlert ? @color/colorAccent : @color/colorWhite}" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+            <TextView
+                style="@style/MenuItemText"
+                android:drawableTop="@drawable/ic_people_white_24dp"
                 android:onClick="@{()->clicker.onUserItemClicked()}"
-                android:orientation="vertical">
+                android:text="@string/users" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_people_white_24dp"
-                 />
-                <!--android:tint="@{menuAlert.userAlert ? @color/colorAccent : @color/colorWhite}"-->
-
-                <TextView
-                    style="@style/MenuItemText"
-                    android:text="@string/users"
-                   />
-                <!--android:textColor="@{menuAlert.userAlert ? @color/colorAccent : @color/colorWhite}"-->
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+            <TextView
+                style="@style/MenuItemText"
+                android:drawableTop="@drawable/ic_map_white_24dp"
                 android:onClick="@{()->clicker.onMapItemClicked()}"
-                android:orientation="vertical">
+                android:text="@string/map" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_map_white_24dp"
-                    />
-                <!--android:tint="@{menuAlert.mapAlert ? @color/colorAccent : @color/colorWhite}"-->
-                <TextView
-                    style="@style/MenuItemText"
-                    android:text="@string/map"
-                   />
-                <!--android:textColor="@{menuAlert.mapAlert ? @color/colorAccent : @color/colorWhite}"-->
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+            <TextView
+                style="@style/MenuItemText"
+                android:drawableTop="@drawable/ic_close_white_24dp"
                 android:onClick="@{()->clicker.onLogoutItemClicked()}"
-                android:orientation="vertical">
+                android:text="@string/logout" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_close_white_24dp" />
-
-                <TextView
-                    style="@style/MenuItemText"
-                    android:text="@string/logout" />
-            </LinearLayout>
 
         </LinearLayout>
 

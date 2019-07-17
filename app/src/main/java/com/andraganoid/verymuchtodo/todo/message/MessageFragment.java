@@ -2,6 +2,7 @@ package com.andraganoid.verymuchtodo.todo.message;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,7 @@ public class MessageFragment extends TodoBaseFragment implements MessageClicker 
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // closeKeyboard(binding.getRoot());
-
+        newMsgText = "";
         binding.msgRecView.setLayoutManager(new LinearLayoutManager(toDo));
         adapter = new MessageFragmentAdapter(toDoViewModel.getMessageList().getValue(), toDoViewModel, this);
         binding.msgRecView.setAdapter(adapter);
@@ -65,6 +66,7 @@ public class MessageFragment extends TodoBaseFragment implements MessageClicker 
         toDoViewModel.getMessageList().observe(this, new Observer<ArrayList<Message>>() {
             @Override
             public void onChanged(ArrayList<Message> messages) {
+                toDoViewModel.setAlerts("msg", false);
                 adapter.setList(messages);
             }
         });
@@ -97,7 +99,7 @@ public class MessageFragment extends TodoBaseFragment implements MessageClicker 
 
     @Override
     public void sendMessage() {
-
+        Log.d("SENDMSG", newMsgText);
         if (!newMsgText.isEmpty()) {
             if (newMsgText.length() < 100) {
                 toDoViewModel.addDocument(new Document(new Message(toDoViewModel.mUser, newMsgText)));

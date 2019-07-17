@@ -41,8 +41,6 @@ public class LoginFragment extends AuthBaseFragment implements LoginClicker {
 
     @Override
     public void onLoginConfirm() {
-        mainViewModel.userMail = "dragan.stojanov@gmail.com";
-        mainViewModel.userPass = "dushek";
         if (!TextUtils.isEmpty(mainViewModel.userMail)
                 && !TextUtils.isEmpty(mainViewModel.userPass)) {
             mainViewModel.mAuth.signInWithEmailAndPassword(

@@ -24,15 +24,11 @@ public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicke
 
 
     private FragmentItemEditBinding binding;
+    private String content;
 
     public ItemEditFragment() {
     }
-//
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        toDo.setBars();
-//    }toDoViewModel.currentToDoList.getTitle(), ""
+
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -51,6 +47,7 @@ public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicke
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        content=toDoViewModel.currentToDoItem.getContent();
         toDoViewModel.setTodoBars(toDoViewModel.currentToDoList.getTitle(), "");
         binding.setItemItem(toDoViewModel.currentToDoItem);
     }
@@ -99,6 +96,7 @@ public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicke
 
     @Override
     public void onCancel() {
+        toDoViewModel.currentToDoItem.setContent(content);
         toDo.navigateToFragment(toDo.ITEM_FRAGMENT);
     }
 }
