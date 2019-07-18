@@ -13,7 +13,7 @@
     <string name="list_name">List name</string>
     <string name="short_desc">Short description</string>
     <string name="emergency">Emergency</string>
-    <string name="create_list">Create ToDo list</string>
+    <string name="create_list">Save ToDo list</string>
     <string name="list_not_completed">List is not completed!</string>
     <string name="desc_too_long">Description is too long</string>
     <string name="title_to_long">Title is too long</string>
@@ -35,6 +35,4 @@
     <string name="msg_too_long">Message is to long!</string>
     <string name="get_permission">Get Location permission</string>
     <string name="not_registered">Not registered</string>
-
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false"></string>
 </resources>

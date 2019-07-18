@@ -22,11 +22,11 @@
         <EditText
             android:id="@+id/sign_in_email"
             style="@style/EditText"
-            android:focusable="true"
             android:hint="@string/your_email"
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
             android:text="@={viewModel.userMail}"
+            android:selection="@{viewModel.userMail.length()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias=".15" />
@@ -34,15 +34,16 @@
         <EditText
             android:id="@+id/sign_in_password"
             style="@style/EditText"
+            android:imeOptions="actionDone"
             android:hint="@string/your_pass"
             android:inputType="textPassword"
+            android:selection="@{viewModel.userPass.length()}"
             android:text="@={viewModel.userPass}"
             app:layout_constraintTop_toBottomOf="@+id/sign_in_email" />
 
         <Button
             android:id="@+id/sign_in_button"
             style="@style/Button"
-            android:imeOptions="actionDone"
             android:onClick="@{()->clicker.onLoginConfirm()}"
             android:text="@string/login"
             app:layout_constraintTop_toBottomOf="@+id/sign_in_password" />

@@ -19,6 +19,7 @@ import com.andraganoid.verymuchtodo.todo.TodoBaseFragment;
 
 public class ListEditFragment extends TodoBaseFragment implements ListEditClicker {
 
+    private FragmentListEditBinding binding;
     private TodoList todoListItemNew;
 
     public ListEditFragment() {
@@ -37,7 +38,7 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
-        FragmentListEditBinding binding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
                 inflater,
                 R.layout.fragment_list_edit,
                 container,
@@ -57,6 +58,7 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        showKeyboard(binding.newTodoListTitle);
         toDoViewModel.setTodoBars(toDoViewModel.currentToDoList.getTitle(), "");
     }
 

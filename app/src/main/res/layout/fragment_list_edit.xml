@@ -21,57 +21,52 @@
 
         <EditText
             android:id="@+id/new_todo_list_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="32dp"
-            android:background="@drawable/input_box"
+            style="@style/EditText"
+            android:focusable="true"
+            android:gravity="left"
             android:hint="@string/list_name"
-            android:padding="8dp"
+            android:imeOptions="actionNext"
             android:text="@={todoListItem.title}"
+            android:selection="@{todoListItem.title.length()}"
+            android:textSize="@dimen/title_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias=".25" />
+            app:layout_constraintVertical_bias=".1" />
 
         <EditText
             android:id="@+id/new_todo_list_desc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="32dp"
-            android:background="@drawable/input_box"
+            style="@style/EditText"
+            android:gravity="left"
             android:hint="@string/short_desc"
-            android:padding="8dp"
+            android:imeOptions="actionDone"
+            android:inputType="textMultiLine"
             android:text="@={todoListItem.description}"
+            android:selection="@{todoListItem.description.length()}"
+            android:textSize="@dimen/text_size"
             app:layout_constraintTop_toBottomOf="@+id/new_todo_list_title" />
 
         <CheckBox
             android:id="@+id/new_todo_list_emergency"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="32dp"
+            android:layout_margin="24dp"
+            android:buttonTint="@color/colorAccent"
             android:checked="@={todoListItem.emergency}"
             android:text="@string/emergency"
+            android:textColor="@color/colorAccent"
             app:layout_constraintTop_toBottomOf="@+id/new_todo_list_desc" />
 
         <Button
             android:id="@+id/new_todo_list_create"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="32dp"
-            android:background="@drawable/input_box"
+            style="@style/Button"
             android:onClick="@{()->clicker.onCreateClicked()}"
             android:text="@string/create_list"
-            android:textAllCaps="false"
             app:layout_constraintTop_toBottomOf="@+id/new_todo_list_emergency" />
 
         <Button
-            android:id="@+id/new_todo_list_cancel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="32dp"
-            android:background="@drawable/input_box"
+            style="@style/Button"
             android:onClick="@{()->clicker.onCancelClicked()}"
             android:text="@string/cancel"
-            android:textAllCaps="false"
             app:layout_constraintTop_toBottomOf="@+id/new_todo_list_create" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
