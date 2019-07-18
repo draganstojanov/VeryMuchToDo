@@ -17,3 +17,14 @@ There is plenty of room for extensions and adding new functions, for example, ch
 Also is possible to add Firebase Cloud Messaging service for notifications.
 
 As mentioned before, this is a test and training app and a purpose is to test some technologies and services in Android app development, but there are always possibilities to modify it with different functions for different purposes.
+
+
+
+TODO in next revisions:
+- push notifications
+- local notifications
+- group messages
+- map actions
+- onLocation events
+- user interactions(call, send mail)
+- ???
