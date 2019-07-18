@@ -1,13 +1,10 @@
 package com.andraganoid.verymuchtodo.todo;
 
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,8 +27,6 @@ import com.andraganoid.verymuchtodo.todo.menu.TodoBars;
 import com.andraganoid.verymuchtodo.todo.message.MessageFragment;
 import com.andraganoid.verymuchtodo.todo.users.UserFragment;
 import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.rw.keyboardlistener.KeyboardUtils;
 
@@ -55,7 +50,7 @@ public class Todo extends AppCompatActivity implements MenuClicker {
     @Override
     protected void onResume() {
         super.onResume();
-        startLocationUpdates();
+       // startLocationUpdates();
         navigateToFragment(LIST_FRAGMENT);
     }
 
@@ -70,25 +65,25 @@ public class Todo extends AppCompatActivity implements MenuClicker {
         binding.setClicker(this);
         // toDoLocation = new LocationHandler(toDoViewModel.getApplication());
         toDoViewModel.getCurrentLocation();
-        locationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                if (locationResult == null) {
-                    return;
-                }
-                for (Location location : locationResult.getLocations()) {
-
-
-                    toDoViewModel.saveCurrentLocation(location);
-
-                    Log.d("LOCATIONRESULT",
-                            location.getLatitude() + "+"
-                                    + location.getLongitude() + "+"
-                                    + location.getTime() + "+"
-                                    + toDoViewModel.getFormattedDate(location.getTime()));
-                }
-            }
-        };
+//        locationCallback = new LocationCallback() {
+//            @Override
+//            public void onLocationResult(LocationResult locationResult) {
+//                if (locationResult == null) {
+//                    return;
+//                }
+//                for (Location location : locationResult.getLocations()) {
+//
+//
+//                    toDoViewModel.saveCurrentLocation(location);
+//
+//                    Log.d("LOCATIONRESULT",
+//                            location.getLatitude() + "+"
+//                                    + location.getLongitude() + "+"
+//                                    + location.getTime() + "+"
+//                                    + toDoViewModel.getFormattedDate(location.getTime()));
+//                }
+//            }
+//        };
 
         KeyboardUtils.addKeyboardToggleListener(this, new KeyboardUtils.SoftKeyboardToggleListener() {
             @Override
@@ -100,17 +95,10 @@ public class Todo extends AppCompatActivity implements MenuClicker {
                 }
 
 
-              //  Log.d("keyboard", "keyboard visible: " + isVisible);
-               // Toast.makeText(Todo.this, String.valueOf(isVisible), Toast.LENGTH_SHORT).show();
+                //  Log.d("keyboard", "keyboard visible: " + isVisible);
+                // Toast.makeText(Todo.this, String.valueOf(isVisible), Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        toDoViewModel.setFirebaseListeners();
     }
 
 
@@ -177,22 +165,22 @@ public class Todo extends AppCompatActivity implements MenuClicker {
     }
 
 
-    @SuppressLint("MissingPermission")
-    private void startLocationUpdates() {
-
-        toDoViewModel.fusedLocationClient.requestLocationUpdates(createLocationRequest(),
-                locationCallback,
-                null /* Looper */);
-    }
-
-    protected LocationRequest createLocationRequest() {
-        LocationRequest locationRequest = LocationRequest.create();
-        locationRequest.setInterval(5 * 60 * 1000);
-        // locationRequest.setFastestInterval(1 * 30 * 1000);
-        locationRequest.setMaxWaitTime(10 * 60 * 1000);
-        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-        return locationRequest;
-    }
+//    @SuppressLint("MissingPermission")
+//    private void startLocationUpdates() {
+//
+//        toDoViewModel.fusedLocationClient.requestLocationUpdates(createLocationRequest(),
+//                locationCallback,
+//                null /* Looper */);
+//    }
+//
+//    protected LocationRequest createLocationRequest() {
+//        LocationRequest locationRequest = LocationRequest.create();
+//        locationRequest.setInterval(5 * 60 * 1000);
+//        // locationRequest.setFastestInterval(1 * 30 * 1000);
+//        locationRequest.setMaxWaitTime(10 * 60 * 1000);
+//        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+//        return locationRequest;
+//    }
 
 
 }

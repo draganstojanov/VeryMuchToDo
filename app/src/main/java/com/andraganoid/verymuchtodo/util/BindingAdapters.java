@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo;
+package com.andraganoid.verymuchtodo.util;
 
 import android.graphics.drawable.Drawable;
 import android.widget.TextView;
@@ -15,6 +15,5 @@ public class BindingAdapters {
                 d.setTint(color);
             }
         }
-
     }
 }

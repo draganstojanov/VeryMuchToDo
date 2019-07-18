@@ -1,12 +1,10 @@
 package com.andraganoid.verymuchtodo.todo;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.location.Location;
 import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -19,33 +17,34 @@ import com.andraganoid.verymuchtodo.model.ToDoLocation;
 import com.andraganoid.verymuchtodo.model.TodoItem;
 import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.model.User;
+import com.andraganoid.verymuchtodo.todo.location.LocationHandler;
+import com.andraganoid.verymuchtodo.todo.location.LocationHandlerCallback;
 import com.andraganoid.verymuchtodo.todo.menu.MenuAlert;
 import com.andraganoid.verymuchtodo.todo.menu.TodoBars;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
+import com.andraganoid.verymuchtodo.todo.repository.FirebaseCallback;
+import com.andraganoid.verymuchtodo.todo.repository.FirebaseRepository;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.maps.android.SphericalUtil;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.Comparator;
 
-import javax.annotation.Nullable;
+public class ToDoViewModel extends AndroidViewModel implements FirebaseCallback, LocationHandlerCallback {
 
-public class ToDoViewModel extends AndroidViewModel {
+    private SharedPreferences prefs;
+    public User mUser;
+    public Location mLocation = new Location("");
+    public TodoList currentToDoList;
+    public TodoItem currentToDoItem;
+    public FirebaseRepository fbRepo;
+    public LocationHandler locationHandler;
 
     public ToDoViewModel(@NonNull Application application) {
         super(application);
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplication());
-        todo = FirebaseFirestore.getInstance();
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(application);
+        fbRepo = new FirebaseRepository(this);
+        locationHandler = new LocationHandler(application, this);
         setTodoList(new ArrayList<TodoList>());
         setMessageList(new ArrayList<Message>());
         setMyself();
@@ -53,58 +52,12 @@ public class ToDoViewModel extends AndroidViewModel {
         setAlerts("all", false);
     }
 
-
-    protected SharedPreferences prefs;
-    private FirebaseFirestore todo;
-
     private MutableLiveData<ArrayList<User>> userList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<TodoList>> todoList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Message>> messageList = new MutableLiveData<>();
     private MutableLiveData<ArrayList<ToDoLocation>> locationList = new MutableLiveData<>();
 
-    private void setMyself() {
-        User user = new User(prefs.getString("PREFS_ID", ""),
-                prefs.getString("PREFS_NAME", ""),
-                prefs.getString("PREFS_EMAIL", ""));
-        mUser = user;
-
-        if (!prefs.getBoolean("PREFS_IS_USER_REGISTRED", false)) {
-            prefs.edit().putBoolean("PREFS_IS_USER_REGISTRED", true).apply();
-
-            // toDoViewModel.addDocument.setValue(new Document(mUser));
-            addDocument(new Document(user));
-
-        }
-    }
-
-
-    public void addDocument(Document document) {
-        todo.collection(document.getCollection())
-                .document(document.getDocumentName())
-                .set(document.getMap());
-    }
-
-    public void deleteDocument(Document document) {
-        todo.collection(document.getCollection())
-                .document(document.getDocumentName())
-                .delete();
-    }
-
-    public void updateDocument(Document document) {
-        todo.collection(document.getCollection())
-                .document(document.getDocumentName())
-                .update(document.getMap());
-    }
-
-    //  public ObservableField<User> mUser = new ObservableField<>();
-    public User mUser;
-    public Location mLocation = new Location("");
-    // public ObservableField<Location> mLocation = new ObservableField<>();
-    // public MutableLiveData<Document> addDocument = new MutableLiveData<>();
-
-    // public MutableLiveData<Document> deleteDocument = new MutableLiveData<>();
-
-    void setTodoList(ArrayList<TodoList> todoLists) {
+    private void setTodoList(ArrayList<TodoList> todoLists) {
         todoList.setValue(todoLists);
     }
 
@@ -112,7 +65,7 @@ public class ToDoViewModel extends AndroidViewModel {
         return todoList;
     }
 
-    void setMessageList(ArrayList<Message> msgList) {
+    private void setMessageList(ArrayList<Message> msgList) {
         messageList.setValue(msgList);
     }
 
@@ -120,7 +73,7 @@ public class ToDoViewModel extends AndroidViewModel {
         return messageList;
     }
 
-    void setUserList(ArrayList<User> uList) {
+    private void setUserList(ArrayList<User> uList) {
         userList.setValue(uList);
     }
 
@@ -128,7 +81,7 @@ public class ToDoViewModel extends AndroidViewModel {
         return userList;
     }
 
-    void setLocationList(ArrayList<ToDoLocation> lList) {
+    private void setLocationList(ArrayList<ToDoLocation> lList) {
         locationList.setValue(lList);
     }
 
@@ -136,48 +89,100 @@ public class ToDoViewModel extends AndroidViewModel {
         return locationList;
     }
 
-    public TodoList currentToDoList;
-    public TodoItem currentToDoItem;
-
-    public MutableLiveData<TodoBars> todoBars = new MutableLiveData<>();
+    MutableLiveData<TodoBars> todoBars = new MutableLiveData<>();
 
     public void setTodoBars(String title, String subtitle) {
         todoBars.setValue(new TodoBars(title, subtitle));
     }
 
-
-    public MutableLiveData<MenuAlert> menuAlert = new MutableLiveData<>();
+    MutableLiveData<MenuAlert> menuAlert = new MutableLiveData<>();
 
     public void setAlerts(String alertName, boolean alert) {
         MenuAlert ma = menuAlert.getValue();
         switch (alertName) {
-
             case "all":
                 ma = new MenuAlert();
                 break;
-
             case "list":
                 ma.setListAlert(alert);
-                //  ma.setListAlert(!ma.isListAlert());
                 break;
             case "msg":
                 ma.setMessageAlert(alert);
                 break;
-//            case "mUser":
-//                ma.setUserAlert(alert);
-//                break;
-//            case "map":
-//                ma.setMapAlert(alert);
-//                break;
         }
-
         menuAlert.setValue(ma);
-
-
-        Log.d("ALERT SET", String.valueOf(System.currentTimeMillis()) + alertName);
-
     }
 
+    private void setMyself() {
+        User user = new User(prefs.getString("PREFS_ID", ""),
+                prefs.getString("PREFS_NAME", ""),
+                prefs.getString("PREFS_EMAIL", ""));
+        mUser = user;
+        if (!prefs.getBoolean("PREFS_IS_USER_REGISTRED", false)) {
+            prefs.edit().putBoolean("PREFS_IS_USER_REGISTRED", true).apply();
+            fbRepo.addDocument(new Document(user));
+        }
+    }
+
+    public void addDocument(Document document) {
+        fbRepo.addDocument(document);
+    }
+
+    public void deleteDocument(Document document) {
+        fbRepo.deleteDocument(document);
+    }
+
+    public void updateDocument(Document document) {
+        fbRepo.updateDocument(document);
+    }
+
+    @Override
+    public void listsUpdated(ArrayList<TodoList> tList) {
+        long last = prefs.getLong("PREFS_LAST_TODO_LIST", 0);
+        boolean alert = false;
+        for (TodoList tl : tList) {
+            if (tl.getTimestamp() > last && !mUser.getId().equals(tl.getUser().getId())) {
+                alert = true;
+                break;
+            }
+        }
+        if (alert) {
+            setAlerts("list", true);
+        }
+        if (tList.size() > 0) {
+            prefs.edit().putLong("PREFS_LAST_TODO_LIST", tList.get(0).getTimestamp()).apply();
+        }
+        setTodoList(tList);
+    }
+
+    @Override
+    public void messagesUpdated(ArrayList<Message> mList) {
+        long last = prefs.getLong("PREFS_LAST_MESSAGE", 0);
+        boolean alert = false;
+        for (Message ml : mList) {
+            if (ml.getTimestamp() > last && !mUser.getId().equals(ml.getUser().getId())) {
+                alert = true;
+                break;
+            }
+        }
+        if (alert) {
+            setAlerts("msg", true);
+        }
+        if (mList.size() > 0) {
+            prefs.edit().putLong("PREFS_LAST_MESSAGE", mList.get(0).getTimestamp()).apply();
+        }
+        setMessageList(mList);
+    }
+
+    @Override
+    public void usersUpdated(ArrayList<User> uList) {
+        setUserList(uList);
+    }
+
+    @Override
+    public void locationsUpdated(ArrayList<ToDoLocation> lList) {
+        setLocationList(lList);
+    }
 
     public Object clone(Object original, Object cloned) {
         for (Field field : original.getClass().getDeclaredFields()) {
@@ -211,181 +216,33 @@ public class ToDoViewModel extends AndroidViewModel {
         }
     }
 
-
-    public void setFirebaseListeners() {
-
-        todo.collection(Document.COLLECTION_TODO_LISTS).addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if (queryDocumentSnapshots != null) {
-                    ArrayList<TodoList> tList = new ArrayList<>();
-                    for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
-                        tList.add(qs.toObject(TodoList.class));
-                    }
-
-                    if (tList.size() > 0) {
-                        Collections.sort(tList, new Comparator<TodoList>() {
-                            @Override
-                            public int compare(final TodoList object1, final TodoList object2) {
-                                return String.valueOf(object2.getTimestamp()).compareTo(String.valueOf(object1.getTimestamp()));
-                            }
-                        });
-                    }
-
-
-                    long last = prefs.getLong("PREFS_LAST_TODO_LIST", 0);
-                    boolean alert = false;
-                    for (TodoList tl : tList) {
-                        if (tl.getTimestamp() > last && !mUser.getId().equals(tl.getUser().getId())) {
-                            alert = true;
-                            break;
-                        }
-                    }
-
-                    if (alert) {
-                        setAlerts("list", true);
-                    }
-
-                    if (tList.size() > 0) {
-                        prefs.edit().putLong("PREFS_LAST_TODO_LIST", tList.get(0).getTimestamp()).apply();
-                    }
-                    setTodoList(tList);
-
-                }
-            }
-        });
-
-        todo.collection(Document.COLLECTION_MESSAGES).addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if (queryDocumentSnapshots != null) {
-                    ArrayList<Message> mList = new ArrayList<>();
-                    for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
-                        mList.add(qs.toObject(Message.class));
-                    }
-
-                    if (mList.size() > 0) {
-                        Collections.sort(mList, new Comparator<Message>() {
-                            @Override
-                            public int compare(final Message object1, final Message object2) {
-                                return String.valueOf(object2.getTimestamp()).compareTo(String.valueOf(object1.getTimestamp()));
-                            }
-                        });
-                    }
-
-
-                    long last = prefs.getLong("PREFS_LAST_MESSAGE", 0);
-                    boolean alert = false;
-                    for (Message ml : mList) {
-                        if (ml.getTimestamp() > last && !mUser.getId().equals(ml.getUser().getId())) {
-                            alert = true;
-                            break;
-                        }
-                    }
-
-
-                    if (alert) {
-                        setAlerts("msg", true);
-                    }
-
-
-                    if (mList.size() > 0) {
-                        prefs.edit().putLong("PREFS_LAST_MESSAGE", mList.get(0).getTimestamp()).apply();
-                    }
-                    setMessageList(mList);
-
-
-                }
-            }
-        });
-
-
-        todo.collection(Document.COLLECTION_USERS).addSnapshotListener(new EventListener<QuerySnapshot>() {
-
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if (queryDocumentSnapshots != null) {
-                    ArrayList<User> uList = new ArrayList<>();
-                    for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
-                        uList.add(qs.toObject(User.class));
-                    }
-
-                    if (uList.size() > 0) {
-                        Collections.sort(uList, new Comparator<User>() {
-                            @Override
-                            public int compare(final User object1, final User object2) {
-                                return String.valueOf(object1.getName()).compareTo(String.valueOf(object2.getName()));
-                            }
-                        });
-                    }
-                    setUserList(uList);
-                }
-            }
-        });
-
-        todo.collection(Document.COLLECTION_LOCATION).addSnapshotListener(new EventListener<QuerySnapshot>() {
-
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if (queryDocumentSnapshots != null) {
-                    ArrayList<ToDoLocation> lList = new ArrayList<>();
-                    for (QueryDocumentSnapshot qs : queryDocumentSnapshots) {
-                        lList.add(qs.toObject(ToDoLocation.class));
-                    }
-
-                    setLocationList(lList);
-
-                }
-            }
-        });
-
+    void getCurrentLocation() {
+        locationHandler.getCurrentLocation();
     }
 
-    public FusedLocationProviderClient fusedLocationClient;
-
-//    public LocationHandler(@NonNull Application application) {
-//        super(application);
-//        fusedLocationClient = LocationServices.getFusedLocationProviderClient(application);
-//    }
-
-    @SuppressLint("MissingPermission")
-    public void getCurrentLocation() {
-        // Toast.makeText(getApplication(), "GET LOCATION", Toast.LENGTH_SHORT).show();
-
-        fusedLocationClient.getLastLocation().addOnSuccessListener(location -> saveCurrentLocation(location));
-
-    }
-
-    void saveCurrentLocation(Location location) {
+    @Override
+    public void saveCurrentLocation(Location location) {
         if (location != null) {
-            // Toast.makeText(getApplication(), String.valueOf(location.getTime()), Toast.LENGTH_SHORT).show();
             LatLng lastSavedLocation = new LatLng(prefs.getFloat("PREFS_LATITUDE",
                     0), prefs.getFloat("PREFS_LONGITUDE", 0));
             LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
             mLocation = location;
 
-
-//        Toast.makeText(getApplication(), String.valueOf(mLocation.getLatitude()), Toast.LENGTH_SHORT).show();
             if (lastSavedLocation.latitude == 0 && lastSavedLocation.longitude == 0) {
-                addDocument(new Document(new ToDoLocation(mUser, location)));
+                fbRepo.addDocument(new Document(new ToDoLocation(mUser, location)));
 
             } else {
-                if (SphericalUtil.computeDistanceBetween(lastSavedLocation, currentLocation) > 100) {
-                    updateDocument(new Document(new ToDoLocation(mUser, location)));
+                if (SphericalUtil.computeDistanceBetween(lastSavedLocation, currentLocation) > 50) {
+                    fbRepo.updateDocument(new Document(new ToDoLocation(mUser, location)));
                     prefs.edit()
                             .putFloat("PREFS_LATITUDE", (float) currentLocation.latitude)
                             .putFloat("PREFS_LONGITUDE", (float) currentLocation.longitude)
                             .apply();
-                    // mLocation = location;
-
                 }
             }
-            String provider;
         } else {
             mLocation = new Location("");
-            // Toast.makeText(getApplication(), String.valueOf(mLocation.getLatitude()), Toast.LENGTH_SHORT).show();
         }
-
     }
 }
 

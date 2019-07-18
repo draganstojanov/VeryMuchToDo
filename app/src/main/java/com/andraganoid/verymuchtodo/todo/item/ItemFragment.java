@@ -116,7 +116,7 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
                             toDoViewModel.currentToDoList.getTodoItemList().remove(viewHolder.getAdapterPosition());
                             //  todoActivity.saveList(todoActivity.currengtList);
 //                            toDoViewModel.deleteDocument.setValue(new Document(toDoViewModel.currentToDoList));
-                            toDoViewModel.deleteDocument(new Document(toDoViewModel.currentToDoList));
+                            toDoViewModel.fbRepo.deleteDocument(new Document(toDoViewModel.currentToDoList));
 
                         } else {
                             adapter.notifyDataSetChanged();

@@ -13,7 +13,6 @@ public class Document {
     private String documentName;
     private HashMap<String, Object> map;
 
-
     public Document(User user) {
         map = new HashMap<>();
         map.put("id", user.getId());
@@ -43,7 +42,6 @@ public class Document {
         map.put("timestamp", message.getTimestamp());
         map.put("user", message.getUser());
         map.put("id", message.getId());
-        // map.put("title", message.getTitle());
         documentName = message.getId();
         collection = COLLECTION_MESSAGES;
     }
@@ -58,28 +56,16 @@ public class Document {
         documentName = location.getUser().getId();
     }
 
-
     public String getCollection() {
         return collection;
-    }
-
-    public void setCollection(String collection) {
-        this.collection = collection;
     }
 
     public String getDocumentName() {
         return documentName;
     }
 
-    public void setDocumentName(String documentName) {
-        this.documentName = documentName;
-    }
-
     public HashMap<String, Object> getMap() {
         return map;
     }
 
-    public void setMap(HashMap<String, Object> map) {
-        this.map = map;
-    }
 }
