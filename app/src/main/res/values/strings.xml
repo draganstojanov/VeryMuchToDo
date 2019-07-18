@@ -36,5 +36,5 @@
     <string name="get_permission">Get Location permission</string>
     <string name="not_registered">Not registered</string>
 
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyB7Br73yY28v26sRMp3dBQ_jhMcB4cKGrY</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false"></string>
 </resources>
