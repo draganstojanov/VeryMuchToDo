@@ -18,7 +18,7 @@ Also is possible to add Firebase Cloud Messaging service for notifications.
 
 As mentioned before, this is a test and training app and a purpose is to test some technologies and services in Android app development, but there are always possibilities to modify it with different functions for different purposes.
 
-
+*********************************************
 
 TODO in next revisions:
 - push notifications
