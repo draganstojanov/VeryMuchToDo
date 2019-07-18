@@ -21,33 +21,38 @@
 
         <EditText
             android:id="@+id/register_username"
-            style="@style/TextField"
+            style="@style/EditText"
+            android:focusable="true"
             android:hint="@string/your_name"
+            android:imeOptions="actionNext"
             android:text="@={viewModel.registrationName}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias=".2" />
+            app:layout_constraintVertical_bias=".1" />
 
         <EditText
             android:id="@+id/register_email"
-            style="@style/TextField"
+            style="@style/EditText"
             android:hint="@string/your_email"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
             android:text="@={viewModel.registrationMail}"
             app:layout_constraintTop_toBottomOf="@+id/register_username" />
 
         <EditText
             android:id="@+id/register_password"
-            style="@style/TextField"
+            style="@style/EditText"
             android:hint="@string/your_pass"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
             android:text="@={viewModel.registrationPass}"
             app:layout_constraintTop_toBottomOf="@+id/register_email" />
 
         <Button
             android:id="@+id/register_button"
-            style="@style/TextField"
+            style="@style/Button"
             android:onClick="@{()->clicker.onRegisterConfirm()}"
             android:text="@string/register"
-            android:textAllCaps="false"
             app:layout_constraintTop_toBottomOf="@+id/register_password" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

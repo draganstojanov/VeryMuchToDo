@@ -19,6 +19,10 @@ public class TodoBaseFragment extends Fragment {
         toDo = (Todo) getActivity();
         toDoViewModel = ViewModelProviders.of(toDo).get(ToDoViewModel.class);
        // toDoViewModel = toDo.toDoViewModel;
+
+
+
+
     }
 
     @Override
@@ -27,9 +31,11 @@ public class TodoBaseFragment extends Fragment {
         toDoViewModel.getCurrentLocation();
     }
 
-    public void closeKeyboard() {
+   protected void closeKeyboard() {
         InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(toDo.binding.getRoot().getWindowToken(), 0);
     }
+
+
 
 }

@@ -21,38 +21,40 @@
 
         <EditText
             android:id="@+id/sign_in_email"
-            style="@style/TextField"
+            style="@style/EditText"
+            android:focusable="true"
             android:hint="@string/your_email"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
             android:text="@={viewModel.userMail}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias=".2" />
+            app:layout_constraintVertical_bias=".15" />
 
         <EditText
             android:id="@+id/sign_in_password"
-            style="@style/TextField"
+            style="@style/EditText"
             android:hint="@string/your_pass"
-            android:text="@={viewModel.userPass}"
             android:inputType="textPassword"
+            android:text="@={viewModel.userPass}"
             app:layout_constraintTop_toBottomOf="@+id/sign_in_email" />
 
         <Button
             android:id="@+id/sign_in_button"
-            style="@style/TextField"
+            style="@style/Button"
+            android:imeOptions="actionDone"
             android:onClick="@{()->clicker.onLoginConfirm()}"
             android:text="@string/login"
-            android:textAllCaps="false"
             app:layout_constraintTop_toBottomOf="@+id/sign_in_password" />
 
-        <Button
+        <TextView
             android:id="@+id/sign_in_not_registred"
-            style="@style/TextField"
-            android:onClick="@{()->clicker.onNotRegistred()}"
-            android:text="@string/register"
-            android:textAllCaps="false"
+            style="@style/EditText"
+            android:onClick="@{()->clicker.onNotRegistered()}"
+            android:text="@string/not_registered"
+            android:textColor="@color/colorAccent"
             app:layout_constraintTop_toBottomOf="@+id/sign_in_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </layout>

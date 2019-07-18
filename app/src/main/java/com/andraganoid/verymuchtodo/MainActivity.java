@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,25 +25,25 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
     private final int LOCATION = 111;
-    MainViewModel mainViewModel;
-    SharedPreferences prefs;
+    public MainViewModel mainViewModel;
+    private SharedPreferences prefs;
+    public boolean leave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        leave = true;
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         mainViewModel.mAuth = FirebaseAuth.getInstance();
         getPermission();
-
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
-//        checkLoginStatus();
     }
 
     @AfterPermissionGranted(LOCATION)
@@ -55,24 +54,18 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         } else {
             EasyPermissions.requestPermissions(this, getString(R.string.get_permission), LOCATION, perms);
         }
-
-
     }
 
-
     private void checkLoginStatus() {
-
         if (prefs.getString("PREFS_ID", "").isEmpty()) {
             navigateToFragment(new LoginFragment());
         } else {
             startActivity(new Intent(this, Todo.class));
         }
-
     }
 
 
     public void navigateToFragment(Fragment fragment) {
-
         if (fragment != null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -82,25 +75,31 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     }
 
     public void setUser(FirebaseUser user) {
-
         prefs.edit().putString("PREFS_ID", user.getUid())
                 .putString("PREFS_NAME", user.getDisplayName())
                 .putString("PREFS_EMAIL", user.getEmail())
                 .apply();
-
         startActivity(new Intent(this, Todo.class));
     }
 
 
     @Override
     public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
-        Toast.makeText(this, "GRANTED", Toast.LENGTH_SHORT).show();
         checkLoginStatus();
     }
 
     @Override
     public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
-        Toast.makeText(this, "DENIED", Toast.LENGTH_SHORT).show();
         getPermission();
     }
+
+    @Override
+    public void onBackPressed() {
+        if (leave) {
+            super.onBackPressed();
+        } else {
+            navigateToFragment(new LoginFragment());
+        }
+    }
+
 }

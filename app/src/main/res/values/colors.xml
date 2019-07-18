@@ -7,4 +7,7 @@
     <color name="completed">#3BA50F</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorHint">#969696</color>
+
+<color name="colorBack01">#0b132b</color>
+    <color name="colorBack02">#3a506b</color>
 </resources>
