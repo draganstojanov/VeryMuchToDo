@@ -51,8 +51,9 @@ public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicke
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        showKeyboard(binding.todoItemContent);
         content = toDoViewModel.currentToDoItem.getContent();
-        toDoViewModel.setTodoBars(toDoViewModel.currentToDoList.getTitle(), "");
+        toDoViewModel.setTodoBars(toDoViewModel.currentToDoList.getTitle(), toDoViewModel.currentToDoList.isEmergency());
         binding.setItemItem(toDoViewModel.currentToDoItem);
     }
 

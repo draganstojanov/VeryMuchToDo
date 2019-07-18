@@ -26,6 +26,12 @@ public class MapFragment extends TodoBaseFragment implements OnMapReadyCallback 
     private GoogleMap map;
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        toDoViewModel.setTodoBars(getString(R.string.map), false);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_map, container, false);

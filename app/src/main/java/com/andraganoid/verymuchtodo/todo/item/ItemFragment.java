@@ -28,7 +28,7 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        toDoViewModel.setTodoBars(toDoViewModel.currentToDoList.getTitle(), "");
+        toDoViewModel.setTodoBars(toDoViewModel.currentToDoList.getTitle(),toDoViewModel.currentToDoList.isEmergency());
         toDoViewModel.setAlerts("list", false);
     }
 
@@ -43,6 +43,12 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
                 false);
         binding.setClicker(this);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        toDo.backTo = toDo.LIST_FRAGMENT;
     }
 
     @Override

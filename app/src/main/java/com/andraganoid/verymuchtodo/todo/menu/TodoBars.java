@@ -3,21 +3,23 @@ package com.andraganoid.verymuchtodo.todo.menu;
 public class TodoBars {
     private String title;
     private String subtitle;
+    private boolean emergency;
 
-    public TodoBars(String title, String subtitle) {
+    public TodoBars(String title, boolean emergency) {
         this.title = title;
-        this.subtitle = subtitle;
+        this.emergency = emergency;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getSubtitle() {
         return subtitle;
     }
+
+    public boolean isEmergency() {
+        return emergency;
+    }
+
 }

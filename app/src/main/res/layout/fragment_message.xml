@@ -35,10 +35,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/input_box"
-            app:layout_constraintBottom_toBottomOf="parent"
-           >
-
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <EditText
                 android:id="@+id/new_msg"
@@ -49,10 +46,16 @@
                 android:minHeight="?actionBarSize"
                 android:padding="8dp"
                 android:text="@={message.newMsgText}"
+                android:textColor="@color/colorWhite"
+                android:textColorHint="@color/colorHint"
+                android:textSize="@dimen/text_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/msg_send"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <requestFocus />
+            </EditText>
 
             <ImageView
                 android:id="@+id/msg_send"
@@ -60,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:onClick="@{()->clicker.sendMessage()}"
-                android:paddingTop="8dp"
+                android:paddingEnd="8dp"
                 android:src="@drawable/ic_send_red_500_24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/new_msg"

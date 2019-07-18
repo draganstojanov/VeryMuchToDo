@@ -64,12 +64,16 @@ public class Todo extends AppCompatActivity implements MenuClicker {
     }
 
     private void registerObservers() {
-
         toDoViewModel.todoBars.observe(this, todoBars -> {
             binding.todoToolbar.setTitle(todoBars.getTitle());
-            binding.todoToolbar.setSubtitle(todoBars.getSubtitle());
+            int color;
+            if (todoBars.isEmergency()) {
+                color = R.color.colorAccent;
+            } else {
+                color = R.color.colorWhite;
+            }
+            binding.todoToolbar.setTitleTextColor(getResources().getColor(color));
         });
-
         toDoViewModel.menuAlert.observe(this, menuAlert -> {
             binding.invalidateAll();
         });

@@ -19,10 +19,10 @@
     <string name="title_to_long">Title is too long</string>
     <string name="cancel">Cancel</string>
     <string name="content">Content</string>
-    <string name="create_item">Create todo list item</string>
+    <string name="create_item">Save todo list item</string>
     <string name="task_completed">Task is completed!</string>
     <string name="task_not_completed">Task is not completed!</string>
-    <string name="create_item_add_new">Create todo list item and add new</string>
+    <string name="create_item_add_new">Save todo list item and add new</string>
     <string name="item_list_deleted">List is deleted or changed by another user.</string>
     <string name="lists">Lists</string>
     <string name="messages">Messages</string>

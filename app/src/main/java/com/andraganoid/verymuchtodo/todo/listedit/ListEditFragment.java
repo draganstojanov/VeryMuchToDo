@@ -59,7 +59,7 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         showKeyboard(binding.newTodoListTitle);
-        toDoViewModel.setTodoBars(toDoViewModel.currentToDoList.getTitle(), "");
+        toDoViewModel.setTodoBars(toDoViewModel.currentToDoList.getTitle(), toDoViewModel.currentToDoList.isEmergency());
     }
 
     @Override

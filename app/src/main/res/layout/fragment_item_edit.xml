@@ -20,48 +20,36 @@
 
         <EditText
             android:id="@+id/todo_item_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="32dp"
-            android:background="@drawable/input_box"
+            style="@style/EditText"
+            android:gravity="left"
             android:hint="@string/content"
-            android:padding="8dp"
+            android:imeOptions="actionDone"
+            android:selection="@{itemItem.content.length()}"
             android:text="@={itemItem.content}"
+            android:textSize="@dimen/title_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias=".2" />
+            app:layout_constraintVertical_bias=".1" />
 
         <Button
             android:id="@+id/todo_item_save_add_new"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="32dp"
-            android:background="@drawable/input_box"
+            style="@style/Button"
             android:onClick="@{()->clicker.onSaveAndNew()}"
             android:text="@string/create_item_add_new"
-            android:textAllCaps="false"
             app:layout_constraintTop_toBottomOf="@+id/todo_item_content" />
 
         <Button
             android:id="@+id/todo_item_save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="32dp"
-            android:background="@drawable/input_box"
+            style="@style/Button"
             android:onClick="@{()->clicker.onSave()}"
             android:text="@string/create_item"
-            android:textAllCaps="false"
             app:layout_constraintTop_toBottomOf="@+id/todo_item_save_add_new" />
 
         <Button
             android:id="@+id/todo_item_cancel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="32dp"
-            android:background="@drawable/input_box"
+            style="@style/Button"
             android:onClick="@{()->clicker.onCancel()}"
             android:text="@string/cancel"
-            android:textAllCaps="false"
             app:layout_constraintTop_toBottomOf="@+id/todo_item_save" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

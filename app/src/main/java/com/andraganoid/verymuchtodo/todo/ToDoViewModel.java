@@ -48,7 +48,7 @@ public class ToDoViewModel extends AndroidViewModel implements FirebaseCallback,
         setTodoList(new ArrayList<TodoList>());
         setMessageList(new ArrayList<Message>());
         setMyself();
-        setTodoBars("", "");
+        setTodoBars("", false);
         setAlerts("all", false);
     }
 
@@ -91,8 +91,8 @@ public class ToDoViewModel extends AndroidViewModel implements FirebaseCallback,
 
     MutableLiveData<TodoBars> todoBars = new MutableLiveData<>();
 
-    public void setTodoBars(String title, String subtitle) {
-        todoBars.setValue(new TodoBars(title, subtitle));
+    public void setTodoBars(String title, boolean emergency) {
+        todoBars.setValue(new TodoBars(title, emergency));
     }
 
     MutableLiveData<MenuAlert> menuAlert = new MutableLiveData<>();

@@ -20,25 +20,22 @@
             type="com.andraganoid.verymuchtodo.todo.ToDoViewModel" />
     </data>
 
-
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:onLongClick="@{(view) -> clicker.onItemLongClicked(view,itemItem)}"
-
         android:padding="4dp">
-        <!--android:onLongClick="@{(view)->clicker.onItemLongClicked(view,itemItem)}"-->
-        <!--android:onLongClick="@{(view)->clicker.onItemLongClicked(view,todoListItem)}"-->
+
         <TextView
             android:id="@+id/item_content"
             android:layout_width="match_parent"
-            android:layout_height="28dp"
+            android:layout_height="wrap_content"
             android:padding="4dp"
             android:text="@{itemItem.content}"
-            android:textColor="#000"
-            android:textSize="16sp"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_size"
+            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -50,8 +47,8 @@
             android:paddingRight="4dp"
             android:paddingBottom="2dp"
             android:text="@{lastEdit.getLastEdit(itemItem.user.name,itemItem.timestamp)}"
-            android:textColor="#000"
-            android:textSize="12sp"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/small_text_size"
             app:layout_constraintTop_toBottomOf="@id/item_content" />
 
         <ImageView
@@ -59,16 +56,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_check_red_500_36dp"
+            android:visibility="@{itemItem.completed ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:visibility="@{itemItem.completed ? View.VISIBLE : View.GONE}" />
+            app:layout_constraintRight_toRightOf="parent" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/colorPrimaryDark"
             app:layout_constraintBottom_toBottomOf="parent" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

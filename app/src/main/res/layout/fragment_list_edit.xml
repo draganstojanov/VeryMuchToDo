@@ -22,7 +22,6 @@
         <EditText
             android:id="@+id/new_todo_list_title"
             style="@style/EditText"
-            android:focusable="true"
             android:gravity="left"
             android:hint="@string/list_name"
             android:imeOptions="actionNext"
@@ -64,6 +63,7 @@
             app:layout_constraintTop_toBottomOf="@+id/new_todo_list_emergency" />
 
         <Button
+            android:id="@+id/new_todo_list_cancel"
             style="@style/Button"
             android:onClick="@{()->clicker.onCancelClicked()}"
             android:text="@string/cancel"

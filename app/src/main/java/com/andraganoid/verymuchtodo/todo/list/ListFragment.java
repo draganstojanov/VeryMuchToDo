@@ -27,7 +27,7 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        toDoViewModel.setTodoBars(getString(R.string.todo_lists), "");
+        toDoViewModel.setTodoBars(getString(R.string.todo_lists), false);
     }
 
     @Override

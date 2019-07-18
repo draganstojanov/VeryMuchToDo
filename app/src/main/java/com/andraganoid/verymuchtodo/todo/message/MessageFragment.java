@@ -29,7 +29,7 @@ public class MessageFragment extends TodoBaseFragment implements MessageClicker 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        toDoViewModel.setTodoBars(getString(R.string.messages), "");
+        toDoViewModel.setTodoBars(getString(R.string.messages), false);
         toDoViewModel.setAlerts("msg", false);
     }
 

@@ -17,8 +17,14 @@ import com.andraganoid.verymuchtodo.todo.TodoBaseFragment;
 
 public class UserFragment extends TodoBaseFragment implements UserClicker {
 
-    FragmentUserBinding binding;
-    UserFragmentAdapter adapter;
+    private FragmentUserBinding binding;
+    private UserFragmentAdapter adapter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        toDoViewModel.setTodoBars(getString(R.string.users), false);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater,
