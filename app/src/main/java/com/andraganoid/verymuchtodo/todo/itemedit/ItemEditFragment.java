@@ -22,13 +22,11 @@ import java.util.ArrayList;
 
 public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicker {
 
-
     private FragmentItemEditBinding binding;
     private String content;
 
     public ItemEditFragment() {
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -45,20 +43,24 @@ public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicke
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        toDo.backTo = toDo.ITEM_FRAGMENT;
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        content=toDoViewModel.currentToDoItem.getContent();
+        content = toDoViewModel.currentToDoItem.getContent();
         toDoViewModel.setTodoBars(toDoViewModel.currentToDoList.getTitle(), "");
         binding.setItemItem(toDoViewModel.currentToDoItem);
     }
 
     private boolean editCheck() {
-
         String content = toDoViewModel.currentToDoItem.getContent();
         if (content.isEmpty()) {
             return false;
         } else {
-
             ArrayList<TodoItem> til = toDoViewModel.currentToDoList.getTodoItemList();
             for (int i = 0; i < til.size(); i++) {
                 if (til.get(i).getContent().equals(content)) {
@@ -77,7 +79,6 @@ public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicke
         }
     }
 
-
     @Override
     public void onSave() {
         if (editCheck()) {
@@ -87,7 +88,6 @@ public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicke
 
     @Override
     public void onSaveAndNew() {
-
         if (editCheck()) {
             toDoViewModel.currentToDoItem = new TodoItem(toDoViewModel.mUser);
             binding.setItemItem(toDoViewModel.currentToDoItem);

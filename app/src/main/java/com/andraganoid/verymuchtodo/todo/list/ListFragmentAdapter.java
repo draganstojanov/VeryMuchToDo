@@ -15,6 +15,7 @@ import com.andraganoid.verymuchtodo.todo.ToDoViewModel;
 import java.util.ArrayList;
 
 public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapter.ListHolder> {
+
     private ArrayList<TodoList> tlList = new ArrayList<>();
     private ListClicker clicker;
     private ToDoViewModel lastEdit;
@@ -65,7 +66,5 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
             binding.setLastEdit(lastEdit);
             binding.executePendingBindings();
         }
-
     }
-
 }

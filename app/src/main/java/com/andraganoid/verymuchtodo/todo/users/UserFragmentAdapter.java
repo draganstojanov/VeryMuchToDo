@@ -28,7 +28,6 @@ public class UserFragmentAdapter extends RecyclerView.Adapter<UserFragmentAdapte
         notifyDataSetChanged();
     }
 
-
     @NonNull
     @Override
     public UserFragmentAdapter.UserHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

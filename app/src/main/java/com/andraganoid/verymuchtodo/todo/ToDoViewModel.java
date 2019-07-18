@@ -245,4 +245,3 @@ public class ToDoViewModel extends AndroidViewModel implements FirebaseCallback,
         }
     }
 }
-

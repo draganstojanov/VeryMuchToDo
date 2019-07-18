@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,7 +26,6 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         this.todoListItemNew = new TodoList();
         this.todoListItemNew = (TodoList) toDoViewModel.clone(
@@ -51,6 +49,12 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        toDo.backTo = toDo.LIST_FRAGMENT;
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         toDoViewModel.setTodoBars(toDoViewModel.currentToDoList.getTitle(), "");
@@ -70,10 +74,10 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
                     }
                     toDo.navigateToFragment(toDo.LIST_FRAGMENT);
                 } else {
-                    Toast.makeText(toDo, R.string.desc_too_long, Toast.LENGTH_SHORT).show();
+                    showSnackbar(getString(R.string.desc_too_long));
                 }
             } else {
-                Toast.makeText(toDo, R.string.title_to_long, Toast.LENGTH_SHORT).show();
+                showSnackbar(getString(R.string.title_to_long));
             }
         }
     }

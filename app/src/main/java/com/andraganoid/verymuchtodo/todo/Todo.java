@@ -10,7 +10,6 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.andraganoid.verymuchtodo.MainActivity;
@@ -21,12 +20,9 @@ import com.andraganoid.verymuchtodo.todo.itemedit.ItemEditFragment;
 import com.andraganoid.verymuchtodo.todo.list.ListFragment;
 import com.andraganoid.verymuchtodo.todo.listedit.ListEditFragment;
 import com.andraganoid.verymuchtodo.todo.map.MapFragment;
-import com.andraganoid.verymuchtodo.todo.menu.MenuAlert;
 import com.andraganoid.verymuchtodo.todo.menu.MenuClicker;
-import com.andraganoid.verymuchtodo.todo.menu.TodoBars;
 import com.andraganoid.verymuchtodo.todo.message.MessageFragment;
 import com.andraganoid.verymuchtodo.todo.users.UserFragment;
-import com.google.android.gms.location.LocationCallback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.rw.keyboardlistener.KeyboardUtils;
 
@@ -36,8 +32,8 @@ public class Todo extends AppCompatActivity implements MenuClicker {
     public ToDoViewModel toDoViewModel;
     private SharedPreferences prefs;
     public ActivityTodoBinding binding;
-    //public LocationHandler toDoLocation;
-    private LocationCallback locationCallback;
+    public Fragment backTo;
+    private View bottomBar;
 
     public final Fragment LIST_FRAGMENT = new ListFragment();
     public final Fragment LIST_EDIT_FRAGMENT = new ListEditFragment();
@@ -50,7 +46,6 @@ public class Todo extends AppCompatActivity implements MenuClicker {
     @Override
     protected void onResume() {
         super.onResume();
-       // startLocationUpdates();
         navigateToFragment(LIST_FRAGMENT);
     }
 
@@ -58,71 +53,40 @@ public class Todo extends AppCompatActivity implements MenuClicker {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_todo);
+        bottomBar = findViewById(R.id.main_bottom_bar);
         toDoViewModel = ViewModelProviders.of(this).get(ToDoViewModel.class);
+        toDoViewModel.getCurrentLocation();
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         registerObservers();
         binding.setMenuAlert(toDoViewModel.menuAlert.getValue());
         binding.setClicker(this);
-        // toDoLocation = new LocationHandler(toDoViewModel.getApplication());
-        toDoViewModel.getCurrentLocation();
-//        locationCallback = new LocationCallback() {
-//            @Override
-//            public void onLocationResult(LocationResult locationResult) {
-//                if (locationResult == null) {
-//                    return;
-//                }
-//                for (Location location : locationResult.getLocations()) {
-//
-//
-//                    toDoViewModel.saveCurrentLocation(location);
-//
-//                    Log.d("LOCATIONRESULT",
-//                            location.getLatitude() + "+"
-//                                    + location.getLongitude() + "+"
-//                                    + location.getTime() + "+"
-//                                    + toDoViewModel.getFormattedDate(location.getTime()));
-//                }
-//            }
-//        };
-
-        KeyboardUtils.addKeyboardToggleListener(this, new KeyboardUtils.SoftKeyboardToggleListener() {
-            @Override
-            public void onToggleSoftKeyboard(boolean isVisible) {
-                if (isVisible) {
-                    findViewById(R.id.main_bottom_bar).setVisibility(View.GONE);
-                } else {
-                    findViewById(R.id.main_bottom_bar).setVisibility(View.VISIBLE);
-                }
-
-
-                //  Log.d("keyboard", "keyboard visible: " + isVisible);
-                // Toast.makeText(Todo.this, String.valueOf(isVisible), Toast.LENGTH_SHORT).show();
-            }
-        });
+        setKeyboardListener();
     }
-
 
     private void registerObservers() {
 
-        toDoViewModel.todoBars.observe(this, new Observer<TodoBars>() {
-            @Override
-            public void onChanged(TodoBars todoBars) {
-                binding.todoToolbar.setTitle(todoBars.getTitle());
-                binding.todoToolbar.setSubtitle(todoBars.getSubtitle());
-            }
+        toDoViewModel.todoBars.observe(this, todoBars -> {
+            binding.todoToolbar.setTitle(todoBars.getTitle());
+            binding.todoToolbar.setSubtitle(todoBars.getSubtitle());
         });
 
-        toDoViewModel.menuAlert.observe(this, new Observer<MenuAlert>() {
-            @Override
-            public void onChanged(MenuAlert menuAlert) {
-                binding.invalidateAll();
+        toDoViewModel.menuAlert.observe(this, menuAlert -> {
+            binding.invalidateAll();
+        });
+    }
+
+    private void setKeyboardListener() {
+        KeyboardUtils.addKeyboardToggleListener(this, isVisible -> {
+            if (isVisible) {
+                bottomBar.setVisibility(View.GONE);
+            } else {
+                bottomBar.setVisibility(View.VISIBLE);
             }
         });
     }
 
 
     public void navigateToFragment(Fragment fragment) {
-
         if (fragment != null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -130,7 +94,6 @@ public class Todo extends AppCompatActivity implements MenuClicker {
                     .commit();
         }
     }
-
 
     @Override
     public void onListItemClicked() {
@@ -154,7 +117,8 @@ public class Todo extends AppCompatActivity implements MenuClicker {
 
     @Override
     public void onLogoutItemClicked() {
-        prefs.edit().putString("PREFS_ID", "")
+        prefs.edit()
+                .putString("PREFS_ID", "")
                 .putString("PREFS_NAME", "")
                 .putString("PREFS_EMAIL", "")
                 .putBoolean("PREFS_IS_USER_REGISTRED", false)
@@ -164,23 +128,12 @@ public class Todo extends AppCompatActivity implements MenuClicker {
         finishAffinity();
     }
 
-
-//    @SuppressLint("MissingPermission")
-//    private void startLocationUpdates() {
-//
-//        toDoViewModel.fusedLocationClient.requestLocationUpdates(createLocationRequest(),
-//                locationCallback,
-//                null /* Looper */);
-//    }
-//
-//    protected LocationRequest createLocationRequest() {
-//        LocationRequest locationRequest = LocationRequest.create();
-//        locationRequest.setInterval(5 * 60 * 1000);
-//        // locationRequest.setFastestInterval(1 * 30 * 1000);
-//        locationRequest.setMaxWaitTime(10 * 60 * 1000);
-//        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-//        return locationRequest;
-//    }
-
-
+    @Override
+    public void onBackPressed() {
+        if (backTo == null) {
+            finishAffinity();
+        } else {
+            navigateToFragment(backTo);
+        }
+    }
 }

@@ -37,6 +37,12 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         mainViewModel.mAuth = FirebaseAuth.getInstance();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         getPermission();
     }
 
@@ -56,6 +62,16 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         }
     }
 
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+        checkLoginStatus();
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        getPermission();
+    }
+
     private void checkLoginStatus() {
         if (prefs.getString("PREFS_ID", "").isEmpty()) {
             navigateToFragment(new LoginFragment());
@@ -63,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
             startActivity(new Intent(this, Todo.class));
         }
     }
-
 
     public void navigateToFragment(Fragment fragment) {
         if (fragment != null) {
@@ -84,16 +99,6 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
 
     @Override
-    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
-        checkLoginStatus();
-    }
-
-    @Override
-    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
-        getPermission();
-    }
-
-    @Override
     public void onBackPressed() {
         if (leave) {
             super.onBackPressed();
@@ -101,5 +106,4 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
             navigateToFragment(new LoginFragment());
         }
     }
-
 }

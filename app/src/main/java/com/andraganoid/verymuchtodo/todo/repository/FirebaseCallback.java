@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public interface FirebaseCallback {
 
-  public  void listsUpdated(ArrayList<TodoList> tList);
+    public void listsUpdated(ArrayList<TodoList> tList);
 
     void messagesUpdated(ArrayList<Message> mList);
 

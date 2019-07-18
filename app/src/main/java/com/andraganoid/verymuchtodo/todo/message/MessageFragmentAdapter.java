@@ -30,7 +30,6 @@ public class MessageFragmentAdapter extends RecyclerView.Adapter<MessageFragment
         notifyDataSetChanged();
     }
 
-
     @NonNull
     @Override
     public MessageFragmentAdapter.MessageHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -52,10 +51,7 @@ public class MessageFragmentAdapter extends RecyclerView.Adapter<MessageFragment
         return mList.size();
     }
 
-
-
     class MessageHolder extends RecyclerView.ViewHolder {
-
         MsgRowBinding binding;
 
         MessageHolder(@NonNull MsgRowBinding binding) {
@@ -69,7 +65,6 @@ public class MessageFragmentAdapter extends RecyclerView.Adapter<MessageFragment
             binding.setLastEdit(lastEdit);
             binding.executePendingBindings();
         }
-
     }
 }
 

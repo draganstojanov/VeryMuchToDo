@@ -15,11 +15,11 @@ import com.andraganoid.verymuchtodo.todo.ToDoViewModel;
 import java.util.ArrayList;
 
 public class ItemFragmentAdapter extends RecyclerView.Adapter<ItemFragmentAdapter.ItemHolder> {
-    private ArrayList<TodoItem> iList= new ArrayList<>();
+    private ArrayList<TodoItem> iList = new ArrayList<>();
     private ItemClicker clicker;
     private ToDoViewModel lastEdit;
 
-    public ItemFragmentAdapter(ArrayList<TodoItem> iList, ToDoViewModel toDoViewModel,ItemClicker clicker) {
+    public ItemFragmentAdapter(ArrayList<TodoItem> iList, ToDoViewModel toDoViewModel, ItemClicker clicker) {
         this.lastEdit = toDoViewModel;
         this.clicker = clicker;
         setList(iList);
@@ -38,7 +38,6 @@ public class ItemFragmentAdapter extends RecyclerView.Adapter<ItemFragmentAdapte
                 R.layout.item_row,
                 parent,
                 false);
-
         return new ItemHolder(bindng);
     }
 
@@ -52,12 +51,12 @@ public class ItemFragmentAdapter extends RecyclerView.Adapter<ItemFragmentAdapte
         return iList.size();
     }
 
-    public class ItemHolder extends RecyclerView.ViewHolder {
+    class ItemHolder extends RecyclerView.ViewHolder {
         ItemRowBinding binding;
 
-        public ItemHolder(@NonNull ItemRowBinding binding) {
+        ItemHolder(@NonNull ItemRowBinding binding) {
             super(binding.getRoot());
-            this.binding=binding;
+            this.binding = binding;
             binding.setClicker(clicker);
         }
 
