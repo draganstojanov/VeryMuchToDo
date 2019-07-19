@@ -45,6 +45,8 @@ public class LoginFragment extends AuthBaseFragment implements LoginClicker {
     public void onLoginConfirm() {
         if (!TextUtils.isEmpty(mainViewModel.userMail)
                 && !TextUtils.isEmpty(mainViewModel.userPass)) {
+            closeKeyboard();
+            main.showLoader();
             mainViewModel.mAuth.signInWithEmailAndPassword(
                     mainViewModel.userMail,
                     mainViewModel.userPass)
@@ -52,6 +54,7 @@ public class LoginFragment extends AuthBaseFragment implements LoginClicker {
                         if (task.isSuccessful()) {
                             main.setUser(mainViewModel.mAuth.getCurrentUser());
                         } else {
+                            main.closeLoader();
                             showSnackbar(getString(R.string.auth_failed) + "\n" + task.getException().getMessage());
                         }
                     });

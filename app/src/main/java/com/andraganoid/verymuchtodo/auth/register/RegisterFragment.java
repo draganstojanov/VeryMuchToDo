@@ -47,6 +47,8 @@ public class RegisterFragment extends AuthBaseFragment implements RegisterClicke
         if (isNameValid(mainViewModel.registrationName)
                 && isEmailValid(mainViewModel.registrationMail)
                 && isPasswordValid(mainViewModel.registrationPass)) {
+            closeKeyboard();
+            main.showLoader();
             mainViewModel.mAuth.createUserWithEmailAndPassword(
                     mainViewModel.registrationMail,
                     mainViewModel.registrationPass)
@@ -61,10 +63,12 @@ public class RegisterFragment extends AuthBaseFragment implements RegisterClicke
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
+                                        main.closeLoader();
                                         showSnackbar(getString(R.string.error) + " " + e.getMessage());
                                     }
                                 });
                             } else {
+                                main.closeLoader();
                                 showSnackbar(getString(R.string.auth_failed) + "\n" + task.getException().getMessage());
                             }
                         }
@@ -74,12 +78,11 @@ public class RegisterFragment extends AuthBaseFragment implements RegisterClicke
 
 
     private boolean isEmailValid(String email) {
-        boolean e = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        boolean e = !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
         if (!e) {
             showSnackbar(getString(R.string.invalid_mail));
         }
         return e;
-
     }
 
     private boolean isNameValid(String name) {

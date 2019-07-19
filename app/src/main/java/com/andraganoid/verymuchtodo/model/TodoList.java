@@ -24,6 +24,21 @@ public class TodoList {
     public TodoList() {
     }
 
+    public void updateList(User mUser) {
+        this.user = mUser;
+        this.timestamp = System.currentTimeMillis();
+        boolean co = true;
+        if (todoItemList.size() > 0) {
+            for (TodoItem ti : todoItemList) {
+                if (!ti.isCompleted()) {
+                    co = false;
+                    break;
+                }
+            }
+        }
+        this.completed = co;
+    }
+
     public void setId() {
         this.id = user.getId() + "-" + System.currentTimeMillis();
     }
@@ -64,10 +79,6 @@ public class TodoList {
         return completed;
     }
 
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
-
     public ArrayList<TodoItem> getTodoItemList() {
         return todoItemList;
     }
@@ -91,22 +102,4 @@ public class TodoList {
     public void setUser(User user) {
         this.user = user;
     }
-
-    public void setTimestampAndCompleted() {
-        this.timestamp = System.currentTimeMillis();
-
-        boolean co = true;
-        if (todoItemList.size() > 0) {
-            for (TodoItem ti : todoItemList) {
-                //  co = co && ti.isCompleted();
-                if (!ti.isCompleted()) {
-                    co = false;
-                    break;
-                }
-            }
-        }
-        this.completed = co;
-    }
-
-
 }

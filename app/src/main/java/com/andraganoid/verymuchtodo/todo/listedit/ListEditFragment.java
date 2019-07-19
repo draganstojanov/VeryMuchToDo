@@ -67,7 +67,7 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
         if (!todoListItemNew.getTitle().isEmpty()) {
             if (todoListItemNew.getTitle().length() < 32) {
                 if (todoListItemNew.getDescription().length() < 100) {
-                    todoListItemNew.setTimestampAndCompleted();
+                    todoListItemNew.updateList(toDoViewModel.mUser);
                     if (todoListItemNew.getId().equals("new")) {
                         todoListItemNew.setId();
                         toDoViewModel.addDocument(new Document(todoListItemNew));

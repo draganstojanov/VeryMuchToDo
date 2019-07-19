@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -105,5 +106,14 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         } else {
             navigateToFragment(new LoginFragment());
         }
+    }
+
+
+    public void showLoader() {
+        findViewById(R.id.loader).setVisibility(View.VISIBLE);
+    }
+
+    public void closeLoader() {
+        findViewById(R.id.loader).setVisibility(View.GONE);
     }
 }

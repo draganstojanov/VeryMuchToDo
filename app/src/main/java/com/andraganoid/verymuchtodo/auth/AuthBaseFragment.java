@@ -37,7 +37,7 @@ public class AuthBaseFragment extends Fragment {
         imm.showSoftInput(mainView, InputMethodManager.SHOW_FORCED);
     }
 
-    private void closeKeyboard() {
+   protected void closeKeyboard() {
         imm.hideSoftInputFromWindow(mainView.getWindowToken(), 0);
     }
 

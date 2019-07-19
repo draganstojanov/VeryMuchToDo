@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -141,7 +142,11 @@ public class ToDoViewModel extends AndroidViewModel implements FirebaseCallback,
         long last = prefs.getLong("PREFS_LAST_TODO_LIST", 0);
         boolean alert = false;
         for (TodoList tl : tList) {
+
+
             if (tl.getTimestamp() > last && !mUser.getId().equals(tl.getUser().getId())) {
+                Log.d("ALERT", mUser.getId() + tl.getUser().getId());
+                Log.d("ALERT", String.valueOf(last) + String.valueOf(tl.getTimestamp()));
                 alert = true;
                 break;
             }

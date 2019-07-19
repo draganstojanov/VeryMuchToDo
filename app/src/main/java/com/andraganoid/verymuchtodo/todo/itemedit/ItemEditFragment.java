@@ -70,11 +70,12 @@ public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicke
                 }
             }
             toDoViewModel.currentToDoItem.setTimestamp(System.currentTimeMillis());
+            toDoViewModel.currentToDoItem.setUser(toDoViewModel.mUser);
             til.add(toDoViewModel.currentToDoItem);
             TodoList tl = toDoViewModel.currentToDoList;
             tl.setTodoItemList(til);
             toDoViewModel.currentToDoList = tl;
-            toDoViewModel.currentToDoList.setTimestampAndCompleted();
+            toDoViewModel.currentToDoList.updateList(toDoViewModel.mUser);
             toDoViewModel.addDocument(new Document(toDoViewModel.currentToDoList));
             return true;
         }

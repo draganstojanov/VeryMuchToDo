@@ -24,7 +24,6 @@
             android:gravity="left"
             android:hint="@string/content"
             android:imeOptions="actionDone"
-            android:selection="@{itemItem.content.length()}"
             android:text="@={itemItem.content}"
             android:textSize="@dimen/title_size"
             app:layout_constraintBottom_toBottomOf="parent"
