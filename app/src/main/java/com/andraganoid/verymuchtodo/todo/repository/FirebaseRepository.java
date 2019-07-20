@@ -1,5 +1,6 @@
 package com.andraganoid.verymuchtodo.todo.repository;
 
+
 import com.andraganoid.verymuchtodo.model.Document;
 import com.andraganoid.verymuchtodo.model.Message;
 import com.andraganoid.verymuchtodo.model.ToDoLocation;
@@ -62,10 +63,11 @@ public class FirebaseRepository {
                 }
                 if (mList.size() > 0) {
                     Collections.sort(mList, (o1, o2) -> String.valueOf(o2.getTimestamp()).compareTo(String.valueOf(o1.getTimestamp())));
-                    fbCallback.messagesUpdated(mList);
                 }
+                fbCallback.messagesUpdated(mList);
             }
         });
+
 
         todo.collection(Document.COLLECTION_USERS).addSnapshotListener((queryDocumentSnapshots, e) -> {
             if (queryDocumentSnapshots != null) {

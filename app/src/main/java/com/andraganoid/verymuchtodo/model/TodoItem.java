@@ -3,8 +3,6 @@ package com.andraganoid.verymuchtodo.model;
 
 public class TodoItem {
 
-
-
     private String content = "";
     private boolean completed = false;
     private Long timestamp = 0L;
@@ -40,7 +38,6 @@ public class TodoItem {
     public Long getTimestamp() {
         return timestamp;
     }
-
 
     public User getUser() {
         return user;

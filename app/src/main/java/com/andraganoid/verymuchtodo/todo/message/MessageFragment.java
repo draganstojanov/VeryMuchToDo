@@ -50,6 +50,7 @@ public class MessageFragment extends TodoBaseFragment implements MessageClicker 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.newMsg.requestFocus();
         newMsgText = "";
         binding.msgRecView.setLayoutManager(new LinearLayoutManager(toDo));
         adapter = new MessageFragmentAdapter(toDoViewModel.getMessageList().getValue(), toDoViewModel, this);
@@ -57,11 +58,9 @@ public class MessageFragment extends TodoBaseFragment implements MessageClicker 
         toDoViewModel.getMessageList().observe(this, messages -> {
             toDoViewModel.setAlerts("msg", false);
             adapter.setList(messages);
-
         });
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback =
                 new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
-
                     @Override
                     public boolean onMove(@NonNull RecyclerView recyclerView,
                                           @NonNull RecyclerView.ViewHolder viewHolder,
