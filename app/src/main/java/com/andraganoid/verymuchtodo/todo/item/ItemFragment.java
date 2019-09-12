@@ -20,7 +20,7 @@ import com.andraganoid.verymuchtodo.model.TodoItem;
 import com.andraganoid.verymuchtodo.todo.TodoBaseFragment;
 
 
-public class ItemFragment extends TodoBaseFragment {
+public class ItemFragment extends TodoBaseFragment{
 
     private FragmentItemBinding binding;
     private ItemFragmentAdapter adapter;
@@ -98,7 +98,7 @@ public class ItemFragment extends TodoBaseFragment {
                             case ItemTouchHelper.RIGHT:
                                 if (todoItem.isCompleted()) {
                                     toDoViewModel.currentToDoList.getTodoItemList().remove(viewHolder.getAdapterPosition());
-                                    toDoViewModel.updateDocument(new Document(toDoViewModel.currentToDoList));
+                                    toDoViewModel.fbRepo.deleteDocument(new Document(toDoViewModel.currentToDoList));
                                 } else {
                                     adapter.notifyDataSetChanged();
                                     showSnackbar(getString(R.string.task_not_completed));
