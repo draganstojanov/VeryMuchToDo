@@ -17,10 +17,10 @@ import java.util.ArrayList;
 public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapter.ListHolder> {
 
     private ArrayList<TodoList> tlList = new ArrayList<>();
-    private ListClicker clicker;
+    private ListFragment clicker;
     private ToDoViewModel lastEdit;
 
-    ListFragmentAdapter(ArrayList<TodoList> tlList, ToDoViewModel toDoViewModel, ListClicker clicker) {
+    ListFragmentAdapter(ArrayList<TodoList> tlList, ToDoViewModel toDoViewModel, ListFragment clicker) {
         this.lastEdit = toDoViewModel;
         this.clicker = clicker;
         setList(tlList);

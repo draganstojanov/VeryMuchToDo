@@ -15,19 +15,18 @@ import androidx.lifecycle.ViewModelProviders;
 import com.andraganoid.verymuchtodo.MainActivity;
 import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.databinding.ActivityTodoBinding;
+import com.andraganoid.verymuchtodo.todo.item.ItemEditFragment;
 import com.andraganoid.verymuchtodo.todo.item.ItemFragment;
-import com.andraganoid.verymuchtodo.todo.itemedit.ItemEditFragment;
+import com.andraganoid.verymuchtodo.todo.list.ListEditFragment;
 import com.andraganoid.verymuchtodo.todo.list.ListFragment;
-import com.andraganoid.verymuchtodo.todo.listedit.ListEditFragment;
 import com.andraganoid.verymuchtodo.todo.map.MapFragment;
-import com.andraganoid.verymuchtodo.todo.menu.MenuClicker;
 import com.andraganoid.verymuchtodo.todo.message.MessageFragment;
 import com.andraganoid.verymuchtodo.todo.users.UserFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.rw.keyboardlistener.KeyboardUtils;
 
 
-public class Todo extends AppCompatActivity implements MenuClicker {
+public class Todo extends AppCompatActivity {
 
     public ToDoViewModel toDoViewModel;
     private SharedPreferences prefs;
@@ -99,27 +98,22 @@ public class Todo extends AppCompatActivity implements MenuClicker {
         }
     }
 
-    @Override
     public void onListItemClicked() {
         navigateToFragment(LIST_FRAGMENT);
     }
 
-    @Override
     public void onMessageItemClicked() {
         navigateToFragment(MESSAGE_FRAGMENT);
     }
 
-    @Override
     public void onUserItemClicked() {
         navigateToFragment(USER_FRAGMENT);
     }
 
-    @Override
     public void onMapItemClicked() {
         navigateToFragment(MAP_FRAGMENT);
     }
 
-    @Override
     public void onLogoutItemClicked() {
         prefs.edit()
                 .putString("PREFS_ID", "")

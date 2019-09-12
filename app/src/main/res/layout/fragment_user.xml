@@ -6,7 +6,7 @@
 
         <variable
             name="clicker"
-            type="com.andraganoid.verymuchtodo.todo.users.UserClicker" />
+            type="com.andraganoid.verymuchtodo.todo.users.UserFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

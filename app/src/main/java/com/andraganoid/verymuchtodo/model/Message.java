@@ -6,9 +6,6 @@ public class Message {
     private long timestamp;
     private User user;
     private String id;
-    // private ArrayList<User> receiver;
-    // private String title; GROUP/ROOM???
-
 
     public Message() {
     }

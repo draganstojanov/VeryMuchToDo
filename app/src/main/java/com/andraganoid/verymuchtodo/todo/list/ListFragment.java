@@ -19,7 +19,7 @@ import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.todo.TodoBaseFragment;
 
 
-public class ListFragment extends TodoBaseFragment implements ListClicker {
+public class ListFragment extends TodoBaseFragment {
 
     private FragmentListBinding binding;
     private ListFragmentAdapter adapter;
@@ -90,13 +90,11 @@ public class ListFragment extends TodoBaseFragment implements ListClicker {
         itemTouchHelper.attachToRecyclerView(binding.listRecView);
     }
 
-    @Override
     public void onFabClicked() {
         toDoViewModel.currentToDoList = new TodoList(toDoViewModel.mUser);
         toDo.navigateToFragment(toDo.LIST_EDIT_FRAGMENT);
     }
 
-    @Override
     public void onItemClicked(TodoList todoList) {
         toDoViewModel.currentToDoList = todoList;
         toDo.navigateToFragment(toDo.ITEM_FRAGMENT);

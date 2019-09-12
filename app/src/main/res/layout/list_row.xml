@@ -3,72 +3,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <import type="android.view.View" />
-
-        <variable
-            name="todoListItem"
-            type="com.andraganoid.verymuchtodo.model.TodoList" />
-
-        <variable
-            name="clicker"
-            type="com.andraganoid.verymuchtodo.todo.list.ListClicker" />
-
-        <variable
-            name="lastEdit"
-            type="com.andraganoid.verymuchtodo.todo.ToDoViewModel" />
-    </data>
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:background="@color/colorPrimaryDark"
         android:onClick="@{()->clicker.onItemClicked(todoListItem)}">
-
-        <TextView
-            android:id="@+id/lists_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:text="@{todoListItem.title}"
-            android:textColor="@{todoListItem.emergency?@color/colorAccent:@color/colorWhite}"
-            android:textSize="@dimen/title_size"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/lists_short_desc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:text="@{todoListItem.description}"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/text_size"
-            app:layout_constraintTop_toBottomOf="@id/lists_title" />
-
-        <TextView
-            android:id="@+id/lists_edited"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:text="@{lastEdit.getLastEdit(todoListItem.user.name,todoListItem.timestamp)}"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/small_text_size"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/lists_short_desc" />
 
         <ImageView
             android:id="@+id/list_completed"
@@ -79,7 +19,67 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
+        <TextView
+            android:id="@+id/lists_short_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingTop="4dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="4dp"
+            android:text="@{todoListItem.description}"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_size"
+            app:layout_constraintTop_toBottomOf="@id/lists_title" />
+
+        <TextView
+            android:id="@+id/lists_edited"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingTop="4dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="4dp"
+            android:text="@{lastEdit.getLastEdit(todoListItem.user.name,todoListItem.timestamp)}"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/small_text_size"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/lists_short_desc" />
+
+        <TextView
+            android:id="@+id/lists_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:paddingTop="4dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="4dp"
+            android:text="@{todoListItem.title}"
+            android:textColor="@{todoListItem.emergency?@color/colorAccent:@color/colorWhite}"
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="todoListItem"
+            type="com.andraganoid.verymuchtodo.model.TodoList" />
+
+        <variable
+            name="clicker"
+            type="com.andraganoid.verymuchtodo.todo.list.ListFragment" />
+
+        <variable
+            name="lastEdit"
+            type="com.andraganoid.verymuchtodo.todo.ToDoViewModel" />
+    </data>
 
 </layout>
 

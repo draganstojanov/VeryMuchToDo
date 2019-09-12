@@ -20,7 +20,7 @@ import com.andraganoid.verymuchtodo.model.TodoItem;
 import com.andraganoid.verymuchtodo.todo.TodoBaseFragment;
 
 
-public class ItemFragment extends TodoBaseFragment implements ItemClicker {
+public class ItemFragment extends TodoBaseFragment {
 
     private FragmentItemBinding binding;
     private ItemFragmentAdapter adapter;
@@ -98,7 +98,7 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
                             case ItemTouchHelper.RIGHT:
                                 if (todoItem.isCompleted()) {
                                     toDoViewModel.currentToDoList.getTodoItemList().remove(viewHolder.getAdapterPosition());
-                                    toDoViewModel.fbRepo.deleteDocument(new Document(toDoViewModel.currentToDoList));
+                                    toDoViewModel.updateDocument(new Document(toDoViewModel.currentToDoList));
                                 } else {
                                     adapter.notifyDataSetChanged();
                                     showSnackbar(getString(R.string.task_not_completed));
@@ -111,13 +111,11 @@ public class ItemFragment extends TodoBaseFragment implements ItemClicker {
         itemTouchHelper.attachToRecyclerView(binding.itemRecView);
     }
 
-    @Override
     public void onFabClicked() {
         toDoViewModel.currentToDoItem = new TodoItem(toDoViewModel.mUser);
         toDo.navigateToFragment(toDo.ITEM_EDIT_FRAGMENT);
     }
 
-    @Override
     public boolean onItemLongClicked(View view, TodoItem todoItem) {
         todoItem.setCompleted(!todoItem.isCompleted());
         todoItem.setUser(toDoViewModel.mUser);

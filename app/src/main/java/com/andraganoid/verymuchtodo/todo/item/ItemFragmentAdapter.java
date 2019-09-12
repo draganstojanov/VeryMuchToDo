@@ -16,10 +16,10 @@ import java.util.ArrayList;
 
 public class ItemFragmentAdapter extends RecyclerView.Adapter<ItemFragmentAdapter.ItemHolder> {
     private ArrayList<TodoItem> iList = new ArrayList<>();
-    private ItemClicker clicker;
+    private ItemFragment clicker;
     private ToDoViewModel lastEdit;
 
-    public ItemFragmentAdapter(ArrayList<TodoItem> iList, ToDoViewModel toDoViewModel, ItemClicker clicker) {
+    public ItemFragmentAdapter(ArrayList<TodoItem> iList, ToDoViewModel toDoViewModel, ItemFragment clicker) {
         this.lastEdit = toDoViewModel;
         this.clicker = clicker;
         setList(iList);

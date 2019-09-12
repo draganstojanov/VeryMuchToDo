@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class TodoList {
 
-
     private String title = "";
     private String description = "";
     private boolean emergency = false;
@@ -14,7 +13,6 @@ public class TodoList {
     private Long timestamp = 0L;
     private User user;
     private String id;
-
 
     public TodoList(User user) {
         this.user = user;

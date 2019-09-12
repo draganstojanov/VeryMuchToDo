@@ -2,31 +2,11 @@
 
 <layout>
 
-    <data>
-
-        <variable
-            name="clicker"
-            type="com.andraganoid.verymuchtodo.todo.message.MessageClicker" />
-
-        <variable
-            name="message"
-            type="com.andraganoid.verymuchtodo.todo.message.MessageFragment" />
-    </data>
-
-
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/fragment_msg"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/msg_rec_view"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:padding="8dp"
-            app:layout_constraintBottom_toTopOf="@id/msg_wrapper"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/msg_wrapper"
@@ -62,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:onClick="@{()->clicker.sendMessage()}"
+                android:onClick="@{()->message.sendMessage()}"
                 android:paddingEnd="8dp"
                 android:src="@drawable/ic_send_red_500_24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -72,7 +52,23 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/msg_rec_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="8dp"
+            app:layout_constraintBottom_toTopOf="@id/msg_wrapper"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <data>
+
+        <variable
+            name="message"
+            type="com.andraganoid.verymuchtodo.todo.message.MessageFragment" />
+    </data>
 
 
 </layout>

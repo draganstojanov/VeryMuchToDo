@@ -7,7 +7,7 @@
 
         <variable
             name="clicker"
-            type="com.andraganoid.verymuchtodo.auth.login.LoginClicker" />
+            type="com.andraganoid.verymuchtodo.auth.LoginFragment" />
 
         <variable
             name="viewModel"

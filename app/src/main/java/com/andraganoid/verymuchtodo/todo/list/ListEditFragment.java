@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.todo.listedit;
+package com.andraganoid.verymuchtodo.todo.list;
 
 
 import android.os.Bundle;
@@ -17,7 +17,7 @@ import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.todo.TodoBaseFragment;
 
 
-public class ListEditFragment extends TodoBaseFragment implements ListEditClicker {
+public class ListEditFragment extends TodoBaseFragment {
 
     private FragmentListEditBinding binding;
     private TodoList todoListItemNew;
@@ -62,7 +62,6 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
         toDoViewModel.setTodoBars(toDoViewModel.currentToDoList.getTitle(), toDoViewModel.currentToDoList.isEmergency());
     }
 
-    @Override
     public void onCreateClicked() {
         if (!todoListItemNew.getTitle().isEmpty()) {
             if (todoListItemNew.getTitle().length() < 32) {
@@ -84,7 +83,6 @@ public class ListEditFragment extends TodoBaseFragment implements ListEditClicke
         }
     }
 
-    @Override
     public void onCancelClicked() {
         toDo.navigateToFragment(toDo.LIST_FRAGMENT);
     }

@@ -3,57 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="clicker"
-            type="com.andraganoid.verymuchtodo.todo.listedit.ListEditClicker" />
-
-        <variable
-            name="todoListItem"
-            type="com.andraganoid.verymuchtodo.model.TodoList" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".todo.listedit.ListEditFragment">
-
-        <EditText
-            android:id="@+id/new_todo_list_title"
-            style="@style/EditText"
-            android:gravity="left"
-            android:hint="@string/list_name"
-            android:imeOptions="actionNext"
-            android:text="@={todoListItem.title}"
-            android:selection="@{todoListItem.title.length()}"
-            android:textSize="@dimen/title_size"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias=".1" />
-
-        <EditText
-            android:id="@+id/new_todo_list_desc"
-            style="@style/EditText"
-            android:gravity="left"
-            android:hint="@string/short_desc"
-            android:imeOptions="actionDone"
-            android:inputType="textMultiLine"
-            android:text="@={todoListItem.description}"
-            android:selection="@{todoListItem.description.length()}"
-            android:textSize="@dimen/text_size"
-            app:layout_constraintTop_toBottomOf="@+id/new_todo_list_title" />
-
-        <CheckBox
-            android:id="@+id/new_todo_list_emergency"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="24dp"
-            android:buttonTint="@color/colorAccent"
-            android:checked="@={todoListItem.emergency}"
-            android:text="@string/emergency"
-            android:textColor="@color/colorAccent"
-            app:layout_constraintTop_toBottomOf="@+id/new_todo_list_desc" />
+        tools:context=".todo.list.ListEditFragment">
 
         <Button
             android:id="@+id/new_todo_list_create"
@@ -69,6 +22,53 @@
             android:text="@string/cancel"
             app:layout_constraintTop_toBottomOf="@+id/new_todo_list_create" />
 
+        <CheckBox
+            android:id="@+id/new_todo_list_emergency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:buttonTint="@color/colorAccent"
+            android:checked="@={todoListItem.emergency}"
+            android:text="@string/emergency"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintTop_toBottomOf="@+id/new_todo_list_desc" />
+
+        <EditText
+            android:id="@+id/new_todo_list_desc"
+            style="@style/EditText"
+            android:gravity="left"
+            android:hint="@string/short_desc"
+            android:imeOptions="actionDone"
+            android:inputType="textMultiLine"
+            android:selection="@{todoListItem.description.length()}"
+            android:text="@={todoListItem.description}"
+            android:textSize="@dimen/text_size"
+            app:layout_constraintTop_toBottomOf="@+id/new_todo_list_title" />
+
+        <EditText
+            android:id="@+id/new_todo_list_title"
+            style="@style/EditText"
+            android:gravity="left"
+            android:hint="@string/list_name"
+            android:imeOptions="actionNext"
+            android:selection="@{todoListItem.title.length()}"
+            android:text="@={todoListItem.title}"
+            android:textSize="@dimen/title_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias=".1" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+        <variable
+            name="clicker"
+            type="com.andraganoid.verymuchtodo.todo.list.ListEditFragment" />
+
+        <variable
+            name="todoListItem"
+            type="com.andraganoid.verymuchtodo.model.TodoList" />
+    </data>
 
 </layout>

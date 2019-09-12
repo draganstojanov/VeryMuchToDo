@@ -15,7 +15,7 @@ import com.andraganoid.verymuchtodo.databinding.FragmentUserBinding;
 import com.andraganoid.verymuchtodo.todo.TodoBaseFragment;
 
 
-public class UserFragment extends TodoBaseFragment implements UserClicker {
+public class UserFragment extends TodoBaseFragment {
 
     private FragmentUserBinding binding;
     private UserFragmentAdapter adapter;
@@ -50,7 +50,6 @@ public class UserFragment extends TodoBaseFragment implements UserClicker {
         });
     }
 
-    @Override
     public void onUserClicked() {
     }
 }

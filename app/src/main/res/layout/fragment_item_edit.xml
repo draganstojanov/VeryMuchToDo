@@ -2,33 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <variable
-            name="clicker"
-            type="com.andraganoid.verymuchtodo.todo.itemedit.ItemEditClicker" />
-
-        <variable
-            name="itemItem"
-            type="com.andraganoid.verymuchtodo.model.TodoItem" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/todo_item_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <EditText
-            android:id="@+id/todo_item_content"
-            style="@style/EditText"
-            android:gravity="left"
-            android:hint="@string/content"
-            android:imeOptions="actionDone"
-            android:text="@={itemItem.content}"
-            android:textSize="@dimen/title_size"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias=".1" />
 
         <Button
             android:id="@+id/todo_item_save_add_new"
@@ -51,5 +28,28 @@
             android:text="@string/cancel"
             app:layout_constraintTop_toBottomOf="@+id/todo_item_save" />
 
+        <EditText
+            android:id="@+id/todo_item_content"
+            style="@style/EditText"
+            android:gravity="left"
+            android:hint="@string/content"
+            android:imeOptions="actionDone"
+            android:text="@={itemItem.content}"
+            android:textSize="@dimen/title_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias=".1" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+        <variable
+            name="clicker"
+            type="com.andraganoid.verymuchtodo.todo.item.ItemEditFragment" />
+
+        <variable
+            name="itemItem"
+            type="com.andraganoid.verymuchtodo.model.TodoItem" />
+    </data>
 </layout>

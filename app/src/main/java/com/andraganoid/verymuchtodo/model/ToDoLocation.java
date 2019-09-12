@@ -4,7 +4,6 @@ import android.location.Location;
 
 public class ToDoLocation {
 
-
     private double latitude;
     private double longitude;
     private Long timestamp;

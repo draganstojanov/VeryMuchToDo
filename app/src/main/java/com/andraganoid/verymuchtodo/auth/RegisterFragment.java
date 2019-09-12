@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.auth.register;
+package com.andraganoid.verymuchtodo.auth;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,13 +11,12 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
 import com.andraganoid.verymuchtodo.R;
-import com.andraganoid.verymuchtodo.auth.AuthBaseFragment;
 import com.andraganoid.verymuchtodo.databinding.RegisterFragmentBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
-public class RegisterFragment extends AuthBaseFragment implements RegisterClicker {
+public class RegisterFragment extends AuthBaseFragment {
 
     private RegisterFragmentBinding binding;
 
@@ -42,7 +41,6 @@ public class RegisterFragment extends AuthBaseFragment implements RegisterClicke
         showKeyboard(binding.registerUsername);
     }
 
-    @Override
     public void onRegisterConfirm() {
         if (isNameValid(mainViewModel.registrationName)
                 && isEmailValid(mainViewModel.registrationMail)

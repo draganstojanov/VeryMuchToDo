@@ -16,9 +16,9 @@ import java.util.ArrayList;
 
 public class UserFragmentAdapter extends RecyclerView.Adapter<UserFragmentAdapter.UserHolder> {
     private ArrayList<User> uList = new ArrayList<>();
-    private UserClicker clicker;
+    private UserFragment clicker;
 
-    UserFragmentAdapter(ArrayList<User> uList, UserClicker clicker) {
+    UserFragmentAdapter(ArrayList<User> uList, UserFragment clicker) {
         this.clicker = clicker;
         setList(uList);
     }

@@ -16,10 +16,10 @@ import java.util.ArrayList;
 
 public class MessageFragmentAdapter extends RecyclerView.Adapter<MessageFragmentAdapter.MessageHolder> {
     private ArrayList<Message> mList = new ArrayList<>();
-    private MessageClicker clicker;
+    private MessageFragment clicker;
     private ToDoViewModel lastEdit;
 
-    MessageFragmentAdapter(ArrayList<Message> mList, ToDoViewModel toDoViewModel, MessageClicker clicker) {
+    MessageFragmentAdapter(ArrayList<Message> mList, ToDoViewModel toDoViewModel, MessageFragment clicker) {
         this.lastEdit = toDoViewModel;
         this.clicker = clicker;
         setList(mList);

@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.todo.itemedit;
+package com.andraganoid.verymuchtodo.todo.item;
 
 
 import android.os.Bundle;
@@ -20,7 +20,7 @@ import com.andraganoid.verymuchtodo.todo.TodoBaseFragment;
 import java.util.ArrayList;
 
 
-public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicker {
+public class ItemEditFragment extends TodoBaseFragment {
 
     private FragmentItemEditBinding binding;
     private String content;
@@ -81,14 +81,12 @@ public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicke
         }
     }
 
-    @Override
     public void onSave() {
         if (editCheck()) {
             toDo.navigateToFragment(toDo.ITEM_FRAGMENT);
         }
     }
 
-    @Override
     public void onSaveAndNew() {
         if (editCheck()) {
             toDoViewModel.currentToDoItem = new TodoItem(toDoViewModel.mUser);
@@ -96,7 +94,6 @@ public class ItemEditFragment extends TodoBaseFragment implements ItemEditClicke
         }
     }
 
-    @Override
     public void onCancel() {
         toDoViewModel.currentToDoItem.setContent(content);
         toDo.navigateToFragment(toDo.ITEM_FRAGMENT);

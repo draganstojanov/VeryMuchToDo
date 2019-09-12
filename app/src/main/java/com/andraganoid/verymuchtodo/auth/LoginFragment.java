@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.auth.login;
+package com.andraganoid.verymuchtodo.auth;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,12 +11,10 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
 import com.andraganoid.verymuchtodo.R;
-import com.andraganoid.verymuchtodo.auth.AuthBaseFragment;
-import com.andraganoid.verymuchtodo.auth.register.RegisterFragment;
 import com.andraganoid.verymuchtodo.databinding.LoginFragmentBinding;
 
 
-public class LoginFragment extends AuthBaseFragment implements LoginClicker {
+public class LoginFragment extends AuthBaseFragment {
 
     private LoginFragmentBinding binding;
 
@@ -41,7 +39,6 @@ public class LoginFragment extends AuthBaseFragment implements LoginClicker {
         showKeyboard(binding.signInEmail);
     }
 
-    @Override
     public void onLoginConfirm() {
         if (!TextUtils.isEmpty(mainViewModel.userMail)
                 && !TextUtils.isEmpty(mainViewModel.userPass)) {
@@ -61,7 +58,6 @@ public class LoginFragment extends AuthBaseFragment implements LoginClicker {
         }
     }
 
-    @Override
     public void onNotRegistered() {
         main.navigateToFragment(new RegisterFragment());
     }

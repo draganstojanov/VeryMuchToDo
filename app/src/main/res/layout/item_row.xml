@@ -3,23 +3,6 @@
 
 <layout>
 
-    <data>
-
-        <import type="android.view.View" />
-
-        <variable
-            name="clicker"
-            type="com.andraganoid.verymuchtodo.todo.item.ItemClicker" />
-
-        <variable
-            name="itemItem"
-            type="com.andraganoid.verymuchtodo.model.TodoItem" />
-
-        <variable
-            name="lastEdit"
-            type="com.andraganoid.verymuchtodo.todo.ToDoViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -27,16 +10,14 @@
         android:onLongClick="@{(view) -> clicker.onItemLongClicked(view,itemItem)}"
         android:padding="4dp">
 
-        <TextView
-            android:id="@+id/item_content"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/item_completed"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="4dp"
-            android:text="@{itemItem.content}"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/text_size"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:src="@drawable/ic_check_red_500_36dp"
+            android:visibility="@{itemItem.completed ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
         <TextView
             android:id="@+id/item_edited"
@@ -51,14 +32,16 @@
             android:textSize="@dimen/small_text_size"
             app:layout_constraintTop_toBottomOf="@id/item_content" />
 
-        <ImageView
-            android:id="@+id/item_completed"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/item_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_check_red_500_36dp"
-            android:visibility="@{itemItem.completed ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            android:padding="4dp"
+            android:text="@{itemItem.content}"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/text_size"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:layout_width="match_parent"
@@ -67,4 +50,21 @@
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="clicker"
+            type="com.andraganoid.verymuchtodo.todo.item.ItemFragment" />
+
+        <variable
+            name="itemItem"
+            type="com.andraganoid.verymuchtodo.model.TodoItem" />
+
+        <variable
+            name="lastEdit"
+            type="com.andraganoid.verymuchtodo.todo.ToDoViewModel" />
+    </data>
 </layout>

@@ -7,7 +7,7 @@
 
         <variable
             name="clicker"
-            type="com.andraganoid.verymuchtodo.todo.message.MessageClicker" />
+            type="com.andraganoid.verymuchtodo.todo.message.MessageFragment" />
 
         <variable
             name="message"

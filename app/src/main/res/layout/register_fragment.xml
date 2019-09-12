@@ -3,32 +3,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <variable
-            name="clicker"
-            type="com.andraganoid.verymuchtodo.auth.register.RegisterClicker" />
-
-        <variable
-            name="viewModel"
-            type="com.andraganoid.verymuchtodo.MainViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/register_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/register_username"
-            style="@style/EditText"
-            android:focusable="true"
-            android:hint="@string/your_name"
-            android:imeOptions="actionNext"
-            android:text="@={viewModel.registrationName}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias=".1" />
+        <Button
+            android:id="@+id/register_button"
+            style="@style/Button"
+            android:onClick="@{()->clicker.onRegisterConfirm()}"
+            android:text="@string/register"
+            app:layout_constraintTop_toBottomOf="@+id/register_password" />
 
         <EditText
             android:id="@+id/register_email"
@@ -48,13 +33,28 @@
             android:text="@={viewModel.registrationPass}"
             app:layout_constraintTop_toBottomOf="@+id/register_email" />
 
-        <Button
-            android:id="@+id/register_button"
-            style="@style/Button"
-            android:onClick="@{()->clicker.onRegisterConfirm()}"
-            android:text="@string/register"
-            app:layout_constraintTop_toBottomOf="@+id/register_password" />
+        <EditText
+            android:id="@+id/register_username"
+            style="@style/EditText"
+            android:focusable="true"
+            android:hint="@string/your_name"
+            android:imeOptions="actionNext"
+            android:text="@={viewModel.registrationName}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias=".1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <data>
+
+        <variable
+            name="clicker"
+            type="com.andraganoid.verymuchtodo.auth.RegisterFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.andraganoid.verymuchtodo.MainViewModel" />
+    </data>
 
 </layout>

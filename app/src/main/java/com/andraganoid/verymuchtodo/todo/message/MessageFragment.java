@@ -20,7 +20,7 @@ import com.andraganoid.verymuchtodo.model.Message;
 import com.andraganoid.verymuchtodo.todo.TodoBaseFragment;
 
 
-public class MessageFragment extends TodoBaseFragment implements MessageClicker {
+public class MessageFragment extends TodoBaseFragment {
 
     FragmentMessageBinding binding;
     public String newMsgText;
@@ -42,7 +42,6 @@ public class MessageFragment extends TodoBaseFragment implements MessageClicker 
                 R.layout.fragment_message,
                 container,
                 false);
-        binding.setClicker(this);
         binding.setMessage(this);
         return binding.getRoot();
     }
@@ -83,7 +82,6 @@ public class MessageFragment extends TodoBaseFragment implements MessageClicker 
         itemTouchHelper.attachToRecyclerView(binding.msgRecView);
     }
 
-    @Override
     public void sendMessage() {
         if (!newMsgText.isEmpty()) {
             if (newMsgText.length() < 100) {

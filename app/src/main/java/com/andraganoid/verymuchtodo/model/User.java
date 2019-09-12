@@ -5,9 +5,6 @@ public class User {
     private String id;
     private String name;
     private String email;
-    // private Location location = null;
-    // private Long locationTimestamp = null;
-
 
     public User() {
     }
