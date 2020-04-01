@@ -7,18 +7,17 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
-
-import com.andraganoid.verymuchtodo.auth.LoginFragment;
-import com.andraganoid.verymuchtodo.todo.Todo;
+import com.andraganoid.verymuchtodo.J.auth.LoginFragment;
+import com.andraganoid.verymuchtodo.J.todo.Todo;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
