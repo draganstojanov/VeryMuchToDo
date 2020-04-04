@@ -12,4 +12,11 @@
     <color name="colorBack01">#0b132b</color>
     <color name="colorBack02">#0D468B</color>
     <color name="colorBack03">#034aa1</color>
+
+    <color name="backgorundColor">#fff</color>
+    <color name="dark">#0b132b</color>
+    <color name="mid">#2979FF</color>
+    <color name="veryLite">#CDF7F5</color>
+    
 </resources>
+<!--    #F44336-->

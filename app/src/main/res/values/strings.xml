@@ -35,4 +35,7 @@
     <string name="msg_too_long">Message is to long!</string>
     <string name="get_permission">Get Location permission</string>
     <string name="not_registered">Not registered</string>
+    <string name="your_user_name">Your user name</string>
+    <string name="not_registered_yet">Not registered yet?</string>
+    <string name="register_here">Register here</string>
 </resources>
