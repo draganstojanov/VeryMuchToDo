@@ -61,8 +61,13 @@ dependencies {
     implementation "org.koin:koin-android-viewmodel:$koin_version"
 
     // Firebase
-    implementation 'com.google.firebase:firebase-core:17.3.0'
-    implementation 'com.google.firebase:firebase-auth:19.3.0'
+
+    implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
+    implementation 'com.facebook.android:facebook-android-sdk:6.3.0'
+    implementation 'com.twitter.sdk.android:twitter-core:3.1.1'
+
+//    implementation 'com.google.firebase:firebase-core:17.3.0'
+//    implementation 'com.google.firebase:firebase-auth:19.3.0'
     implementation 'com.google.firebase:firebase-firestore:21.4.2'
 
     // Google Maps
