@@ -1,25 +1,19 @@
 package com.andraganoid.verymuchtodo.di
 
+import com.andraganoid.verymuchtodo.kauth.LoginViewModel
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 
 object Modules {
 
     private val viewModelModule = module {
-//        viewModel { GameViewModel(get(), get(), get(), get()) }
-//        viewModel { TypeMenuViewModel(get()) }
-//        viewModel { MainMenuViewModel() }
-//        viewModel { FieldMenuViewModel(get()) }
-//        viewModel { GameOverViewModel(get()) }
-//        viewModel { SavedGamesViewModel(get()) }
-//        viewModel { HighScoresViewModel(get(), get()) }
+        viewModel { LoginViewModel() }
     }
 
     private val singleModule = module {
 //        single { ItemImagesBuilder(get()) }
 //        single { Preferences(androidContext()) }
-//        single { SavedRepository(get()) }
-//        single { HighScoreRepository(get()) }
     }
 
     private val factoryModule = module {

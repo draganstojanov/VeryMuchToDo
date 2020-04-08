@@ -2,6 +2,10 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs'
+apply plugin: 'com.google.firebase.crashlytics'
+//apply plugin: 'io.fabric'
 
 android {
     compileSdkVersion 29
@@ -61,14 +65,11 @@ dependencies {
     implementation "org.koin:koin-android-viewmodel:$koin_version"
 
     // Firebase
-
-    implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
-    implementation 'com.facebook.android:facebook-android-sdk:6.3.0'
-    implementation 'com.twitter.sdk.android:twitter-core:3.1.1'
-
-//    implementation 'com.google.firebase:firebase-core:17.3.0'
-//    implementation 'com.google.firebase:firebase-auth:19.3.0'
+    implementation 'com.google.firebase:firebase-core:17.3.0'
+    implementation 'com.google.firebase:firebase-auth:19.3.0'
     implementation 'com.google.firebase:firebase-firestore:21.4.2'
+    implementation 'com.google.firebase:firebase-analytics:17.3.0'
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta03'
 
     // Google Maps
     implementation 'com.google.android.gms:play-services-maps:17.0.0'

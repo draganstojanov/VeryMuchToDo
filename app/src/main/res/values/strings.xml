@@ -38,4 +38,5 @@
     <string name="your_user_name">Your user name</string>
     <string name="not_registered_yet">Not registered yet?</string>
     <string name="register_here">Register here</string>
+    <string name="forgot_password">Forgot password</string>
 </resources>
