@@ -46,7 +46,6 @@ public class jMainActivity extends AppCompatActivity implements EasyPermissions.
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         mainViewModel.mAuth = FirebaseAuth.getInstance();
-
     }
 
     public static void printHashKey(Context pContext) throws NoSuchAlgorithmException {

@@ -1,8 +1,14 @@
 package com.andraganoid.verymuchtodo
 
+import android.app.Activity
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -10,6 +16,33 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         window.statusBarColor = ContextCompat.getColor(this, R.color.backgorundColor)
+    }
+
+    fun showLoader() {
+        loader.isVisible = true
+    }
+
+    fun hideLoader() {
+        loader.isVisible = false
+    }
+
+    fun showMessage(message: Any) {
+        var msg = ""
+        when (message) {
+            is String -> msg = message
+            is Int -> msg = getString(message)
+        }
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()//todo bottomSheetFragment
+    }
+
+
+    fun hideKeyboard() {
+        val imm = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        var view = this.currentFocus
+        if (view == null) {
+            view = View(this)
+        }
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }
 
