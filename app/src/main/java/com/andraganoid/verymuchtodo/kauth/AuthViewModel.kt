@@ -18,12 +18,13 @@ class AuthViewModel(private val preferences: Preferences) : ViewModel() {
     }
 
     fun saveUser() {
-        val user = kUser(
-                uid = auth?.currentUser!!.uid,
-                name = auth?.currentUser!!.displayName!!,
-                email = auth?.currentUser!!.email!!,
-                photoUrl = auth?.currentUser!!.photoUrl)
-        preferences.saveUser(user)
+        auth?.currentUser?.apply {
+            preferences.saveUser(kUser(
+                    uid = uid,
+                    name = displayName,
+                    email = email,
+                    photoUrl = photoUrl))
+        }
 
 
         //todo update user

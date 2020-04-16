@@ -2,13 +2,15 @@ package com.andraganoid.verymuchtodo.kauth
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.FragmentLoginBinding
 import com.andraganoid.verymuchtodo.ktodo.TodoActivity
+import com.andraganoid.verymuchtodo.util.isValidEmail
+import com.andraganoid.verymuchtodo.util.isValidPassword
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
@@ -41,16 +43,21 @@ class LoginFragment : BaseAuthFragment() {
     fun submitLogin() {
         val mail = userMailEt.text.toString()
         val pass = userPassEt.text.toString()
+        val messageArray = arrayListOf<String>()
 
-        if (!isValidEmail(mail)) {
-            showMessage(R.string.mail_not_valid)
-        } else {
-            if (!isValidPassword(pass)) {
-                showMessage(R.string.password_not_valid)
-            } else {
-                login(mail, pass)
-            }
+        if (!mail.isValidEmail()) {
+            messageArray.add(getString(R.string.mail_not_valid))
         }
+        if (!pass.isValidPassword()) {
+            messageArray.add(getString(R.string.password_not_valid))
+        }
+
+        if (messageArray.size > 0) {
+            showMessage(messageArray)
+        } else {
+            login(mail, pass)
+        }
+
     }
 
     private fun login(mail: String, pass: String) {
@@ -66,21 +73,20 @@ class LoginFragment : BaseAuthFragment() {
 
                     } else {
                         hideLoader()
-                        Log.d("LOGIN ERROR: ", task.exception.toString())
                         showMessage("ERROR: " + task.exception.toString())//todo loginerror
                     }
                 }
-
     }
 
     private fun loggedIn() {
-
         val todoIntent = Intent(main, TodoActivity::class.java)
         startActivity(todoIntent)
-
     }
 
-    fun notRegistered() {}
+    fun notRegistered() {
+        val action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+        findNavController().navigate(action)
+    }
 
     fun forgotPassword() {}
 

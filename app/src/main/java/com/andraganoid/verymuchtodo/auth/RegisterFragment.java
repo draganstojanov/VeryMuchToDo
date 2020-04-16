@@ -53,8 +53,7 @@ public class RegisterFragment extends AuthBaseFragment {
                     .addOnCompleteListener(main, task -> {
                         if (task.isSuccessful()) {
                             final FirebaseUser user = mainViewModel.mAuth.getCurrentUser();
-                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(mainViewModel.registrationName).build();
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder().setDisplayName(mainViewModel.registrationName).build();
                             if (user != null) {
                                 user.updateProfile(profileUpdates).addOnSuccessListener(aVoid -> {
                                     main.setUser(user);

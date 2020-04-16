@@ -19,45 +19,72 @@
         tools:context=".kauth.RegisterFragment">
 
         <TextView
-            android:id="@+id/registerFragmentTitle"
+            android:id="@+id/registerFragmentTitleTv"
             style="@style/TitleText"
             android:layout_marginTop="64dp"
+            android:text="@string/register"
             app:layout_constraintTop_toTopOf="parent"
-            text
             tools:ignore="MissingConstraints" />
 
 
+        <ImageView
+            android:id="@+id/registerUserImageIv"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:src="@mipmap/ic_launcher_round"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/registerFragmentTitleTv" />
+
+
         <EditText
-            android:id="@+id/userMailEt"
+            android:id="@+id/registerNameEt"
             style="@style/AuthEditText"
-            android:layout_marginTop="32dp"
-            android:hint="@string/your_user_name"
-            app:layout_constraintTop_toBottomOf="@+id/title"
+            android:layout_marginTop="16dp"
+            android:hint="@string/your_name"
+            app:layout_constraintTop_toBottomOf="@+id/registerUserImageIv"
             tools:ignore="MissingConstraints" />
 
         <EditText
-            android:id="@+id/userPassEt"
+            android:id="@+id/registerMailEt"
+            style="@style/AuthEditText"
+            android:layout_marginTop="16dp"
+            android:hint="@string/your_email"
+            app:layout_constraintTop_toBottomOf="@+id/registerNameEt"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/registerPassEt"
             style="@style/AuthEditText"
             android:layout_marginTop="16dp"
             android:hint="@string/your_pass"
-            app:layout_constraintTop_toBottomOf="@+id/userMailEt"
+            app:layout_constraintTop_toBottomOf="@+id/registerMailEt"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/registerConfirmPassEt"
+            style="@style/AuthEditText"
+            android:layout_marginTop="16dp"
+            android:hint="@string/confirm_pass"
+            app:layout_constraintTop_toBottomOf="@+id/registerPassEt"
             tools:ignore="MissingConstraints" />
 
         <Button
-            android:id="@+id/loginBtn"
+            android:id="@+id/registerBtn"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/login_background"
-            android:onClick="@{()-> fragment.submitLogin()}"
+            android:onClick="@{()-> fragment.submitRegistration()}"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:text="@string/login"
+            android:text="@string/register"
             android:textAllCaps="true"
             android:textColor="@color/backgorundColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/userPassEt" />
+            app:layout_constraintTop_toBottomOf="@id/registerConfirmPassEt" />
 
         <TextView
             android:id="@+id/notRegisterLabel"
@@ -65,27 +92,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:gravity="center"
-            android:onClick="@{()-> fragment.notRegistered()}"
-            android:text="@string/not_registered"
+            android:onClick="@{()-> fragment.backToLogin()}"
+            android:text="@string/back_to_login"
             android:textColor="@color/mid"
             android:textSize="@dimen/smallTextSize"
-            app:layout_constraintEnd_toStartOf="@+id/goRegister"
-            app:layout_constraintStart_toStartOf="@+id/userPassEt"
-            app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/registerBtn" />
 
-        <TextView
-            android:id="@+id/goRegister"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:gravity="center"
-            android:onClick="@{()-> fragment.forgotPassword()}"
-            android:text="@string/forgot_password"
-            android:textColor="@color/mid"
-            android:textSize="@dimen/smallTextSize"
-            app:layout_constraintEnd_toEndOf="@+id/userPassEt"
-            app:layout_constraintStart_toEndOf="@+id/notRegisterLabel"
-            app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

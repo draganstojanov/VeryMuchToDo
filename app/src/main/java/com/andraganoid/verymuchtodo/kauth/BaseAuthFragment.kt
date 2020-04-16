@@ -1,7 +1,6 @@
 package com.andraganoid.verymuchtodo.kauth
 
 import android.os.Bundle
-import android.util.Patterns
 import androidx.fragment.app.Fragment
 import com.andraganoid.verymuchtodo.MainActivity
 
@@ -33,8 +32,7 @@ open class BaseAuthFragment : Fragment() {
     }
 
 
-    fun isValidEmail(mail: String) = !mail.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(mail).matches()
-    fun isValidPassword(pass: String): Boolean = pass.length >= 6
+
 
 
 }

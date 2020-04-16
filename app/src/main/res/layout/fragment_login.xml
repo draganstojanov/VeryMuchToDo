@@ -31,7 +31,7 @@
             android:id="@+id/userMailEt"
             style="@style/AuthEditText"
             android:layout_marginTop="32dp"
-            android:hint="@string/your_user_name"
+            android:hint="@string/your_email"
             android:inputType="textEmailAddress"
             app:layout_constraintTop_toBottomOf="@+id/loginFragmentTitle"
             tools:ignore="MissingConstraints" />

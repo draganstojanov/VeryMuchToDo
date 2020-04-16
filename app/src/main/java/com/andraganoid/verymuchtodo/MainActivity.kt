@@ -31,6 +31,12 @@ class MainActivity : AppCompatActivity() {
         when (message) {
             is String -> msg = message
             is Int -> msg = getString(message)
+            is ArrayList<*> -> {
+                message.forEach { item ->
+                    msg += item
+                    msg += "\n"
+                }
+            }
         }
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show()//todo bottomSheetFragment
     }
