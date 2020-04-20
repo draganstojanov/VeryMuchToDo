@@ -1,6 +1,5 @@
 package com.andraganoid.verymuchtodo.todo;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -13,7 +12,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.databinding.ActivityTodoBinding;
-import com.andraganoid.verymuchtodo.jMainActivity;
 import com.andraganoid.verymuchtodo.todo.item.ItemEditFragment;
 import com.andraganoid.verymuchtodo.todo.item.ItemFragment;
 import com.andraganoid.verymuchtodo.todo.list.ListEditFragment;
@@ -121,7 +119,7 @@ public class Todo extends AppCompatActivity {
                 .putBoolean("PREFS_IS_USER_REGISTRED", false)
                 .apply();
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(this, jMainActivity.class));
+       // startActivity(new Intent(this, jMainActivity.class));
         finishAffinity();
     }
 

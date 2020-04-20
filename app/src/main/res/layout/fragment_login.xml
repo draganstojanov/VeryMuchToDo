@@ -7,8 +7,12 @@
     <data>
 
         <variable
+            name="viewModel"
+            type="com.andraganoid.verymuchtodo.auth.login.LoginViewModel" />
+
+        <variable
             name="fragment"
-            type="com.andraganoid.verymuchtodo.kauth.LoginFragment" />
+            type="com.andraganoid.verymuchtodo.auth.login.LoginFragment" />
     </data>
 
 
@@ -16,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/backgorundColor"
-        tools:context=".kauth.LoginFragment">
+        tools:context=".auth.login.LoginFragment">
 
         <TextView
             android:id="@+id/loginFragmentTitle"
@@ -33,6 +37,7 @@
             android:layout_marginTop="32dp"
             android:hint="@string/your_email"
             android:inputType="textEmailAddress"
+
             app:layout_constraintTop_toBottomOf="@+id/loginFragmentTitle"
             tools:ignore="MissingConstraints" />
 
@@ -50,7 +55,8 @@
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:layout_marginTop="32dp"
-            android:background="@drawable/login_background"
+            android:background="@color/mid"
+            android:onClick="@{()-> fragment.submitLogin()}"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:text="@string/login"
@@ -58,8 +64,7 @@
             android:textColor="@color/backgorundColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/userPassEt"
-            android:onClick="@{()-> fragment.submitLogin()}"/>
+            app:layout_constraintTop_toBottomOf="@id/userPassEt" />
 
         <TextView
             android:id="@+id/notRegisterLabel"
@@ -67,13 +72,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:gravity="center"
+            android:onClick="@{()-> fragment.notRegistered()}"
             android:text="@string/not_registered"
             android:textColor="@color/mid"
             android:textSize="@dimen/smallTextSize"
             app:layout_constraintEnd_toStartOf="@+id/goRegister"
             app:layout_constraintStart_toStartOf="@+id/userPassEt"
-            app:layout_constraintTop_toBottomOf="@+id/loginBtn"
-            android:onClick="@{()-> fragment.notRegistered()}"/>
+            app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
 
         <TextView
             android:id="@+id/goRegister"
@@ -81,13 +86,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:gravity="center"
+            android:onClick="@{()-> fragment.forgotPassword()}"
             android:text="@string/forgot_password"
             android:textColor="@color/mid"
             android:textSize="@dimen/smallTextSize"
             app:layout_constraintEnd_toEndOf="@+id/userPassEt"
             app:layout_constraintStart_toEndOf="@+id/notRegisterLabel"
-            app:layout_constraintTop_toBottomOf="@+id/loginBtn"
-            android:onClick="@{()-> fragment.forgotPassword()}"/>
+            app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

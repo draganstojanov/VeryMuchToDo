@@ -47,4 +47,7 @@
     <string name="back_to_login">Back to login</string>
     <string name="name_not_valid">Display name must be between 3 and 24 letters long</string>
     <string name="confirm_not_valid">Passwords don\'t match</string>
+    <string name="check_mail_for_verification">Check your email to verify account</string>
+    <string name="check_mail_for_pass_reset">Check your email to reset pasword</string>
+    <string name="ok">OK</string>
 </resources>

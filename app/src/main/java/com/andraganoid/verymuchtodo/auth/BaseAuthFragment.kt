@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.kauth
+package com.andraganoid.verymuchtodo.auth
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,6 @@ import com.andraganoid.verymuchtodo.MainActivity
 
 open class BaseAuthFragment : Fragment() {
 
-
     lateinit var main: MainActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,13 +14,17 @@ open class BaseAuthFragment : Fragment() {
         main = activity as MainActivity
     }
 
-    fun showLoader() {
-        main.showLoader()
+    fun loaderState(loaderState: Boolean) {
+        main.loaderState(loaderState)
     }
 
-    fun hideLoader() {
-        main.hideLoader()
-    }
+//    fun showLoader() {
+//        main.showLoader()
+//    }
+//
+//    fun hideLoader() {
+//        main.hideLoader()
+//    }
 
     fun hideKeyboard() {
         main.hideKeyboard()
@@ -30,9 +33,5 @@ open class BaseAuthFragment : Fragment() {
     fun showMessage(message: Any) {
         main.showMessage(message)
     }
-
-
-
-
 
 }

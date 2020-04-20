@@ -7,8 +7,12 @@
     <data>
 
         <variable
+            name="viewModel"
+            type="com.andraganoid.verymuchtodo.auth.register.RegisterViewModel" />
+
+        <variable
             name="fragment"
-            type="com.andraganoid.verymuchtodo.kauth.RegisterFragment" />
+            type="com.andraganoid.verymuchtodo.auth.register.RegisterFragment" />
     </data>
 
 
@@ -16,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/backgorundColor"
-        tools:context=".kauth.RegisterFragment">
+        tools:context=".auth.register.RegisterFragment">
 
         <TextView
             android:id="@+id/registerFragmentTitleTv"
@@ -27,23 +31,25 @@
             tools:ignore="MissingConstraints" />
 
 
-        <ImageView
-            android:id="@+id/registerUserImageIv"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="16dp"
-            android:src="@mipmap/ic_launcher_round"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/registerFragmentTitleTv" />
+        <!--        <ImageView-->
+        <!--            android:id="@+id/registerUserImageIv"-->
+        <!--            android:layout_width="48dp"-->
+        <!--            android:layout_height="48dp"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:onClick="@{()->fragment.profileImage()}"-->
+        <!--            android:src="@mipmap/ic_launcher_round"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/registerFragmentTitleTv" />-->
 
 
         <EditText
             android:id="@+id/registerNameEt"
             style="@style/AuthEditText"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:hint="@string/your_name"
-            app:layout_constraintTop_toBottomOf="@+id/registerUserImageIv"
+
+            app:layout_constraintTop_toBottomOf="@+id/registerFragmentTitleTv"
             tools:ignore="MissingConstraints" />
 
         <EditText
@@ -51,6 +57,7 @@
             style="@style/AuthEditText"
             android:layout_marginTop="16dp"
             android:hint="@string/your_email"
+
             app:layout_constraintTop_toBottomOf="@+id/registerNameEt"
             tools:ignore="MissingConstraints" />
 
@@ -59,6 +66,7 @@
             style="@style/AuthEditText"
             android:layout_marginTop="16dp"
             android:hint="@string/your_pass"
+
             app:layout_constraintTop_toBottomOf="@+id/registerMailEt"
             tools:ignore="MissingConstraints" />
 
@@ -67,6 +75,7 @@
             style="@style/AuthEditText"
             android:layout_marginTop="16dp"
             android:hint="@string/confirm_pass"
+
             app:layout_constraintTop_toBottomOf="@+id/registerPassEt"
             tools:ignore="MissingConstraints" />
 
@@ -92,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:gravity="center"
-            android:onClick="@{()-> fragment.backToLogin()}"
+            android:onClick="@{()-> viewModel.back()}"
             android:text="@string/back_to_login"
             android:textColor="@color/mid"
             android:textSize="@dimen/smallTextSize"

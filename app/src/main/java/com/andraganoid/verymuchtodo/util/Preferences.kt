@@ -25,7 +25,7 @@ class Preferences(private val context: Context) {
 
     fun getUser(): kUser {
         val prefSettings = sharedPreferences.getString(PREF_USER, null)
-        return Gson().fromJson(prefSettings, object : TypeToken<kUser>() {}.type)
+        return if(prefSettings!=null) Gson().fromJson(prefSettings, object : TypeToken<kUser>() {}.type) else kUser()
     }
 
 

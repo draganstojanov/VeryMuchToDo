@@ -2,12 +2,14 @@ package com.andraganoid.verymuchtodo
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import com.andraganoid.verymuchtodo.auth.dialog.MessageDialogFragment
+import com.andraganoid.verymuchtodo.util.MSG_DIALOG_LIST
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,29 +18,38 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         window.statusBarColor = ContextCompat.getColor(this, R.color.backgorundColor)
+
     }
 
-    fun showLoader() {
-        loader.isVisible = true
+    fun loaderState(loaderState: Boolean) {
+        loader.isVisible = loaderState
     }
 
-    fun hideLoader() {
-        loader.isVisible = false
-    }
+//    fun showLoader() {
+//        loader.isVisible = true
+//    }
+//
+//    fun hideLoader() {
+//        loader.isVisible = false
+//    }
 
-    fun showMessage(message: Any) {
-        var msg = ""
+    fun showMessage(message: Any?) {
+        val msg = arrayListOf<String>()
         when (message) {
-            is String -> msg = message
-            is Int -> msg = getString(message)
-            is ArrayList<*> -> {
-                message.forEach { item ->
-                    msg += item
-                    msg += "\n"
-                }
-            }
+            is String -> msg.add(message)
+            is Int -> msg.add(getString(message))
+            is ArrayList<*> -> msg.addAll(message as ArrayList<String>)
         }
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show()//todo bottomSheetFragment
+
+        loaderState(false)
+        Log.d("WEWEWE-MSG", message.toString())
+        val bundle = Bundle()
+        bundle.putStringArrayList(MSG_DIALOG_LIST, msg)
+        val msgDialogFragment = MessageDialogFragment();
+        msgDialogFragment.arguments = bundle
+        msgDialogFragment.show(supportFragmentManager, msgDialogFragment.tag)
+
+        // Toast.makeText(this, msg, Toast.LENGTH_LONG).show()//todo bottomSheetFragment
     }
 
 
@@ -50,12 +61,9 @@ class MainActivity : AppCompatActivity() {
         }
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
+
+
 }
 
 
-//Store: C:\Users\Stojanov 4\.android\debug.keystore
-//Alias: AndroidDebugKey
-//MD5: 7D:A1:4F:55:01:77:DF:DA:4A:89:8C:1A:D1:A0:77:70
-//SHA1: F4:35:B9:4F:4C:96:5E:2D:23:8A:CB:53:39:F0:AA:6D:49:53:CF:F1
-//SHA-256: 06:E8:B5:62:56:3C:AF:DA:AA:55:56:75:73:AB:E6:24:36:1C:8D:F6:43:70:BF:9A:C9:46:82:4F:4D:E3:EA:48
-//Valid until: Tuesday, March 8, 2050
+

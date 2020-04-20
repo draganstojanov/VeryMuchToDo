@@ -1,44 +1,52 @@
-package com.andraganoid.verymuchtodo.kauth
+package com.andraganoid.verymuchtodo.auth.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.andraganoid.verymuchtodo.R
+import com.andraganoid.verymuchtodo.auth.BaseAuthFragment
 import com.andraganoid.verymuchtodo.databinding.FragmentLoginBinding
 import com.andraganoid.verymuchtodo.ktodo.TodoActivity
 import com.andraganoid.verymuchtodo.util.isValidEmail
 import com.andraganoid.verymuchtodo.util.isValidPassword
 import kotlinx.android.synthetic.main.fragment_login.*
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
+
 
 class LoginFragment : BaseAuthFragment() {
 
-    private val viewModel: AuthViewModel by sharedViewModel()
+    // private val viewModel: AuthViewModel by sharedViewModel()
+    private val viewModel: LoginViewModel by viewModel()
     private lateinit var binding: FragmentLoginBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        if (viewModel.auth?.currentUser == null) {
-            hideLoader()
-        } else {
-            showMessage("LOGGED IN")
-            // todo idi na todoActivity
-            //   loggedIn()
-            viewModel.auth!!.signOut()
-            hideLoader()
+        // viewModel.showMessage(null)
+        viewModel.loaderState.observe(viewLifecycleOwner, Observer { loaderState(it) })
+        viewModel.loginState.observe(viewLifecycleOwner, Observer { loggedIn ->
+            if (loggedIn) {
+                Log.d("WEWEWE", loggedIn.toString())
 
-        }
+                val todoIntent = Intent(main, TodoActivity::class.java)
+                startActivity(todoIntent)
+            }
+        })
+        viewModel.message.observe(viewLifecycleOwner, Observer { message ->
+            if (message != null) {
+                showMessage(message)
+            }
+        })
+
         binding = FragmentLoginBinding.inflate(inflater, container, false)//tod mozda izbaciti viewbinding
-        //  binding.viewModel = viewModel
+        binding.viewModel = viewModel
         binding.fragment = this
         return binding.root
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//    }
 
     fun submitLogin() {
         val mail = userMailEt.text.toString()
@@ -51,36 +59,12 @@ class LoginFragment : BaseAuthFragment() {
         if (!pass.isValidPassword()) {
             messageArray.add(getString(R.string.password_not_valid))
         }
-
-        if (messageArray.size > 0) {
-            showMessage(messageArray)
-        } else {
-            login(mail, pass)
-        }
-
-    }
-
-    private fun login(mail: String, pass: String) {
         hideKeyboard()
-        showLoader()
-        viewModel.auth?.signInWithEmailAndPassword(mail, pass)!!
-                .addOnCompleteListener(main) { task ->
-                    if (task.isSuccessful) {
-                        showMessage(viewModel.auth?.currentUser?.email.toString())
-                        viewModel.saveUser()
-                        hideLoader()
-                        loggedIn()
-
-                    } else {
-                        hideLoader()
-                        showMessage("ERROR: " + task.exception.toString())//todo loginerror
-                    }
-                }
-    }
-
-    private fun loggedIn() {
-        val todoIntent = Intent(main, TodoActivity::class.java)
-        startActivity(todoIntent)
+        if (messageArray.size > 0) {
+            viewModel.showMessage(messageArray)
+        } else {
+            viewModel.login(mail, pass)
+        }
     }
 
     fun notRegistered() {
@@ -88,7 +72,15 @@ class LoginFragment : BaseAuthFragment() {
         findNavController().navigate(action)
     }
 
-    fun forgotPassword() {}
+    fun forgotPassword() {
+        hideKeyboard()
+        val mail = userMailEt.text.toString()
+        if (mail.isValidEmail()) {
+            viewModel.resetPassword(mail)
+        } else {
+            viewModel.showMessage(R.string.mail_not_valid)
+        }
+    }
 
 
 }
