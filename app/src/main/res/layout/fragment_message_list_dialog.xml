@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/dark"
+    android:background="@drawable/bottom_sheet_message"
     android:paddingVertical="24dp">
 
 
@@ -28,11 +28,11 @@
         android:layout_width="wrap_content"
         android:layout_height="32dp"
         android:layout_marginTop="32dp"
-        android:background="@color/veryLite"
+        android:background="@color/primVeryLite"
         android:paddingHorizontal="16dp"
         android:text="@string/ok"
         android:textAllCaps="true"
-        android:textColor="@color/dark"
+        android:textColor="@color/primDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/messageList" />

@@ -10,9 +10,7 @@ import com.andraganoid.verymuchtodo.R
 
 class ProfileFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ProfileFragment()
-    }
+
 
     private lateinit var viewModel: ProfileViewModel
 

@@ -50,4 +50,6 @@
     <string name="check_mail_for_verification">Check your email to verify account</string>
     <string name="check_mail_for_pass_reset">Check your email to reset pasword</string>
     <string name="ok">OK</string>
+    <string name="my_profile">My profile</string>
+    <string name="logout_confirm">Do you really want to logout?</string>
 </resources>

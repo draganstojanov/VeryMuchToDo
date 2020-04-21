@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="NASLOV"
-            android:textColor="@color/mid"
+            android:textColor="@color/primMid"
             android:textSize="20sp"
             app:layout_constraintEnd_toStartOf="@+id/todoMenu"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:onClick="todoMenuClicked"
             android:src="@drawable/ic_menu"
-            android:tint="@color/mid"
+            android:tint="@color/primMid"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

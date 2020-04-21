@@ -1,6 +1,6 @@
 package com.andraganoid.verymuchtodo.model;
 
-import java.util.ArrayList;
+        import java.util.ArrayList;
 
 
 public class TodoList {
@@ -101,3 +101,6 @@ public class TodoList {
         this.user = user;
     }
 }
+
+//Todo creator can delete before completed, others only on completed
+//Todo TodoListGroup (id, color,name, description)

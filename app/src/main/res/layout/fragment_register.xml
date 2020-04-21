@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="@{()-> viewModel.back()}"
                 android:src="@drawable/ic_arrow_back"
-                android:tint="@color/mid"
+                android:tint="@color/primMid"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -98,16 +98,12 @@
 
             <Button
                 android:id="@+id/registerBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
+                style="@style/buttonSmall"
                 android:layout_marginTop="32dp"
-                android:background="@drawable/login_background"
                 android:onClick="@{()-> fragment.submitRegistration()}"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:text="@string/register"
-                android:textAllCaps="true"
-                android:textColor="@color/backgorundColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/registerConfirmPassEt" />
@@ -120,7 +116,7 @@
                 android:gravity="center"
                 android:onClick="@{()-> viewModel.back()}"
                 android:text="@string/back_to_login"
-                android:textColor="@color/mid"
+                android:textColor="@color/primMid"
                 android:textSize="@dimen/smallTextSize"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

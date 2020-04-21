@@ -5,6 +5,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
 
     <style name="EditText">
@@ -46,7 +48,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/title_size</item>
-        <item name="android:textColor">@color/mid</item>
+        <item name="android:textColor">@color/primMid</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -55,16 +57,39 @@
         <item name="android:layout_height">@dimen/bar_height</item>
         <item name="android:textSize">@dimen/login_text_size</item>
         <item name="android:textColor">@color/backgorundColor</item>
-        <item name="android:textColorHint">@color/veryLite</item>
-        <!--<item name="android:background">@drawable/login_background</item>-->
-        <item name="android:background">@color/mid</item>
+        <item name="android:textColorHint">@color/primVeryLite</item>
+        <item name="android:background">@drawable/input_background</item>
         <item name="android:layout_marginStart">@dimen/loginMargin</item>
         <item name="android:layout_marginEnd">@dimen/loginMargin</item>
         <item name="android:paddingStart">16dp</item>
         <item name="android:paddingEnd">16dp</item>
     </style>
 
-    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog" />
+    <style name="buttonSmall">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:textSize">@dimen/smallButtonTextSize</item>
+        <item name="android:textColor">@color/backgorundColor</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+
+
+
+
+
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomModalSheetStyle</item>
+    </style>
+
+    <style name="BottomModalSheetStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottom_sheet_dialog</item>
+    </style>
+
+
 
 
     <dimen name="bar_height">56dp</dimen>

@@ -51,3 +51,6 @@ public class TodoItem {
         this.timestamp = timestamp;
     }
 }
+//Todo creator can delete before completed, others only on completed
+//Todo timestamp created, timestamp edited
+//Todo TodoItemGroup(id, color, name, description)
