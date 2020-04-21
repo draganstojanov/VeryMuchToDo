@@ -8,108 +8,124 @@
 
         <variable
             name="viewModel"
-            type="com.andraganoid.verymuchtodo.auth.register.RegisterViewModel" />
+            type="com.andraganoid.verymuchtodo.main.register.RegisterViewModel" />
 
         <variable
             name="fragment"
-            type="com.andraganoid.verymuchtodo.auth.register.RegisterFragment" />
+            type="com.andraganoid.verymuchtodo.main.register.RegisterFragment" />
     </data>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/backgorundColor"
-        tools:context=".auth.register.RegisterFragment">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/registerFragmentTitleTv"
-            style="@style/TitleText"
-            android:layout_marginTop="64dp"
-            android:text="@string/register"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/backgorundColor"
+            tools:context=".main.register.RegisterFragment">
 
 
-        <!--        <ImageView-->
-        <!--            android:id="@+id/registerUserImageIv"-->
-        <!--            android:layout_width="48dp"-->
-        <!--            android:layout_height="48dp"-->
-        <!--            android:layout_marginTop="16dp"-->
-        <!--            android:onClick="@{()->fragment.profileImage()}"-->
-        <!--            android:src="@mipmap/ic_launcher_round"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/registerFragmentTitleTv" />-->
+            <ImageView
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:onClick="@{()-> viewModel.back()}"
+                android:src="@drawable/ic_arrow_back"
+                android:tint="@color/mid"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/registerFragmentTitleTv"
+                style="@style/TitleText"
+                android:layout_marginTop="64dp"
+                android:text="@string/register"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
 
 
-        <EditText
-            android:id="@+id/registerNameEt"
-            style="@style/AuthEditText"
-            android:layout_marginTop="32dp"
-            android:hint="@string/your_name"
-
-            app:layout_constraintTop_toBottomOf="@+id/registerFragmentTitleTv"
-            tools:ignore="MissingConstraints" />
-
-        <EditText
-            android:id="@+id/registerMailEt"
-            style="@style/AuthEditText"
-            android:layout_marginTop="16dp"
-            android:hint="@string/your_email"
-
-            app:layout_constraintTop_toBottomOf="@+id/registerNameEt"
-            tools:ignore="MissingConstraints" />
-
-        <EditText
-            android:id="@+id/registerPassEt"
-            style="@style/AuthEditText"
-            android:layout_marginTop="16dp"
-            android:hint="@string/your_pass"
-
-            app:layout_constraintTop_toBottomOf="@+id/registerMailEt"
-            tools:ignore="MissingConstraints" />
-
-        <EditText
-            android:id="@+id/registerConfirmPassEt"
-            style="@style/AuthEditText"
-            android:layout_marginTop="16dp"
-            android:hint="@string/confirm_pass"
-
-            app:layout_constraintTop_toBottomOf="@+id/registerPassEt"
-            tools:ignore="MissingConstraints" />
-
-        <Button
-            android:id="@+id/registerBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/login_background"
-            android:onClick="@{()-> fragment.submitRegistration()}"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:text="@string/register"
-            android:textAllCaps="true"
-            android:textColor="@color/backgorundColor"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/registerConfirmPassEt" />
-
-        <TextView
-            android:id="@+id/notRegisterLabel"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:gravity="center"
-            android:onClick="@{()-> viewModel.back()}"
-            android:text="@string/back_to_login"
-            android:textColor="@color/mid"
-            android:textSize="@dimen/smallTextSize"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/registerBtn" />
+            <!--        <ImageView-->
+            <!--            android:id="@+id/registerUserImageIv"-->
+            <!--            android:layout_width="48dp"-->
+            <!--            android:layout_height="48dp"-->
+            <!--            android:layout_marginTop="16dp"-->
+            <!--            android:onClick="@{()->fragment.profileImage()}"-->
+            <!--            android:src="@mipmap/ic_launcher_round"-->
+            <!--            app:layout_constraintEnd_toEndOf="parent"-->
+            <!--            app:layout_constraintStart_toStartOf="parent"-->
+            <!--            app:layout_constraintTop_toBottomOf="@id/registerFragmentTitleTv" />-->
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <EditText
+                android:id="@+id/registerNameEt"
+                style="@style/AuthEditText"
+                android:layout_marginTop="32dp"
+                android:hint="@string/your_name"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                app:layout_constraintTop_toBottomOf="@+id/registerFragmentTitleTv"
+                tools:ignore="MissingConstraints" />
 
+            <EditText
+                android:id="@+id/registerMailEt"
+                style="@style/AuthEditText"
+                android:layout_marginTop="16dp"
+                android:hint="@string/your_email"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                app:layout_constraintTop_toBottomOf="@+id/registerNameEt"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/registerPassEt"
+                style="@style/AuthEditText"
+                android:layout_marginTop="16dp"
+                android:hint="@string/your_pass"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                app:layout_constraintTop_toBottomOf="@+id/registerMailEt"
+                tools:ignore="MissingConstraints" />
+
+            <EditText
+                android:id="@+id/registerConfirmPassEt"
+                style="@style/AuthEditText"
+                android:layout_marginTop="16dp"
+                android:hint="@string/confirm_pass"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                app:layout_constraintTop_toBottomOf="@+id/registerPassEt"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/registerBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/login_background"
+                android:onClick="@{()-> fragment.submitRegistration()}"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/register"
+                android:textAllCaps="true"
+                android:textColor="@color/backgorundColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/registerConfirmPassEt" />
+
+            <TextView
+                android:id="@+id/notRegisterLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                android:onClick="@{()-> viewModel.back()}"
+                android:text="@string/back_to_login"
+                android:textColor="@color/mid"
+                android:textSize="@dimen/smallTextSize"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/registerBtn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

@@ -1,13 +1,15 @@
-package com.andraganoid.verymuchtodo.auth.register
+package com.andraganoid.verymuchtodo.main.register
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.andraganoid.verymuchtodo.R
-import com.andraganoid.verymuchtodo.auth.BaseAuthFragment
 import com.andraganoid.verymuchtodo.databinding.FragmentRegisterBinding
+import com.andraganoid.verymuchtodo.main.MainBaseFragment
 import com.andraganoid.verymuchtodo.util.isValidConfirmedPassword
 import com.andraganoid.verymuchtodo.util.isValidDisplayName
 import com.andraganoid.verymuchtodo.util.isValidEmail
@@ -16,12 +18,20 @@ import kotlinx.android.synthetic.main.fragment_register.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class RegisterFragment : BaseAuthFragment() {
+class RegisterFragment : MainBaseFragment() {
 
     private val viewModel: RegisterViewModel by viewModel()
     private lateinit var binding: FragmentRegisterBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        setObservers()
+        binding = FragmentRegisterBinding.inflate(inflater, container, false)//todo mozda izbaciti viewbinding
+        binding.viewModel = viewModel
+        binding.fragment = this
+        return binding.root
+    }
+
+    private fun setObservers() {
         viewModel.back.observe(viewLifecycleOwner, Observer { back -> back.let { main.onBackPressed() } })
         viewModel.loaderState.observe(viewLifecycleOwner, Observer { loaderState(it) })
         viewModel.message.observe(viewLifecycleOwner, Observer { message ->
@@ -29,10 +39,17 @@ class RegisterFragment : BaseAuthFragment() {
                 showMessage(message)
             }
         })
-        binding = FragmentRegisterBinding.inflate(inflater, container, false)//todo mozda izbaciti viewbinding
-        binding.viewModel = viewModel
-        binding.fragment = this
-        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        registerConfirmPassEt.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                submitRegistration()
+                return@OnEditorActionListener true
+            }
+            false
+        })
     }
 
     fun submitRegistration() {//todo add image

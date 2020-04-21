@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.auth.dialog
+package com.andraganoid.verymuchtodo.main.dialog
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -30,12 +30,11 @@ class MessageDialogFragment : BottomSheetDialogFragment() {
 
         Timer().schedule(object : TimerTask() {
             override fun run() {//todo null
-                if (isAdded) {
-                    dismiss()
-                }
+                dismiss()
             }
         }, 5000)
     }
+
 
 
 }

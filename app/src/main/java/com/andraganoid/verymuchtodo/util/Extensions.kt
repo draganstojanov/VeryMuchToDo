@@ -1,10 +1,9 @@
 package com.andraganoid.verymuchtodo.util
 
 import android.util.Patterns
-import com.google.firebase.auth.FirebaseAuth
 
 
-val firebaseAuth:FirebaseAuth?=FirebaseAuth.getInstance()
+//val firebaseAuth:FirebaseAuth?=FirebaseAuth.getInstance()
 
 fun String.isValidEmail() = isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 fun String.isValidPassword(): Boolean = length >= 6 && length < 15

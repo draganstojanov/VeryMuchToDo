@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:context=".auth.dialog.MessageDialogFragment"
+        tools:context=".main.dialog.MessageDialogFragment"
         tools:listitem="@layout/fragment_message_list_dialog_item" />
 
     <Button

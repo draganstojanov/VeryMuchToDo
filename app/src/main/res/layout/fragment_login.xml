@@ -8,11 +8,11 @@
 
         <variable
             name="viewModel"
-            type="com.andraganoid.verymuchtodo.auth.login.LoginViewModel" />
+            type="com.andraganoid.verymuchtodo.main.login.LoginViewModel" />
 
         <variable
             name="fragment"
-            type="com.andraganoid.verymuchtodo.auth.login.LoginFragment" />
+            type="com.andraganoid.verymuchtodo.main.login.LoginFragment" />
     </data>
 
 
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/backgorundColor"
-        tools:context=".auth.login.LoginFragment">
+        tools:context=".main.login.LoginFragment">
 
         <TextView
             android:id="@+id/loginFragmentTitle"
@@ -36,8 +36,8 @@
             style="@style/AuthEditText"
             android:layout_marginTop="32dp"
             android:hint="@string/your_email"
+            android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
-
             app:layout_constraintTop_toBottomOf="@+id/loginFragmentTitle"
             tools:ignore="MissingConstraints" />
 
@@ -46,6 +46,7 @@
             style="@style/AuthEditText"
             android:layout_marginTop="16dp"
             android:hint="@string/your_pass"
+            android:imeOptions="actionDone"
             android:inputType="textPassword"
             app:layout_constraintTop_toBottomOf="@+id/userMailEt"
             tools:ignore="MissingConstraints" />

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/todo_nav"
+    app:startDestination="@id/listsFragment">
+    <fragment
+        android:id="@+id/listsFragment"
+        android:name="com.andraganoid.verymuchtodo.ktodo.lists.ListsFragment"
+        android:label="lists_fragment"
+        tools:layout="@layout/lists_fragment" />
+    <fragment
+        android:id="@+id/messagesFragment"
+        android:name="com.andraganoid.verymuchtodo.ktodo.message.MessagesFragment"
+        android:label="messages_fragment"
+        tools:layout="@layout/messages_fragment" />
+    <fragment
+        android:id="@+id/usersFragment"
+        android:name="com.andraganoid.verymuchtodo.ktodo.users.UsersFragment"
+        android:label="users_fragment"
+        tools:layout="@layout/users_fragment" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.andraganoid.verymuchtodo.ktodo.map.MapFragment"
+        android:label="map_fragment"
+        tools:layout="@layout/map_fragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.andraganoid.verymuchtodo.ktodo.profile.ProfileFragment"
+        android:label="profile_fragment"
+        tools:layout="@layout/profile_fragment" />
+</navigation>

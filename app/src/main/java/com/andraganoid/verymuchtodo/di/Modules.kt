@@ -1,7 +1,7 @@
 package com.andraganoid.verymuchtodo.di
 
-import com.andraganoid.verymuchtodo.auth.login.LoginViewModel
-import com.andraganoid.verymuchtodo.auth.register.RegisterViewModel
+import com.andraganoid.verymuchtodo.main.login.LoginViewModel
+import com.andraganoid.verymuchtodo.main.register.RegisterViewModel
 import com.andraganoid.verymuchtodo.util.Preferences
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel

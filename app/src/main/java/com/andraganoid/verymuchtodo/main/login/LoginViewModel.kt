@@ -1,22 +1,19 @@
-package com.andraganoid.verymuchtodo.auth.login
+package com.andraganoid.verymuchtodo.main.login
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.andraganoid.verymuchtodo.R
-import com.andraganoid.verymuchtodo.model.kUser
+import com.andraganoid.verymuchtodo.kmodel.User
 import com.andraganoid.verymuchtodo.util.Preferences
-import com.andraganoid.verymuchtodo.util.firebaseAuth
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
 
 class LoginViewModel(private val preferences: Preferences) : ViewModel() {
-
-
-  //  var firebaseAuth: FirebaseAuth? = null
-    var user: kUser? = null//todo check da li nam ytreba ispis emaila
+    var firebaseAuth: FirebaseAuth? = null
+    var user: User? = null//todo check da li nam ytreba ispis emaila
 
     private val _loaderState = MutableLiveData<Boolean>()
     val loaderState: LiveData<Boolean>
@@ -31,13 +28,14 @@ class LoginViewModel(private val preferences: Preferences) : ViewModel() {
         get() = _message
 
     init {
-      //  firebaseAuth = FirebaseAuth.getInstance()
-      //  firebaseAuth!!.signOut()
-
+        firebaseAuth = FirebaseAuth.getInstance()
+     //  firebaseAuth!!.signOut()
         user = preferences.getUser()
-
-        _loginState.value = firebaseAuth?.currentUser != null && firebaseAuth.currentUser!!.isEmailVerified
-        Log.d("WEWEWE-VM", loginState.value.toString())
+        if (firebaseAuth!!.currentUser == null) {
+            _loginState.value = false
+        } else {
+            _loginState.value = firebaseAuth!!.currentUser!!.isEmailVerified
+        }
         _loaderState.value = _loginState.value
     }
 
@@ -48,11 +46,9 @@ class LoginViewModel(private val preferences: Preferences) : ViewModel() {
     fun login(mail: String, pass: String) {
         _loaderState.value = true
         viewModelScope.launch {
-
             firebaseAuth?.signInWithEmailAndPassword(mail, pass)!!
                     .addOnCompleteListener() { task ->
                         if (task.isSuccessful) {
-                            _message.value = firebaseAuth.currentUser?.email
                             saveUser()
                         } else {
                             _message.value = "ERROR: " + task.exception.toString()
@@ -76,17 +72,15 @@ class LoginViewModel(private val preferences: Preferences) : ViewModel() {
 
 
     fun saveUser() {
+
         firebaseAuth?.currentUser?.apply {
-            preferences.saveUser(kUser(
+            preferences.saveUser(User(
                     uid = uid,
                     name = displayName,
                     email = email,
                     photoUrl = photoUrl))
         }
         _loginState.value = true
-
-
-        _message.value = "LOGGED IN"
 
 
         //todo update user

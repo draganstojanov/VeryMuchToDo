@@ -1,37 +1,43 @@
-package com.andraganoid.verymuchtodo.auth.login
+package com.andraganoid.verymuchtodo.main.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView.OnEditorActionListener
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.andraganoid.verymuchtodo.R
-import com.andraganoid.verymuchtodo.auth.BaseAuthFragment
 import com.andraganoid.verymuchtodo.databinding.FragmentLoginBinding
 import com.andraganoid.verymuchtodo.ktodo.TodoActivity
+import com.andraganoid.verymuchtodo.main.MainBaseFragment
 import com.andraganoid.verymuchtodo.util.isValidEmail
 import com.andraganoid.verymuchtodo.util.isValidPassword
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class LoginFragment : BaseAuthFragment() {
+class LoginFragment : MainBaseFragment() {
 
-    // private val viewModel: AuthViewModel by sharedViewModel()
     private val viewModel: LoginViewModel by viewModel()
     private lateinit var binding: FragmentLoginBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // viewModel.showMessage(null)
+        setObservers()
+        binding = FragmentLoginBinding.inflate(inflater, container, false)//tod mozda izbaciti viewbinding
+        binding.viewModel = viewModel
+        binding.fragment = this
+        return binding.root
+    }
+
+    private fun setObservers() {
         viewModel.loaderState.observe(viewLifecycleOwner, Observer { loaderState(it) })
         viewModel.loginState.observe(viewLifecycleOwner, Observer { loggedIn ->
             if (loggedIn) {
-                Log.d("WEWEWE", loggedIn.toString())
-
                 val todoIntent = Intent(main, TodoActivity::class.java)
+                todoIntent.flags=Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(todoIntent)
             }
         })
@@ -40,13 +46,18 @@ class LoginFragment : BaseAuthFragment() {
                 showMessage(message)
             }
         })
-
-        binding = FragmentLoginBinding.inflate(inflater, container, false)//tod mozda izbaciti viewbinding
-        binding.viewModel = viewModel
-        binding.fragment = this
-        return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        userPassEt.setOnEditorActionListener(OnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                submitLogin()
+                return@OnEditorActionListener true
+            }
+            false
+        })
+    }
 
     fun submitLogin() {
         val mail = userMailEt.text.toString()
