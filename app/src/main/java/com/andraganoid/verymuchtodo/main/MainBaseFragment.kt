@@ -23,10 +23,6 @@ open class MainBaseFragment : Fragment() {
         main.hideKeyboard()
     }
 
-//    fun showMessage(message: Any) {
-//        main.showMessage(message)
-//    }
-
     fun showMessage(message: Any?) {
         val msg = arrayListOf<String>()
         when (message) {

@@ -52,4 +52,8 @@
     <string name="ok">OK</string>
     <string name="my_profile">My profile</string>
     <string name="logout_confirm">Do you really want to logout?</string>
+    <string name="edit_pic_from">Edit picyure from</string>
+    <string name="edit_name">Change your name?</string>
+    <string name="edit_mail">Change your email address?</string>
+    <string name="edit_pass">Change Your password?</string>
 </resources>

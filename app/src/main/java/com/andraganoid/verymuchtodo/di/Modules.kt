@@ -1,5 +1,6 @@
 package com.andraganoid.verymuchtodo.di
 
+import com.andraganoid.verymuchtodo.ktodo.profile.ProfileViewModel
 import com.andraganoid.verymuchtodo.main.login.LoginViewModel
 import com.andraganoid.verymuchtodo.main.register.RegisterViewModel
 import com.andraganoid.verymuchtodo.util.Preferences
@@ -12,11 +13,13 @@ object Modules {
 
     private val viewModelModule = module {
         viewModel { LoginViewModel(get()) }
-        viewModel { RegisterViewModel(get()) }
+        viewModel { RegisterViewModel() }
+        viewModel { ProfileViewModel() }
     }
 
     private val singleModule = module {
         single { Preferences(androidContext()) }
+
     }
 
     private val factoryModule = module {

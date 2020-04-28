@@ -6,7 +6,8 @@ import android.widget.TextView;
 import androidx.annotation.ColorInt;
 import androidx.databinding.BindingAdapter;
 
-public class BindingAdapters {
+public class BindingAdaptersK {
+
     @BindingAdapter({"drawableTint"})
     public static void setDrawableTint(TextView view, @ColorInt int color) {
         for (Drawable d : view.getCompoundDrawables()
@@ -16,4 +17,6 @@ public class BindingAdapters {
             }
         }
     }
+
+
 }

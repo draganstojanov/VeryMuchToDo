@@ -21,66 +21,66 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class RegisterFragment : MainBaseFragment() {
 
     private val viewModel: RegisterViewModel by viewModel()
-    private lateinit var binding: FragmentRegisterBinding
+private lateinit var binding: FragmentRegisterBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        setObservers()
-        binding = FragmentRegisterBinding.inflate(inflater, container, false)//todo mozda izbaciti viewbinding
-        binding.viewModel = viewModel
-        binding.fragment = this
-        return binding.root
+override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    setObservers()
+    binding = FragmentRegisterBinding.inflate(inflater, container, false)//todo mozda izbaciti viewbinding
+    binding.viewModel = viewModel
+    binding.fragment = this
+    return binding.root
+}
+
+private fun setObservers() {
+    viewModel.back.observe(viewLifecycleOwner, Observer { back -> back.let { main.onBackPressed() } })
+    viewModel.loaderState.observe(viewLifecycleOwner, Observer { loaderState(it) })
+    viewModel.message.observe(viewLifecycleOwner, Observer { message ->
+        if (message != null) {
+            showMessage(message)
+        }
+    })
+}
+
+override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    registerConfirmPassEt.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            submitRegistration()
+            return@OnEditorActionListener true
+        }
+        false
+    })
+}
+
+fun submitRegistration() {//todo add image
+    val mail = registerMailEt.text.toString()
+    val name = registerNameEt.text.toString()
+    val pass = registerPassEt.text.toString()
+    val confirm = registerConfirmPassEt.text.toString()
+    val messageArray = arrayListOf<String>()
+
+    if (!mail.isValidEmail()) {
+        messageArray.add(getString(R.string.mail_not_valid))
+    }
+    if (!name.isValidDisplayName()) {
+        messageArray.add(getString(R.string.name_not_valid))
+    }
+    if (!pass.isValidPassword()) {
+        messageArray.add(getString(R.string.password_not_valid))
+    }
+    if (!confirm.isValidConfirmedPassword(pass)) {
+        messageArray.add(getString(R.string.confirm_not_valid))
     }
 
-    private fun setObservers() {
-        viewModel.back.observe(viewLifecycleOwner, Observer { back -> back.let { main.onBackPressed() } })
-        viewModel.loaderState.observe(viewLifecycleOwner, Observer { loaderState(it) })
-        viewModel.message.observe(viewLifecycleOwner, Observer { message ->
-            if (message != null) {
-                showMessage(message)
-            }
-        })
+    if (messageArray.size > 0) {
+        viewModel.showMessage(messageArray)
+    } else {
+        viewModel.register(mail, pass, name)
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        registerConfirmPassEt.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                submitRegistration()
-                return@OnEditorActionListener true
-            }
-            false
-        })
-    }
-
-    fun submitRegistration() {//todo add image
-        val mail = registerMailEt.text.toString()
-        val name = registerNameEt.text.toString()
-        val pass = registerPassEt.text.toString()
-        val confirm = registerConfirmPassEt.text.toString()
-        val messageArray = arrayListOf<String>()
-
-        if (!mail.isValidEmail()) {
-            messageArray.add(getString(R.string.mail_not_valid))
-        }
-        if (!name.isValidDisplayName()) {
-            messageArray.add(getString(R.string.name_not_valid))
-        }
-        if (!pass.isValidPassword()) {
-            messageArray.add(getString(R.string.password_not_valid))
-        }
-        if (!confirm.isValidConfirmedPassword(pass)) {
-            messageArray.add(getString(R.string.confirm_not_valid))
-        }
-
-        if (messageArray.size > 0) {
-            viewModel.showMessage(messageArray)
-        } else {
-            viewModel.register(mail, pass, name)
-        }
-    }
+}
 
 
-    //todo prebaci u settings
+//todo prebaci u settings
 
 //    private val IMAGE_GALERY = 101
 //    private val IMAGE_CAMERA = 102
@@ -144,7 +144,7 @@ class RegisterFragment : MainBaseFragment() {
 //            // ...
 //            showMessage("img upload")
 //        }
-    //   }
+//   }
 
-    //todo prebaci u settings
+//todo prebaci u settings
 }

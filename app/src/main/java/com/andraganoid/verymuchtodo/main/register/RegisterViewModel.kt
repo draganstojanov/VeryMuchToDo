@@ -4,11 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.andraganoid.verymuchtodo.R
-import com.andraganoid.verymuchtodo.util.Preferences
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 
-class RegisterViewModel (private val preferences: Preferences) : ViewModel() {
+class RegisterViewModel() : ViewModel() {
 
     var firebaseAuth: FirebaseAuth? = null
 
@@ -51,10 +50,8 @@ class RegisterViewModel (private val preferences: Preferences) : ViewModel() {
     }
 
     private fun updateUser(name: String) {
-        val profileUpdates = UserProfileChangeRequest.Builder()
-                .setDisplayName(name)
-                // .setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))
-                .build()
+        val profileUpdates = UserProfileChangeRequest.Builder().setDisplayName(name).build()
+        // .setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))
         firebaseAuth?.currentUser?.updateProfile(profileUpdates)
     }
 
