@@ -14,6 +14,7 @@ class ProfileFragment : TodoBaseFragment() {
 
     private val viewModel: ProfileViewModel by sharedViewModel()
     private lateinit var binding: ProfileFragmentBinding
+    private lateinit var profileDialogFragment: ProfileDialogFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setObservers()
@@ -24,12 +25,16 @@ class ProfileFragment : TodoBaseFragment() {
     }
 
     private fun setObservers() {
-
         viewModel.editDialog.observe(viewLifecycleOwner, Observer {
             if (it) {
-                showDialog()
+                hideKeyboard()
+                profileDialogFragment = ProfileDialogFragment()
+                profileDialogFragment.show(todo.supportFragmentManager, null)
+                // } else {
+                //     setttingsDialogFragment.dismiss()
             }
         })
+        viewModel.loaderState.observe(viewLifecycleOwner, Observer { loaderState(it) })
 
 
 //        viewModel.back.observe(viewLifecycleOwner, Observer { back -> back.let { main.onBackPressed() } })
@@ -79,10 +84,10 @@ class ProfileFragment : TodoBaseFragment() {
 //        }
 //    }
 
-    private fun showDialog() {
-        val setttingsDialogFragment = ProfileDialogFragment();
-        setttingsDialogFragment.show(todo.supportFragmentManager, null)
-    }
+//    private fun showDialog() {
+//        hideKeyboard()
+//        setttingsDialogFragment.show(todo.supportFragmentManager, null)
+//    }
 
 
 //todo prebaci u settings

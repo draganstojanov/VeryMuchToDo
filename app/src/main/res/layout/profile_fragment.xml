@@ -25,7 +25,6 @@
             android:background="@color/backgorundColor"
             tools:context=".main.register.RegisterFragment">
 
-
             <TextView
                 android:id="@+id/profileFragmentTitleTv"
                 style="@style/TitleText"
@@ -69,6 +68,7 @@
                 android:hint="@string/your_name"
                 android:imeOptions="actionNext"
                 android:inputType="text"
+                android:text="@={viewModel.userName}"
                 app:layout_constraintEnd_toStartOf="@id/profileNameEdit"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profileUserImageIv"
@@ -96,6 +96,7 @@
                 android:hint="@string/your_email"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress"
+                android:text="@={viewModel.userMail}"
                 app:layout_constraintEnd_toStartOf="@id/profileMailEdit"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profileNameEt"
@@ -120,9 +121,10 @@
                 android:layout_width="0dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="0dp"
+                android:enabled="false"
                 android:hint="@string/your_pass"
-                android:imeOptions="actionNext"
                 android:inputType="textPassword"
+                android:text="password"
                 app:layout_constraintEnd_toStartOf="@id/profilePassEdit"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profileMailEt"

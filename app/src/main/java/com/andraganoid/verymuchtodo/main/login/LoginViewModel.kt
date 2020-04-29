@@ -67,7 +67,6 @@ class LoginViewModel(private val preferences: Preferences) : ViewModel() {
                         _message.value = "ERROR: " + task.exception.toString()//todo loginerror
                     }
                 }
-
     }
 
 

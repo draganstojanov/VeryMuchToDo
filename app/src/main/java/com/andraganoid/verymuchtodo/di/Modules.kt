@@ -14,7 +14,7 @@ object Modules {
     private val viewModelModule = module {
         viewModel { LoginViewModel(get()) }
         viewModel { RegisterViewModel() }
-        viewModel { ProfileViewModel() }
+        viewModel { ProfileViewModel(get()) }
     }
 
     private val singleModule = module {

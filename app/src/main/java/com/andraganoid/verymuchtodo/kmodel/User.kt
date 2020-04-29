@@ -4,8 +4,8 @@ import android.net.Uri
 
 data class User(
         val uid: String?="",
-        val name: String?="",
-        val email: String?="",
+        var name: String?="",
+        var email: String?="",
         val photoUrl: Uri?=null) {
 
 }

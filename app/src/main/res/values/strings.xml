@@ -52,8 +52,15 @@
     <string name="ok">OK</string>
     <string name="my_profile">My profile</string>
     <string name="logout_confirm">Do you really want to logout?</string>
-    <string name="edit_pic_from">Edit picyure from</string>
+    <string name="edit_pic_from">Edit picture from</string>
     <string name="edit_name">Change your name?</string>
     <string name="edit_mail">Change your email address?</string>
     <string name="edit_pass">Change Your password?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="camera">Camera</string>
+    <string name="galery">Galery</string>
+    <string name="sucess">Success</string>
+    <string name="name_unchanged">Name is not valid or is unchanged</string>
+    <string name="mail_unchanged">Email is not valid or is unchanged</string>
 </resources>
