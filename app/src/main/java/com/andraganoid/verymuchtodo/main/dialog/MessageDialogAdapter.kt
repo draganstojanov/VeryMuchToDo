@@ -24,7 +24,6 @@ class MessageDialogAdapter internal constructor(private val msgList: ArrayList<S
 
     override fun getItemCount(): Int = msgList.size
 
-
     inner class ViewHolder internal constructor(inflater: LayoutInflater, parent: ViewGroup)
         : RecyclerView.ViewHolder(inflater.inflate(R.layout.fragment_message_list_dialog_item, parent, false)) {
 

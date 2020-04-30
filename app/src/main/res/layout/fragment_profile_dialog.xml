@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -20,33 +21,12 @@
         android:background="@drawable/bottom_sheet_settings"
         android:padding="16dp">
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/settingsDialogMessage"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginVertical="48dp"-->
-        <!--            android:textSize="20sp"-->
-        <!--            app:showText="@{viewModel.dialogMessage}"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"/>-->
-
-        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-        <!--            android:id="@+id/logoutConfirmContainer"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:paddingBottom="24dp"-->
-        <!--            android:visibility="@{viewModel.dialogType==DialogType.UPDATE?View.VISIBLE:View.GONE}"-->
-        <!--            app:layout_constraintTop_toTopOf="parent">-->
-
         <TextView
             android:id="@+id/profileDialogMsg"
+            style="@style/dialogTextView"
             showText="@{viewModel.dialogMessage}"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="16dp"
-            android:textColor="@color/backgorundColor"
-            android:textSize="20sp"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
         <Button
             android:id="@+id/profileYesBtn"
@@ -63,7 +43,6 @@
             android:id="@+id/profileNoBtn"
             style="@style/buttonSmall"
             showText="@{viewModel.dialogNoLabel}"
-            android:layout_margin="32dp"
             android:onClick="@{()-> viewModel.noBtn()}"
             android:text="@string/logout"
             android:visibility="@{viewModel.dialogType==DialogType.MESSAGE?View.GONE:View.VISIBLE}"
@@ -82,7 +61,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profileNoBtn" />
 
-        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

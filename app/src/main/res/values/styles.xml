@@ -73,26 +73,25 @@
         <item name="android:textSize">@dimen/smallButtonTextSize</item>
         <item name="android:textColor">@color/backgorundColor</item>
         <item name="android:textAllCaps">true</item>
+        <item name="android:layout_margin">32dp</item>
     </style>
 
+    <style name="dialogTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/dialogTextSize</item>
+        <item name="android:textColor">@color/backgorundColor</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:gravity">center</item>
+    </style>
 
-
-
-
-
-    <style name="AppBottomSheetDialogTheme"
-        parent="Theme.Design.Light.BottomSheetDialog">
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/BottomModalSheetStyle</item>
     </style>
 
-    <style name="BottomModalSheetStyle"
-        parent="Widget.Design.BottomSheet.Modal">
+    <style name="BottomModalSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bottom_sheet_dialog</item>
     </style>
-
-
-
-
 
 
 </resources>

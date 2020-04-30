@@ -141,6 +141,7 @@ class ProfileViewModel(private val preferences: Preferences) : ViewModel() {
     }
 
     private fun updateUserName(name: String) {
+        _editDialog.value = false
         _loaderState.value = true
         val profileUpdates = UserProfileChangeRequest.Builder()
                 .setDisplayName(name)
@@ -159,6 +160,7 @@ class ProfileViewModel(private val preferences: Preferences) : ViewModel() {
 
 
     private fun updateEmail(email: String) {
+        _editDialog.value = false
         _loaderState.value = true
         firebaseAuth?.currentUser?.updateEmail(email)
                 ?.addOnCompleteListener { task ->
@@ -185,6 +187,7 @@ class ProfileViewModel(private val preferences: Preferences) : ViewModel() {
     }
 
     private fun updatePassword(mail: String) {
+        _editDialog.value = false
         _loaderState.value = true
         firebaseAuth?.sendPasswordResetEmail(mail)
                 ?.addOnCompleteListener { task ->

@@ -13,15 +13,8 @@ import java.util.*
 
 class MessageDialogFragment : BottomSheetDialogFragment() {
 
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setStyle(STYLE_NORMAL, R.style.AppBottomSheetDialogTheme)
-//    }
-
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.fragment_message_list_dialog, container, false)
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         messageList.adapter = arguments?.getStringArrayList(MSG_DIALOG_LIST)?.let { MessageDialogAdapter(it) }
