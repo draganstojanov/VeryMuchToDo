@@ -27,6 +27,7 @@
 
         <activity
             android:name=".todo.Todo"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity android:name=".ktodo.TodoActivity" />
 

@@ -11,7 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.MimeTypeMap
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.andraganoid.verymuchtodo.R
@@ -30,9 +29,15 @@ class ProfileFragment : TodoBaseFragment() {
 
     private val viewModel: ProfileViewModel by sharedViewModel()
     private lateinit var binding: ProfileFragmentBinding
-    //  private lateinit var profileDialogFragment: ProfileDialogFragment
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        Log.d("CCRREATTE:", "onCreate")
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Log.d("CCRREATTE:", "onCreateView")
         setObservers()
         binding = ProfileFragmentBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
@@ -40,22 +45,21 @@ class ProfileFragment : TodoBaseFragment() {
         return binding.root
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        Log.d("CCRREATTE:", "onActivityCreated")
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // profileUserImageIv.load("https://ignette.wikia.nocookie.net/disney/images/d/d5/Donaldstar_1600.jpg/revision/latest/scale-to-width-down/516?cb=20100629001545") {
-//        profileUserImageIv.load(viewModel.user.photoUrlString) {
-//            placeholder(R.drawable.ic_profile_img_placeholder)
-//            error(R.drawable.ic_profile_img_placeholder)
-//            transformations(CircleCropTransformation())
-//        }
+        Log.d("CCRREATTE:", "onViewCreated")
     }
 
     override fun onPause() {
         super.onPause()
 
-        viewModel._editDialog.value = false
-        viewModel._getImage.value = 0
+        // viewModel._editDialog.value = false
+        //  viewModel._getImage.value = 0
 
 
     }
@@ -67,13 +71,19 @@ class ProfileFragment : TodoBaseFragment() {
     }
 
     private fun setObservers() {
+        viewModel._editDialog.value = false
+        viewModel._getImage.value = 0
         viewModel.editDialog.observe(viewLifecycleOwner, Observer {
             if (it) {
                 showDialog()
             }
         })
-        viewModel.loaderState.observe(viewLifecycleOwner, Observer { loaderState(it) })
+        viewModel.loaderState.observe(viewLifecycleOwner, Observer {
+            loaderState(it)
+            bottomNavBarState(!it)
+        })
         viewModel.getImage.observe(viewLifecycleOwner, Observer {
+            Log.d("CCRREATTE:", "Observer")
             when (it) {
                 IMAGE_FROM_CAMERA -> fromCamera()
                 IMAGE_FROM_GALERY -> fromGalery()
@@ -83,75 +93,73 @@ class ProfileFragment : TodoBaseFragment() {
 
 
     fun editButtonClicked(view: View) {
-
-        viewModel.dialogYesLabel = R.string.yes
-        viewModel.dialogNoLabel = R.string.no
-
+        viewModel.apply {
+            dialogYesLabel = R.string.yes
+            dialogNoLabel = R.string.no
+        }
+        Log.d("CCRREATTE:", view.id.toString())
+        Log.d("CCRREATTE:", viewModel.toString())
         when (view.id) {
             R.id.profileImgEdit -> {
-                viewModel.dialogMessage = R.string.edit_pic_from
-                viewModel.dialogType = DialogType.IMAGE_UPDATE
-                viewModel.dialogYesLabel = R.string.camera
-                viewModel.dialogNoLabel = R.string.galery
-                viewModel.dialogCancelLabel = R.string.cancel
+                viewModel.apply {
+                    dialogMessage = R.string.edit_pic_from
+                    dialogType = DialogType.IMAGE_UPDATE
+                    dialogYesLabel = R.string.camera
+                    dialogNoLabel = R.string.galery
+                    dialogCancelLabel = R.string.cancel
+                }
             }
             R.id.profileNameEdit -> {
-                viewModel.dialogMessage = R.string.edit_name
-                viewModel.dialogType = DialogType.NAME_UPDATE
+                viewModel.apply {
+                    dialogMessage = R.string.edit_name
+                    dialogType = DialogType.NAME_UPDATE
+                }
             }
             R.id.profileMailEdit -> {
-                viewModel.dialogMessage = R.string.edit_mail
-                viewModel.dialogType = DialogType.EMAIL_UPDATE
+                viewModel.apply {
+                    dialogMessage = R.string.edit_mail
+                    dialogType = DialogType.EMAIL_UPDATE
+                }
             }
             R.id.profilePassEdit -> {
-                viewModel.dialogMessage = R.string.edit_pass
-                viewModel.dialogType = DialogType.PASS_UPDATE
+                viewModel.apply {
+                    dialogMessage = R.string.edit_pass
+                    dialogType = DialogType.PASS_UPDATE
+                }
             }
         }
-        showDialog()
+       // showDialog()
+        viewModel._editDialog.value=true
     }
-
-
-//todo prebaci u settings
 
 
     fun fromCamera() {
 
         runWithPermissions(Manifest.permission.CAMERA) {
-            cameraView.isVisible=true
-            profileView.isVisible=false
+            cameraView.isVisible = true
+            profileView.isVisible = false
+            bottomNavBarState(false)
             camera.apply {
                 setLifecycleOwner(viewLifecycleOwner)
-
                 addCameraListener(object : CameraListener() {
                     override fun onPictureTaken(result: PictureResult) {
-                        cameraView.isVisible=false
-                        profileView.isVisible=true
-                        Toast.makeText(activity, "CAMERA", Toast.LENGTH_LONG).show()
-
-                        // Picture was taken!
-                        // If planning to show a Bitmap, we will take care of
-                        // EXIF rotation and background threading for you...
-                        //  result.toBitmap(maxWidth, maxHeight, callback)
-
-                        // If planning to save a file on a background thread,
-                        // just use toFile. Ensure you have permissions.
-                        //    result.toFile(file, callback)
-
-                        // Access the raw data if needed.
-                        val data = result.data
-
+                        closeCamera()
                         viewModel.uploadImage(result.data, ".jpg")
-
                     }
                 })
             }
         }
-
     }
 
     fun takePicture() {
         camera.takePicture()
+    }
+
+    fun closeCamera() {
+        cameraView.isVisible = false
+        profileView.isVisible = true
+        bottomNavBarState(true)
+        camera.close()
     }
 
     private fun fromGalery() {
@@ -169,39 +177,10 @@ class ProfileFragment : TodoBaseFragment() {
                 val imgUri: Uri = data?.data!!
                 val contentResolver: ContentResolver = todo.getContentResolver()
                 val mimeTypeMap = MimeTypeMap.getSingleton()
-
-                // Return file Extension
-
-                // Return file Extension
                 val extension = "." + mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(imgUri))
-
-                Log.d("IIMMAAGGEE-1", imgUri.toString())
-                Log.d("IIMMAAGGEE-2", extension)
-
-//                Log.d("IIMMAAGGEE-1", imgUri.toString())
-//                var imgPath: String = imgUri?.path.toString()
-//                Log.d("IIMMAAGGEE-2", imgPath.toString())
-//                var file = Uri.fromFile(File(imgPath))
-//                Log.d("IIMMAAGGEE-3", file.toString())
-                //   val  imageFile =  File(getRealPathFromURI(imgUri));
-                //  Log.d("IIMMAAGGEE-4", imageFile.toString())
-
                 viewModel.uploadImage(imgUri, extension)
             }
         }
     }
 
-//    private fun getRealPathFromURI(contentURI: Uri): String? {
-//        val cursor: Cursor? = main.getContentResolver().query(contentURI, null, null, null, null)
-//        return if (cursor == null) { // Source is Dropbox or other similar local file path
-//            contentURI.path
-//        } else {
-//            cursor.moveToFirst()
-//            val idx: Int = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
-//            cursor.getString(idx)
-//        }
-//    }
-
-
-//todo prebaci u settings
 }

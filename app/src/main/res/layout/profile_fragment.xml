@@ -30,7 +30,7 @@
             <com.otaliastudios.cameraview.CameraView
                 android:id="@+id/camera"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:keepScreenOn="true"
                 app:cameraAudio="off"
                 app:cameraFacing="back"
@@ -49,6 +49,16 @@
                 android:paddingHorizontal="16dp"
                 android:onClick="@{()-> fragment.takePicture()}"
                 android:text="@string/take_picture"
+                app:layout_constraintBottom_toTopOf="@id/cancelCamera"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/cancelCamera"
+                style="@style/buttonSmall"
+                android:paddingHorizontal="16dp"
+                android:onClick="@{()-> fragment.closeCamera()}"
+                android:text="@string/cancel"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />

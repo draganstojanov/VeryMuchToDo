@@ -7,26 +7,26 @@
     <fragment
         android:id="@+id/listsFragment"
         android:name="com.andraganoid.verymuchtodo.ktodo.lists.ListsFragment"
-        android:label="lists_fragment"
+        android:label="ListsFragment"
         tools:layout="@layout/lists_fragment" />
     <fragment
         android:id="@+id/messagesFragment"
         android:name="com.andraganoid.verymuchtodo.ktodo.message.MessagesFragment"
-        android:label="messages_fragment"
+        android:label="MessagesFragment"
         tools:layout="@layout/messages_fragment" />
     <fragment
         android:id="@+id/usersFragment"
         android:name="com.andraganoid.verymuchtodo.ktodo.users.UsersFragment"
-        android:label="users_fragment"
+        android:label="UsersFragment"
         tools:layout="@layout/users_fragment" />
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.andraganoid.verymuchtodo.ktodo.map.MapFragment"
-        android:label="map_fragment"
+        android:label="MapFragment"
         tools:layout="@layout/map_fragment" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.andraganoid.verymuchtodo.ktodo.profile.ProfileFragment"
-        android:label="profile_fragment"
+        android:label="ProfileFragment"
         tools:layout="@layout/profile_fragment" />
 </navigation>

@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.andraganoid.verymuchtodo.R
+import com.andraganoid.verymuchtodo.ktodo.TodoBaseFragment
 
-class UsersFragment : Fragment() {
+class UsersFragment : TodoBaseFragment() {
 
     companion object {
         fun newInstance() = UsersFragment()
