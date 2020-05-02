@@ -16,23 +16,25 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/todoTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="NASLOV"
-            android:textColor="@color/primMid"
+            android:textColor="@color/primDark"
             android:textSize="20sp"
-            app:layout_constraintEnd_toStartOf="@+id/todoMenu"
+            app:layout_constraintEnd_toStartOf="@+id/todoIcon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/todoMenu"
+            android:id="@+id/todoIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="todoMenuClicked"
+            android:tint="@color/primDark"
             android:src="@drawable/ic_menu"
-            android:tint="@color/primMid"
+            android:tag="menu"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

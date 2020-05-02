@@ -21,6 +21,7 @@ import com.andraganoid.verymuchtodo.util.IMAGE_FROM_GALERY
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.otaliastudios.cameraview.CameraListener
 import com.otaliastudios.cameraview.PictureResult
+import kotlinx.android.synthetic.main.activity_todo_k.*
 import kotlinx.android.synthetic.main.profile_fragment.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
@@ -34,6 +35,12 @@ class ProfileFragment : TodoBaseFragment() {
         super.onCreate(savedInstanceState)
 
         Log.d("CCRREATTE:", "onCreate")
+
+
+        todo.todoIcon.setImageResource(R.drawable.ic_close)
+        todo.todoIcon.tag="close"
+        bottomNavBarVisibility(false)
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -64,6 +71,13 @@ class ProfileFragment : TodoBaseFragment() {
 
     }
 
+    override fun onDestroy() {
+        todo.todoIcon.setImageResource(R.drawable.ic_menu)
+        todo.todoIcon.tag="menu"
+        bottomNavBarVisibility(true)
+        super.onDestroy()
+    }
+
     private fun showDialog() {
         hideKeyboard()
         val profileDialogFragment = ProfileDialogFragment()
@@ -78,9 +92,9 @@ class ProfileFragment : TodoBaseFragment() {
                 showDialog()
             }
         })
-        viewModel.loaderState.observe(viewLifecycleOwner, Observer {
-            loaderState(it)
-            bottomNavBarState(!it)
+        viewModel.loaderVisibility.observe(viewLifecycleOwner, Observer {
+            loaderVisibility(it)
+            bottomNavBarVisibility(!it)
         })
         viewModel.getImage.observe(viewLifecycleOwner, Observer {
             Log.d("CCRREATTE:", "Observer")
@@ -138,7 +152,7 @@ class ProfileFragment : TodoBaseFragment() {
         runWithPermissions(Manifest.permission.CAMERA) {
             cameraView.isVisible = true
             profileView.isVisible = false
-            bottomNavBarState(false)
+            bottomNavBarVisibility(false)
             camera.apply {
                 setLifecycleOwner(viewLifecycleOwner)
                 addCameraListener(object : CameraListener() {
@@ -158,7 +172,7 @@ class ProfileFragment : TodoBaseFragment() {
     fun closeCamera() {
         cameraView.isVisible = false
         profileView.isVisible = true
-        bottomNavBarState(true)
+        bottomNavBarVisibility(true)
         camera.close()
     }
 

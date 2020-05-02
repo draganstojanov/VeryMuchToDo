@@ -33,7 +33,7 @@ override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, saved
 
 private fun setObservers() {
     viewModel.back.observe(viewLifecycleOwner, Observer { back -> back.let { main.onBackPressed() } })
-    viewModel.loaderState.observe(viewLifecycleOwner, Observer { loaderState(it) })
+    viewModel.loaderVisibility.observe(viewLifecycleOwner, Observer { loaderVisibility(it) })
     viewModel.message.observe(viewLifecycleOwner, Observer { message ->
         if (message != null) {
             showMessage(message)

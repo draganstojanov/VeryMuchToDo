@@ -17,8 +17,8 @@ class MainActivity : AppCompatActivity() {
         window.statusBarColor = ContextCompat.getColor(this, R.color.backgorundColor)
     }
 
-    fun loaderState(loaderState: Boolean) {
-        loader.isVisible = loaderState
+    fun loaderVisibility(visibility: Boolean) {
+        loader.isVisible = visibility
     }
 
     fun hideKeyboard() {

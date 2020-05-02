@@ -33,7 +33,7 @@ class LoginFragment : MainBaseFragment() {
     }
 
     private fun setObservers() {
-        viewModel.loaderState.observe(viewLifecycleOwner, Observer { loaderState(it) })
+        viewModel.loaderVisibility.observe(viewLifecycleOwner, Observer { loaderVisibility(it) })
         viewModel.loginState.observe(viewLifecycleOwner, Observer { loggedIn ->
             if (loggedIn) {
                 val todoIntent = Intent(main, TodoActivity::class.java)

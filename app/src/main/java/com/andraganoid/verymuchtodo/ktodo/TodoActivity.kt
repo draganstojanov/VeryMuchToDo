@@ -2,7 +2,6 @@ package com.andraganoid.verymuchtodo.ktodo
 
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
@@ -21,26 +20,12 @@ class TodoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_todo_k)
-        setNavController()
-    }
-
-    private fun setNavController() {
         todoNavController = findNavController(R.id.todoFragmentLayout)
         bottomNavBar.setupWithNavController(todoNavController)
-
-        todoNavController.addOnDestinationChangedListener(NavController.OnDestinationChangedListener {_, destination, _ ->
-            Log.d("DDESSTT", destination.label.toString())
-            Log.d("DDESSTT-NAME", todoNavController.currentDestination?.label.toString())
-
-            if(destination.label!!.equals("")){
-
-            }
-
-        })
     }
 
-    fun loaderState(loaderState: Boolean) {
-        todoLoader.isVisible = loaderState
+    fun loaderVisibility(visibility: Boolean) {
+        todoLoader.isVisible = visibility
     }
 
     fun hideKeyboard() {
@@ -49,11 +34,15 @@ class TodoActivity : AppCompatActivity() {
     }
 
     fun todoMenuClicked(view: View) {
-        val settingsDialogFragment = SettingsDialogFragment();
-        settingsDialogFragment.show(supportFragmentManager, null)
+        if (view.tag == "menu") {
+            val settingsDialogFragment = SettingsDialogFragment();
+            settingsDialogFragment.show(supportFragmentManager, null)
+        } else {
+            onBackPressed()
+        }
     }
 
-    fun bottomNavBarState(state: Boolean) {
+    fun bottomNavBarVisibility(state: Boolean) {
         bottomNavBar.isVisible = state
     }
 
@@ -65,3 +54,5 @@ class TodoActivity : AppCompatActivity() {
     }
 
 }
+
+

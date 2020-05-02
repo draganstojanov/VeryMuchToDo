@@ -15,9 +15,9 @@ class LoginViewModel(private val preferences: Preferences) : ViewModel() {
     var firebaseAuth: FirebaseAuth? = null
     var user: User? = null//todo check da li nam ytreba ispis emaila
 
-    private val _loaderState = MutableLiveData<Boolean>()
-    val loaderState: LiveData<Boolean>
-        get() = _loaderState
+    private val _loaderVisibility = MutableLiveData<Boolean>()
+    val loaderVisibility: LiveData<Boolean>
+        get() = _loaderVisibility
 
     private val _loginState = MutableLiveData<Boolean>()
     val loginState: LiveData<Boolean>
@@ -36,7 +36,7 @@ class LoginViewModel(private val preferences: Preferences) : ViewModel() {
         } else {
             _loginState.value = firebaseAuth!!.currentUser!!.isEmailVerified
         }
-        _loaderState.value = _loginState.value
+        _loaderVisibility.value = _loginState.value
     }
 
     fun showMessage(message: Any?) {
@@ -44,7 +44,7 @@ class LoginViewModel(private val preferences: Preferences) : ViewModel() {
     }
 
     fun login(mail: String, pass: String) {
-        _loaderState.value = true
+        _loaderVisibility.value = true
         viewModelScope.launch {
             firebaseAuth?.signInWithEmailAndPassword(mail, pass)!!
                     .addOnCompleteListener() { task ->
@@ -58,7 +58,7 @@ class LoginViewModel(private val preferences: Preferences) : ViewModel() {
     }
 
     fun resetPassword(mail: String) {
-        _loaderState.value = true
+        _loaderVisibility.value = true
         firebaseAuth?.sendPasswordResetEmail(mail)
                 ?.addOnCompleteListener { task ->
                     if (task.isSuccessful) {

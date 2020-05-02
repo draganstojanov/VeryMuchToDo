@@ -23,21 +23,14 @@ class ProfileViewModel(private val preferences: Preferences) : ViewModel() {
     val userMail = ObservableField<String>()
     val profileImage = ObservableField<String>()
 
-    private val _loaderState = MutableLiveData<Boolean>(false)
-    val loaderState: LiveData<Boolean>
-        get() = _loaderState
+    private val _loaderVisibility = MutableLiveData<Boolean>(false)
+    val loaderVisibility: LiveData<Boolean>
+        get() = _loaderVisibility
 
     internal val _getImage = MutableLiveData<Int>()
     val getImage: LiveData<Int>
         get() = _getImage
 
-//    private val _message = MutableLiveData<Any?>()
-//    val message: LiveData<Any?>
-//        get() = _message
-
-//    private val _back = MutableLiveData<Boolean>()
-//    val back: LiveData<Boolean>
-//        get() = _back
 
     internal val _editDialog = MutableLiveData<Boolean>()
     val editDialog: LiveData<Boolean>
@@ -58,7 +51,7 @@ class ProfileViewModel(private val preferences: Preferences) : ViewModel() {
     }
 
     internal fun setMessage(msg: Any) {
-        _loaderState.value = false
+        _loaderVisibility.value = false
         dialogMessage = msg
         dialogType = DialogType.MESSAGE
         dialogCancelLabel = R.string.ok
@@ -72,7 +65,7 @@ class ProfileViewModel(private val preferences: Preferences) : ViewModel() {
 
     internal fun updateUserName() {
         _editDialog.value = false
-        _loaderState.value = true
+        _loaderVisibility.value = true
         val profileUpdates = UserProfileChangeRequest.Builder()
                 .setDisplayName(userName.get())
                 .build()
@@ -91,7 +84,7 @@ class ProfileViewModel(private val preferences: Preferences) : ViewModel() {
 
     internal fun updateEmail() {
         _editDialog.value = false
-        _loaderState.value = true
+        _loaderVisibility.value = true
         firebaseAuth?.currentUser?.updateEmail(userMail.get()!!)
                 ?.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -118,7 +111,7 @@ class ProfileViewModel(private val preferences: Preferences) : ViewModel() {
 
     internal fun updatePassword() {
         _editDialog.value = false
-        _loaderState.value = true
+        _loaderVisibility.value = true
         firebaseAuth?.sendPasswordResetEmail(user.email!!)
                 ?.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -132,7 +125,7 @@ class ProfileViewModel(private val preferences: Preferences) : ViewModel() {
 
     internal fun uploadImage(file: Any?, extension: String) {
         _editDialog.value = false
-        _loaderState.value = true
+        _loaderVisibility.value = true
         val storageReference = FirebaseStorage.getInstance().reference
         // val storageRef = storage.reference
         val name = "profile_images/" + user.uid + extension
@@ -190,7 +183,7 @@ class ProfileViewModel(private val preferences: Preferences) : ViewModel() {
 
                 user.photoUrlString = uri.toString()
                 profileImage.set(user.photoUrlString)
-                _loaderState.value = false
+                _loaderVisibility.value = false
                 updateUser()
                 setMessage(R.string.sucess)
             } else {

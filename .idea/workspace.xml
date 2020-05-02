@@ -6,7 +6,8 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="dddd" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
     <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
   </component>
@@ -92,16 +93,17 @@
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/TodoActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/TodoActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/TodoBaseFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/TodoBaseFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/lists/ListsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/lists/ListsFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/map/MapFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/map/MapFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/message/MessagesFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/message/MessagesFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/profile/ProfileFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/profile/ProfileFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/users/UsersFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/users/UsersFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/profile_fragment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/profile_fragment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/todo_nav.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/todo_nav.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/profile/ProfileViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/profile/ProfileViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/MainBaseFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/MainBaseFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/login/LoginFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/login/LoginFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/login/LoginViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/login/LoginViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/register/RegisterFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/register/RegisterFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/register/RegisterViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/register/RegisterViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_todo_k.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_todo_k.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -781,7 +783,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588381655081</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="navigation almost fixed">
+      <created>1588427163911</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1588427163912</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TodoView">
@@ -808,7 +817,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="messages ok" />
     <MESSAGE value="user ok" />
     <MESSAGE value="location &amp; map" />
     <MESSAGE value="location &amp; map first phase ok" />
@@ -833,7 +841,8 @@
     <MESSAGE value="profile settings" />
     <MESSAGE value="bottom dialog fix" />
     <MESSAGE value="camera" />
-    <option name="LAST_COMMIT_MESSAGE" value="camera" />
+    <MESSAGE value="navigation almost fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="navigation almost fixed" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

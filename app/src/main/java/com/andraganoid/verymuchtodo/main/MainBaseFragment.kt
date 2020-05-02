@@ -15,8 +15,8 @@ open class MainBaseFragment : Fragment() {
         main = activity as MainActivity
     }
 
-    fun loaderState(loaderState: Boolean) {
-        main.loaderState(loaderState)
+    fun loaderVisibility(visibility: Boolean) {
+        main.loaderVisibility(visibility)
     }
 
     fun hideKeyboard() {
@@ -31,7 +31,7 @@ open class MainBaseFragment : Fragment() {
             is ArrayList<*> -> msg.addAll(message as ArrayList<String>)
         }
 
-        loaderState(false)
+        loaderVisibility(false)
         val bundle = Bundle()
         bundle.putStringArrayList(MSG_DIALOG_LIST, msg)
         val msgDialogFragment = MessageDialogFragment();

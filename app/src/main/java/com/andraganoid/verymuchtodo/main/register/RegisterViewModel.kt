@@ -11,9 +11,9 @@ class RegisterViewModel() : ViewModel() {
 
     var firebaseAuth: FirebaseAuth? = null
 
-    private val _loaderState = MutableLiveData<Boolean>(false)
-    val loaderState: LiveData<Boolean>
-        get() = _loaderState
+    private val _loaderVisibility = MutableLiveData<Boolean>(false)
+    val loaderVisibility: LiveData<Boolean>
+        get() = _loaderVisibility
 
     private val _message = MutableLiveData<Any?>()
     val message: LiveData<Any?>
@@ -37,7 +37,7 @@ class RegisterViewModel() : ViewModel() {
 
 
     fun register(mail: String, pass: String, name: String) {
-        _loaderState.value = true
+        _loaderVisibility.value = true
         firebaseAuth?.createUserWithEmailAndPassword(mail, pass)!!
                 .addOnCompleteListener() { task ->
                     if (task.isSuccessful) {
