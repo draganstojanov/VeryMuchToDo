@@ -11,6 +11,10 @@
         <import type="com.andraganoid.verymuchtodo.ktodo.profile.DialogType" />
 
         <variable
+            name="fragment"
+            type="com.andraganoid.verymuchtodo.ktodo.profile.ProfileDialogFragment" />
+
+        <variable
             name="viewModel"
             type="com.andraganoid.verymuchtodo.ktodo.profile.ProfileViewModel" />
     </data>
@@ -33,7 +37,7 @@
             style="@style/buttonSmall"
             showText="@{viewModel.dialogYesLabel}"
             android:layout_margin="32dp"
-            android:onClick="@{()-> viewModel.yesBtn()}"
+            android:onClick="@{()-> fragment.yesBtn()}"
             android:visibility="@{viewModel.dialogType==DialogType.MESSAGE?View.GONE:View.VISIBLE}"
             app:layout_constraintEnd_toStartOf="@+id/profileNoBtn"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +47,7 @@
             android:id="@+id/profileNoBtn"
             style="@style/buttonSmall"
             showText="@{viewModel.dialogNoLabel}"
-            android:onClick="@{()-> viewModel.noBtn()}"
+            android:onClick="@{()-> fragment.noBtn()}"
             android:text="@string/logout"
             android:visibility="@{viewModel.dialogType==DialogType.MESSAGE?View.GONE:View.VISIBLE}"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,7 +59,7 @@
             style="@style/buttonSmall"
             showText="@{viewModel.dialogCancelLabel}"
             android:layout_margin="32dp"
-            android:onClick="@{()-> viewModel.cancelBtn()}"
+            android:onClick="@{()-> fragment.cancelBtn()}"
             android:visibility="@{viewModel.dialogType==DialogType.MESSAGE||viewModel.dialogType==DialogType.IMAGE_UPDATE?View.VISIBLE:View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

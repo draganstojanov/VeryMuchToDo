@@ -1,7 +1,7 @@
 package com.andraganoid.verymuchtodo.ktodo.profile
 
 import android.net.Uri
-import android.view.View
+import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,21 +9,27 @@ import androidx.lifecycle.ViewModel
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.kmodel.User
 import com.andraganoid.verymuchtodo.util.Preferences
-import com.andraganoid.verymuchtodo.util.isValidDisplayName
-import com.andraganoid.verymuchtodo.util.isValidEmail
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.UploadTask
 
 class ProfileViewModel(private val preferences: Preferences) : ViewModel() {
 
     private var firebaseAuth: FirebaseAuth? = null
-    private lateinit var user: User
+    internal lateinit var user: User
     val userName = ObservableField<String>()
     val userMail = ObservableField<String>()
+    val profileImage = ObservableField<String>()
 
     private val _loaderState = MutableLiveData<Boolean>(false)
     val loaderState: LiveData<Boolean>
         get() = _loaderState
+
+    internal val _getImage = MutableLiveData<Int>()
+    val getImage: LiveData<Int>
+        get() = _getImage
 
 //    private val _message = MutableLiveData<Any?>()
 //    val message: LiveData<Any?>
@@ -33,7 +39,7 @@ class ProfileViewModel(private val preferences: Preferences) : ViewModel() {
 //    val back: LiveData<Boolean>
 //        get() = _back
 
-    private val _editDialog = MutableLiveData<Boolean>()
+    internal val _editDialog = MutableLiveData<Boolean>()
     val editDialog: LiveData<Boolean>
         get() = _editDialog
 
@@ -48,86 +54,10 @@ class ProfileViewModel(private val preferences: Preferences) : ViewModel() {
         user = preferences.getUser()
         userName.set(user.name)
         userMail.set(user.email)
+        profileImage.set(user.photoUrlString)
     }
 
-//    fun showMessage(message: Any?) {
-//        _message.value = message
-//    }
-//
-//    fun back() {
-//        _back.value = true
-//    }
-
-    fun editButtonClicked(view: View) {
-        when (view.id) {
-            R.id.profileImgEdit -> {
-                dialogMessage = R.string.edit_pic_from
-                dialogType = DialogType.IMAGE_UPDATE
-                dialogYesLabel = R.string.camera
-                dialogNoLabel = R.string.galery
-                dialogCancelLabel = R.string.cancel
-            }
-            R.id.profileNameEdit -> {
-                dialogMessage = R.string.edit_name
-                dialogType = DialogType.NAME_UPDATE
-                dialogYesLabel = R.string.yes
-                dialogNoLabel = R.string.no
-            }
-            R.id.profileMailEdit -> {
-                dialogMessage = R.string.edit_mail
-                dialogType = DialogType.EMAIL_UPDATE
-                dialogYesLabel = R.string.yes
-                dialogNoLabel = R.string.no
-            }
-            R.id.profilePassEdit -> {
-                dialogMessage = R.string.edit_pass
-                dialogType = DialogType.PASS_UPDATE
-                dialogYesLabel = R.string.yes
-                dialogNoLabel = R.string.no
-            }
-        }
-        _editDialog.value = true
-    }
-
-    fun yesBtn() {
-        when (dialogType) {
-            DialogType.NAME_UPDATE -> {
-                if (userName.get()!!.isValidDisplayName() && !userName.get().equals(user.name)) {
-                    updateUserName(userName.get()!!)
-                } else {
-                    setMessage(R.string.name_unchanged)
-                }
-            }
-            DialogType.EMAIL_UPDATE -> {
-                if (userMail.get()!!.isValidEmail() && !userMail.get().equals(user.email)) {
-                    updateEmail(userMail.get()!!)
-                } else {
-                    setMessage(R.string.mail_unchanged)
-                }
-            }
-            DialogType.PASS_UPDATE -> {
-                updatePassword(user.email!!)
-            }
-            DialogType.IMAGE_UPDATE -> {
-            }
-
-        }
-
-
-    }
-
-    fun noBtn() {
-        if (dialogType != DialogType.IMAGE_UPDATE) {
-            _editDialog.value = false
-        } else {
-        }
-    }
-
-    fun cancelBtn() {
-        _editDialog.value = false
-    }
-
-    private fun setMessage(msg: Any) {
+    internal fun setMessage(msg: Any) {
         _loaderState.value = false
         dialogMessage = msg
         dialogType = DialogType.MESSAGE
@@ -140,17 +70,17 @@ class ProfileViewModel(private val preferences: Preferences) : ViewModel() {
         //todo update user
     }
 
-    private fun updateUserName(name: String) {
+    internal fun updateUserName() {
         _editDialog.value = false
         _loaderState.value = true
         val profileUpdates = UserProfileChangeRequest.Builder()
-                .setDisplayName(name)
+                .setDisplayName(userName.get())
                 .build()
         firebaseAuth?.currentUser?.updateProfile(profileUpdates)
                 ?.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         setMessage(R.string.sucess)
-                        user.name = name
+                        user.name = userName.get()
                         updateUser()
                     } else {
                         setMessage("ERROR: " + task.exception.toString())
@@ -159,10 +89,10 @@ class ProfileViewModel(private val preferences: Preferences) : ViewModel() {
     }
 
 
-    private fun updateEmail(email: String) {
+    internal fun updateEmail() {
         _editDialog.value = false
         _loaderState.value = true
-        firebaseAuth?.currentUser?.updateEmail(email)
+        firebaseAuth?.currentUser?.updateEmail(userMail.get()!!)
                 ?.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         setMessage(R.string.sucess)
@@ -186,10 +116,10 @@ class ProfileViewModel(private val preferences: Preferences) : ViewModel() {
                 }
     }
 
-    private fun updatePassword(mail: String) {
+    internal fun updatePassword() {
         _editDialog.value = false
         _loaderState.value = true
-        firebaseAuth?.sendPasswordResetEmail(mail)
+        firebaseAuth?.sendPasswordResetEmail(user.email!!)
                 ?.addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         setMessage(R.string.check_mail_for_pass_reset)
@@ -199,12 +129,74 @@ class ProfileViewModel(private val preferences: Preferences) : ViewModel() {
                 }
     }
 
-    private fun updateImage(name: String) {
+
+    internal fun uploadImage(file: Any?, extension: String) {
+        _editDialog.value = false
+        _loaderState.value = true
+        val storageReference = FirebaseStorage.getInstance().reference
+        // val storageRef = storage.reference
+        val name = "profile_images/" + user.uid + extension
+        val imageReference = storageReference.child(name)
+        var uploadTask: UploadTask? = null
+        when (file) {
+            is Uri -> uploadTask = imageReference.putFile(file)
+            is ByteArray -> uploadTask = imageReference.putBytes(file)
+        }
+
+
+        uploadTask?.addOnSuccessListener {
+
+            getUri(uploadTask, imageReference)
+        }?.addOnFailureListener {
+            setMessage("ERROR UPLOADING IMAGE")
+        }
+
+
+    }
+
+    private fun getUri(uploadTask: UploadTask, imageReference: StorageReference) {
+
+        uploadTask.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            imageReference.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+
+                Log.d("IIMMAAGGEE-URI", task.result.toString())
+
+
+                updateImage(task.result!!)
+
+
+            } else {
+                setMessage("ERROR UPLOADING IMAGE")
+            }
+        }
+
+    }
+
+
+    private fun updateImage(uri: Uri) {
         val profileUpdates = UserProfileChangeRequest.Builder()
-                // .setDisplayName(name)
-                .setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))
+                .setPhotoUri(uri)
+                // .setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))
                 .build()
-        firebaseAuth?.currentUser?.updateProfile(profileUpdates)
+        firebaseAuth?.currentUser?.updateProfile(profileUpdates)?.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+
+                user.photoUrlString = uri.toString()
+                profileImage.set(user.photoUrlString)
+                _loaderState.value = false
+                updateUser()
+                setMessage(R.string.sucess)
+            } else {
+                setMessage("ERROR: " + task.exception.toString())//todo loginerror}
+            }
+        }
     }
 
 

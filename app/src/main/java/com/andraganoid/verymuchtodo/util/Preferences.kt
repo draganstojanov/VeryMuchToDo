@@ -2,6 +2,7 @@ package com.andraganoid.verymuchtodo.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import com.andraganoid.verymuchtodo.kmodel.User
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -25,6 +26,10 @@ class Preferences(private val context: Context) {
 
     fun getUser(): User {
         val prefSettings = sharedPreferences.getString(PREF_USER, null)
+
+        Log.d("PPRREEFF",prefSettings.toString())
+
+
         return if(prefSettings!=null) Gson().fromJson(prefSettings, object : TypeToken<User>() {}.type) else User()
     }
 

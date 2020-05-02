@@ -8,7 +8,6 @@ import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.util.MSG_DIALOG_LIST
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_message_list_dialog.*
-import java.util.*
 
 
 class MessageDialogFragment : BottomSheetDialogFragment() {
@@ -18,14 +17,13 @@ class MessageDialogFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         messageList.adapter = arguments?.getStringArrayList(MSG_DIALOG_LIST)?.let { MessageDialogAdapter(it) }
-
         okBtn.setOnClickListener { dismiss() }
 
-        Timer().schedule(object : TimerTask() {
-            override fun run() {//todo null
-                dismiss()
-            }
-        }, 5000)
+//        Timer().schedule(object : TimerTask() {
+//            override fun run() {//todo null
+//                dismiss()
+//            }
+//        }, 5000)
     }
 
 

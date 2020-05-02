@@ -38,8 +38,12 @@ class SettingsDialogFragment : BottomSheetDialogFragment() {
 
     fun myProfile() {
         dismiss()
-       (activity as TodoActivity).findNavController(R.id.todoFragmentLayout).navigate(R.id.profileFragment)
-    }
+        val navController=(activity as TodoActivity).findNavController(R.id.todoFragmentLayout)
+       navController.popBackStack(R.id.profileFragment,true)
+        navController.navigate(R.id.profileFragment)
+
+      // (activity as TodoActivity).findNavController(R.id.todoFragmentLayout).setGraph(R.navigation.settings_nav)
+        }
 
     fun logout() {
         isLogoutSelected.set(true)
@@ -51,7 +55,11 @@ class SettingsDialogFragment : BottomSheetDialogFragment() {
 
     fun applyLogout() {
         FirebaseAuth.getInstance().signOut()
-        (activity as TodoActivity).startActivity(Intent(context, MainActivity::class.java))
+        val mainIntent = Intent(activity, MainActivity::class.java)
+        mainIntent.flags=Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(mainIntent)
+
+       // (activity as TodoActivity).startActivity(Intent(context, MainActivity::class.java))
     }
 
 

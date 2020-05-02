@@ -159,7 +159,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Dev/AndroidStudio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_edit_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Dev/AndroidStudio/plugins/android/lib/android.jar!/images/material_design_icons/social/ic_sentiment_satisfied_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -169,7 +169,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_edit" />
+                            <entry key="outputName" value="ic_sentiment_satisfied_black_24dp" />
                             <entry key="sourceFile" value="C:\Users\Stojanov 4" />
                           </map>
                         </option>

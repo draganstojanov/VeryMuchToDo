@@ -72,12 +72,14 @@ class LoginViewModel(private val preferences: Preferences) : ViewModel() {
 
     fun saveUser() {
 
+
+
         firebaseAuth?.currentUser?.apply {
             preferences.saveUser(User(
                     uid = uid,
                     name = displayName,
                     email = email,
-                    photoUrl = photoUrl))
+                    photoUrlString = photoUrl.toString()))
         }
         _loginState.value = true
 

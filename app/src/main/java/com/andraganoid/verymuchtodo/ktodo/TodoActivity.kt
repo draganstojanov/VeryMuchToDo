@@ -19,6 +19,7 @@ class TodoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_todo_k)
 
         val navController = findNavController(R.id.todoFragmentLayout)
+
         bottomNavBar.setupWithNavController(navController)
     }
 

@@ -6,7 +6,7 @@ import android.widget.TextView;
 import androidx.annotation.ColorInt;
 import androidx.databinding.BindingAdapter;
 
-public class BindingAdaptersK {
+public class BindingAdaptersOLD {
 
     @BindingAdapter({"drawableTint"})
     public static void setDrawableTint(TextView view, @ColorInt int color) {

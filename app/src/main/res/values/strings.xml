@@ -50,7 +50,7 @@
     <string name="check_mail_for_verification">Check your email to verify account</string>
     <string name="check_mail_for_pass_reset">Check your email to reset pasword</string>
     <string name="ok">OK</string>
-    <string name="my_profile">My profile</string>
+    <string name="edit_profile">Edit profile</string>
     <string name="logout_confirm">Do you really want to logout?</string>
     <string name="edit_pic_from">Edit picture from</string>
     <string name="edit_name">Change your name?</string>
@@ -63,4 +63,5 @@
     <string name="sucess">Success</string>
     <string name="name_unchanged">Name is not valid or is unchanged</string>
     <string name="mail_unchanged">Email is not valid or is unchanged</string>
+    <string name="take_picture">Take a picture</string>
 </resources>
