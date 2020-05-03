@@ -94,7 +94,7 @@ class ProfileFragment : TodoBaseFragment() {
         })
         viewModel.loaderVisibility.observe(viewLifecycleOwner, Observer {
             loaderVisibility(it)
-            bottomNavBarVisibility(!it)
+           // bottomNavBarVisibility(!it)
         })
         viewModel.getImage.observe(viewLifecycleOwner, Observer {
             Log.d("CCRREATTE:", "Observer")
@@ -152,7 +152,7 @@ class ProfileFragment : TodoBaseFragment() {
         runWithPermissions(Manifest.permission.CAMERA) {
             cameraView.isVisible = true
             profileView.isVisible = false
-            bottomNavBarVisibility(false)
+          //  bottomNavBarVisibility(false)
             camera.apply {
                 setLifecycleOwner(viewLifecycleOwner)
                 addCameraListener(object : CameraListener() {
@@ -172,7 +172,7 @@ class ProfileFragment : TodoBaseFragment() {
     fun closeCamera() {
         cameraView.isVisible = false
         profileView.isVisible = true
-        bottomNavBarVisibility(true)
+      //  bottomNavBarVisibility(true)
         camera.close()
     }
 

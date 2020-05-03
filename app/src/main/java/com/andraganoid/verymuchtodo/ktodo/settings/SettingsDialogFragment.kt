@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ObservableBoolean
-import androidx.navigation.findNavController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.FragmentSettingsDialogBinding
 import com.andraganoid.verymuchtodo.ktodo.TodoActivity
@@ -38,12 +37,12 @@ class SettingsDialogFragment : BottomSheetDialogFragment() {
 
     fun myProfile() {
         dismiss()
-        val navController=(activity as TodoActivity).findNavController(R.id.todoFragmentLayout)
-       navController.popBackStack(R.id.profileFragment,true)
+        val navController = (activity as TodoActivity).todoNavController
+        navController.popBackStack(R.id.profileFragment, true)
         navController.navigate(R.id.profileFragment)
 
-      // (activity as TodoActivity).findNavController(R.id.todoFragmentLayout).setGraph(R.navigation.settings_nav)
-        }
+        // (activity as TodoActivity).findNavController(R.id.todoFragmentLayout).setGraph(R.navigation.settings_nav)
+    }
 
     fun logout() {
         isLogoutSelected.set(true)
@@ -56,10 +55,10 @@ class SettingsDialogFragment : BottomSheetDialogFragment() {
     fun applyLogout() {
         FirebaseAuth.getInstance().signOut()
         val mainIntent = Intent(activity, MainActivity::class.java)
-        mainIntent.flags=Intent.FLAG_ACTIVITY_CLEAR_TASK
+        mainIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(mainIntent)
 
-       // (activity as TodoActivity).startActivity(Intent(context, MainActivity::class.java))
+        // (activity as TodoActivity).startActivity(Intent(context, MainActivity::class.java))
     }
 
 

@@ -43,16 +43,16 @@
 
 
     <fragment
-        android:id="@+id/todoFragmentLayout"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topBar"
-        app:navGraph="@navigation/todo_nav" />
+    android:id="@+id/todoFragmentLayout"
+    android:name="androidx.navigation.fragment.NavHostFragment"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:defaultNavHost="true"
+    app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/topBar"
+    app:navGraph="@navigation/todo_nav" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavBar"

@@ -43,15 +43,16 @@ class RegisterViewModel() : ViewModel() {
                     if (task.isSuccessful) {
                         updateUser(name)
                         verifyEmail()
+                        sendMailToAdmin()
                     } else {
                         _message.value = "ERROR: " + task.exception.toString()
                     }
                 }
     }
 
+
     private fun updateUser(name: String) {
         val profileUpdates = UserProfileChangeRequest.Builder().setDisplayName(name).build()
-        // .setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))
         firebaseAuth?.currentUser?.updateProfile(profileUpdates)
     }
 
@@ -65,6 +66,10 @@ class RegisterViewModel() : ViewModel() {
                         _message.value = "ERROR: " + task.exception.toString()//todo loginerror}
                     }
                 }
+    }
+
+    private fun sendMailToAdmin() {
+      //  TODO("Not yet implemented")
     }
 
 
