@@ -13,14 +13,14 @@ import org.koin.dsl.module
 object Modules {
 
     private val viewModelModule = module {
-        viewModel { LoginViewModel(get(),get()) }
-        viewModel { RegisterViewModel() }
+        viewModel { LoginViewModel(get(), get()) }
+        viewModel { RegisterViewModel(get()) }
         viewModel { ProfileViewModel(get()) }
     }
 
     private val singleModule = module {
         single { Preferences(androidContext()) }
-        single{AuthRepository(androidContext())}
+        single { AuthRepository(androidContext()) }
 
     }
 

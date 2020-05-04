@@ -6,9 +6,8 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="EMAIL" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
     <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
   </component>
   <component name="AvailableLibraryUpdateStorage">
@@ -90,14 +89,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f1c441c-a69b-4c58-a2c9-273a864b41f4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/repository/AuthRepository.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/register/StorageRepository.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/di/Modules.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/di/Modules.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/MainActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/MainBaseFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/MainBaseFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/login/LoginFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/login/LoginFragment.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/login/LoginViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/login/LoginViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/util/Const.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/util/Const.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/register/RegisterViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/main/register/RegisterViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/repository/AuthRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/repository/AuthRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/util/Extensions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/util/Extensions.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -183,7 +186,7 @@
     <property name="DEBUGGABLE_PROCESS" value="com.andraganoid.verymuchtodo" />
     <property name="DEBUGGER_ID" value="Auto" />
     <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_2_API_27" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-04-21T15:56:13.549Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-05-04T20:24:02.664Z" />
     <property name="ExportApk.ApkPath" value="C:\Projects\Android\VeryMuchToDo\app" />
     <property name="ExportApk.BuildVariants" value="debug&#10;release" />
     <property name="ExportApk.SignV1" value="true" />
@@ -799,7 +802,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588525265622</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="authRepository">
+      <created>1588605452370</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1588605452370</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -817,7 +827,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="location &amp; map" />
     <MESSAGE value="location &amp; map first phase ok" />
     <MESSAGE value="before cleaning" />
     <MESSAGE value="before fix ui" />
@@ -842,7 +851,8 @@
     <MESSAGE value="camera" />
     <MESSAGE value="navigation almost fixed" />
     <MESSAGE value="iaEmailVerified" />
-    <option name="LAST_COMMIT_MESSAGE" value="iaEmailVerified" />
+    <MESSAGE value="authRepository" />
+    <option name="LAST_COMMIT_MESSAGE" value="authRepository" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">

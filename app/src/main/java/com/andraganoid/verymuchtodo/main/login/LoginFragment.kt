@@ -37,7 +37,7 @@ class LoginFragment : MainBaseFragment() {
         viewModel.loginState.observe(viewLifecycleOwner, Observer { loggedIn ->
             if (loggedIn) {
                 val todoIntent = Intent(main, TodoActivity::class.java)
-                todoIntent.flags=Intent.FLAG_ACTIVITY_CLEAR_TASK
+                todoIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(todoIntent)
             }
         })
@@ -46,6 +46,7 @@ class LoginFragment : MainBaseFragment() {
                 showMessage(message)
             }
         })
+        viewModel.sendEmail.observe(viewLifecycleOwner, Observer { if (it!!) sendEmailToAdmin() })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

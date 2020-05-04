@@ -3,11 +3,15 @@ package com.andraganoid.verymuchtodo.main.register
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.andraganoid.verymuchtodo.R
+import androidx.lifecycle.viewModelScope
+import com.andraganoid.verymuchtodo.repository.AuthRepository
+import com.andraganoid.verymuchtodo.util.ERROR_PLACEHOLDER
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
-class RegisterViewModel() : ViewModel() {
+class RegisterViewModel(private val authRepository: AuthRepository) : ViewModel() {
 
     var firebaseAuth: FirebaseAuth? = null
 
@@ -38,16 +42,22 @@ class RegisterViewModel() : ViewModel() {
 
     fun register(mail: String, pass: String, name: String) {
         _loaderVisibility.value = true
-        firebaseAuth?.createUserWithEmailAndPassword(mail, pass)!!
-                .addOnCompleteListener() { task ->
-                    if (task.isSuccessful) {
-                        updateUser(name)
-                        verifyEmail()
-                        sendMailToAdmin()
-                    } else {
-                        _message.value = "ERROR: " + task.exception.toString()
+
+        viewModelScope.launch {
+            authRepository.register(mail, pass)
+
+
+                    //   firebaseAuth?.createUserWithEmailAndPassword(mail, pass)!!
+                    .addOnCompleteListener() { task ->
+                        if (task.isSuccessful) {
+                            updateUser(name)
+                            verifyEmail()
+                            sendMailToAdmin()
+                        } else {
+                            _message.value = ERROR_PLACEHOLDER + task.exception.toString()
+                        }
                     }
-                }
+        }
     }
 
 
@@ -57,19 +67,22 @@ class RegisterViewModel() : ViewModel() {
     }
 
     private fun verifyEmail() {
-        firebaseAuth?.currentUser?.sendEmailVerification()
-                ?.addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        _message.value = R.string.check_mail_for_verification
-                        _back.value = true
-                    } else {
-                        _message.value = "ERROR: " + task.exception.toString()//todo loginerror}
-                    }
-                }
+
+        viewModelScope.launch { authRepository.verifyEmail().collect { message -> _message.value = message } }
+
+//        firebaseAuth?.currentUser?.sendEmailVerification()
+//                ?.addOnCompleteListener { task ->
+//                    if (task.isSuccessful) {
+//                        _message.value = R.string.check_mail_for_verification
+//                        _back.value = true
+//                    } else {
+//                        _message.value = "ERROR: " + task.exception.toString()//todo loginerror}
+//                    }
+//                }
     }
 
     private fun sendMailToAdmin() {
-      //  TODO("Not yet implemented")
+      //  authRepository.sendEmailToAdmin()
     }
 
 

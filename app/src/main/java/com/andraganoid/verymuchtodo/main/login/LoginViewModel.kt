@@ -29,6 +29,10 @@ class LoginViewModel(private val preferences: Preferences, private val authRepos
     val message: LiveData<Any?>
         get() = _message
 
+    private val _sendEmail = MutableLiveData<Boolean?>()
+    val sendEmail: LiveData<Boolean?>
+        get() = _sendEmail
+
     init {
         firebaseAuth = FirebaseAuth.getInstance()
         //  firebaseAuth!!.signOut()
@@ -55,7 +59,7 @@ class LoginViewModel(private val preferences: Preferences, private val authRepos
                         saveUser()
                     } else {
                         verifyEmail()
-                        sendMailToAdmin()
+                        sendMailToAdmin() //todo
                     }
                 } else {
                     _message.value = ERROR_PLACEHOLDER + task.exception.toString()
@@ -97,8 +101,8 @@ class LoginViewModel(private val preferences: Preferences, private val authRepos
 
 
     private fun sendMailToAdmin() {
-        //  TODO("Not yet implemented")
-        authRepository.sendEmailToAdmin()
+     //   authRepository.sendEmailToAdmin()
+        _sendEmail.value=true
     }
 
 
