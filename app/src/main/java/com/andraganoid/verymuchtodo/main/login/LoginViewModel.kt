@@ -1,18 +1,19 @@
 package com.andraganoid.verymuchtodo.main.login
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.kmodel.User
+import com.andraganoid.verymuchtodo.repository.AuthRepository
+import com.andraganoid.verymuchtodo.util.ERROR_PLACEHOLDER
 import com.andraganoid.verymuchtodo.util.Preferences
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 
-class LoginViewModel(private val preferences: Preferences) : ViewModel() {
+class LoginViewModel(private val preferences: Preferences, private val authRepository: AuthRepository) : ViewModel() {
     var firebaseAuth: FirebaseAuth? = null
     var user: User? = null//todo check da li nam ytreba ispis emaila
 
@@ -32,19 +33,11 @@ class LoginViewModel(private val preferences: Preferences) : ViewModel() {
         firebaseAuth = FirebaseAuth.getInstance()
         //  firebaseAuth!!.signOut()
 
-
-        Log.d("CCURRENT", firebaseAuth?.currentUser?.isEmailVerified.toString())
-
-
-
-
         user = preferences.getUser()
         if (firebaseAuth!!.currentUser == null) {
             _loginState.value = false
         } else {
             _loginState.value = firebaseAuth?.currentUser?.isEmailVerified
-            Log.d("CCURRENT-2", firebaseAuth?.currentUser?.isEmailVerified.toString())
-
         }
         _loaderVisibility.value = _loginState.value
     }
@@ -56,54 +49,60 @@ class LoginViewModel(private val preferences: Preferences) : ViewModel() {
     fun login(mail: String, pass: String) {
         _loaderVisibility.value = true
         viewModelScope.launch {
-            firebaseAuth?.signInWithEmailAndPassword(mail, pass)!!
-                    .addOnCompleteListener() { task ->
-                        if (task.isSuccessful) {
-                            if (firebaseAuth?.currentUser?.isEmailVerified!!) {
-                                saveUser()
-                            } else {
-                              xxx  verifyEmail()
-
-                            }
-                        } else {
-                            _message.value = "ERROR: " + task.exception.toString()
-                        }
+            authRepository.login(mail, pass).addOnCompleteListener() { task ->
+                if (task.isSuccessful) {
+                    if (firebaseAuth?.currentUser?.isEmailVerified!!) {
+                        saveUser()
+                    } else {
+                        verifyEmail()
+                        sendMailToAdmin()
                     }
+                } else {
+                    _message.value = ERROR_PLACEHOLDER + task.exception.toString()
+                }
+            }
         }
     }
 
-    fun resetPassword(mail: String) {
-        _loaderVisibility.value = true
-        firebaseAuth?.sendPasswordResetEmail(mail)
-                ?.addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        _message.value = R.string.check_mail_for_pass_reset
-                    } else {
-                        _message.value = "ERROR: " + task.exception.toString()//todo loginerror
-                    }
-                }
-    }
-
-
     private fun verifyEmail() {
-        firebaseAuth?.currentUser?.sendEmailVerification()
-                ?.addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        _message.value = R.string.check_mail_for_verification
 
-                    } else {
-                        _message.value = "ERROR: " + task.exception.toString()//todo loginerror}
-                    }
-                }
+        viewModelScope.launch { authRepository.verifyEmail().collect { message -> _message.value = message } }
+
+//        firebaseAuth?.currentUser?.sendEmailVerification()
+//                ?.addOnCompleteListener { task ->
+//                    if (task.isSuccessful) {
+//                        _message.value = R.string.check_mail_for_verification
+//
+//                    } else {
+//                        _message.value = "ERROR: " + task.exception.toString()//todo loginerror}
+//                    }
+//                }
     }
+
+
+    fun resetPassword(mail: String) {
+
+        viewModelScope.launch { authRepository.resetPassword(mail).collect { message -> _message.value = message } }
+
+//        _loaderVisibility.value = true
+//        firebaseAuth?.sendPasswordResetEmail(mail)
+//                ?.addOnCompleteListener { task ->
+//                    if (task.isSuccessful) {
+//                        _message.value = R.string.check_mail_for_pass_reset
+//                    } else {
+//                        _message.value = "ERROR: " + task.exception.toString()//todo loginerror
+//                    }
+//                }
+    }
+
 
     private fun sendMailToAdmin() {
         //  TODO("Not yet implemented")
+        authRepository.sendEmailToAdmin()
     }
 
 
     fun saveUser() {
-
 
         firebaseAuth?.currentUser?.apply {
             preferences.saveUser(User(

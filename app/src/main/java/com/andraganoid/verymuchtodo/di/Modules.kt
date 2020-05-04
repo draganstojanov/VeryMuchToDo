@@ -3,6 +3,7 @@ package com.andraganoid.verymuchtodo.di
 import com.andraganoid.verymuchtodo.ktodo.profile.ProfileViewModel
 import com.andraganoid.verymuchtodo.main.login.LoginViewModel
 import com.andraganoid.verymuchtodo.main.register.RegisterViewModel
+import com.andraganoid.verymuchtodo.repository.AuthRepository
 import com.andraganoid.verymuchtodo.util.Preferences
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.dsl.viewModel
@@ -12,13 +13,14 @@ import org.koin.dsl.module
 object Modules {
 
     private val viewModelModule = module {
-        viewModel { LoginViewModel(get()) }
+        viewModel { LoginViewModel(get(),get()) }
         viewModel { RegisterViewModel() }
         viewModel { ProfileViewModel(get()) }
     }
 
     private val singleModule = module {
         single { Preferences(androidContext()) }
+        single{AuthRepository(androidContext())}
 
     }
 
