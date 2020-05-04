@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.main.login
+package com.andraganoid.verymuchtodo.main.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,13 +9,13 @@ import com.andraganoid.verymuchtodo.repository.AuthRepository
 import com.andraganoid.verymuchtodo.util.ERROR_PLACEHOLDER
 import com.andraganoid.verymuchtodo.util.Preferences
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-
-class LoginViewModel(private val preferences: Preferences, private val authRepository: AuthRepository) : ViewModel() {
+class AuthViewModel(private val preferences: Preferences, private val authRepository: AuthRepository) : ViewModel() {
     var firebaseAuth: FirebaseAuth? = null
-    var user: User? = null//todo check da li nam ytreba ispis emaila
+    var user: User? = null
 
     private val _loaderVisibility = MutableLiveData<Boolean>()
     val loaderVisibility: LiveData<Boolean>
@@ -33,10 +33,12 @@ class LoginViewModel(private val preferences: Preferences, private val authRepos
     val sendEmail: LiveData<Boolean?>
         get() = _sendEmail
 
+    private val _back = MutableLiveData<Boolean>()
+    val back: LiveData<Boolean>
+        get() = _back
+
     init {
         firebaseAuth = FirebaseAuth.getInstance()
-        //  firebaseAuth!!.signOut()
-
         user = preferences.getUser()
         if (firebaseAuth!!.currentUser == null) {
             _loginState.value = false
@@ -50,6 +52,11 @@ class LoginViewModel(private val preferences: Preferences, private val authRepos
         _message.value = message
     }
 
+    fun back() {
+        _back.value = true
+    }
+
+
     fun login(mail: String, pass: String) {
         _loaderVisibility.value = true
         viewModelScope.launch {
@@ -59,7 +66,7 @@ class LoginViewModel(private val preferences: Preferences, private val authRepos
                         saveUser()
                     } else {
                         verifyEmail()
-                        sendMailToAdmin() //todo
+                    //    sendMailToAdmin() //todo
                     }
                 } else {
                     _message.value = ERROR_PLACEHOLDER + task.exception.toString()
@@ -69,45 +76,42 @@ class LoginViewModel(private val preferences: Preferences, private val authRepos
     }
 
     private fun verifyEmail() {
-
         viewModelScope.launch { authRepository.verifyEmail().collect { message -> _message.value = message } }
-
-//        firebaseAuth?.currentUser?.sendEmailVerification()
-//                ?.addOnCompleteListener { task ->
-//                    if (task.isSuccessful) {
-//                        _message.value = R.string.check_mail_for_verification
-//
-//                    } else {
-//                        _message.value = "ERROR: " + task.exception.toString()//todo loginerror}
-//                    }
-//                }
     }
 
 
     fun resetPassword(mail: String) {
-
         viewModelScope.launch { authRepository.resetPassword(mail).collect { message -> _message.value = message } }
-
-//        _loaderVisibility.value = true
-//        firebaseAuth?.sendPasswordResetEmail(mail)
-//                ?.addOnCompleteListener { task ->
-//                    if (task.isSuccessful) {
-//                        _message.value = R.string.check_mail_for_pass_reset
-//                    } else {
-//                        _message.value = "ERROR: " + task.exception.toString()//todo loginerror
-//                    }
-//                }
     }
 
 
-    private fun sendMailToAdmin() {
-     //   authRepository.sendEmailToAdmin()
-        _sendEmail.value=true
+//    private fun sendMailToAdmin() {
+//        _sendEmail.value = true
+//    }
+
+    fun register(mail: String, pass: String, name: String) {
+        _loaderVisibility.value = true
+
+        viewModelScope.launch {
+            authRepository.register(mail, pass).addOnCompleteListener() { task ->
+                if (task.isSuccessful) {
+                    updateUser(name)
+                    verifyEmail()
+                  //  sendMailToAdmin()
+                } else {
+                    _message.value = ERROR_PLACEHOLDER + task.exception.toString()
+                }
+            }
+        }
+    }
+
+    private fun updateUser(name: String) {
+        val profileUpdates = UserProfileChangeRequest.Builder().setDisplayName(name).build()
+        firebaseAuth?.currentUser?.updateProfile(profileUpdates)
     }
 
 
-    fun saveUser() {
-
+    fun saveUser() {//todo to Repository
         firebaseAuth?.currentUser?.apply {
             preferences.saveUser(User(
                     uid = uid,

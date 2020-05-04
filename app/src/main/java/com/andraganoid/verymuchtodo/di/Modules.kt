@@ -1,6 +1,7 @@
 package com.andraganoid.verymuchtodo.di
 
 import com.andraganoid.verymuchtodo.ktodo.profile.ProfileViewModel
+import com.andraganoid.verymuchtodo.main.auth.AuthViewModel
 import com.andraganoid.verymuchtodo.main.login.LoginViewModel
 import com.andraganoid.verymuchtodo.main.register.RegisterViewModel
 import com.andraganoid.verymuchtodo.repository.AuthRepository
@@ -13,8 +14,10 @@ import org.koin.dsl.module
 object Modules {
 
     private val viewModelModule = module {
-        viewModel { LoginViewModel(get(), get()) }
-        viewModel { RegisterViewModel(get()) }
+//        viewModel { LoginViewModel(get(), get()) }
+//        viewModel { RegisterViewModel(get()) }
+
+        viewModel { AuthViewModel(get(), get()) }
         viewModel { ProfileViewModel(get()) }
     }
 

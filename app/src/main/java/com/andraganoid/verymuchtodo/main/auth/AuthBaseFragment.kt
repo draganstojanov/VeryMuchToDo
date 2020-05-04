@@ -1,10 +1,11 @@
-package com.andraganoid.verymuchtodo.main
+package com.andraganoid.verymuchtodo.main.auth
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.andraganoid.verymuchtodo.main.MainActivity
 
 
-open class MainBaseFragment : Fragment() {
+open class AuthBaseFragment : Fragment() {
 
     lateinit var main: MainActivity
 

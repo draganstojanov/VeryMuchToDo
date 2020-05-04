@@ -33,13 +33,13 @@ class TodoActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(window.decorView.windowToken, 0)
     }
 
-    fun todoMenuClicked(view: View) {
-        if (view.tag == "menu") {
-            val settingsDialogFragment = SettingsDialogFragment();
-            settingsDialogFragment.show(supportFragmentManager, null)
-        } else {
-            onBackPressed()
-        }
+    fun menuClicked(view: View) {
+        val settingsDialogFragment = SettingsDialogFragment();
+        settingsDialogFragment.show(supportFragmentManager, null)
+    }
+
+    fun backClicked() {
+        onBackPressed()
     }
 
     fun bottomNavBarVisibility(state: Boolean) {

@@ -8,11 +8,11 @@
 
         <variable
             name="viewModel"
-            type="com.andraganoid.verymuchtodo.main.register.RegisterViewModel" />
+            type="com.andraganoid.verymuchtodo.main.auth.AuthViewModel" />
 
         <variable
             name="fragment"
-            type="com.andraganoid.verymuchtodo.main.register.RegisterFragment" />
+            type="com.andraganoid.verymuchtodo.main.auth.RegisterFragment" />
     </data>
 
     <ScrollView
@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/backgorundColor"
-            tools:context=".main.register.RegisterFragment">
+            tools:context=".main.auth.RegisterFragment">
 
 
             <ImageView

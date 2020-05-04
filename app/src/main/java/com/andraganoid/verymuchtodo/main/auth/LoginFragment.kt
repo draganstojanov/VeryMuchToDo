@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.main.login
+package com.andraganoid.verymuchtodo.main.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,16 +12,16 @@ import androidx.navigation.fragment.findNavController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.FragmentLoginBinding
 import com.andraganoid.verymuchtodo.ktodo.TodoActivity
-import com.andraganoid.verymuchtodo.main.MainBaseFragment
 import com.andraganoid.verymuchtodo.util.isValidEmail
 import com.andraganoid.verymuchtodo.util.isValidPassword
 import kotlinx.android.synthetic.main.fragment_login.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
-class LoginFragment : MainBaseFragment() {
+class LoginFragment : AuthBaseFragment() {
 
-    private val viewModel: LoginViewModel by viewModel()
+    //    private val viewModel: LoginViewModel by viewModel()
+    private val viewModel: AuthViewModel by sharedViewModel()
     private lateinit var binding: FragmentLoginBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -44,6 +44,7 @@ class LoginFragment : MainBaseFragment() {
         viewModel.message.observe(viewLifecycleOwner, Observer { message ->
             if (message != null) {
                 showMessage(message)
+                viewModel.showMessage(null)
             }
         })
         viewModel.sendEmail.observe(viewLifecycleOwner, Observer { if (it!!) sendEmailToAdmin() })

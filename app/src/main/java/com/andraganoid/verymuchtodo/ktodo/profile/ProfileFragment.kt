@@ -33,14 +33,9 @@ class ProfileFragment : TodoBaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        Log.d("CCRREATTE:", "onCreate")
-
-
-        todo.todoIcon.setImageResource(R.drawable.ic_close)
-        todo.todoIcon.tag="close"
+        todo.menuIcon.setImageResource(R.drawable.ic_close)
+        todo.menuIcon.tag="close"
         bottomNavBarVisibility(false)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -72,8 +67,8 @@ class ProfileFragment : TodoBaseFragment() {
     }
 
     override fun onDestroy() {
-        todo.todoIcon.setImageResource(R.drawable.ic_menu)
-        todo.todoIcon.tag="menu"
+        todo.menuIcon.setImageResource(R.drawable.ic_menu)
+        todo.menuIcon.tag="menu"
         bottomNavBarVisibility(true)
         super.onDestroy()
     }

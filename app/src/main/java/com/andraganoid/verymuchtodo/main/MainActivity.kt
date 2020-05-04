@@ -1,20 +1,15 @@
 package com.andraganoid.verymuchtodo.main
 
 import android.app.Activity
-import android.content.ActivityNotFoundException
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.main.dialog.MessageDialogFragment
-import com.andraganoid.verymuchtodo.util.ADMIN_EMAIL
 import com.andraganoid.verymuchtodo.util.ERROR_PLACEHOLDER
 import com.andraganoid.verymuchtodo.util.MSG_DIALOG_LIST
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -52,23 +47,6 @@ class MainActivity : AppCompatActivity() {
         msgDialogFragment.show(supportFragmentManager, msgDialogFragment.tag)
     }
 
-    fun sendEmailToAdmin() {//todo prebaci u MainActivity
-        loaderVisibility(false)
-        val emailIntent = Intent(Intent.ACTION_SEND)
-        emailIntent.apply {
-            type = "text/plain"
-            putExtra(Intent.EXTRA_EMAIL, arrayOf(ADMIN_EMAIL))
-            putExtra(Intent.EXTRA_SUBJECT, "VeryMuchToDo new User - " + FirebaseAuth.getInstance().currentUser?.displayName)
-            putExtra(Intent.EXTRA_TEXT, FirebaseAuth.getInstance().currentUser?.displayName + "\n" + FirebaseAuth.getInstance().currentUser?.email)
-            type = "message/rfc822"
-        }
-        try {
-            startActivity(Intent.createChooser(emailIntent,
-                    getString(R.string.email_chooser)));
-        } catch (ex: ActivityNotFoundException) {
-            Log.d("EMAIL", "ERROR")
-        }
-    }
 
 
 }

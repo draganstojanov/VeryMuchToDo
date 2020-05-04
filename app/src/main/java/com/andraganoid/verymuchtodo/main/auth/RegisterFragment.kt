@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.main.register
+package com.andraganoid.verymuchtodo.main.auth
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,18 +9,18 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.FragmentRegisterBinding
-import com.andraganoid.verymuchtodo.main.MainBaseFragment
 import com.andraganoid.verymuchtodo.util.isValidConfirmedPassword
 import com.andraganoid.verymuchtodo.util.isValidDisplayName
 import com.andraganoid.verymuchtodo.util.isValidEmail
 import com.andraganoid.verymuchtodo.util.isValidPassword
 import kotlinx.android.synthetic.main.fragment_register.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
-class RegisterFragment : MainBaseFragment() {
+class RegisterFragment : AuthBaseFragment() {
 
-    private val viewModel: RegisterViewModel by viewModel()
+   // private val viewModel: RegisterViewModel by viewModel()
+   private val viewModel: AuthViewModel by sharedViewModel()
     private lateinit var binding: FragmentRegisterBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -37,6 +37,7 @@ class RegisterFragment : MainBaseFragment() {
         viewModel.message.observe(viewLifecycleOwner, Observer { message ->
             if (message != null) {
                 showMessage(message)
+                viewModel.showMessage(null)
             }
         })
     }
