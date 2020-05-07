@@ -33,8 +33,9 @@ class ProfileFragment : TodoBaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        todo.menuIcon.setImageResource(R.drawable.ic_close)
-        todo.menuIcon.tag="close"
+        // todo.menuIcon.setImageResource(R.drawable.ic_close)
+        // todo.menuIcon.tag="close"
+        todo.backIcon.isVisible = true
         bottomNavBarVisibility(false)
     }
 
@@ -47,28 +48,11 @@ class ProfileFragment : TodoBaseFragment() {
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        Log.d("CCRREATTE:", "onActivityCreated")
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        Log.d("CCRREATTE:", "onViewCreated")
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        // viewModel._editDialog.value = false
-        //  viewModel._getImage.value = 0
-
-
-    }
 
     override fun onDestroy() {
-        todo.menuIcon.setImageResource(R.drawable.ic_menu)
-        todo.menuIcon.tag="menu"
+//        todo.menuIcon.setImageResource(R.drawable.ic_menu)
+//        todo.menuIcon.tag="menu"
+        todo.backIcon.isVisible = false
         bottomNavBarVisibility(true)
         super.onDestroy()
     }
@@ -89,7 +73,7 @@ class ProfileFragment : TodoBaseFragment() {
         })
         viewModel.loaderVisibility.observe(viewLifecycleOwner, Observer {
             loaderVisibility(it)
-           // bottomNavBarVisibility(!it)
+            // bottomNavBarVisibility(!it)
         })
         viewModel.getImage.observe(viewLifecycleOwner, Observer {
             Log.d("CCRREATTE:", "Observer")
@@ -137,8 +121,8 @@ class ProfileFragment : TodoBaseFragment() {
                 }
             }
         }
-       // showDialog()
-        viewModel._editDialog.value=true
+        // showDialog()
+        viewModel._editDialog.value = true
     }
 
 
@@ -147,7 +131,7 @@ class ProfileFragment : TodoBaseFragment() {
         runWithPermissions(Manifest.permission.CAMERA) {
             cameraView.isVisible = true
             profileView.isVisible = false
-          //  bottomNavBarVisibility(false)
+            //  bottomNavBarVisibility(false)
             camera.apply {
                 setLifecycleOwner(viewLifecycleOwner)
                 addCameraListener(object : CameraListener() {
@@ -167,7 +151,7 @@ class ProfileFragment : TodoBaseFragment() {
     fun closeCamera() {
         cameraView.isVisible = false
         profileView.isVisible = true
-      //  bottomNavBarVisibility(true)
+        //  bottomNavBarVisibility(true)
         camera.close()
     }
 

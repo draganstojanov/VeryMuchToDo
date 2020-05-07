@@ -10,26 +10,21 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.andraganoid.verymuchtodo.R
-import com.andraganoid.verymuchtodo.database.dao.UserDao
 import com.andraganoid.verymuchtodo.ktodo.settings.SettingsDialogFragment
 import com.andraganoid.verymuchtodo.repository.ListenersRepository
-import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_todo_k.*
 import org.koin.android.ext.android.inject
 
 class TodoActivity() : AppCompatActivity() {
 
-  private val listenersRepository: ListenersRepository by inject()
+    private val listenersRepository: ListenersRepository by inject()
 
     lateinit var todoNavController: NavController
-   // val lis: ListenersRepository by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_todo_k)
-
-listenersRepository.setFirestoreListeners()
-
+        listenersRepository.setFirestoreListeners()
         todoNavController = findNavController(R.id.todoFragmentLayout)
         bottomNavBar.setupWithNavController(todoNavController)
     }
@@ -48,7 +43,7 @@ listenersRepository.setFirestoreListeners()
         settingsDialogFragment.show(supportFragmentManager, null)
     }
 
-    fun backClicked() {
+    fun backClicked(view: View) {
         onBackPressed()
     }
 

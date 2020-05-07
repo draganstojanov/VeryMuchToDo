@@ -5,15 +5,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.andraganoid.verymuchtodo.R
+import com.andraganoid.verymuchtodo.kmodel.Document
 import com.andraganoid.verymuchtodo.kmodel.User
 import com.andraganoid.verymuchtodo.repository.AuthRepository
+import com.andraganoid.verymuchtodo.repository.FirestoreRepository
 import com.andraganoid.verymuchtodo.util.ERROR_PLACEHOLDER
 import com.andraganoid.verymuchtodo.util.Preferences
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import kotlinx.coroutines.launch
 
-class AuthViewModel(private val preferences: Preferences, private val authRepository: AuthRepository) : ViewModel() {
+class AuthViewModel(
+        private val preferences: Preferences,
+        private val authRepository: AuthRepository,
+        private val firestoreRepository: FirestoreRepository)
+    : ViewModel() {
     var firebaseAuth: FirebaseAuth? = null
     var user: User? = null
 
@@ -128,13 +134,16 @@ class AuthViewModel(private val preferences: Preferences, private val authReposi
 
 
     fun saveUser() {//todo to Repository
+        var user = User()
         firebaseAuth?.currentUser?.apply {
-            preferences.saveUser(User(
+            user = User(
                     uid = uid,
                     name = displayName,
                     email = email,
-                    imageUrl = photoUrl.toString()))
+                    imageUrl = photoUrl.toString())
         }
+        preferences.saveUser(user)
+        firestoreRepository.addDocument(Document(user))
         _loginState.value = true
 
 

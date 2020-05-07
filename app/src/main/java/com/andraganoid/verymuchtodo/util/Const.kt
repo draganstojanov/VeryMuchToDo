@@ -12,3 +12,5 @@ const val COL_USER = "USER"
 const val COL_BUNCH = "BUNCH"
 const val COL_МESSAGE = "MESSAGE"
 const val COL_LOCATION = "LOCATION"
+
+const val PROFILE_IMAGES_FOLDER = "profile_images/"

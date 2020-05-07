@@ -16,7 +16,7 @@ class Document(value: Any) {
 
     private fun user(user: User) {
         collection = COL_USER
-        name = user.uid.toString()
+        name = user.uid
         values = mapOf(
                 "uid" to user.uid,
                 "name" to user.name,

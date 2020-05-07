@@ -3,7 +3,7 @@ package com.andraganoid.verymuchtodo.repository
 import com.andraganoid.verymuchtodo.kmodel.Document
 import com.google.firebase.firestore.FirebaseFirestore
 
-class StorageRepository(private val firebaseFirestore: FirebaseFirestore) {
+class FirestoreRepository(private val firebaseFirestore: FirebaseFirestore) {
 
     fun addDocument(document: Document) {
         firebaseFirestore
