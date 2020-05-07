@@ -27,6 +27,30 @@ class TodoActivity() : AppCompatActivity() {
         listenersRepository.setFirestoreListeners()
         todoNavController = findNavController(R.id.todoFragmentLayout)
         bottomNavBar.setupWithNavController(todoNavController)
+        setNavigationListener()
+    }
+
+    private fun setNavigationListener() {
+        todoNavController.addOnDestinationChangedListener { _, destination, _ ->
+            var title = ""
+            var backArrow = false
+            var bottomBar = true
+            when (destination.label) {
+
+                getString(R.string.profile_frag_label) -> {
+                    backArrow = true
+                    bottomBar = false
+                }
+                getString(R.string.stacks_frag_label) -> title = getString(R.string.stacks)
+                getString(R.string.users_frag_label) -> title = getString(R.string.users)
+                getString(R.string.messages_frag_label) -> title = getString(R.string.messages)
+                getString(R.string.map_frag_label) -> title = getString(R.string.map)
+            }
+            todoTitle.text = title.toUpperCase()
+            backIcon.isVisible = backArrow
+            bottomNavBar.isVisible = bottomBar
+
+        }
     }
 
     fun loaderVisibility(visibility: Boolean) {
@@ -47,9 +71,6 @@ class TodoActivity() : AppCompatActivity() {
         onBackPressed()
     }
 
-    fun bottomNavBarVisibility(state: Boolean) {
-        bottomNavBar.isVisible = state
-    }
 
     override fun onBackPressed() {
         if (todoNavController.currentDestination?.label!!.equals("ListsFragment")) {

@@ -8,26 +8,27 @@
 
     <fragment
         android:id="@+id/listsFragment"
-        android:name="com.andraganoid.verymuchtodo.ktodo.lists.ListsFragment"
-        android:label="lists_fragment"
-        tools:layout="@layout/lists_fragment" />
+        android:name="com.andraganoid.verymuchtodo.ktodo.stack.StacksFragment"
+        android:label="@string/stacks_frag_label"
+        tools:layout="@layout/stacks_fragment" />
     <fragment
         android:id="@+id/messagesFragment"
         android:name="com.andraganoid.verymuchtodo.ktodo.message.MessagesFragment"
-        android:label="messages_fragment"
+        android:label="@string/messages_frag_label"
         tools:layout="@layout/messages_fragment" />
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.andraganoid.verymuchtodo.ktodo.map.MapFragment"
-        android:label="map_fragment"
+        android:label="@string/map_frag_label"
         tools:layout="@layout/map_fragment" />
     <fragment
         android:id="@+id/usersFragment"
         android:name="com.andraganoid.verymuchtodo.ktodo.users.UsersFragment"
-        android:label="users_fragment"
+        android:label="@string/users_frag_label"
         tools:layout="@layout/users_fragment" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.andraganoid.verymuchtodo.ktodo.profile.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:label="@string/profile_frag_label"
+        tools:layout="@layout/profile_fragment"/>
 </navigation>

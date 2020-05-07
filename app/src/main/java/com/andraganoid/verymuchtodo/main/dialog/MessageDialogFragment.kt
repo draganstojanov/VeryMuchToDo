@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.andraganoid.verymuchtodo.R
-import com.andraganoid.verymuchtodo.util.MSG_DIALOG_LIST
+import com.andraganoid.verymuchtodo.util.BUNDLE_MSG_DIALOG_LIST
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_message_list_dialog.*
 
@@ -16,7 +16,7 @@ class MessageDialogFragment : BottomSheetDialogFragment() {
             inflater.inflate(R.layout.fragment_message_list_dialog, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        messageList.adapter = arguments?.getStringArrayList(MSG_DIALOG_LIST)?.let { MessageDialogAdapter(it) }
+        messageList.adapter = arguments?.getStringArrayList(BUNDLE_MSG_DIALOG_LIST)?.let { MessageDialogAdapter(it) }
         okBtn.setOnClickListener { dismiss() }
 
 //        Timer().schedule(object : TimerTask() {

@@ -8,8 +8,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.main.dialog.MessageDialogFragment
+import com.andraganoid.verymuchtodo.util.BUNDLE_MSG_DIALOG_LIST
 import com.andraganoid.verymuchtodo.util.ERROR_PLACEHOLDER
-import com.andraganoid.verymuchtodo.util.MSG_DIALOG_LIST
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             is ArrayList<*> -> msg.addAll(message as ArrayList<String>)
         }
         val bundle = Bundle()
-        bundle.putStringArrayList(MSG_DIALOG_LIST, msg)
+        bundle.putStringArrayList(BUNDLE_MSG_DIALOG_LIST, msg)
         val msgDialogFragment = MessageDialogFragment();
         msgDialogFragment.arguments = bundle
         msgDialogFragment.show(supportFragmentManager, msgDialogFragment.tag)

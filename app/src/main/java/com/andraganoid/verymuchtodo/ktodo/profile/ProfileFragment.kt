@@ -21,7 +21,6 @@ import com.andraganoid.verymuchtodo.util.IMAGE_FROM_GALERY
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.otaliastudios.cameraview.CameraListener
 import com.otaliastudios.cameraview.PictureResult
-import kotlinx.android.synthetic.main.activity_todo_k.*
 import kotlinx.android.synthetic.main.profile_fragment.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
@@ -31,16 +30,8 @@ class ProfileFragment : TodoBaseFragment() {
     private val viewModel: ProfileViewModel by sharedViewModel()
     private lateinit var binding: ProfileFragmentBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        // todo.menuIcon.setImageResource(R.drawable.ic_close)
-        // todo.menuIcon.tag="close"
-        todo.backIcon.isVisible = true
-        bottomNavBarVisibility(false)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Log.d("CCRREATTE:", "onCreateView")
         setObservers()
         binding = ProfileFragmentBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
@@ -48,14 +39,6 @@ class ProfileFragment : TodoBaseFragment() {
         return binding.root
     }
 
-
-    override fun onDestroy() {
-//        todo.menuIcon.setImageResource(R.drawable.ic_menu)
-//        todo.menuIcon.tag="menu"
-        todo.backIcon.isVisible = false
-        bottomNavBarVisibility(true)
-        super.onDestroy()
-    }
 
     private fun showDialog() {
         hideKeyboard()
@@ -73,7 +56,6 @@ class ProfileFragment : TodoBaseFragment() {
         })
         viewModel.loaderVisibility.observe(viewLifecycleOwner, Observer {
             loaderVisibility(it)
-            // bottomNavBarVisibility(!it)
         })
         viewModel.getImage.observe(viewLifecycleOwner, Observer {
             Log.d("CCRREATTE:", "Observer")
@@ -90,8 +72,6 @@ class ProfileFragment : TodoBaseFragment() {
             dialogYesLabel = R.string.yes
             dialogNoLabel = R.string.no
         }
-        Log.d("CCRREATTE:", view.id.toString())
-        Log.d("CCRREATTE:", viewModel.toString())
         when (view.id) {
             R.id.profileImgEdit -> {
                 viewModel.apply {
@@ -121,7 +101,6 @@ class ProfileFragment : TodoBaseFragment() {
                 }
             }
         }
-        // showDialog()
         viewModel._editDialog.value = true
     }
 
@@ -131,7 +110,6 @@ class ProfileFragment : TodoBaseFragment() {
         runWithPermissions(Manifest.permission.CAMERA) {
             cameraView.isVisible = true
             profileView.isVisible = false
-            //  bottomNavBarVisibility(false)
             camera.apply {
                 setLifecycleOwner(viewLifecycleOwner)
                 addCameraListener(object : CameraListener() {
@@ -151,7 +129,6 @@ class ProfileFragment : TodoBaseFragment() {
     fun closeCamera() {
         cameraView.isVisible = false
         profileView.isVisible = true
-        //  bottomNavBarVisibility(true)
         camera.close()
     }
 

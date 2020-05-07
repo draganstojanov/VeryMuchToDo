@@ -32,7 +32,8 @@ class RegisterFragment : AuthBaseFragment() {
     }
 
     private fun setObservers() {
-        viewModel.back.observe(viewLifecycleOwner, Observer { back -> back.let { main.onBackPressed() } })
+        viewModel.back.observe(viewLifecycleOwner, Observer { back -> back.let {
+            main.onBackPressed() } })
         viewModel.loaderVisibility.observe(viewLifecycleOwner, Observer { loaderVisibility(it) })
         viewModel.message.observe(viewLifecycleOwner, Observer { message ->
             if (message != null) {
