@@ -8,7 +8,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
+
 
 import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.databinding.ActivityTodoBinding;
@@ -50,7 +50,7 @@ public class Todo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_todo);
         bottomBar = findViewById(R.id.main_bottom_bar);
-        toDoViewModel = ViewModelProviders.of(this).get(ToDoViewModel.class);
+       // toDoViewModel = ViewModelProviders.of(this).get(ToDoViewModel.class);
         toDoViewModel.getCurrentLocation();
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         registerObservers();

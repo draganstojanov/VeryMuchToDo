@@ -1,8 +1,13 @@
 package com.andraganoid.verymuchtodo.kmodel
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "user_table")
 data class User(
-        val uid: String? = "",
+        @PrimaryKey
+        val uid: String = "",
         var name: String? = "",
         var email: String? = "",
-        var photoUrlString: String? = null,
-        val accessLevel: Int = 0)
+        var imageUrl: String? = null,
+        val accessLevel: Int? = 0)

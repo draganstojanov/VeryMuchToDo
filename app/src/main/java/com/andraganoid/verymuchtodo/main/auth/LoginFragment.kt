@@ -47,7 +47,7 @@ class LoginFragment : AuthBaseFragment() {
                 viewModel.showMessage(null)
             }
         })
-        viewModel.sendEmail.observe(viewLifecycleOwner, Observer { if (it!!) sendEmailToAdmin() })
+       // viewModel.sendEmail.observe(viewLifecycleOwner, Observer { if (it!!) sendEmailToAdmin() })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

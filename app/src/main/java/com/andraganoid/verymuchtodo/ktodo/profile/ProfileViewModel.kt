@@ -47,7 +47,7 @@ class ProfileViewModel(private val preferences: Preferences) : ViewModel() {
         user = preferences.getUser()
         userName.set(user.name)
         userMail.set(user.email)
-        profileImage.set(user.photoUrlString)
+        profileImage.set(user.imageUrl)
     }
 
     internal fun setMessage(msg: Any) {
@@ -181,8 +181,8 @@ class ProfileViewModel(private val preferences: Preferences) : ViewModel() {
         firebaseAuth?.currentUser?.updateProfile(profileUpdates)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
 
-                user.photoUrlString = uri.toString()
-                profileImage.set(user.photoUrlString)
+                user.imageUrl = uri.toString()
+                profileImage.set(user.imageUrl)
                 _loaderVisibility.value = false
                 updateUser()
                 setMessage(R.string.sucess)

@@ -6,7 +6,6 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -22,7 +21,7 @@ public class TodoBaseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         toDo = (Todo) getActivity();
-        toDoViewModel = ViewModelProviders.of(toDo).get(ToDoViewModel.class);
+       // toDoViewModel = ViewModelProvider(toDo).get(ToDoViewModel.class);
         imm = (InputMethodManager) toDo.getSystemService(INPUT_METHOD_SERVICE);
     }
 

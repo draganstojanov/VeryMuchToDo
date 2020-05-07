@@ -26,8 +26,8 @@ open class AuthBaseFragment : Fragment() {
         main.showMessage(message)
     }
 
-    fun sendEmailToAdmin() {
-        main.sendEmailToAdmin()
-    }
+//    fun sendEmailToAdmin() {
+//        main.sendEmailToAdmin()
+//    }
 
 }

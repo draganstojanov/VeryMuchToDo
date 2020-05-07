@@ -4,13 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.kmodel.User
 import com.andraganoid.verymuchtodo.repository.AuthRepository
 import com.andraganoid.verymuchtodo.util.ERROR_PLACEHOLDER
 import com.andraganoid.verymuchtodo.util.Preferences
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class AuthViewModel(private val preferences: Preferences, private val authRepository: AuthRepository) : ViewModel() {
@@ -66,7 +66,7 @@ class AuthViewModel(private val preferences: Preferences, private val authReposi
                         saveUser()
                     } else {
                         verifyEmail()
-                    //    sendMailToAdmin() //todo
+                        //    sendMailToAdmin() //todo
                     }
                 } else {
                     _message.value = ERROR_PLACEHOLDER + task.exception.toString()
@@ -76,12 +76,28 @@ class AuthViewModel(private val preferences: Preferences, private val authReposi
     }
 
     private fun verifyEmail() {
-        viewModelScope.launch { authRepository.verifyEmail().collect { message -> _message.value = message } }
+        viewModelScope.launch {
+            authRepository.verifyEmail()?.addOnCompleteListener() { task ->
+                if (task.isSuccessful) {
+                    _message.value = R.string.check_mail_for_verification
+                } else {
+                    _message.value = ERROR_PLACEHOLDER + task.exception.toString()
+                }
+            }
+        }
     }
 
 
     fun resetPassword(mail: String) {
-        viewModelScope.launch { authRepository.resetPassword(mail).collect { message -> _message.value = message } }
+        viewModelScope.launch {
+            authRepository.resetPassword(mail).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    _message.value = R.string.check_mail_for_pass_reset
+                } else {
+                    _message.value = ERROR_PLACEHOLDER + task.exception.toString()
+                }
+            }
+        }
     }
 
 
@@ -97,7 +113,7 @@ class AuthViewModel(private val preferences: Preferences, private val authReposi
                 if (task.isSuccessful) {
                     updateUser(name)
                     verifyEmail()
-                  //  sendMailToAdmin()
+                    //  sendMailToAdmin()
                 } else {
                     _message.value = ERROR_PLACEHOLDER + task.exception.toString()
                 }
@@ -117,7 +133,7 @@ class AuthViewModel(private val preferences: Preferences, private val authReposi
                     uid = uid,
                     name = displayName,
                     email = email,
-                    photoUrlString = photoUrl.toString()))
+                    imageUrl = photoUrl.toString()))
         }
         _loginState.value = true
 
