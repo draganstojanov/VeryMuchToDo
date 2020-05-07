@@ -36,6 +36,7 @@
                 app:cameraFacing="back"
                 app:cameraFlash="auto"
                 app:cameraMode="picture"
+                android:orientation="vertical"
                 app:cameraPictureFormat="jpeg"
                 app:cameraPictureSizeMaxHeight="640"
                 app:cameraPictureSizeMaxWidth="640"

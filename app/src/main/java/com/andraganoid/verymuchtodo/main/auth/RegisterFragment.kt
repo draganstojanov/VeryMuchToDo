@@ -19,8 +19,8 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class RegisterFragment : AuthBaseFragment() {
 
-   // private val viewModel: RegisterViewModel by viewModel()
-   private val viewModel: AuthViewModel by sharedViewModel()
+    // private val viewModel: RegisterViewModel by viewModel()
+    private val viewModel: AuthViewModel by sharedViewModel()
     private lateinit var binding: FragmentRegisterBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -32,8 +32,14 @@ class RegisterFragment : AuthBaseFragment() {
     }
 
     private fun setObservers() {
-        viewModel.back.observe(viewLifecycleOwner, Observer { back -> back.let {
-            main.onBackPressed() } })
+        viewModel.back.observe(viewLifecycleOwner, Observer { back ->
+            back.let {
+                if (it) {
+                    main.mainNavController.popBackStack()
+                    viewModel._back.value=false
+                }
+            }
+        })
         viewModel.loaderVisibility.observe(viewLifecycleOwner, Observer { loaderVisibility(it) })
         viewModel.message.observe(viewLifecycleOwner, Observer { message ->
             if (message != null) {

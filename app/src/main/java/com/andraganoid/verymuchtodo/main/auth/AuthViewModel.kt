@@ -35,11 +35,11 @@ class AuthViewModel(
     val message: LiveData<Any?>
         get() = _message
 
-    private val _sendEmail = MutableLiveData<Boolean?>()
-    val sendEmail: LiveData<Boolean?>
-        get() = _sendEmail
+//    private val _sendEmail = MutableLiveData<Boolean?>()
+//    val sendEmail: LiveData<Boolean?>
+//        get() = _sendEmail
 
-    private val _back = MutableLiveData<Boolean>()
+    val _back = MutableLiveData<Boolean>()
     val back: LiveData<Boolean>
         get() = _back
 

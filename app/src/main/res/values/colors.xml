@@ -22,6 +22,7 @@
 
     <color name="secMid">#EA2F53</color>
     <color name="secLite">#FD6C6C</color>
+    <color name="secDark">#AD0E0E</color>
 
 </resources>
 

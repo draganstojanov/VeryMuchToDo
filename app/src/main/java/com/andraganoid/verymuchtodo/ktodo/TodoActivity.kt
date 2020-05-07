@@ -4,33 +4,48 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.ktodo.settings.SettingsDialogFragment
 import com.andraganoid.verymuchtodo.repository.ListenersRepository
+import com.andraganoid.verymuchtodo.util.networkStateChannel
 import kotlinx.android.synthetic.main.activity_todo_k.*
+import kotlinx.coroutines.channels.consumeEach
 import org.koin.android.ext.android.inject
+
 
 class TodoActivity() : AppCompatActivity() {
 
     private val listenersRepository: ListenersRepository by inject()
-
     lateinit var todoNavController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_todo_k)
         listenersRepository.setFirestoreListeners()
-        todoNavController = findNavController(R.id.todoFragmentLayout)
-        bottomNavBar.setupWithNavController(todoNavController)
         setNavigationListener()
+        networkListener()
+        //  conn()
+    }
+
+    private fun networkListener() {
+        lifecycleScope.launchWhenCreated {
+            networkStateChannel.consumeEach {
+                toast(it.toString())
+                lostNetworkIcon.isVisible = !it
+            }
+        }
     }
 
     private fun setNavigationListener() {
+        todoNavController = findNavController(R.id.todoFragmentLayout)
+        bottomNavBar.setupWithNavController(todoNavController)
         todoNavController.addOnDestinationChangedListener { _, destination, _ ->
             var title = ""
             var backArrow = false
@@ -77,6 +92,12 @@ class TodoActivity() : AppCompatActivity() {
             finishAffinity()
         }
         super.onBackPressed()
+    }
+
+
+
+    private fun toast(txt: String) {
+        Toast.makeText(this, txt, Toast.LENGTH_SHORT).show()
     }
 
 }

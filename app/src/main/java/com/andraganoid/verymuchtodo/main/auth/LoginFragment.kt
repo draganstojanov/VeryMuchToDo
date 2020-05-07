@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView.OnEditorActionListener
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.FragmentLoginBinding
 import com.andraganoid.verymuchtodo.ktodo.TodoActivity
@@ -20,7 +19,6 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class LoginFragment : AuthBaseFragment() {
 
-    //    private val viewModel: LoginViewModel by viewModel()
     private val viewModel: AuthViewModel by sharedViewModel()
     private lateinit var binding: FragmentLoginBinding
 
@@ -47,7 +45,7 @@ class LoginFragment : AuthBaseFragment() {
                 viewModel.showMessage(null)
             }
         })
-       // viewModel.sendEmail.observe(viewLifecycleOwner, Observer { if (it!!) sendEmailToAdmin() })
+        // viewModel.sendEmail.observe(viewLifecycleOwner, Observer { if (it!!) sendEmailToAdmin() })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -82,7 +80,7 @@ class LoginFragment : AuthBaseFragment() {
 
     fun notRegistered() {
         val action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
-        findNavController().navigate(action)
+        main.mainNavController.navigate(action)
     }
 
     fun forgotPassword() {

@@ -72,4 +72,6 @@
     <string name="users_frag_label">UsersFragment</string>
     <string name="profile_frag_label">ProfileFragment</string>
     <string name="stacks">Stacks</string>
+    <string name="register_frag_label">RegisterFragment</string>
+    <string name="login_frag_label">LoginFragment</string>
 </resources>
