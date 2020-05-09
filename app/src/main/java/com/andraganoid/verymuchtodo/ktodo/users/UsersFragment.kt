@@ -9,23 +9,33 @@ import androidx.lifecycle.Observer
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.kmodel.User
 import com.andraganoid.verymuchtodo.ktodo.TodoBaseFragment
+import com.andraganoid.verymuchtodo.util.Preferences
+import com.andraganoid.verymuchtodo.util.myUser
 import kotlinx.android.synthetic.main.users_fragment.*
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class UsersFragment : TodoBaseFragment() {
 
     private val viewModel: UsersViewModel by viewModel()
     private lateinit var userAdapter: UsersAdapter
+    private val preferences: Preferences by inject()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
             inflater.inflate(R.layout.users_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        userAdapter = UsersAdapter(arrayListOf(), this)
+        userAdapter = UsersAdapter( this)
         usersRecView.adapter = userAdapter
         viewModel.allUsers.observe(viewLifecycleOwner, Observer { userList ->
-            userAdapter.setUserList(userList as ArrayList<User>?)
+            val uList = userList as ArrayList<User>
+            val me = uList.filter { user ->
+                user.uid.equals(myUser.uid)
+            }
+            uList.remove(me.get(0))
+            uList.add(0, me.get(0))
+            userAdapter.setUserList(uList)
         })
     }
 

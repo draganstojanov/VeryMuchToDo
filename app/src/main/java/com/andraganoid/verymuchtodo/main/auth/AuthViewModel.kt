@@ -45,7 +45,7 @@ class AuthViewModel(
 
     init {
         firebaseAuth = FirebaseAuth.getInstance()
-        user = preferences.getUser()
+        user = preferences.getMyUser()
         if (firebaseAuth!!.currentUser == null) {
             _loginState.value = false
         } else {
@@ -142,7 +142,7 @@ class AuthViewModel(
                     email = email,
                     imageUrl = photoUrl.toString())
         }
-        preferences.saveUser(user)
+        preferences.saveMyUser(user)
         firestoreRepository.addDocument(Document(user))
         _loginState.value = true
 

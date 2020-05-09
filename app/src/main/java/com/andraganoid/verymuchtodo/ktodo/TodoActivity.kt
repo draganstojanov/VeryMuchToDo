@@ -14,6 +14,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.ktodo.settings.SettingsDialogFragment
 import com.andraganoid.verymuchtodo.repository.ListenersRepository
+import com.andraganoid.verymuchtodo.util.myUser
 import com.andraganoid.verymuchtodo.util.networkStateChannel
 import kotlinx.android.synthetic.main.activity_todo_k.*
 import kotlinx.coroutines.channels.consumeEach
@@ -32,6 +33,7 @@ class TodoActivity() : AppCompatActivity() {
         setNavigationListener()
         networkListener()
         //  conn()
+        toast(myUser.name.toString())
     }
 
     private fun networkListener() {
@@ -88,7 +90,7 @@ class TodoActivity() : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        if (todoNavController.currentDestination?.label!!.equals("ListsFragment")) {
+        if (todoNavController.currentDestination?.label!!.equals(getString(R.string.stacks_frag_label))) {
             finishAffinity()
         }
         super.onBackPressed()

@@ -54,7 +54,7 @@ class ProfileViewModel(
 
     init {
         firebaseAuth = FirebaseAuth.getInstance()
-        user = preferences.getUser()
+        user = preferences.getMyUser()
         userName.set(user.name)
         userMail.set(user.email)
         profileImage.set(user.imageUrl)
@@ -69,7 +69,7 @@ class ProfileViewModel(
     }
 
     private fun updateUser() {
-        preferences.saveUser(user)
+        preferences.saveMyUser(user)
         firestoreRepository.updateDocument(Document(user))
     }
 

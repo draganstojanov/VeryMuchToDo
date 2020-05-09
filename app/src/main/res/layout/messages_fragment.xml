@@ -1,13 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.andraganoid.verymuchtodo.ktodo.message.MessagesViewModel" />
+
+    </data>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ktodo.message.MessagesFragment">
+    android:padding="8dp">
 
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/composeContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="MESSAGES" />
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/your_message"
+            android:maxLength="200"
+            android:minHeight="@dimen/bar_height"
+            android:padding="8dp"
+            android:textSize="16sp"
+            android:background="@drawable/input_background"
+            android:textColor="@color/backgorundColor"
+            android:text="@={viewModel.messageText}"
+            app:layout_constraintEnd_toStartOf="@+id/composeSend"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/composeSend"
+            android:layout_width="@dimen/bar_height"
+            android:layout_height="@dimen/bar_height"
+            android:background="@drawable/button_background"
+            android:scaleType="center"
+            android:src="@drawable/ic_send"
+            android:tint="@color/primDark"
+            android:onClick="@{()->viewModel.sendMessage()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/messagesRecView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/composeContainer"
+        tool:listitem="@layout/message_item" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

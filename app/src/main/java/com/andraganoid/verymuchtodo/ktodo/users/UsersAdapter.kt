@@ -6,8 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.andraganoid.verymuchtodo.databinding.UserItemBinding
 import com.andraganoid.verymuchtodo.kmodel.User
 
-class UsersAdapter(private val userList: ArrayList<User>?, private val fragment: UsersFragment) : RecyclerView.Adapter<UsersAdapter.UserHolder>() {
+class UsersAdapter( private val fragment: UsersFragment) : RecyclerView.Adapter<UsersAdapter.UserHolder>() {
 
+    private val userList: ArrayList<User>? = arrayListOf()
     fun setUserList(uList: ArrayList<User>?) {
         userList?.clear()
         userList?.addAll(uList!!)
@@ -27,6 +28,7 @@ class UsersAdapter(private val userList: ArrayList<User>?, private val fragment:
         fun bind(user: User) {
             binding.user = user
             binding.fragment = fragment
+            binding.background = layoutPosition != 0
         }
     }
 }

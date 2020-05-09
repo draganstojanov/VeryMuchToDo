@@ -13,23 +13,24 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.main.dialog.MessageDialogFragment
-import com.andraganoid.verymuchtodo.util.BUNDLE_MSG_DIALOG_LIST
-import com.andraganoid.verymuchtodo.util.ERROR_PLACEHOLDER
-import com.andraganoid.verymuchtodo.util.networkStateChannel
+import com.andraganoid.verymuchtodo.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.channels.consumeEach
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var mainNavController: NavController
+    private val preferences: Preferences by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setNavigationListener()
 
+        myUser = preferences.getMyUser()
         networkListener()
 
 
@@ -38,12 +39,13 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-   @ObsoleteCoroutinesApi
-   @ExperimentalCoroutinesApi
-   private fun networkListener() {
+    @ObsoleteCoroutinesApi
+    @ExperimentalCoroutinesApi
+    private fun networkListener() {
         lifecycleScope.launchWhenCreated {
-            networkStateChannel.consumeEach { toast(it.toString())
-            lostNetworkIcon.isVisible=!it
+            networkStateChannel.consumeEach {
+                toast(it.toString())
+                lostNetworkIcon.isVisible = !it
             }
         }
     }

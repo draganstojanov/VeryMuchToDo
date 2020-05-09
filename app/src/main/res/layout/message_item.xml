@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="message"
+            type="com.andraganoid.verymuchtodo.kmodel.Message" />
+
+        <variable
+            name="nyMessage"
+            type="Boolean" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/msgProfileImg"
+            roundImage="@{message.user.imageUrl}"
+            android:layout_width="@dimen/bar_height"
+            android:layout_height="@dimen/bar_height"
+            android:visibility="@{nyMessage?View.GONE:View.VISIBLE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/msgProfileImg"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+        android:id="@+id/messageSender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/bar_height"
+        android:padding="8dp"
+        android:textColor="@color/backgorundColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+        <TextView
+            android:id="@+id/messageText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/bar_height"
+            android:padding="8dp"
+            android:textColor="@color/backgorundColor"
+            android:textSize="16sp"
+             />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

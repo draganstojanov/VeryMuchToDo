@@ -12,6 +12,9 @@
         <variable
             name="fragment"
             type="com.andraganoid.verymuchtodo.ktodo.users.UsersFragment" />
+        <variable
+            name="background"
+            type="Boolean" />
     </data>
 
 
@@ -35,12 +38,12 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/bar_height"
             android:layout_marginStart="8dp"
-            android:background="@drawable/input_background"
+            android:background="@{background?@drawable/input_background:@drawable/button_background}"
             android:gravity="center_vertical"
             android:paddingStart="16dp"
             android:text="@{user.name}"
             android:textColor="@color/backgorundColor"
-            android:textSize="24sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/userProfileImg"

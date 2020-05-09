@@ -1,6 +1,7 @@
 package com.andraganoid.verymuchtodo.kmodel
 
 import com.andraganoid.verymuchtodo.util.COL_USER
+import com.andraganoid.verymuchtodo.util.COL_МESSAGE
 
 class Document(value: Any) {
 
@@ -11,6 +12,7 @@ class Document(value: Any) {
     init {
         when (value) {
             is User -> user(value)
+            is Message -> message(value)
         }
     }
 
@@ -23,6 +25,17 @@ class Document(value: Any) {
                 "email" to user.email,
                 "imageUrl" to user.imageUrl,
                 "accessLevel" to user.accessLevel
+        )
+    }
+
+    private fun message(message: Message) {
+        collection = COL_МESSAGE
+        name = message.id
+        values = mapOf(
+                "text" to message.text,
+                "timestamp" to message.timestamp,
+                "user" to message.user,
+                "id" to message.id
         )
     }
 

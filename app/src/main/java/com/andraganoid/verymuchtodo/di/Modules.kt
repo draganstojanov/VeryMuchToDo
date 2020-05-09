@@ -2,6 +2,7 @@ package com.andraganoid.verymuchtodo.di
 
 import androidx.room.Room
 import com.andraganoid.verymuchtodo.database.TodoDatabase
+import com.andraganoid.verymuchtodo.ktodo.message.MessagesViewModel
 import com.andraganoid.verymuchtodo.ktodo.profile.ProfileViewModel
 import com.andraganoid.verymuchtodo.ktodo.users.UsersViewModel
 import com.andraganoid.verymuchtodo.main.auth.AuthViewModel
@@ -21,16 +22,17 @@ object Modules {
 
     private val viewModelModule = module {
         viewModel { AuthViewModel(get(), get(), get()) }
-        viewModel { ProfileViewModel(get(), get(),get()) }
+        viewModel { ProfileViewModel(get(), get(), get()) }
         viewModel { UsersViewModel(get()) }
+        viewModel { MessagesViewModel(get(),get()) }
     }
 
     private val singleModule = module {
         single { Preferences(context = androidContext()) }
         single { AuthRepository(firebaseAuth = FirebaseAuth.getInstance()) }
         single { FirestoreRepository(firebaseFirestore = FirebaseFirestore.getInstance()) }
-        single { ListenersRepository(FirebaseFirestore.getInstance(), get()) }
-        single { DatabaseRepository(get()) }
+        single { ListenersRepository(FirebaseFirestore.getInstance(), get(), get()) }
+        single { DatabaseRepository(get(),get()) }
     }
 
     private val factoryModule = module {
@@ -43,10 +45,10 @@ object Modules {
             val db: TodoDatabase = get()
             db.userDao()
         }
-//        single {
-//            val db: MemoryDatabase = get()
-//            db.highScoresDao()
-//        }
+        single {
+            val db: TodoDatabase = get()
+            db.messageDao()
+        }
         single {
             Room.databaseBuilder(get(), TodoDatabase::class.java, "todo_database")
                     .fallbackToDestructiveMigration()
