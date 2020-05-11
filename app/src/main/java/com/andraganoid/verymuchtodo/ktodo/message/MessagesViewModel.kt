@@ -4,6 +4,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import com.andraganoid.verymuchtodo.kmodel.Document
 import com.andraganoid.verymuchtodo.kmodel.Message
 import com.andraganoid.verymuchtodo.repository.DatabaseRepository
@@ -13,9 +14,15 @@ import kotlinx.coroutines.flow.first
 
 class MessagesViewModel(private val dbRepository: DatabaseRepository, private val firestoreRepository: FirestoreRepository) : ViewModel() {
 
-    //  val allMessages = dbRepository.allMessages().asLiveData()
+    private val _loaderVisibility = MutableLiveData<Boolean>()
+    val loaderVisibility: LiveData<Boolean>
+        get() = _loaderVisibility
 
-    suspend fun allMessages(): LiveData<List<Message>> {
+     val allMessages = dbRepository.allMessages().asLiveData()
+
+    suspend fun getAllMessages(): List<Message> {
+        _loaderVisibility.value = false
+
         val mList = dbRepository.allMessages().first()
         val users = dbRepository.allUsers().first()
 
@@ -23,16 +30,16 @@ class MessagesViewModel(private val dbRepository: DatabaseRepository, private va
             message.user = users.filter { user -> user.uid.equals(message.user.uid) }[0]
             message.isMyMsg = myUser.uid.equals(message.user.uid)
         }
-        val liveDataMessages = MutableLiveData<List<Message>>()
-        liveDataMessages.value = mList
-        return liveDataMessages
+        return mList
     }
 
 
     val messageText = ObservableField<String>()
 
+
     fun sendMessage() {
         if (messageText.get()!!.isNotEmpty()) {
+            _loaderVisibility.value = true
             val timestamp = System.currentTimeMillis()
             val message = Message(
                     text = messageText.get().toString(),

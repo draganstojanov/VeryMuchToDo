@@ -33,11 +33,15 @@ class MessagesFragment : TodoBaseFragment() {
     }
 
     fun setObservers() {
-        lifecycleScope.launchWhenCreated {
-            viewModel.allMessages().observe(viewLifecycleOwner, Observer { messagesList ->
-                    messageAdapter.setMessageList(messagesList as ArrayList<Message>?)
-                    viewModel.messageText.set("")
-            })
-        }
+        viewModel.loaderVisibility.observe(viewLifecycleOwner, Observer { loaderVisibility(it) })
+        viewModel.allMessages.observe(viewLifecycleOwner, Observer {
+            lifecycleScope.launchWhenCreated {
+                val mList=viewModel.getAllMessages() as ArrayList<Message>?
+                messageAdapter.setMessageList(mList)
+                viewModel.messageText.set("")
+                messagesRecView.smoothScrollToPosition(mList!!.size-1)
+            }
+        })
+
     }
 }

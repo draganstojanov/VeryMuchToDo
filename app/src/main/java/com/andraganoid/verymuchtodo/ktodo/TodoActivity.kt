@@ -81,6 +81,7 @@ class TodoActivity() : AppCompatActivity() {
     }
 
     fun loaderVisibility(visibility: Boolean) {
+        hideKeyboard()
         todoLoader.isVisible = visibility
     }
 
