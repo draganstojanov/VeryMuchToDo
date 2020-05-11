@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp">
+    <!--        android:visibility="@{nyMessage?View.GONE:View.VISIBLE}"-->
+<!--    <ImageView-->
+<!--        android:id="@+id/todoMessageViewProfileImg"-->
+<!--        android:layout_width="40dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginTop="4dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:minHeight="@dimen/bar_height"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toEndOf="@id/todoMessageViewProfileImg"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/todoMessageViewSender"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:paddingStart="8dp"-->
+<!--            android:paddingBottom="4dp"-->
+
+<!--            android:text="@{message.user.name}"-->
+<!--            android:textColor="@color/primMid"-->
+<!--            android:textSize="14sp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/todoMessageViewText"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/input_background"-->
+<!--            android:padding="8dp"-->
+<!--            android:text="@{message.text}"-->
+<!--            android:textColor="@color/backgorundColor"-->
+<!--            android:textSize="16sp"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/todoMessageViewSender" />-->
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

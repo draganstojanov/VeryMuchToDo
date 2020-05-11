@@ -2,11 +2,13 @@ package com.andraganoid.verymuchtodo.ktodo
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -16,6 +18,7 @@ import com.andraganoid.verymuchtodo.ktodo.settings.SettingsDialogFragment
 import com.andraganoid.verymuchtodo.repository.ListenersRepository
 import com.andraganoid.verymuchtodo.util.myUser
 import com.andraganoid.verymuchtodo.util.networkStateChannel
+import com.andraganoid.verymuchtodo.util.networkStatus
 import kotlinx.android.synthetic.main.activity_todo_k.*
 import kotlinx.coroutines.channels.consumeEach
 import org.koin.android.ext.android.inject
@@ -39,10 +42,17 @@ class TodoActivity() : AppCompatActivity() {
     private fun networkListener() {
         lifecycleScope.launchWhenCreated {
             networkStateChannel.consumeEach {
-                toast(it.toString())
-                lostNetworkIcon.isVisible = !it
+              //  toast(it.toString())
+               // lostNetworkIcon.isVisible = !it
             }
         }
+
+       networkStatus.observe(this, Observer {
+           Log.d("CCONN", "TODO-LIVEDATA "+it)
+           toast(it.toString())
+           lostNetworkIcon.isVisible = !it})
+
+
     }
 
     private fun setNavigationListener() {

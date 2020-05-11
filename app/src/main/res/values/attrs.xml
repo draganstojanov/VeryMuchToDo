@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TodoMessageView">
+        <attr name="imageUrl" format="string" />
+        <attr name="otherMsgBack" format="reference" />
+        <attr name="myMsgBack" format="reference" />
+        <attr name="messageText" format="string" />
+        <attr name="isMyMsg" format="boolean" />
+        <attr name="sender" format="string" />
+        <attr name="timestamp" format="integer" />
+    </declare-styleable>
+
+</resources>

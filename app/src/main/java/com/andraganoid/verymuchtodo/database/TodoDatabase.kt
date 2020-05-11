@@ -9,7 +9,7 @@ import com.andraganoid.verymuchtodo.kmodel.Message
 import com.andraganoid.verymuchtodo.kmodel.User
 
 
-@Database(entities = [User::class, Message::class], version = 2, exportSchema = false)
+@Database(entities = [User::class, Message::class], version = 3, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class TodoDatabase : RoomDatabase() {
 

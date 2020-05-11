@@ -9,6 +9,7 @@ import android.net.NetworkRequest
 import android.os.Build
 import android.util.Log
 import com.andraganoid.verymuchtodo.di.Modules
+import com.andraganoid.verymuchtodo.util._networkStatus
 import com.andraganoid.verymuchtodo.util.networkStateChannel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,8 +38,9 @@ class App : Application(),CoroutineScope {
                 // network available
                 Log.d("CCONN", "AVAILABLE")
                 launch {networkStateChannel.send(true)  }
-                //   networkStateChannel.close()
-             //  networkStateChannel.broadcast(capacity = Channel.CONFLATED)
+
+                _networkStatus.postValue(true)
+
             }
 
             override fun onLost(network: Network?) {
@@ -46,6 +48,9 @@ class App : Application(),CoroutineScope {
                 Log.d("CCONN", "UNAVAILABLE")
               launch {networkStateChannel.send(false)  }
                // networkStateChannel.close()
+
+                _networkStatus.postValue(false)
+
             }
         }
 

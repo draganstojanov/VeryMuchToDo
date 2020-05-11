@@ -178,7 +178,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Dev/AndroidStudio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_send_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Dev/AndroidStudio/plugins/android/lib/android.jar!/images/material_design_icons/social/ic_sentiment_dissatisfied_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -188,7 +188,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_send" />
+                            <entry key="outputName" value="ic_profile_img_error_placeholder" />
                             <entry key="sourceFile" value="C:\Users\Stojanov 4" />
                           </map>
                         </option>

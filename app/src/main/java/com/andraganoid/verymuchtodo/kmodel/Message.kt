@@ -7,7 +7,9 @@ import androidx.room.PrimaryKey
 data class Message(
         val text: String = "",
         val timestamp: Long = 0,
-        val user: User = User(),
+        var user: User = User(),
         @PrimaryKey
-        val id: String = "")
+        val id: String = "") {
+    var isMyMsg: Boolean = false
+}
 

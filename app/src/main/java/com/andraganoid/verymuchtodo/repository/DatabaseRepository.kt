@@ -10,6 +10,8 @@ class DatabaseRepository(private val userDao: UserDao, private val messageDao: M
 
     fun allUsers(): Flow<List<User>> = userDao.allUsers()
 
+   // suspend fun allUsersClean(): List<User> = userDao.allUsersClean()
+
     fun allMessages(): Flow<List<Message>> = messageDao.allMessages()
 
 

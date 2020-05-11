@@ -20,8 +20,8 @@
     <color name="primLite">#7BCAED</color>
     <color name="primVeryLite">#B1EAE7</color>
 
-    <color name="secMid">#EA2F53</color>
-    <color name="secLite">#FD6C6C</color>
+    <color name="secMid">#FD2851</color>
+    <color name="secLite">#F87373</color>
     <color name="secDark">#AD0E0E</color>
 
 </resources>
