@@ -42,15 +42,16 @@ class TodoActivity() : AppCompatActivity() {
     private fun networkListener() {
         lifecycleScope.launchWhenCreated {
             networkStateChannel.consumeEach {
-              //  toast(it.toString())
-               // lostNetworkIcon.isVisible = !it
+                //  toast(it.toString())
+                // lostNetworkIcon.isVisible = !it
             }
         }
 
-       networkStatus.observe(this, Observer {
-           Log.d("CCONN", "TODO-LIVEDATA "+it)
-           toast(it.toString())
-           lostNetworkIcon.isVisible = !it})
+        networkStatus.observe(this, Observer {
+            Log.d("CCONN", "TODO-LIVEDATA " + it)
+            toast(it.toString())
+            lostNetworkIcon.isVisible = !it
+        })
 
 
     }
@@ -70,7 +71,7 @@ class TodoActivity() : AppCompatActivity() {
                 }
                 getString(R.string.stacks_frag_label) -> title = getString(R.string.stacks)
                 getString(R.string.users_frag_label) -> title = getString(R.string.users)
-                getString(R.string.messages_frag_label) -> title = getString(R.string.messages)
+                getString(R.string.messages_frag_label) -> backArrow = true
                 getString(R.string.map_frag_label) -> title = getString(R.string.map)
                 getString(R.string.chat_frag_label) -> title = getString(R.string.chat)
             }
@@ -109,9 +110,12 @@ class TodoActivity() : AppCompatActivity() {
     }
 
 
-
     private fun toast(txt: String) {
         Toast.makeText(this, txt, Toast.LENGTH_SHORT).show()
+    }
+
+    fun setTitle(title: String) {
+        todoTitle.text = title
     }
 
 }

@@ -6,7 +6,8 @@ import com.andraganoid.verymuchtodo.database.dao.MessageDao
 import com.andraganoid.verymuchtodo.database.dao.UserDao
 import com.andraganoid.verymuchtodo.kmodel.Chat
 import com.andraganoid.verymuchtodo.kmodel.User
-import com.andraganoid.verymuchtodo.util.*
+import com.andraganoid.verymuchtodo.util.COL_CHAT
+import com.andraganoid.verymuchtodo.util.COL_USER
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineScope
@@ -66,7 +67,7 @@ class ListenersRepository(
 //        }
 
         firebaseFirestore.collection(COL_CHAT)
-                .whereArrayContains(FIELD_MEMBERS, listOf(CHAT_ALL_MEMBERS, myUser.uid))
+               // .whereArrayContains(FIELD_MEMBERS, listOf(CHAT_ALL_MEMBERS, myUser.uid))
                 .addSnapshotListener { snapshots, e ->
                     val added = arrayListOf<Chat>()
                     val updated = arrayListOf<Chat>()

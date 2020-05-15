@@ -78,6 +78,7 @@
     <string name="chat_frag_label">ChatsFragment</string>
     <string name="chat">Chats</string>
     <string name="new_chat">New chat</string>
-    <string name="participants">\"Participants:: \"</string>
-    <string name="messages_no">\"Messages: \"</string>
+    <string name="participants">"Participants: "</string>
+    <string name="messages_no">"Messages: "</string>
+    <string name="args_current_chat">currentChat</string>
 </resources>

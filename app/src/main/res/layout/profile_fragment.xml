@@ -83,7 +83,7 @@
 
             <ImageView
                 android:id="@+id/profileUserImageIv"
-                roundImage="@{viewModel.profileImage}"
+                profileImage="@{viewModel.profileImage}"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_marginTop="32dp"

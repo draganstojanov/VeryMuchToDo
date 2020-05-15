@@ -10,6 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.andraganoid.verymuchtodo.databinding.ChatsFragmentBinding
 import com.andraganoid.verymuchtodo.kmodel.Chat
+import com.andraganoid.verymuchtodo.util.CHAT_ALL_MEMBERS
+import com.andraganoid.verymuchtodo.util.myUser
 import kotlinx.android.synthetic.main.chats_fragment.*
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -32,18 +34,23 @@ class ChatsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         chatsAdapter = ChatsAdapter(this)
         chatsRecView.adapter = chatsAdapter
-        viewModel.allChats.observe(viewLifecycleOwner, Observer{chats->
-            lifecycleScope.launch{  chatsAdapter.setChatsList(chats as ArrayList<Chat>?,viewModel.allUsers().size)}
+        viewModel.allChats.observe(viewLifecycleOwner, Observer { chats ->
+            lifecycleScope.launch { chatsAdapter.setChatsList(chats as ArrayList<Chat>?, viewModel.allUsers().size) }
         })
     }
 
     fun createNewChat() {
-showMessages(Chat())
+        val newChat = Chat(
+                members = arrayListOf(CHAT_ALL_MEMBERS),
+                name = CHAT_ALL_MEMBERS,
+                id = "${myUser.uid}-${System.currentTimeMillis()}"
+        )
+        showMessages(newChat)
     }
 
     fun showMessages(chat: Chat) {
-        val action=ChatsFragmentDirections.actionChatsFragmentToMessagesFragment()
-        action.chat=chat
+        val action = ChatsFragmentDirections.actionChatsFragmentToMessagesFragment()
+        action.currentChat = chat
         findNavController().navigate(action)
     }
 

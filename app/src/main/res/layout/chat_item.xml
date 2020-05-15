@@ -13,6 +13,10 @@
             name="participants"
             type="String" />
 
+        <variable
+            name="msgs"
+            type="String" />
+
 
     </data>
 
@@ -24,11 +28,12 @@
 
         <ImageView
             android:id="@+id/chatIcon"
-            roundImage="@{chat.iconUrl}"
+            chatImage="@{chat.iconUrl}"
             android:layout_width="56dp"
             android:layout_height="56dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/chatContainer"
@@ -37,6 +42,7 @@
             android:layout_marginStart="8dp"
             android:background="@drawable/input_background"
             android:minHeight="@dimen/bar_height"
+            android:padding="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/chatIcon"
@@ -46,7 +52,6 @@
                 android:id="@+id/chatName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
                 android:text="@{chat.name}"
                 android:textColor="@color/backgorundColor"
                 android:textSize="24sp"
@@ -58,10 +63,10 @@
                 android:id="@+id/chatParticipants"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
+
                 android:text="@{participants}"
                 android:textColor="@color/primVeryLite"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chatName" />
 
@@ -69,10 +74,10 @@
                 android:id="@+id/chatMessages"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:text="@{@string/messages_no+chat.messages.size()"
+                android:gravity="end"
+                android:text="@{msgs}"
                 android:textColor="@color/primVeryLite"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chatName" />
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,15 +26,6 @@ object BindingAdapters {
         tv.text = txt
     }
 
-    @BindingAdapter("roundImage")
-    @JvmStatic
-    fun setRoundImage(iv: ImageView, urlString: String) {
-        iv.load(urlString) {
-            placeholder(R.drawable.ic_profile_img_placeholder)
-            error(R.drawable.ic_profile_img_error_placeholder)
-            transformations(CircleCropTransformation())
-        }
-    }
 
     @BindingAdapter("senderAndDate")
     @JvmStatic
@@ -58,6 +49,29 @@ object BindingAdapters {
             params.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
         }
         tv.layoutParams = params
+    }
+
+
+    @BindingAdapter("profileImage")
+    @JvmStatic
+    fun setProfileRoundImage(iv: ImageView, urlString: String?) {
+        val url: String = if (urlString != null) urlString else ""
+        iv.load(url) {
+            placeholder(R.drawable.ic_profile_img_placeholder)
+            error(R.drawable.ic_profile_img_placeholder)
+            transformations(CircleCropTransformation())
+        }
+    }
+
+    @BindingAdapter("chatImage")
+    @JvmStatic
+    fun setChatRoundImage(iv: ImageView, urlString: String?) {
+        val url: String = if (urlString != null) urlString else ""
+        iv.load(url) {
+            placeholder(R.drawable.ic_chat_placeholder)
+            error(R.drawable.ic_chat_placeholder)
+            transformations(CircleCropTransformation())
+        }
     }
 
 }

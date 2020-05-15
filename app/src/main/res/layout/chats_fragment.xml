@@ -37,48 +37,11 @@
             style="@style/buttonSmall"
             android:paddingHorizontal="16dp"
             android:text="@string/new_chat"
+            android:layout_margin="8dp"
             android:onClick="@{()->fragment.createNewChat()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
-
-
-        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-        <!--            android:id="@+id/composeContainer"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent">-->
-
-
-        <!--            <EditText-->
-        <!--                android:layout_width="0dp"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:hint="@string/your_message"-->
-        <!--                android:maxLength="200"-->
-        <!--                android:minHeight="@dimen/bar_height"-->
-        <!--                android:padding="8dp"-->
-        <!--                android:textSize="16sp"-->
-        <!--                android:textColorHint="@color/primVeryLite"-->
-        <!--                android:background="@drawable/input_background"-->
-        <!--                android:textColor="@color/backgorundColor"-->
-        <!--                android:text="@={viewModel.messageText}"-->
-        <!--                app:layout_constraintEnd_toStartOf="@+id/composeSend"-->
-        <!--                app:layout_constraintStart_toStartOf="parent"-->
-        <!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-        <!--            <ImageView-->
-        <!--                android:id="@+id/composeSend"-->
-        <!--                android:layout_width="@dimen/bar_height"-->
-        <!--                android:layout_height="@dimen/bar_height"-->
-        <!--                android:background="@drawable/button_background"-->
-        <!--                android:scaleType="center"-->
-        <!--                android:src="@drawable/ic_send"-->
-        <!--                android:tint="@color/primDark"-->
-        <!--                android:onClick="@{()->viewModel.sendMessage()}"-->
-        <!--                app:layout_constraintEnd_toEndOf="parent"-->
-        <!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

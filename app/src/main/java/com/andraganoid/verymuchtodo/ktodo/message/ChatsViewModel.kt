@@ -19,7 +19,7 @@ class ChatsViewModel(private val dbRepository: DatabaseRepository, private val f
 
     val allChats = dbRepository.allChats().asLiveData()
 
- suspend fun allUsers() = dbRepository.allUsers().first()
+    suspend fun allUsers() = dbRepository.allUsers().first()
 
 
 //    suspend fun getAllMessages(): ArrayList<Message>? {

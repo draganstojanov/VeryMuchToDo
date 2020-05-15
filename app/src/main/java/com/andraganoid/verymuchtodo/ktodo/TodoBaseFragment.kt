@@ -21,4 +21,8 @@ open class TodoBaseFragment : Fragment() {
         todo.hideKeyboard()
     }
 
+    fun setTitle(title: String) {
+        todo.setTitle(title)
+    }
+
 }

@@ -10,22 +10,28 @@ import com.andraganoid.verymuchtodo.util.myUser
 
 class MessagesAdapter(private val fragment: MessagesFragment) : RecyclerView.Adapter<MessagesAdapter.MessageHolder>() {
 
-    var msgList: ArrayList<Message>? = arrayListOf()
+//    var msgList: ArrayList<Message>? = arrayListOf()
+//
+//    fun setMessageList(mList: List<Message>) {
+//        msgList?.clear()
+//        msgList?.addAll(mList!!)
+//        notifyDataSetChanged()
+//    }
 
-    fun setMessageList(mList: ArrayList<Message>?) {
-        msgList?.clear()
-        msgList?.addAll(mList!!)
-        notifyDataSetChanged()
-    }
+    var msgList: List<Message> = emptyList()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageHolder {
         val binding = MessageItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MessageHolder(binding)
     }
 
-    override fun getItemCount(): Int = msgList!!.size
+    override fun getItemCount(): Int = msgList.size
 
-    override fun onBindViewHolder(holder: MessageHolder, position: Int) = holder.bind(msgList?.get(position)!!)
+    override fun onBindViewHolder(holder: MessageHolder, position: Int) = holder.bind(msgList.get(position))
 
     inner class MessageHolder(private val binding: MessageItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(message: Message) {

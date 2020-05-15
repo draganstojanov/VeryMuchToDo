@@ -38,7 +38,8 @@ class Document(value: Any) {
                 "id" to chat.id,
                 "name" to chat.name,
                 FIELD_MEMBERS to chat.members,
-                "messages" to chat.messages
+                "messages" to chat.messages,
+                "lastRead" to chat.lastRead
         )
     }
 

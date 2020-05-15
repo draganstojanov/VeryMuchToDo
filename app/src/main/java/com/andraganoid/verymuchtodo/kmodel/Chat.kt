@@ -9,9 +9,8 @@ data class Chat(
         @PrimaryKey
         val id: String = "",
         val members: List<String> = arrayListOf(),
-        val messages: List<Message> = arrayListOf(),
+        var messages: List<Message> = arrayListOf(),
         var name: String = "",
-        var iconUrl: String? = null
-) :Serializable{
-    var lastReadTimestamp: Long = 0
-}
+        var iconUrl: String? = null,
+        var lastRead: Long = 0
+) : Serializable

@@ -26,7 +26,7 @@
 
         <ImageView
             android:id="@+id/userProfileImg"
-            roundImage="@{user.imageUrl}"
+            profileImage="@{user.imageUrl}"
             android:layout_width="@dimen/bar_height"
             android:layout_height="@dimen/bar_height"
             app:layout_constraintBottom_toBottomOf="parent"

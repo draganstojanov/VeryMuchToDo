@@ -11,12 +11,12 @@ import com.andraganoid.verymuchtodo.kmodel.Chat
 class ChatsAdapter(private val fragment: ChatsFragment) : RecyclerView.Adapter<ChatsAdapter.ChatsHolder>() {
 
     var chatList: ArrayList<Chat>? = arrayListOf()
-    var allUsers:Int=0
+    var allUsers: Int = 0
 
-    fun setChatsList(cList: ArrayList<Chat>?,all:Int) {
+    fun setChatsList(cList: ArrayList<Chat>?, all: Int) {
         chatList?.clear()
         chatList?.addAll(cList!!)
-        allUsers=all
+        allUsers = all
         notifyDataSetChanged()
     }
 
@@ -32,8 +32,11 @@ class ChatsAdapter(private val fragment: ChatsFragment) : RecyclerView.Adapter<C
     inner class ChatsHolder(private val binding: ChatItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(chat: Chat) {
             binding.chat = chat
-            val participants="${R.string.participants}${if(chat.members.size!=1)chat.members.size else allUsers}"
-            binding.participants=participants
+            val participants = "${binding.root.context.getString(R.string.participants)}${if (chat.members.size != 1) chat.members.size else allUsers}"
+            binding.participants = participants
+            val msgs = "${binding.root.context.getString(R.string.messages_no)}${chat.messages.size}"
+            binding.msgs=msgs
+            binding.root.setOnClickListener { fragment.showMessages(chat) }
             binding.executePendingBindings()
         }
     }
