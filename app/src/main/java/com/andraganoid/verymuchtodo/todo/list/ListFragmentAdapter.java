@@ -4,10 +4,8 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.databinding.ListRowBinding;
 import com.andraganoid.verymuchtodo.model.TodoList;
 import com.andraganoid.verymuchtodo.todo.ToDoViewModel;
@@ -34,11 +32,12 @@ public class ListFragmentAdapter extends RecyclerView.Adapter<ListFragmentAdapte
     @NonNull
     @Override
     public ListFragmentAdapter.ListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ListRowBinding binding = DataBindingUtil.inflate(
-                LayoutInflater.from(parent.getContext()),
-                R.layout.list_row,
-                parent,
-                false);
+//        ListRowBinding binding = DataBindingUtil.inflate(
+//                LayoutInflater.from(parent.getContext()),
+//                R.layout.list_row,
+//                parent,
+//                false);
+        ListRowBinding binding = ListRowBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
         return new ListHolder(binding);
     }
 

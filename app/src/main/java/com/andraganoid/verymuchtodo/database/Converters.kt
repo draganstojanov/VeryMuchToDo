@@ -1,7 +1,9 @@
 package com.andraganoid.verymuchtodo.database
 
 import androidx.room.TypeConverter
+import com.andraganoid.verymuchtodo.kmodel.Message
 import com.andraganoid.verymuchtodo.kmodel.User
+import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
 
 class Converters {
@@ -9,28 +11,27 @@ class Converters {
     private val gson = Gson()
 
     @TypeConverter
-    fun fromUser(user: User):String=gson.toJson(user)
+    fun fromUser(user: User): String = gson.toJson(user)
 
     @TypeConverter
-    fun toUser(user:String)=gson.fromJson(user, User::class.java)
+    fun toUser(user: String) = gson.fromJson(user, User::class.java)
 
 //    @TypeConverter
-//    fun fromFieldsList(fList: ArrayList<Field>): String = gson.toJson(fList)
+//    fun fromChat(chat: Chat): String = gson.toJson(chat)
 //
 //    @TypeConverter
-//    fun toFieldsList(fList: String): ArrayList<Field> = gson.fromJson(fList, object : TypeToken<ArrayList<Field>>() {}.type)
-//
-//    @TypeConverter
-//    fun fromScore(score: Score): String = gson.toJson(score)
-//
-//    @TypeConverter
-//    fun toScore(score: String) = gson.fromJson(score, Score::class.java)
-//
-//    @TypeConverter
-//    fun fromGamePlaySettings(gamePlaySettings: GamePlaySettings): String = gson.toJson(gamePlaySettings)
-//
-//    @TypeConverter
-//    fun toGamePlaySettings(gamePlaySettings: String) = gson.fromJson(gamePlaySettings, GamePlaySettings::class.java)
+//    fun toChat(chat: String) = gson.fromJson(chat, Chat::class.java)
 
+    @TypeConverter
+    fun fromMembers(members: List<String>): String = gson.toJson(members)
+
+    @TypeConverter
+    fun toMembers(members: String): List<String> = gson.fromJson(members, object : TypeToken<List<String>>() {}.type)
+
+    @TypeConverter
+    fun fromMessages(messages: List<Message>): String = gson.toJson(messages)
+
+    @TypeConverter
+    fun toMessages(messages: String): List<Message> = gson.fromJson(messages, object : TypeToken<List<Message>>() {}.type)
 
 }

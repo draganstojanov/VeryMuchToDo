@@ -12,5 +12,9 @@ const val COL_USER = "USER"
 const val COL_STACK = "STACK"
 const val COL_МESSAGE = "MESSAGE"
 const val COL_LOCATION = "LOCATION"
+const val COL_CHAT = "CHAT"
 
 const val PROFILE_IMAGES_FOLDER = "profile_images/"
+
+const val CHAT_ALL_MEMBERS = "All Users"
+const val FIELD_MEMBERS = "members"

@@ -30,7 +30,7 @@ class MessagesAdapter(private val fragment: MessagesFragment) : RecyclerView.Ada
     inner class MessageHolder(private val binding: MessageItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(message: Message) {
             binding.message = message
-            binding.isMyMsg = myUser.uid == message.user.uid
+            binding.isMyMsg = myUser.uid == message.from.uid
         }
     }
 }

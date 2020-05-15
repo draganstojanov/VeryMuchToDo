@@ -18,17 +18,18 @@ class MessagesViewModel(private val dbRepository: DatabaseRepository, private va
     val loaderVisibility: LiveData<Boolean>
         get() = _loaderVisibility
 
-     val allMessages = dbRepository.allMessages().asLiveData()
+    val allMessages = dbRepository.allMessages().asLiveData()
 
-    suspend fun getAllMessages(): List<Message> {
+    suspend fun getAllMessages(): ArrayList<Message>? {
         _loaderVisibility.value = false
 
-        val mList = dbRepository.allMessages().first()
+        //  val mList = dbRepository.allMessages().first()
+        val mList = allMessages.value as ArrayList
         val users = dbRepository.allUsers().first()
 
         mList.forEach { message ->
-            message.user = users.filter { user -> user.uid.equals(message.user.uid) }[0]
-            message.isMyMsg = myUser.uid.equals(message.user.uid)
+            message.from = users.filter { user -> user.uid.equals(message.from.uid) }[0]
+            message.isMyMsg = myUser.uid.equals(message.from.uid)
         }
         return mList
     }
@@ -44,7 +45,7 @@ class MessagesViewModel(private val dbRepository: DatabaseRepository, private va
             val message = Message(
                     text = messageText.get().toString(),
                     timestamp = timestamp,
-                    user = myUser,
+                    from = myUser,
                     id = "${myUser.uid}-$timestamp")
             firestoreRepository.addDocument(Document(message))
         }

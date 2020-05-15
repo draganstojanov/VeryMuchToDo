@@ -4,31 +4,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/todo_nav"
     android:label="TodoNav"
-    app:startDestination="@id/listsFragment">
+    app:startDestination="@id/stack_nav">
 
-    <fragment
-        android:id="@+id/listsFragment"
-        android:name="com.andraganoid.verymuchtodo.ktodo.stack.StacksFragment"
-        android:label="@string/stacks_frag_label"
-        tools:layout="@layout/stacks_fragment" />
-    <fragment
-        android:id="@+id/messagesFragment"
-        android:name="com.andraganoid.verymuchtodo.ktodo.message.MessagesFragment"
-        android:label="@string/messages_frag_label"
-        tools:layout="@layout/messages_fragment" />
-    <fragment
-        android:id="@+id/mapFragment"
-        android:name="com.andraganoid.verymuchtodo.ktodo.map.MapFragment"
-        android:label="@string/map_frag_label"
-        tools:layout="@layout/map_fragment" />
-    <fragment
-        android:id="@+id/usersFragment"
-        android:name="com.andraganoid.verymuchtodo.ktodo.users.UsersFragment"
-        android:label="@string/users_frag_label"
-        tools:layout="@layout/users_fragment" />
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.andraganoid.verymuchtodo.ktodo.profile.ProfileFragment"
         android:label="@string/profile_frag_label"
         tools:layout="@layout/profile_fragment"/>
+    <navigation
+        android:id="@+id/stack_nav"
+        app:startDestination="@id/listsFragment" >
+        <fragment
+            android:id="@+id/listsFragment"
+            android:name="com.andraganoid.verymuchtodo.ktodo.stack.StacksFragment"
+            android:label="@string/stacks_frag_label"
+            tools:layout="@layout/stacks_fragment" />
+    </navigation>
+    <navigation
+        android:id="@+id/msg_nav"
+        app:startDestination="@id/chatsFragment" >
+        <fragment
+            android:id="@+id/messagesFragment"
+            android:name="com.andraganoid.verymuchtodo.ktodo.message.MessagesFragment"
+            android:label="@string/messages_frag_label"
+            tools:layout="@layout/messages_fragment" >
+            <argument
+                android:name="chat"
+                app:argType="com.andraganoid.verymuchtodo.kmodel.Chat"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        </fragment>
+        <fragment
+            android:id="@+id/chatsFragment"
+            android:name="com.andraganoid.verymuchtodo.ktodo.message.ChatsFragment"
+            android:label="@string/chat_frag_label"
+            tools:layout="@layout/chats_fragment" >
+            <action
+                android:id="@+id/action_chatsFragment_to_messagesFragment"
+                app:destination="@id/messagesFragment"
+                app:launchSingleTop="true" />
+        </fragment>
+    </navigation>
+    <navigation
+        android:id="@+id/map_nav"
+        app:startDestination="@id/mapFragment" >
+        <fragment
+            android:id="@+id/mapFragment"
+            android:name="com.andraganoid.verymuchtodo.ktodo.map.MapFragment"
+            android:label="@string/map_frag_label"
+            tools:layout="@layout/map_fragment" />
+    </navigation>
+    <navigation
+        android:id="@+id/user_nav"
+        app:startDestination="@id/usersFragment" >
+        <fragment
+            android:id="@+id/usersFragment"
+            android:name="com.andraganoid.verymuchtodo.ktodo.users.UsersFragment"
+            android:label="@string/users_frag_label"
+            tools:layout="@layout/users_fragment" />
+    </navigation>
 </navigation>

@@ -25,7 +25,7 @@
 
         <ImageView
             android:id="@+id/msgProfileImg"
-            roundImage="@{message.user.imageUrl}"
+            roundImage="@{message.from.imageUrl}"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="4dp"
@@ -59,13 +59,12 @@
 
             <TextView
                 android:id="@+id/messageText"
+                messageText="@{message}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                messageText="@{message}"
                 android:textColor="@color/backgorundColor"
                 android:textSize="16sp"
-
                 app:layout_constraintTop_toBottomOf="@id/messageSender"
                 tools:ignore="MissingConstraints" />
         </androidx.constraintlayout.widget.ConstraintLayout>

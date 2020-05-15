@@ -33,7 +33,7 @@
                 android:layout_height="match_parent"
                 android:keepScreenOn="true"
                 app:cameraAudio="off"
-                app:cameraFacing="back"
+                app:cameraFacing="front"
                 app:cameraFlash="auto"
                 app:cameraMode="picture"
                 android:orientation="vertical"

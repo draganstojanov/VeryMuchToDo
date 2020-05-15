@@ -39,8 +39,8 @@ android {
 
 def koin_version = "2.0.1"
 def room_version = "2.2.5"
-def lifecycle_version="2.2.0"
-//def camerax_version = "1.0.0-beta03"
+def lifecycle_version = "2.2.0"
+def camerax_version = '1.0.0-alpha06'
 //def retrofit_ver = "2.8.1"
 
 dependencies {
@@ -58,10 +58,10 @@ dependencies {
     // AndroidX
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta6'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.1.0'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha03'
 
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
@@ -74,11 +74,11 @@ dependencies {
     implementation "org.koin:koin-android-viewmodel:$koin_version"
 
     // Firebase
-    implementation 'com.google.firebase:firebase-core:17.4.0'
+    implementation 'com.google.firebase:firebase-core:17.4.1'
     implementation 'com.google.firebase:firebase-auth:19.3.1'
     // implementation 'com.google.firebase:firebase-firestore:21.4.2'
     implementation 'com.google.firebase:firebase-firestore-ktx:21.4.3'
-    implementation 'com.google.firebase:firebase-analytics:17.4.0'
+    implementation 'com.google.firebase:firebase-analytics:17.4.1'
     // implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta04'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     implementation 'com.google.firebase:firebase-storage-ktx:19.1.1'
@@ -92,6 +92,8 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:${room_version}"
     implementation "androidx.room:room-ktx:${room_version}"
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     kapt "androidx.room:room-compiler:$room_version"
 
     // Coil
@@ -99,6 +101,10 @@ dependencies {
 
     // Camera
     api 'com.otaliastudios:cameraview:2.6.2'
+
+    //CameraX
+    implementation "androidx.camera:camera-core:${camerax_version}"
+    implementation "androidx.camera:camera-camera2:${camerax_version}"
 
     //QuickPermissions
     implementation 'com.github.quickpermissions:quickpermissions-kotlin:0.4.1'
@@ -113,5 +119,3 @@ dependencies {
     implementation 'pub.devrel:easypermissions:3.0.0'
     implementation 'com.github.ravindu1024:android-keyboardlistener:1.0.0'
 }
-
-

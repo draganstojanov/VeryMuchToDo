@@ -39,7 +39,7 @@ object BindingAdapters {
     @BindingAdapter("senderAndDate")
     @JvmStatic
     fun senderAndDate(tv: TextView, message: Message) {
-        val txt = "${if (message.isMyMsg) "" else message.user.name} ${message.timestamp.getFormattedDate()}"
+        val txt = "${if (message.isMyMsg) "" else message.from.name} ${message.timestamp.getFormattedDate()}"
         tv.gravity = if (message.isMyMsg) Gravity.END else Gravity.START
         tv.text = txt
     }
