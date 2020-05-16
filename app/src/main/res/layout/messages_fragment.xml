@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.andraganoid.verymuchtodo.ktodo.message.MessagesViewModel" />
+            type="com.andraganoid.verymuchtodo.ktodo.chat.messages.MessagesViewModel" />
 
     </data>
 

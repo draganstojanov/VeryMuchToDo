@@ -76,9 +76,12 @@
     <string name="login_frag_label">LoginFragment</string>
     <string name="your_message">Your message</string>
     <string name="chat_frag_label">ChatsFragment</string>
-    <string name="chat">Chats</string>
+    <string name="chat">Chat</string>
+    <string name="chats">Chats</string>
     <string name="new_chat">New chat</string>
     <string name="participants">"Participants: "</string>
     <string name="messages_no">"Messages: "</string>
     <string name="args_current_chat">currentChat</string>
+    <string name="select_members">Select chat members</string>
+    <string name="crate_chat">Create chat</string>
 </resources>

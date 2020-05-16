@@ -8,7 +8,7 @@
     <item
         android:id="@+id/msg_nav"
         android:icon="@drawable/ic_message"
-        android:title="@string/messages" />
+        android:title="@string/chat" />
 
     <item
         android:id="@+id/user_nav"

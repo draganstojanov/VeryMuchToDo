@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.ktodo.message
+package com.andraganoid.verymuchtodo.ktodo.chat.messages
 
 import android.os.Bundle
 import android.view.LayoutInflater

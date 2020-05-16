@@ -25,7 +25,7 @@
         app:startDestination="@id/chatsFragment" >
         <fragment
             android:id="@+id/messagesFragment"
-            android:name="com.andraganoid.verymuchtodo.ktodo.message.MessagesFragment"
+            android:name="com.andraganoid.verymuchtodo.ktodo.chat.messages.MessagesFragment"
             android:label="@string/messages_frag_label"
             tools:layout="@layout/messages_fragment" >
             <argument
@@ -36,7 +36,7 @@
         </fragment>
         <fragment
             android:id="@+id/chatsFragment"
-            android:name="com.andraganoid.verymuchtodo.ktodo.message.ChatsFragment"
+            android:name="com.andraganoid.verymuchtodo.ktodo.chat.chats.ChatsFragment"
             android:label="@string/chat_frag_label"
             tools:layout="@layout/chats_fragment" >
             <action

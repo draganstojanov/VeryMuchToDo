@@ -7,11 +7,11 @@
 
         <variable
             name="viewModel"
-            type="com.andraganoid.verymuchtodo.ktodo.message.ChatsViewModel" />
+            type="com.andraganoid.verymuchtodo.ktodo.chat.chats.ChatsViewModel" />
 
         <variable
             name="fragment"
-            type="com.andraganoid.verymuchtodo.ktodo.message.ChatsFragment"/>
+            type="com.andraganoid.verymuchtodo.ktodo.chat.chats.ChatsFragment"/>
 
     </data>
 

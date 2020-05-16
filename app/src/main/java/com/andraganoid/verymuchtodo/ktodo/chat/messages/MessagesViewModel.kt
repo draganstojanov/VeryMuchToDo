@@ -1,6 +1,5 @@
-package com.andraganoid.verymuchtodo.ktodo.message
+package com.andraganoid.verymuchtodo.ktodo.chat.messages
 
-import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.*
 import com.andraganoid.verymuchtodo.kmodel.Chat
@@ -31,13 +30,13 @@ class MessagesViewModel(private val dbRepository: DatabaseRepository, private va
     fun getAllMessages(chats: List<Chat>) {
         _loaderVisibility.value = false
 
-
-        val xcurrentChat = chats.filter { chat ->
-            chat.id.equals(currentChat?.id)
-        }.get(0)
-
-        Log.d("CCCUUURR-1", currentChat!!.id)
-        Log.d("CCCUUURR-2", xcurrentChat.id)
+//
+//        val xcurrentChat = chats.filter { chat ->
+//            chat.id.equals(currentChat?.id)
+//        }.get(0)
+//
+//        Log.d("CCCUUURR-1", currentChat!!.id)
+//        Log.d("CCCUUURR-2", xcurrentChat.id)
 
 
         viewModelScope.launch {
@@ -76,7 +75,7 @@ class MessagesViewModel(private val dbRepository: DatabaseRepository, private va
 
     fun sendMessage() {
         if (messageText.get()!!.isNotEmpty()) {
-          //  _loaderVisibility.value = true
+           _loaderVisibility.value = true
             val timestamp = System.currentTimeMillis()
 
 //            val message = Message(

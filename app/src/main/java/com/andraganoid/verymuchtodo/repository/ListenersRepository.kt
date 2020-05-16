@@ -6,14 +6,15 @@ import com.andraganoid.verymuchtodo.database.dao.MessageDao
 import com.andraganoid.verymuchtodo.database.dao.UserDao
 import com.andraganoid.verymuchtodo.kmodel.Chat
 import com.andraganoid.verymuchtodo.kmodel.User
-import com.andraganoid.verymuchtodo.util.COL_CHAT
-import com.andraganoid.verymuchtodo.util.COL_USER
+import com.andraganoid.verymuchtodo.util.*
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ListenerRegistration
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import org.koin.core.KoinComponent
 import kotlin.coroutines.CoroutineContext
 
 class ListenersRepository(
@@ -21,14 +22,19 @@ class ListenersRepository(
         private val userDao: UserDao,
         private val messageDao: MessageDao,
         private val chatDao: ChatDao)
-    : CoroutineScope {
+    : CoroutineScope, KoinComponent {
+
+    var userListener: ListenerRegistration? = null
+    var chatListener: ListenerRegistration? = null
 
     override val coroutineContext: CoroutineContext
         get() = Job() + Dispatchers.Default
 
     fun setFirestoreListeners() {
 
-        firebaseFirestore.collection(COL_USER).addSnapshotListener { snapshots, e ->
+        Log.d("TODOSTART", "LISTENERS")
+
+        userListener = firebaseFirestore.collection(COL_USER).addSnapshotListener { snapshots, e ->
             if (snapshots != null) {
                 val users = arrayListOf<User>()
                 for (doc in snapshots) {
@@ -66,8 +72,8 @@ class ListenersRepository(
 //            }
 //        }
 
-        firebaseFirestore.collection(COL_CHAT)
-               // .whereArrayContains(FIELD_MEMBERS, listOf(CHAT_ALL_MEMBERS, myUser.uid))
+        chatListener = firebaseFirestore.collection(COL_CHAT)
+                .whereArrayContainsAny(FIELD_MEMBERS, listOf(CHAT_ALL_MEMBERS, myUser.uid))
                 .addSnapshotListener { snapshots, e ->
                     val added = arrayListOf<Chat>()
                     val updated = arrayListOf<Chat>()

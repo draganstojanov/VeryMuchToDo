@@ -2,8 +2,8 @@ package com.andraganoid.verymuchtodo.di
 
 import androidx.room.Room
 import com.andraganoid.verymuchtodo.database.TodoDatabase
-import com.andraganoid.verymuchtodo.ktodo.message.ChatsViewModel
-import com.andraganoid.verymuchtodo.ktodo.message.MessagesViewModel
+import com.andraganoid.verymuchtodo.ktodo.chat.chats.ChatsViewModel
+import com.andraganoid.verymuchtodo.ktodo.chat.messages.MessagesViewModel
 import com.andraganoid.verymuchtodo.ktodo.profile.ProfileViewModel
 import com.andraganoid.verymuchtodo.ktodo.users.UsersViewModel
 import com.andraganoid.verymuchtodo.main.auth.AuthViewModel

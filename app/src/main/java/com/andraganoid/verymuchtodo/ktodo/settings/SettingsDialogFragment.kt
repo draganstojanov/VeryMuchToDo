@@ -10,15 +10,17 @@ import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.FragmentSettingsDialogBinding
 import com.andraganoid.verymuchtodo.ktodo.TodoActivity
 import com.andraganoid.verymuchtodo.main.MainActivity
+import com.andraganoid.verymuchtodo.repository.ListenersRepository
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.FirebaseAuth
+import org.koin.android.ext.android.inject
 
 
 class SettingsDialogFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentSettingsDialogBinding
     val isLogoutSelected = ObservableBoolean(false)
-
+    val listenersRepository: ListenersRepository by inject()
 
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
@@ -53,12 +55,18 @@ class SettingsDialogFragment : BottomSheetDialogFragment() {
     }
 
     fun applyLogout() {
+
+        listenersRepository.apply {
+            userListener?.remove()
+            chatListener?.remove()
+        }
+
         FirebaseAuth.getInstance().signOut()
+
         val mainIntent = Intent(activity, MainActivity::class.java)
         mainIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(mainIntent)
 
-        // (activity as TodoActivity).startActivity(Intent(context, MainActivity::class.java))
     }
 
 

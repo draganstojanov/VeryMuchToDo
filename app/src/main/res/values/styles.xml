@@ -77,7 +77,7 @@
         <item name="android:textSize">@dimen/smallButtonTextSize</item>
         <item name="android:textColor">@color/backgorundColor</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:layout_margin">32dp</item>
+
     </style>
 
     <style name="dialogTextView">

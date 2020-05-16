@@ -32,6 +32,9 @@ class TodoActivity() : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_todo_k)
+
+        Log.d("TODOSTART","TODOACTIVITY")
+
         listenersRepository.setFirestoreListeners()
         setNavigationListener()
         networkListener()
@@ -73,7 +76,7 @@ class TodoActivity() : AppCompatActivity() {
                 getString(R.string.users_frag_label) -> title = getString(R.string.users)
                 getString(R.string.messages_frag_label) -> backArrow = true
                 getString(R.string.map_frag_label) -> title = getString(R.string.map)
-                getString(R.string.chat_frag_label) -> title = getString(R.string.chat)
+                getString(R.string.chat_frag_label) -> title = getString(R.string.chats)
             }
             todoTitle.text = title.toUpperCase()
             backIcon.isVisible = backArrow

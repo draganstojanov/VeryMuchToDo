@@ -19,13 +19,7 @@ class MessageDialogFragment : BottomSheetDialogFragment() {
         messageList.adapter = arguments?.getStringArrayList(BUNDLE_MSG_DIALOG_LIST)?.let { MessageDialogAdapter(it) }
         okBtn.setOnClickListener { dismiss() }
 
-//        Timer().schedule(object : TimerTask() {
-//            override fun run() {//todo null
-//                dismiss()
-//            }
-//        }, 5000)
     }
-
 
 
 }

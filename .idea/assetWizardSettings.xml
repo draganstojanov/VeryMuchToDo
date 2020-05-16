@@ -24,7 +24,18 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="opacityPercent" value="80" />
+                                                <entry key="opacityPercent" value="60" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                      <entry key="clipartAsset">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="url" value="jar:file:/C:/Dev/AndroidStudio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_check_circle_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -46,9 +57,8 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="assetType" value="IMAGE" />
                                       <entry key="imageAsset" value="D:\Download\icons8-wi-fi-off-100.png" />
-                                      <entry key="outputName" value="ic_network_lost" />
+                                      <entry key="outputName" value="ic_check_circle" />
                                       <entry key="themeColor" value="ffffff" />
                                     </map>
                                   </option>
@@ -178,7 +188,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Dev/AndroidStudio/plugins/android/lib/android.jar!/images/material_design_icons/social/ic_group_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Dev/AndroidStudio/plugins/android/lib/android.jar!/images/material_design_icons/toggle/ic_radio_button_unchecked_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -188,7 +198,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_chat_placeholder" />
+                            <entry key="outputName" value="ic_check_circle_unchecked" />
                             <entry key="sourceFile" value="C:\Users\Stojanov 4" />
                           </map>
                         </option>
