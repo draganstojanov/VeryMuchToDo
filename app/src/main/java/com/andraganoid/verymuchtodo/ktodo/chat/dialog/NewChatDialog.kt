@@ -36,7 +36,7 @@ class NewChatDialog : BottomSheetDialogFragment() {
         userList = arrayListOf()
         userList.add(NewUser(User(name = CHAT_ALL_MEMBERS, uid = CHAT_ALL_MEMBERS), ObservableBoolean(false)))
         lifecycleScope.launchWhenCreated {
-            viewModel.allUsers.value?.forEach { user ->
+            viewModel.allUsers.forEach { user ->
                 if (user.uid != myUser.uid) {
                     userList.add(NewUser(user, ObservableBoolean(false)))
                 }

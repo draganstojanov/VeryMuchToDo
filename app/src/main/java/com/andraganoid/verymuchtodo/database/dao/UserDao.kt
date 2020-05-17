@@ -18,8 +18,8 @@ interface UserDao {
     @Delete
     suspend fun deleteUser(user: User)
 
-  //  @Query("SELECT * FROM user_table")
-  //  suspend fun allUsersClean(): List<User>
+    @Query("SELECT * FROM user_table")
+ suspend fun allUsersClean(): List<User>
 
     @Query("SELECT * FROM user_table")
     fun allUsers(): Flow<List<User>>

@@ -12,5 +12,6 @@ data class Chat(
         var messages: List<Message> = arrayListOf(),
         var name: String = "",
         var iconUrl: String? = null,
-        var lastRead: Long = 0
+        var lastRead: Long = 0,
+        var lastEdit: Long = 0
 ) : Serializable

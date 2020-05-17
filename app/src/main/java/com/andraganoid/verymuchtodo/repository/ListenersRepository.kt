@@ -14,7 +14,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import org.koin.core.KoinComponent
 import kotlin.coroutines.CoroutineContext
 
 class ListenersRepository(
@@ -22,7 +21,7 @@ class ListenersRepository(
         private val userDao: UserDao,
         private val messageDao: MessageDao,
         private val chatDao: ChatDao)
-    : CoroutineScope, KoinComponent {
+    : CoroutineScope {
 
     var userListener: ListenerRegistration? = null
     var chatListener: ListenerRegistration? = null
@@ -45,32 +44,6 @@ class ListenersRepository(
             }
         }
 
-//        firebaseFirestore.collection(COL_МESSAGE).addSnapshotListener { snapshots, e ->
-//            val added = arrayListOf<Message>()
-//            val updated = arrayListOf<Message>()
-//            val deleted = arrayListOf<Message>()
-//            for (doc in snapshots!!.documentChanges) {
-//                when (doc.type) {
-//                    DocumentChange.Type.ADDED -> added.add(doc.document.toObject(Message::class.java))
-//                    DocumentChange.Type.MODIFIED -> updated.add(doc.document.toObject(Message::class.java))
-//                    DocumentChange.Type.REMOVED -> deleted.add(doc.document.toObject(Message::class.java))
-//                }
-//            }
-//            Log.d("LLIISSTT-MSG-ADDED", added.toString())
-//            Log.d("LLIISSTT-MSG-UPDATED", updated.toString())
-//            Log.d("LLIISSTT-MSG-DELETED", deleted.toString())
-//            launch {
-//                if (added.isNotEmpty()) {
-//                    messageDao.saveMessage(added as List<Message>)
-//                }
-//                if (updated.isNotEmpty()) {
-//                    messageDao.updateMessage(updated as List<Message>)
-//                }
-//                if (deleted.isNotEmpty()) {
-//                    messageDao.deleteMessage(deleted as List<Message>)
-//                }
-//            }
-//        }
 
         chatListener = firebaseFirestore.collection(COL_CHAT)
                 .whereArrayContainsAny(FIELD_MEMBERS, listOf(CHAT_ALL_MEMBERS, myUser.uid))

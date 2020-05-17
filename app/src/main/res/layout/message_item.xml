@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -29,9 +28,9 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="4dp"
+            android:visibility="@{isMyMsg?View.INVISIBLE:View.VISIBLE}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="@{isMyMsg?View.INVISIBLE:View.VISIBLE}"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/textContainer"
@@ -49,24 +48,49 @@
                 senderAndDate="@{message}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
                 android:paddingStart="8dp"
                 android:paddingBottom="4dp"
                 android:textColor="@color/primDark"
                 android:textSize="14sp"
-
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <!--            <TextView-->
+            <!--                android:id="@+id/messageText"-->
+            <!--                messageText="@{message}"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:padding="8dp"-->
+            <!--                android:gravity="end"-->
+            <!--                android:textColor="@color/backgorundColor"-->
+            <!--                android:textSize="16sp"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/messageSender"-->
+            <!--                tools:ignore="MissingConstraints" />-->
+
+            <TextView
+                android:id="@+id/messageTextOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_background"
+                android:padding="8dp"
+                android:text="@{message.text}"
+                android:textColor="@color/backgorundColor"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/messageSender"
+                android:visibility="@{isMyMsg?View.GONE:View.VISIBLE}"/>
 
             <TextView
                 android:id="@+id/messageText"
-                messageText="@{message}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button_background"
                 android:padding="8dp"
+                android:text="@{message.text}"
                 android:textColor="@color/backgorundColor"
                 android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/messageSender"
-                tools:ignore="MissingConstraints" />
+                android:visibility="@{isMyMsg?View.VISIBLE:View.GONE}" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

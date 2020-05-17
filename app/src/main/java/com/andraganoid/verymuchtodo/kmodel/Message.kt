@@ -2,7 +2,6 @@ package com.andraganoid.verymuchtodo.kmodel
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.io.Serializable
 
 @Entity(tableName = "message_table")
 data class Message(
@@ -10,7 +9,7 @@ data class Message(
         val timestamp: Long = 0,
         var from: User = User(),
         @PrimaryKey
-        val id: String = "") : Serializable {
+        val id: String = "") {
     var isMyMsg: Boolean = false
 }
 
