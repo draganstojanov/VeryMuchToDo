@@ -8,11 +8,11 @@
 
         <variable
             name="viewModel"
-            type="com.andraganoid.verymuchtodo.main.auth.AuthViewModel" />
+            type="com.andraganoid.verymuchtodo.auth.AuthViewModel" />
 
         <variable
             name="fragment"
-            type="com.andraganoid.verymuchtodo.main.auth.LoginFragment" />
+            type="com.andraganoid.verymuchtodo.auth.LoginFragment" />
     </data>
 
 
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/backgorundColor"
-        tools:context=".main.auth.LoginFragment">
+        tools:context=".auth.LoginFragment">
 
         <TextView
             android:id="@+id/loginFragmentTitle"

@@ -15,13 +15,14 @@ import com.andraganoid.verymuchtodo.util.CHAT_ALL_MEMBERS
 import com.andraganoid.verymuchtodo.util.myUser
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_new_chat_dialog.*
+import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
 class NewChatDialog : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentNewChatDialogBinding
-    private val viewModel: ChatsViewModel by sharedViewModel()
+   private val viewModel: ChatsViewModel by sharedViewModel()
     private lateinit var userList: ArrayList<NewUser>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -35,7 +36,7 @@ class NewChatDialog : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         userList = arrayListOf()
         userList.add(NewUser(User(name = CHAT_ALL_MEMBERS, uid = CHAT_ALL_MEMBERS), ObservableBoolean(false)))
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launch {
             viewModel.allUsers.forEach { user ->
                 if (user.uid != myUser.uid) {
                     userList.add(NewUser(user, ObservableBoolean(false)))

@@ -29,10 +29,10 @@ class ChatsFragment : TodoBaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launch {
+      lifecycleScope.launch {
             viewModel.allChats().observe(viewLifecycleOwner, Observer { chats ->
                 val sortedChats = chats.sortedByDescending { chat -> chat.lastEdit }
-                chatsRecView.adapter = ChatsAdapter(sortedChats, viewModel.allUsers.size, this@ChatsFragment)
+                chatsRecView.adapter = ChatsAdapter(sortedChats, viewModel.userMap.size, this@ChatsFragment)
             })
         }
 
@@ -53,7 +53,7 @@ class ChatsFragment : TodoBaseFragment() {
     fun showMessages(chat: Chat) {
         viewModel.currentChat=chat
         val action = ChatsFragmentDirections.actionChatsFragmentToMessagesFragment()
-      //  action.currentChat = chat
+       action.currentChat = chat
         findNavController().navigate(action)
     }
 

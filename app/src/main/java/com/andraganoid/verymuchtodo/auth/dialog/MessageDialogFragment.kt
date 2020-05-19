@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.main.dialog
+package com.andraganoid.verymuchtodo.auth.dialog
 
 import android.os.Bundle
 import android.view.LayoutInflater

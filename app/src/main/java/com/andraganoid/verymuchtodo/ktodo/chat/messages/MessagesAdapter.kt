@@ -11,9 +11,12 @@ import com.andraganoid.verymuchtodo.util.myUser
 class MessagesAdapter(private val fragment: MessagesFragment) : RecyclerView.Adapter<MessagesAdapter.MessageHolder>() {
 
 
-/
 
-//
+    var userMap: HashMap<String,String?> = hashMapOf()
+        set(value) {
+            field = value
+        }
+
     var msgList: List<Message> = emptyList()
         set(value) {
             field = value
@@ -41,8 +44,10 @@ class MessagesAdapter(private val fragment: MessagesFragment) : RecyclerView.Ada
 
     inner class MessageHolder(private val binding: MessageItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(message: Message) {
+            message.isMyMsg= myUser.uid == message.from.uid
+            message.from.imageUrl=userMap.get(message.from.uid)
             binding.message = message
-            binding.isMyMsg = myUser.uid == message.from.uid
+           // binding.isMyMsg = myUser.uid == message.from.uid
         }
     }
 }

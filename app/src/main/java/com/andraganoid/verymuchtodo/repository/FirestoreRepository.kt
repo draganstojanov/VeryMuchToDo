@@ -1,11 +1,15 @@
 package com.andraganoid.verymuchtodo.repository
 
+import android.util.Log
 import com.andraganoid.verymuchtodo.kmodel.Document
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FirestoreRepository(private val firebaseFirestore: FirebaseFirestore) {
 
     fun addDocument(document: Document) {
+
+        Log.d("LLOADER","101")
+
         firebaseFirestore
                 .collection(document.collection)
                 .document(document.name)

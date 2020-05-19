@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface ChatDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveChat(chat: List<Chat>)
+    suspend fun saveChat(chat: List<Chat>)
 
     @Delete
     suspend fun deleteChat(chat: List<Chat>)
@@ -17,5 +17,9 @@ interface ChatDao {
     suspend fun updateChat(chat: List<Chat>)
 
     @Query("SELECT * FROM chat_table")
-    fun allChats(): Flow<List<Chat>>
+     fun allChats(): Flow<List<Chat>>
+
+  //  fun getAlChats() = allChats().distinctUntilChanged()
+
+
 }

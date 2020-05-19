@@ -1,8 +1,8 @@
-package com.andraganoid.verymuchtodo.main.auth
+package com.andraganoid.verymuchtodo.auth
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.andraganoid.verymuchtodo.main.MainActivity
+import com.andraganoid.verymuchtodo.MainActivity
 
 
 open class AuthBaseFragment : Fragment() {

@@ -1,12 +1,12 @@
 package com.andraganoid.verymuchtodo.di
 
 import androidx.room.Room
+import com.andraganoid.verymuchtodo.auth.AuthViewModel
 import com.andraganoid.verymuchtodo.database.TodoDatabase
 import com.andraganoid.verymuchtodo.ktodo.chat.chats.ChatsViewModel
 import com.andraganoid.verymuchtodo.ktodo.chat.messages.MessagesViewModel
 import com.andraganoid.verymuchtodo.ktodo.profile.ProfileViewModel
 import com.andraganoid.verymuchtodo.ktodo.users.UsersViewModel
-import com.andraganoid.verymuchtodo.main.auth.AuthViewModel
 import com.andraganoid.verymuchtodo.repository.AuthRepository
 import com.andraganoid.verymuchtodo.repository.DatabaseRepository
 import com.andraganoid.verymuchtodo.repository.FirestoreRepository
@@ -26,6 +26,7 @@ object Modules {
         viewModel { ProfileViewModel(get(), get(), get()) }
         viewModel { UsersViewModel(get()) }
         viewModel { MessagesViewModel(get(), get()) }
+        viewModel { ChatsViewModel(get(), get()) }
     }
 
     private val singleModule = module {
@@ -33,8 +34,7 @@ object Modules {
         single { AuthRepository(firebaseAuth = FirebaseAuth.getInstance()) }
         single { FirestoreRepository(firebaseFirestore = FirebaseFirestore.getInstance()) }
         single { ListenersRepository(FirebaseFirestore.getInstance(), get(), get(), get()) }
-        single { DatabaseRepository(get(), get(), get()) }
-        single { ChatsViewModel(get(), get()) }
+        single { DatabaseRepository(get(), get()) }
     }
 
     private val factoryModule = module {
@@ -43,25 +43,31 @@ object Modules {
     }
 
     private val databaseModule = module {
-        single {
-            val db: TodoDatabase = get()
-            db.userDao()
-        }
-        single {
-            val db: TodoDatabase = get()
-            db.messageDao()
-        }
+//        single {
+//            val db: TodoDatabase = get()
+//            db.userDao()
+//        }
+////        single {
+////            val db: TodoDatabase = get()
+////            db.messageDao()
+////        }
+//
+//        single {
+//            val db: TodoDatabase = get()
+//            db.chatDao()
+//        }
+//
+//        single {
+//            Room.databaseBuilder(get(), TodoDatabase::class.java, "todo_database")
+//                    //.fallbackToDestructiveMigration()
+//                    .build()
+//        }
 
-        single {
-            val db: TodoDatabase = get()
-            db.chatDao()
-        }
+        single { Room.databaseBuilder(get(), TodoDatabase::class.java, "todo_database").fallbackToDestructiveMigration().build() }
 
-        single {
-            Room.databaseBuilder(get(), TodoDatabase::class.java, "todo_database")
-                    .fallbackToDestructiveMigration()
-                    .build()
-        }
+        single { get<TodoDatabase>().userDao() }
+
+        single { get<TodoDatabase>().chatDao() }
     }
 
     val appModule =

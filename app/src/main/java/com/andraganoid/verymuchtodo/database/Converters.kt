@@ -1,6 +1,7 @@
 package com.andraganoid.verymuchtodo.database
 
 import androidx.room.TypeConverter
+import com.andraganoid.verymuchtodo.kmodel.Chat
 import com.andraganoid.verymuchtodo.kmodel.Message
 import com.andraganoid.verymuchtodo.kmodel.User
 import com.google.common.reflect.TypeToken
@@ -16,11 +17,11 @@ class Converters {
     @TypeConverter
     fun toUser(user: String) = gson.fromJson(user, User::class.java)
 
-//    @TypeConverter
-//    fun fromChat(chat: Chat): String = gson.toJson(chat)
-//
-//    @TypeConverter
-//    fun toChat(chat: String) = gson.fromJson(chat, Chat::class.java)
+    @TypeConverter
+    fun fromChat(chat: Chat): String = gson.toJson(chat)
+
+    @TypeConverter
+    fun toChat(chat: String) = gson.fromJson(chat, Chat::class.java)
 
     @TypeConverter
     fun fromMembers(members: List<String>): String = gson.toJson(members)

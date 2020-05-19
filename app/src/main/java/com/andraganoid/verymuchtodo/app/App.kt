@@ -8,7 +8,10 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Build
 import android.util.Log
+import com.andraganoid.verymuchtodo.BuildConfig
 import com.andraganoid.verymuchtodo.di.Modules
+import com.andraganoid.verymuchtodo.util.TodoDebugTree
+import com.andraganoid.verymuchtodo.util.TodoReleaseTree
 import com.andraganoid.verymuchtodo.util._networkStatus
 import com.andraganoid.verymuchtodo.util.networkStateChannel
 import kotlinx.coroutines.CoroutineScope
@@ -17,6 +20,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
 class App : Application(),CoroutineScope {
@@ -28,6 +32,15 @@ class App : Application(),CoroutineScope {
             modules(Modules.appModule)
         }
         conn()
+        timberInit()
+    }
+
+    private fun timberInit() {
+        if (BuildConfig.DEBUG) {
+            Timber.plant(TodoDebugTree())
+        } else {
+            Timber.plant(TodoReleaseTree())
+        }
     }
 
 

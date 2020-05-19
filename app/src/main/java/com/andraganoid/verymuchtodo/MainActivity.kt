@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.main
+package com.andraganoid.verymuchtodo
 
 import android.app.Activity
 import android.os.Bundle
@@ -13,14 +13,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import com.andraganoid.verymuchtodo.R
-import com.andraganoid.verymuchtodo.main.dialog.MessageDialogFragment
+import com.andraganoid.verymuchtodo.auth.dialog.MessageDialogFragment
 import com.andraganoid.verymuchtodo.util.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.channels.consumeEach
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,13 +32,39 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setNavigationListener()
 
-       myUser = preferences.getMyUser()
+        myUser = preferences.getMyUser()
         networkListener()
 
 
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.backgorundColor)
 
+            chrashTest()
+
+    }
+
+    private fun chrashTest() {
+        val aaa = java.util.ArrayList<String>()
+        try {
+            // aaa
+            // aaa
+
+            // aaa
+            // aaa
+            // aaa
+            // aaa
+            // aaa
+
+            // aaa
+
+            val bbb = aaa[33]
+        } catch (exc: Exception) {
+            Timber.e(exc)
+            // xxx
+            //  FirebaseCrashlytics.getInstance().log(message);
+            //   FirebaseCrashlytics.getInstance().recordException(exc);
+            Toast.makeText(this, "ERROR: " + exc.message, Toast.LENGTH_SHORT).show()
+        }
     }
 
     @ObsoleteCoroutinesApi
@@ -47,14 +73,15 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launchWhenCreated {
             networkStateChannel.consumeEach {
 //                toast(it.toString())
-              //  lostNetworkIcon.isVisible = !it
+                //  lostNetworkIcon.isVisible = !it
             }
         }
 
         networkStatus.observe(this, Observer {
-            Log.d("CCONN", "MAIN-LIVEDATA "+it)
+            Log.d("CCONN", "MAIN-LIVEDATA " + it)
             toast(it.toString())
-            lostNetworkIcon.isVisible = !it})
+            lostNetworkIcon.isVisible = !it
+        })
 
     }
 

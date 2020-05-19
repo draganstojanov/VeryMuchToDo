@@ -11,9 +11,9 @@
             name="message"
             type="com.andraganoid.verymuchtodo.kmodel.Message" />
 
-        <variable
-            name="isMyMsg"
-            type="Boolean" />
+        <!--        <variable-->
+        <!--            name="isMyMsg"-->
+        <!--            type="Boolean" />-->
     </data>
 
 
@@ -28,7 +28,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="4dp"
-            android:visibility="@{isMyMsg?View.INVISIBLE:View.VISIBLE}"
+            android:visibility="@{message.isMyMsg?View.INVISIBLE:View.VISIBLE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,9 +75,9 @@
                 android:text="@{message.text}"
                 android:textColor="@color/backgorundColor"
                 android:textSize="16sp"
+                android:visibility="@{message.isMyMsg?View.GONE:View.VISIBLE}"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/messageSender"
-                android:visibility="@{isMyMsg?View.GONE:View.VISIBLE}"/>
+                app:layout_constraintTop_toBottomOf="@id/messageSender" />
 
             <TextView
                 android:id="@+id/messageText"
@@ -88,9 +88,9 @@
                 android:text="@{message.text}"
                 android:textColor="@color/backgorundColor"
                 android:textSize="16sp"
+                android:visibility="@{message.isMyMsg?View.VISIBLE:View.GONE}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/messageSender"
-                android:visibility="@{isMyMsg?View.VISIBLE:View.GONE}" />
+                app:layout_constraintTop_toBottomOf="@id/messageSender" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

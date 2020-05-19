@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.main.auth
+package com.andraganoid.verymuchtodo.auth
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.andraganoid.verymuchtodo.main.auth.LoginFragment"
+        android:name="com.andraganoid.verymuchtodo.auth.LoginFragment"
         android:label="@string/login_frag_label"
         tools:layout="@layout/fragment_login">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.andraganoid.verymuchtodo.main.auth.RegisterFragment"
+        android:name="com.andraganoid.verymuchtodo.auth.RegisterFragment"
         android:label="@string/register_frag_label"
         tools:layout="@layout/fragment_register" />
 </navigation>

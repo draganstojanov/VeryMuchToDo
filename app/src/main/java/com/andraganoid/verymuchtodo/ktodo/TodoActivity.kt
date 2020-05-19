@@ -101,6 +101,7 @@ class TodoActivity() : AppCompatActivity() {
     }
 
     fun backClicked(view: View) {
+        hideKeyboard()
         onBackPressed()
     }
 

@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:context=".main.dialog.MessageDialogFragment"
+        tools:context=".auth.dialog.MessageDialogFragment"
         tools:listitem="@layout/fragment_message_list_dialog_item" />
 
     <Button
