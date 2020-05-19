@@ -16,7 +16,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.ktodo.settings.SettingsDialogFragment
 import com.andraganoid.verymuchtodo.repository.ListenersRepository
-import com.andraganoid.verymuchtodo.util.myUser
 import com.andraganoid.verymuchtodo.util.networkStateChannel
 import com.andraganoid.verymuchtodo.util.networkStatus
 import kotlinx.android.synthetic.main.activity_todo_k.*
@@ -39,7 +38,7 @@ class TodoActivity() : AppCompatActivity() {
         setNavigationListener()
         networkListener()
         //  conn()
-        toast(myUser.name.toString())
+       // toast(myUser.name.toString())
     }
 
     private fun networkListener() {

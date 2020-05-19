@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.andraganoid.verymuchtodo.databinding.ChatsFragmentBinding
 import com.andraganoid.verymuchtodo.kmodel.Chat
 import com.andraganoid.verymuchtodo.ktodo.TodoBaseFragment
+import com.andraganoid.verymuchtodo.ktodo.chat.ChatsViewModel
 import com.andraganoid.verymuchtodo.ktodo.chat.dialog.NewChatDialog
 import kotlinx.android.synthetic.main.chats_fragment.*
 import kotlinx.coroutines.launch
@@ -29,7 +30,7 @@ class ChatsFragment : TodoBaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-      lifecycleScope.launch {
+        lifecycleScope.launch {
             viewModel.allChats().observe(viewLifecycleOwner, Observer { chats ->
                 val sortedChats = chats.sortedByDescending { chat -> chat.lastEdit }
                 chatsRecView.adapter = ChatsAdapter(sortedChats, viewModel.userMap.size, this@ChatsFragment)
@@ -51,9 +52,9 @@ class ChatsFragment : TodoBaseFragment() {
     }
 
     fun showMessages(chat: Chat) {
-        viewModel.currentChat=chat
+        viewModel.currentChat = chat
         val action = ChatsFragmentDirections.actionChatsFragmentToMessagesFragment()
-       action.currentChat = chat
+        action.currentChat = chat
         findNavController().navigate(action)
     }
 

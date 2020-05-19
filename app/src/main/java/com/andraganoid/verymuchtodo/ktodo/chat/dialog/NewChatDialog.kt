@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.andraganoid.verymuchtodo.databinding.FragmentNewChatDialogBinding
 import com.andraganoid.verymuchtodo.kmodel.Chat
 import com.andraganoid.verymuchtodo.kmodel.User
-import com.andraganoid.verymuchtodo.ktodo.chat.chats.ChatsViewModel
+import com.andraganoid.verymuchtodo.ktodo.chat.ChatsViewModel
 import com.andraganoid.verymuchtodo.util.CHAT_ALL_MEMBERS
 import com.andraganoid.verymuchtodo.util.myUser
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

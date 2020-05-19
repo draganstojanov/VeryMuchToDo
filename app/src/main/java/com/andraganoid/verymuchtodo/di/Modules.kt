@@ -3,8 +3,7 @@ package com.andraganoid.verymuchtodo.di
 import androidx.room.Room
 import com.andraganoid.verymuchtodo.auth.AuthViewModel
 import com.andraganoid.verymuchtodo.database.TodoDatabase
-import com.andraganoid.verymuchtodo.ktodo.chat.chats.ChatsViewModel
-import com.andraganoid.verymuchtodo.ktodo.chat.messages.MessagesViewModel
+import com.andraganoid.verymuchtodo.ktodo.chat.ChatsViewModel
 import com.andraganoid.verymuchtodo.ktodo.profile.ProfileViewModel
 import com.andraganoid.verymuchtodo.ktodo.users.UsersViewModel
 import com.andraganoid.verymuchtodo.repository.AuthRepository
@@ -25,7 +24,6 @@ object Modules {
         viewModel { AuthViewModel(get(), get(), get()) }
         viewModel { ProfileViewModel(get(), get(), get()) }
         viewModel { UsersViewModel(get()) }
-        viewModel { MessagesViewModel(get(), get()) }
         viewModel { ChatsViewModel(get(), get()) }
     }
 
@@ -33,39 +31,19 @@ object Modules {
         single { Preferences(context = androidContext()) }
         single { AuthRepository(firebaseAuth = FirebaseAuth.getInstance()) }
         single { FirestoreRepository(firebaseFirestore = FirebaseFirestore.getInstance()) }
-        single { ListenersRepository(FirebaseFirestore.getInstance(), get(), get(), get()) }
+        single { ListenersRepository(FirebaseFirestore.getInstance(), get(), get()) }
         single { DatabaseRepository(get(), get()) }
     }
 
     private val factoryModule = module {
-        //  factory { GameInit(androidContext(),get()) }
         // factory { ListenersRepository(FirebaseFirestore.getInstance(), get()) }
     }
 
     private val databaseModule = module {
-//        single {
-//            val db: TodoDatabase = get()
-//            db.userDao()
-//        }
-////        single {
-////            val db: TodoDatabase = get()
-////            db.messageDao()
-////        }
-//
-//        single {
-//            val db: TodoDatabase = get()
-//            db.chatDao()
-//        }
-//
-//        single {
-//            Room.databaseBuilder(get(), TodoDatabase::class.java, "todo_database")
-//                    //.fallbackToDestructiveMigration()
-//                    .build()
-//        }
 
-        single { Room.databaseBuilder(get(), TodoDatabase::class.java, "todo_database").fallbackToDestructiveMigration().build() }
+        single { Room.databaseBuilder(androidContext(), TodoDatabase::class.java, "todo_database").fallbackToDestructiveMigration().build() }
 
-        single { get<TodoDatabase>().userDao() }
+       single { get<TodoDatabase>().userDao() }
 
         single { get<TodoDatabase>().chatDao() }
     }
@@ -77,7 +55,6 @@ object Modules {
                     factoryModule,
                     databaseModule
             )
-
 
 }
 

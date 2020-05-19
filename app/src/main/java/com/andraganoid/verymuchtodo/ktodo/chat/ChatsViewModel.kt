@@ -1,11 +1,7 @@
-package com.andraganoid.verymuchtodo.ktodo.chat.chats
+package com.andraganoid.verymuchtodo.ktodo.chat
 
-import android.util.Log
 import androidx.databinding.ObservableField
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.*
 import com.andraganoid.verymuchtodo.kmodel.Chat
 import com.andraganoid.verymuchtodo.kmodel.Document
 import com.andraganoid.verymuchtodo.kmodel.Message
@@ -13,8 +9,13 @@ import com.andraganoid.verymuchtodo.kmodel.User
 import com.andraganoid.verymuchtodo.repository.DatabaseRepository
 import com.andraganoid.verymuchtodo.repository.FirestoreRepository
 import com.andraganoid.verymuchtodo.util.myUser
+import kotlinx.coroutines.launch
 
 class ChatsViewModel(private val dbRepository: DatabaseRepository, private val firestoreRepository: FirestoreRepository) : ViewModel() {
+
+    internal val _loaderVisibility = MutableLiveData<Boolean>()
+    val loaderVisibility: LiveData<Boolean>
+        get() = _loaderVisibility
 
     val _newChat = MutableLiveData<Chat>(null)
     val newChat: LiveData<Chat>
@@ -22,13 +23,14 @@ class ChatsViewModel(private val dbRepository: DatabaseRepository, private val f
 
     var allUsers: List<User> = listOf()
     var userMap = hashMapOf<String, String?>()
+    var currentChat: Chat? = null
+    val messageText = ObservableField<String>()
 
-   suspend fun allChats(): LiveData<List<Chat>> {
 
-        Log.d("XXXchatDao-99","allChats")
+    suspend fun allChats(): LiveData<List<Chat>> {
 
         _loaderVisibility.postValue(false)
-   allUsers = dbRepository.allUsersClean()
+        allUsers = dbRepository.allUsersClean()
         allUsers.forEach { user ->
             userMap.put(user.uid, user.imageUrl
             )
@@ -36,19 +38,9 @@ class ChatsViewModel(private val dbRepository: DatabaseRepository, private val f
         return dbRepository.allChats().asLiveData()
     }
 
-    var currentChat: Chat? = null
-
-    private val _loaderVisibility = MutableLiveData<Boolean>()
-    val loaderVisibility: LiveData<Boolean>
-        get() = _loaderVisibility
-
-    val messageText = ObservableField<String>()
-
     fun sendMessage() {
-
         if (messageText.get()!!.isNotEmpty()) {
-
-        //    _loaderVisibility.value = true
+            _loaderVisibility.value = true
             val timestamp = System.currentTimeMillis()
 
             val message = Message(
@@ -64,12 +56,9 @@ class ChatsViewModel(private val dbRepository: DatabaseRepository, private val f
                 lastRead = timestamp
                 lastEdit = timestamp
             }
-//viewModelScope.launch {
-
-    firestoreRepository.addDocument(Document(currentChat!!))
-//}
-
-
+            viewModelScope.launch {
+                firestoreRepository.addDocument(Document(currentChat!!))
+            }
         }
     }
 

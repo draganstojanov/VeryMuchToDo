@@ -13,7 +13,7 @@ class DatabaseRepository(private val userDao: UserDao, private val chatDao: Chat
 
     suspend fun allUsersClean(): List<User> = userDao.allUsersClean()
 
-    fun allChats(): Flow<List<Chat>> {
+ fun allChats(): Flow<List<Chat>> {
         Log.d("XXXchatDao-1", chatDao.toString())
         return chatDao.allChats()
     }

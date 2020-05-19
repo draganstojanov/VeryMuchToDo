@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface ChatDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveChat(chat: List<Chat>)
+     fun saveChat(chat: List<Chat>)
 
     @Delete
     suspend fun deleteChat(chat: List<Chat>)

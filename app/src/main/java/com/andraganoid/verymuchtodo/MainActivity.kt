@@ -20,7 +20,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.channels.consumeEach
 import org.koin.android.ext.android.inject
-import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,37 +34,10 @@ class MainActivity : AppCompatActivity() {
         myUser = preferences.getMyUser()
         networkListener()
 
-
-
         window.statusBarColor = ContextCompat.getColor(this, R.color.backgorundColor)
 
-            chrashTest()
-
     }
 
-    private fun chrashTest() {
-        val aaa = java.util.ArrayList<String>()
-        try {
-            // aaa
-            // aaa
-
-            // aaa
-            // aaa
-            // aaa
-            // aaa
-            // aaa
-
-            // aaa
-
-            val bbb = aaa[33]
-        } catch (exc: Exception) {
-            Timber.e(exc)
-            // xxx
-            //  FirebaseCrashlytics.getInstance().log(message);
-            //   FirebaseCrashlytics.getInstance().recordException(exc);
-            Toast.makeText(this, "ERROR: " + exc.message, Toast.LENGTH_SHORT).show()
-        }
-    }
 
     @ObsoleteCoroutinesApi
     @ExperimentalCoroutinesApi
