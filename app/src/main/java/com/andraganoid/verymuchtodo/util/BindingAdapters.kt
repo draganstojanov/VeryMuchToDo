@@ -4,6 +4,8 @@ package com.andraganoid.verymuchtodo.util
 import android.view.Gravity
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import coil.api.load
 import coil.transform.CircleCropTransformation
@@ -34,22 +36,22 @@ object BindingAdapters {
     }
 
 
-//    @BindingAdapter("messageText")
-//    @JvmStatic
-//    fun messageText(tv: TextView, message: Message) {
-//        tv.text = message.text
-//        val params = tv.layoutParams as ConstraintLayout.LayoutParams
-//        if (!message.isMyMsg) {
-//            tv.background = ContextCompat.getDrawable(tv.context, R.drawable.input_background)
-//            params.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
-//        } else {
-//            tv.background = ContextCompat.getDrawable(tv.context, R.drawable.button_background)
-//            params.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
-//
-//          //  params.endToEnd= ConstraintSet.PARENT_ID
-//        }
-//        tv.layoutParams = params
-//    }
+    @BindingAdapter("messageText")
+    @JvmStatic
+    fun messageText(tv: TextView, message: Message) {
+        tv.text = message.text
+        val params = tv.layoutParams as ConstraintLayout.LayoutParams
+        if (!message.isMyMsg) {
+            tv.background = ContextCompat.getDrawable(tv.context, R.drawable.input_background)
+            params.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
+        } else {
+            tv.background = ContextCompat.getDrawable(tv.context, R.drawable.button_background)
+            params.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
+
+          //  params.endToEnd= ConstraintSet.PARENT_ID
+        }
+        tv.layoutParams = params
+    }
 
 
     @BindingAdapter("profileImage")

@@ -13,7 +13,8 @@ import kotlinx.coroutines.launch
 
 class ChatsViewModel(private val dbRepository: DatabaseRepository, private val firestoreRepository: FirestoreRepository) : ViewModel() {
 
-    internal val _loaderVisibility = MutableLiveData<Boolean>()
+
+    private val _loaderVisibility = MutableLiveData<Boolean>()
     val loaderVisibility: LiveData<Boolean>
         get() = _loaderVisibility
 
@@ -21,21 +22,29 @@ class ChatsViewModel(private val dbRepository: DatabaseRepository, private val f
     val newChat: LiveData<Chat>
         get() = _newChat
 
-    var allUsers: List<User> = listOf()
-    var userMap = hashMapOf<String, String?>()
+    suspend fun allUsers(): List<User> = dbRepository.allUsersClean()
+
     var currentChat: Chat? = null
     val messageText = ObservableField<String>()
 
+    val allChats: LiveData<List<Chat>> = dbRepository.allChats().asLiveData()
 
-    suspend fun allChats(): LiveData<List<Chat>> {
-
-        _loaderVisibility.postValue(false)
-        allUsers = dbRepository.allUsersClean()
-        allUsers.forEach { user ->
-            userMap.put(user.uid, user.imageUrl
-            )
+    suspend fun updateCurrentChat(): Boolean {
+        val um = getUserMap()
+        currentChat?.messages?.forEach { message: Message ->
+            message.isMyMsg = myUser.uid == message.from.uid
+            message.from.imageUrl = um.get(message.from.uid)
         }
-        return dbRepository.allChats().asLiveData()
+        _loaderVisibility.value = false
+        messageText.set("")
+        currentChat?.lastRead = System.currentTimeMillis()
+        return true
+    }
+
+    suspend fun getUserMap(): HashMap<String, String?> {
+        val userMap = hashMapOf<String, String?>()
+        allUsers().forEach { user -> userMap.put(user.uid, user.imageUrl) }
+        return userMap
     }
 
     fun sendMessage() {

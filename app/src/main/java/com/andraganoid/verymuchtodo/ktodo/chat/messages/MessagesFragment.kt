@@ -10,7 +10,6 @@ import com.andraganoid.verymuchtodo.databinding.MessagesFragmentBinding
 import com.andraganoid.verymuchtodo.kmodel.Chat
 import com.andraganoid.verymuchtodo.ktodo.TodoBaseFragment
 import com.andraganoid.verymuchtodo.ktodo.chat.ChatsViewModel
-import com.andraganoid.verymuchtodo.util.ARGS_CURRENT_CHAT
 import kotlinx.android.synthetic.main.messages_fragment.*
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -25,34 +24,28 @@ class MessagesFragment : TodoBaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = MessagesFragmentBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
-        messageAdapter = MessagesAdapter(this)
-        arguments?.takeIf { it.containsKey(ARGS_CURRENT_CHAT) }?.apply {
-            viewModel.currentChat = arguments?.getSerializable(ARGS_CURRENT_CHAT) as Chat?
-        }
         setTitle(viewModel.currentChat!!.name)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        messageAdapter = MessagesAdapter(this)
         messagesRecView.adapter = messageAdapter
-
         viewModel.loaderVisibility.observe(viewLifecycleOwner, Observer { loaderVisibility(it) })
-        lifecycleScope.launch {
-            viewModel.allChats().observe(viewLifecycleOwner, Observer {
-                viewModel._loaderVisibility.value = false
-
-                messageAdapter.apply {
-                    userMap = viewModel.userMap
-                    msgList = viewModel.currentChat?.messages!!
+        viewModel.allChats.observe(viewLifecycleOwner, Observer { chats: List<Chat> ->
+            viewModel.currentChat = chats.filter { chat ->
+                viewModel.currentChat!!.id.equals(chat.id)
+            }.firstOrNull()
+            lifecycleScope.launch {
+                if (viewModel.updateCurrentChat()) {
+                    messageAdapter.msgList = viewModel.currentChat?.messages!!
+                    if (chats.size > 0) {
+                        messagesRecView.smoothScrollToPosition(viewModel.currentChat?.messages!!.size - 1)
+                    }
                 }
-                viewModel.currentChat?.lastRead = System.currentTimeMillis()
-                viewModel.messageText.set("")
-                if (it.size > 0) {
-                    messagesRecView.smoothScrollToPosition(viewModel.currentChat?.messages!!.size - 1)
-                }
-            })
-        }
+            }
+        })
     }
 
 }

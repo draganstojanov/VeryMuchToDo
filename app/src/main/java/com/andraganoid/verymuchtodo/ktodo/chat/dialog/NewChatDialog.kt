@@ -22,7 +22,7 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 class NewChatDialog : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentNewChatDialogBinding
-   private val viewModel: ChatsViewModel by sharedViewModel()
+    private val viewModel: ChatsViewModel by sharedViewModel()
     private lateinit var userList: ArrayList<NewUser>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -37,15 +37,15 @@ class NewChatDialog : BottomSheetDialogFragment() {
         userList = arrayListOf()
         userList.add(NewUser(User(name = CHAT_ALL_MEMBERS, uid = CHAT_ALL_MEMBERS), ObservableBoolean(false)))
         lifecycleScope.launch {
-            viewModel.allUsers.forEach { user ->
+            viewModel.allUsers().forEach { user ->
                 if (user.uid != myUser.uid) {
                     userList.add(NewUser(user, ObservableBoolean(false)))
                 }
             }
+            val height = if (userList.size > 8) 320f else userList.size * 40f
+            newChatRecView.layoutParams.height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, height, resources.displayMetrics).toInt()
+            newChatRecView.adapter = NewChatAdapter(userList)
         }
-        val height = if (userList.size > 8) 320f else userList.size * 40f
-        newChatRecView.layoutParams.height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, height, resources.displayMetrics).toInt()
-        newChatRecView.adapter = NewChatAdapter(userList)
     }
 
     fun createChat() {
@@ -64,14 +64,14 @@ class NewChatDialog : BottomSheetDialogFragment() {
             name = CHAT_ALL_MEMBERS
         }
 
-        viewModel._newChat.value=Chat(
+        viewModel._newChat.value = Chat(
                 members = selectedNewUsers,
                 name = name,
                 id = "${myUser.uid}-${System.currentTimeMillis()}"
 
         )
         dismiss()
-}
+    }
 
     fun cancel() {
         dismiss()

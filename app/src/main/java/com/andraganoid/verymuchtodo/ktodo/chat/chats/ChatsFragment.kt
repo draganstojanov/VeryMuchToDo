@@ -30,12 +30,17 @@ class ChatsFragment : TodoBaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launch {
-            viewModel.allChats().observe(viewLifecycleOwner, Observer { chats ->
-                val sortedChats = chats.sortedByDescending { chat -> chat.lastEdit }
-                chatsRecView.adapter = ChatsAdapter(sortedChats, viewModel.userMap.size, this@ChatsFragment)
-            })
-        }
+        //  lifecycleScope.launch {
+        viewModel.allChats.observe(viewLifecycleOwner, Observer { chats ->
+            val sortedChats = chats.sortedByDescending { chat -> chat.lastEdit }
+            lifecycleScope.launch { chatsRecView.adapter = ChatsAdapter(sortedChats, viewModel.getUserMap().size, this@ChatsFragment)
+                if (chats.size > 0) {
+                    chatsRecView.smoothScrollToPosition(sortedChats.size - 1)
+                }
+            }
+
+        })
+        //  }
 
         viewModel.newChat.observe(viewLifecycleOwner, Observer { chat ->
             if (chat != null) {

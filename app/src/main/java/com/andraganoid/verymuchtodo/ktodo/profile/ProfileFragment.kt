@@ -6,7 +6,6 @@ import android.content.ContentResolver
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,7 +57,6 @@ class ProfileFragment : TodoBaseFragment() {
             loaderVisibility(it)
         })
         viewModel.getImage.observe(viewLifecycleOwner, Observer {
-            Log.d("CCRREATTE:", "Observer")
             when (it) {
                 IMAGE_FROM_CAMERA -> fromCamera()
                 IMAGE_FROM_GALERY -> fromGalery()

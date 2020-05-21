@@ -81,7 +81,6 @@ class ProfileViewModel(
                     .setDisplayName(userName.get())
                     .build()
             authRepository.updateProfile(profileUpdates)
-//        firebaseAuth?.currentUser?.updateProfile(profileUpdates)?
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             setMessage(R.string.sucess)
@@ -114,16 +113,6 @@ class ProfileViewModel(
 
     private fun verifyEmail() {
         viewModelScope.launch {
-//            firebaseAuth?.currentUser?.sendEmailVerification()
-//                    ?.addOnCompleteListener { task ->
-//                        if (task.isSuccessful) {
-//                            setMessage(R.string.check_mail_for_verification)
-//                            user.email = userMail.get()
-//                            updateUser()
-//                        } else {
-//                            setMessage(ERROR_PLACEHOLDER + task.exception.toString())
-//                        }
-//                    }
             authRepository.verifyEmail()?.addOnCompleteListener() { task ->
                 if (task.isSuccessful) {
                     setMessage(R.string.check_mail_for_verification)
@@ -140,9 +129,8 @@ class ProfileViewModel(
         _editDialog.value = false
         _loaderVisibility.value = true
         viewModelScope.launch {
-            //  firebaseAuth?.sendPasswordResetEmail(user.email!!)
             authRepository.resetPassword(user.email!!)
-                    ?.addOnCompleteListener { task ->
+                    .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             setMessage(R.string.check_mail_for_pass_reset)
                         } else {
@@ -153,12 +141,8 @@ class ProfileViewModel(
     }
 
     private fun updateImage(uri: Uri) {
-        val profileUpdates = UserProfileChangeRequest.Builder()
-                .setPhotoUri(uri)
-                // .setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))
-                .build()
+        val profileUpdates = UserProfileChangeRequest.Builder().setPhotoUri(uri).build()
         authRepository.updateProfile(profileUpdates)
-                //  firebaseAuth?.currentUser?.updateProfile(profileUpdates)?
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         user.imageUrl = uri.toString()
