@@ -1,6 +1,7 @@
 package com.andraganoid.verymuchtodo.kmodel
 
 import com.andraganoid.verymuchtodo.util.COL_CHAT
+import com.andraganoid.verymuchtodo.util.COL_STACK
 import com.andraganoid.verymuchtodo.util.COL_USER
 import com.andraganoid.verymuchtodo.util.FIELD_MEMBERS
 
@@ -13,9 +14,19 @@ class Document(value: Any) {
     init {
         when (value) {
             is User -> user(value)
-            // is Message -> message(value)
             is Chat -> chat(value)
+            is Stack -> stack(value)
         }
+    }
+
+    //TODO
+    private fun stack(stack: Stack) {
+        collection= COL_STACK
+        values = mapOf(
+
+              //  "name" to ,
+
+        )
     }
 
     private fun user(user: User) {
@@ -44,15 +55,5 @@ class Document(value: Any) {
     }
 
 
-//    private fun message(message: Message) {
-//        collection = COL_МESSAGE
-//        name = message.id
-//        values = mapOf(
-//                "text" to message.text,
-//                "timestamp" to message.timestamp,
-//                "user" to message.from,
-//                "id" to message.id
-//        )
-//    }
 
 }

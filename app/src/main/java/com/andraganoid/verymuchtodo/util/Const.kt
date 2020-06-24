@@ -10,7 +10,6 @@ const val ADMIN_EMAIL = "andraganoid@gmail.com"
 
 const val COL_USER = "USER"
 const val COL_STACK = "STACK"
-const val COL_МESSAGE = "MESSAGE"
 const val COL_LOCATION = "LOCATION"
 const val COL_CHAT = "CHAT"
 

@@ -5,6 +5,7 @@ import com.andraganoid.verymuchtodo.auth.AuthViewModel
 import com.andraganoid.verymuchtodo.database.TodoDatabase
 import com.andraganoid.verymuchtodo.ktodo.chat.ChatsViewModel
 import com.andraganoid.verymuchtodo.ktodo.profile.ProfileViewModel
+import com.andraganoid.verymuchtodo.ktodo.stack.StacksViewModel
 import com.andraganoid.verymuchtodo.ktodo.users.UsersViewModel
 import com.andraganoid.verymuchtodo.repository.AuthRepository
 import com.andraganoid.verymuchtodo.repository.DatabaseRepository
@@ -25,6 +26,7 @@ object Modules {
         viewModel { ProfileViewModel(get(), get(), get()) }
         viewModel { UsersViewModel(get()) }
         viewModel { ChatsViewModel(get(), get()) }
+        viewModel { StacksViewModel() }
     }
 
     private val singleModule = module {

@@ -29,7 +29,6 @@ class ListenersRepository(
                 for (doc in snapshots) {
                     users.add(doc.toObject(User::class.java))
                 }
-                Log.d("LLIISSTT-USER", users.toString())
                 GlobalScope.launch { userDao.saveUser(users as List<User>) }
             }
         }
