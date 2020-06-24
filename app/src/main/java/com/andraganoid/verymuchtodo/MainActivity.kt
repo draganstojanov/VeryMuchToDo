@@ -2,14 +2,12 @@ package com.andraganoid.verymuchtodo
 
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -44,16 +42,16 @@ class MainActivity : AppCompatActivity() {
     private fun networkListener() {
         lifecycleScope.launchWhenCreated {
             networkStateChannel.consumeEach {
-//                toast(it.toString())
-                //  lostNetworkIcon.isVisible = !it
+                toast(it.toString())
+                lostNetworkIcon.isVisible = !it
             }
         }
 
-        networkStatus.observe(this, Observer {
-            Log.d("CCONN", "MAIN-LIVEDATA " + it)
-            toast(it.toString())
-            lostNetworkIcon.isVisible = !it
-        })
+ //       networkStatus.observe(this, Observer {
+//            Log.d("CCONN", "MAIN-LIVEDATA " + it)
+//            toast(it.toString())
+//            lostNetworkIcon.isVisible = !it
+  //      })
 
     }
 

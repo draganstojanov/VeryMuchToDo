@@ -50,17 +50,21 @@ class App : Application(),CoroutineScope {
             override fun onAvailable(network: Network?) {
                 // network available
                 Log.d("CCONN", "AVAILABLE")
-                launch {networkStateChannel.send(true)  }
+                launch {networkStateChannel.send(true)
+            //    _networkStateFlow.value=true
+                }
 
-                _networkStatus.postValue(true)
+            _networkStatus.postValue(true)
 
             }
 
             override fun onLost(network: Network?) {
                 // network unavailable
                 Log.d("CCONN", "UNAVAILABLE")
-              launch {networkStateChannel.send(false)  }
-               // networkStateChannel.close()
+              launch {networkStateChannel.send(false)
+                //  _networkStateFlow.value=false
+              }
+
 
                 _networkStatus.postValue(false)
 

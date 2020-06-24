@@ -30,18 +30,19 @@ class MessagesFragment : TodoBaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        messageAdapter = MessagesAdapter(this)
-        messagesRecView.adapter = messageAdapter
+
         viewModel.loaderVisibility.observe(viewLifecycleOwner, Observer { loaderVisibility(it) })
+
         viewModel.allChats.observe(viewLifecycleOwner, Observer { chats: List<Chat> ->
             viewModel.currentChat = chats.filter { chat ->
                 viewModel.currentChat!!.id.equals(chat.id)
             }.firstOrNull()
             lifecycleScope.launch {
                 if (viewModel.updateCurrentChat()) {
-                    messageAdapter.msgList = viewModel.currentChat?.messages!!
-                    if (chats.size > 0) {
-                        messagesRecView.smoothScrollToPosition(viewModel.currentChat?.messages!!.size - 1)
+                    messageAdapter = MessagesAdapter(viewModel.currentChat?.messages!!, this@MessagesFragment)
+                    messagesRecView.adapter = messageAdapter
+                    if (viewModel.currentChat!!.messages.size > 0) {
+                        messagesRecView.scrollToPosition(viewModel.currentChat?.messages!!.size - 1)
                     }
                 }
             }

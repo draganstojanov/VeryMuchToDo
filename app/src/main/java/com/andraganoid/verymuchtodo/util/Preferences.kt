@@ -60,4 +60,7 @@ class Preferences(private val context: Context) {
 //        return Gson().fromJson(prefSettings, object : TypeToken<GamePlaySettings>() {}.type) ?: GamePlaySettings()
 //    }
 
+
+
+
 }

@@ -20,6 +20,11 @@ fun String.isValidDisplayName(): Boolean = length >= 3 && length < 24
 
 var myUser = User()
 
+//@ExperimentalCoroutinesApi
+//val _networkStateFlow = MutableStateFlow<Boolean>(false)
+//@ExperimentalCoroutinesApi
+//val networkStateFlow: StateFlow<Boolean> = _networkStateFlow
+
 @ExperimentalCoroutinesApi
 val networkStateChannel = ConflatedBroadcastChannel<Boolean>()
 

@@ -7,13 +7,8 @@ import com.andraganoid.verymuchtodo.databinding.MessageItemBinding
 import com.andraganoid.verymuchtodo.kmodel.Message
 
 
-class MessagesAdapter(private val fragment: MessagesFragment) : RecyclerView.Adapter<MessagesAdapter.MessageHolder>() {
+class MessagesAdapter(private val msgList: List<Message>, private val fragment: MessagesFragment) : RecyclerView.Adapter<MessagesAdapter.MessageHolder>() {
 
-    var msgList: List<Message> = emptyList()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageHolder {
         val binding = MessageItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)

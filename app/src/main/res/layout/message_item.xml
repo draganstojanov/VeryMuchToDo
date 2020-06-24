@@ -28,10 +28,10 @@
             profileImage="@{message.from.imageUrl}"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginTop="4dp"
             android:visibility="@{message.isMyMsg?View.INVISIBLE:View.VISIBLE}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/textContainer"
@@ -67,31 +67,7 @@
                             app:layout_constraintTop_toBottomOf="@id/messageSender"
                             tools:ignore="MissingConstraints" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/messageTextOther"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@drawable/input_background"-->
-<!--                android:padding="8dp"-->
-<!--                android:text="@{message.text}"-->
-<!--                android:textColor="@color/backgorundColor"-->
-<!--                android:textSize="16sp"-->
-<!--                android:visibility="@{message.isMyMsg?View.GONE:View.VISIBLE}"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/messageSender" />-->
 
-<!--            <TextView-->
-<!--                android:id="@+id/messageText"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@drawable/button_background"-->
-<!--                android:padding="8dp"-->
-<!--                android:text="@{message.text}"-->
-<!--                android:textColor="@color/backgorundColor"-->
-<!--                android:textSize="16sp"-->
-<!--                android:visibility="@{message.isMyMsg?View.VISIBLE:View.GONE}"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/messageSender" />-->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
