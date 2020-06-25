@@ -19,15 +19,6 @@ class Document(value: Any) {
         }
     }
 
-    //TODO
-    private fun stack(stack: Stack) {
-        collection= COL_STACK
-        values = mapOf(
-
-              //  "name" to ,
-
-        )
-    }
 
     private fun user(user: User) {
         collection = COL_USER
@@ -54,6 +45,21 @@ class Document(value: Any) {
         )
     }
 
+    //TODO
+    private fun stack(stack: Stack) {
+        collection = COL_STACK
+        name = stack.id
+        values = mapOf(
+                "title" to stack.title,
+                "id" to stack.id,
+                "description" to stack.description,
+                "completed" to stack.completed,
+                "user" to stack.user,
+                "todoList" to stack.todoList,
+                "timestamp" to stack.timestamp
+
+        )
+    }
 
 
 }

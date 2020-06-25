@@ -26,15 +26,15 @@ object Modules {
         viewModel { ProfileViewModel(get(), get(), get()) }
         viewModel { UsersViewModel(get()) }
         viewModel { ChatsViewModel(get(), get()) }
-        viewModel { StacksViewModel() }
+        viewModel { StacksViewModel(get(), get()) }
     }
 
     private val singleModule = module {
         single { Preferences(context = androidContext()) }
         single { AuthRepository(firebaseAuth = FirebaseAuth.getInstance()) }
         single { FirestoreRepository(firebaseFirestore = FirebaseFirestore.getInstance()) }
-        single { ListenersRepository(FirebaseFirestore.getInstance(), get(), get()) }
-        single { DatabaseRepository(get(), get()) }
+        single { ListenersRepository(FirebaseFirestore.getInstance(), get(), get(), get()) }
+        single { DatabaseRepository(get(), get(), get()) }
     }
 
     private val factoryModule = module {
@@ -45,9 +45,11 @@ object Modules {
 
         single { Room.databaseBuilder(androidContext(), TodoDatabase::class.java, "todo_database").fallbackToDestructiveMigration().build() }
 
-       single { get<TodoDatabase>().userDao() }
+        single { get<TodoDatabase>().userDao() }
 
         single { get<TodoDatabase>().chatDao() }
+
+        single { get<TodoDatabase>().stackDao() }
     }
 
     val appModule =

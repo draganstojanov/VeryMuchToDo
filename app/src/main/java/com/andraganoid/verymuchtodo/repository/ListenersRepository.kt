@@ -2,8 +2,10 @@ package com.andraganoid.verymuchtodo.repository
 
 import android.util.Log
 import com.andraganoid.verymuchtodo.database.dao.ChatDao
+import com.andraganoid.verymuchtodo.database.dao.StackDao
 import com.andraganoid.verymuchtodo.database.dao.UserDao
 import com.andraganoid.verymuchtodo.kmodel.Chat
+import com.andraganoid.verymuchtodo.kmodel.Stack
 import com.andraganoid.verymuchtodo.kmodel.User
 import com.andraganoid.verymuchtodo.util.*
 import com.google.firebase.firestore.DocumentChange
@@ -16,10 +18,12 @@ import kotlinx.coroutines.launch
 class ListenersRepository(
         private val firebaseFirestore: FirebaseFirestore,
         private val userDao: UserDao,
-        private val chatDao: ChatDao) {
+        private val chatDao: ChatDao,
+        private val stackDao: StackDao) {
 
     var userListener: ListenerRegistration? = null
     var chatListener: ListenerRegistration? = null
+    var stackListener: ListenerRegistration? = null
 
     fun setFirestoreListeners() {
 
@@ -61,6 +65,35 @@ class ListenersRepository(
                         }
                         if (deleted.isNotEmpty()) {
                             chatDao.deleteChat(deleted)
+                        }
+                    }
+                }
+
+        stackListener = firebaseFirestore.collection(COL_STACK)
+                .addSnapshotListener { snapshots, e ->
+
+                    val added = mutableListOf<Stack>()
+                    val updated = mutableListOf<Stack>()
+                    val deleted = mutableListOf<Stack>()
+                    for (doc in snapshots!!.documentChanges) {
+                        when (doc.type) {
+                            DocumentChange.Type.ADDED -> added.add(doc.document.toObject(Stack::class.java))
+                            DocumentChange.Type.MODIFIED -> updated.add(doc.document.toObject(Stack::class.java))
+                            DocumentChange.Type.REMOVED -> deleted.add(doc.document.toObject(Stack::class.java))
+                        }
+                    }
+                    Log.d("LLIISSTT-TASK-ADDED", added.toString())
+                    Log.d("LLIISSTT-TASK-UPDATED", updated.toString())
+                    Log.d("LLIISSTT-TASK-DELETED", deleted.toString())
+                    GlobalScope.launch(Dispatchers.Default) {
+                        if (added.isNotEmpty()) {
+                            stackDao.saveStack(added)
+                        }
+                        if (updated.isNotEmpty()) {
+                            stackDao.updateStack(updated)
+                        }
+                        if (deleted.isNotEmpty()) {
+                            stackDao.deleteStack(deleted)
                         }
                     }
                 }

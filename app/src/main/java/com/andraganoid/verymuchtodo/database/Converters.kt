@@ -1,9 +1,7 @@
 package com.andraganoid.verymuchtodo.database
 
 import androidx.room.TypeConverter
-import com.andraganoid.verymuchtodo.kmodel.Chat
-import com.andraganoid.verymuchtodo.kmodel.Message
-import com.andraganoid.verymuchtodo.kmodel.User
+import com.andraganoid.verymuchtodo.kmodel.*
 import com.google.common.reflect.TypeToken
 import com.google.gson.Gson
 
@@ -34,5 +32,18 @@ class Converters {
 
     @TypeConverter
     fun toMessages(messages: String): List<Message> = gson.fromJson(messages, object : TypeToken<List<Message>>() {}.type)
+
+    @TypeConverter
+    fun fromStack(stack: Stack): String = gson.toJson(stack)
+
+    @TypeConverter
+    fun toStack(stack: String) = gson.fromJson(stack, Stack::class.java)
+
+    @TypeConverter
+    fun fromTodos(todos: List<Todo>): String = gson.toJson(todos)
+
+    @TypeConverter
+    fun toTodos(todos: String): List<Todo> = gson.fromJson(todos, object : TypeToken<List<Todo>>() {}.type)
+
 
 }

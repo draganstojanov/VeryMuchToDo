@@ -55,10 +55,10 @@ class SettingsDialogFragment : BottomSheetDialogFragment() {
     }
 
     fun applyLogout() {
-
         listenersRepository.apply {
             userListener?.remove()
             chatListener?.remove()
+            stackListener?.remove()
         }
 
         FirebaseAuth.getInstance().signOut()
