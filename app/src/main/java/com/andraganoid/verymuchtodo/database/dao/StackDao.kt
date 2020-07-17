@@ -16,9 +16,7 @@ interface StackDao {
     @Update
     suspend fun updateStack(stack: List<Stack>)
 
-
     @Query("SELECT * FROM stack_table")
     fun allStacks(): Flow<List<Stack>>
-
 
 }

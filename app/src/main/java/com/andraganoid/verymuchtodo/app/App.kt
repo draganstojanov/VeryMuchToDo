@@ -12,18 +12,15 @@ import com.andraganoid.verymuchtodo.BuildConfig
 import com.andraganoid.verymuchtodo.di.Modules
 import com.andraganoid.verymuchtodo.util.TodoDebugTree
 import com.andraganoid.verymuchtodo.util.TodoReleaseTree
-import com.andraganoid.verymuchtodo.util._networkStatus
-import com.andraganoid.verymuchtodo.util.networkStateChannel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import com.andraganoid.verymuchtodo.util._networkStateFlow
+import kotlinx.coroutines.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
-class App : Application(),CoroutineScope {
+@ExperimentalCoroutinesApi
+class App : Application(), CoroutineScope {
 
     override fun onCreate() {
         super.onCreate()
@@ -44,29 +41,30 @@ class App : Application(),CoroutineScope {
     }
 
 
-    fun conn() {
-
+    private fun conn() {
         val networkCallback: ConnectivityManager.NetworkCallback = object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network?) {
                 // network available
                 Log.d("CCONN", "AVAILABLE")
-                launch {networkStateChannel.send(true)
-            //    _networkStateFlow.value=true
+                launch {
+                    //  networkStateChannel.send(true)
+                    _networkStateFlow.value = true
                 }
 
-            _networkStatus.postValue(true)
+                //  _networkStatus.postValue(true)
 
             }
 
             override fun onLost(network: Network?) {
                 // network unavailable
                 Log.d("CCONN", "UNAVAILABLE")
-              launch {networkStateChannel.send(false)
-                //  _networkStateFlow.value=false
-              }
+                launch {
+                    //  networkStateChannel.send(false)
+                    _networkStateFlow.value = false
+                }
 
 
-                _networkStatus.postValue(false)
+                // _networkStatus.postValue(false)
 
             }
         }

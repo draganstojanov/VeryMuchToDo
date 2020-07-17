@@ -6,7 +6,9 @@
   </component>
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidSProjects-VeryMuchToDo.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidSProjects-VeryMuchToDo.iml" group="VeryMuchToDo" />
       <module fileurl="file://$PROJECT_DIR$/VeryMuchToDo.iml" filepath="$PROJECT_DIR$/VeryMuchToDo.iml" group="VeryMuchToDo" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/VeryMuchToDo-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/VeryMuchToDo-app.iml" group="VeryMuchToDo/app" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="VeryMuchToDo/app" />
     </modules>
   </component>

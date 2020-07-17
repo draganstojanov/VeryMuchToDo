@@ -28,7 +28,7 @@ class ProfileViewModel(
 ) : ViewModel() {
 
     private var firebaseAuth: FirebaseAuth? = null
-    internal lateinit var user: User
+    internal var user: User
     val userName = ObservableField<String>()
     val userMail = ObservableField<String>()
     val profileImage = ObservableField<String>()
