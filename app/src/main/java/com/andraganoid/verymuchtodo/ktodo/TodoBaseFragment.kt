@@ -2,8 +2,11 @@ package com.andraganoid.verymuchtodo.ktodo
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 
-
+@ExperimentalCoroutinesApi
+@ObsoleteCoroutinesApi
 open class TodoBaseFragment : Fragment() {
 
     lateinit var todo: TodoActivity

@@ -11,11 +11,9 @@ class Preferences(private val context: Context) {
 
     private val PREF_NAME = "com.andraganoid.verymuchtodo.SHARED_PREFERENCES"
     private val PREF_USER = "pref_user"
-//    private val PREF_LEVELS = "pref_levels"
-//    private val PREF_GAME_PLAY_SETTINGS = "pref_gsme_play_settings"
 
 
-    val sharedPreferences: SharedPreferences
+    private val sharedPreferences: SharedPreferences
         get() = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 
 

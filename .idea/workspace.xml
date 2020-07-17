@@ -8,7 +8,6 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="CCHHat" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
     <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
@@ -92,32 +91,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f1c441c-a69b-4c58-a2c9-273a864b41f4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/BaseActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/util/flow.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_asynclayoutinflater_asynclayoutinflater_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_asynclayoutinflater_asynclayoutinflater_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cardview_cardview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cardview_cardview_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_interpolator_interpolator_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_interpolator_interpolator_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_ui_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_ui_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v4_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v4_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_loader_loader_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_loader_loader_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_localbroadcastmanager_localbroadcastmanager_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_media_media_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_print_print_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_slidingpanelayout_slidingpanelayout_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_swiperefreshlayout_swiperefreshlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_swiperefreshlayout_swiperefreshlayout_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_viewpager_viewpager_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/MainActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/app/App.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/app/App.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/auth/AuthBaseFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/auth/AuthBaseFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/database/dao/StackDao.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/database/dao/StackDao.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/TodoActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/TodoActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/TodoBaseFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/TodoBaseFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/profile/ProfileViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/profile/ProfileViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/users/UsersFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/users/UsersFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/repository/ListenersRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/repository/ListenersRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/util/Extensions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/util/Extensions.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/util/Preferences.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/util/Preferences.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,10 +155,10 @@
         <option value="valueResourceFile" />
         <option value="layoutResourceFile" />
         <option value="resourceFile" />
-        <option value="Kotlin File" />
         <option value="Class" />
         <option value="Kotlin Class" />
         <option value="Kotlin Interface" />
+        <option value="Kotlin File" />
       </list>
     </option>
   </component>
@@ -211,6 +202,7 @@
     <property name="ExportApk.BuildVariants" value="debug&#10;release" />
     <property name="ExportApk.SignV1" value="true" />
     <property name="ExportApk.SignV2" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
     <property name="SearchEverywhereHistoryKey" value="update&#9;PSI&#9;JAVA://com.andraganoid.verymuchtodo.Todo#updateDocument" />
@@ -257,6 +249,9 @@
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Projects\Android\VeryMuchToDo\app" />
+    </key>
+    <key name="android.template.-38959131">
+      <recent name="com.andraganoid.verymuchtodo" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.andraganoid.verymuchtodo.fragments.register" />
@@ -530,10 +525,10 @@
     </configuration>
     <list>
       <item itemvalue="Android App.app" />
+      <item itemvalue="Android App.VeryMuchToDo-app" />
       <item itemvalue="Gradle.VeryMuchToDo [androidDependencies]" />
       <item itemvalue="Gradle.VeryMuchToDo [signingReport]" />
       <item itemvalue="Gradle.VeryMuchToDo [sourceSets]" />
-      <item itemvalue="Android App.VeryMuchToDo-app" />
     </list>
   </component>
   <component name="SvnConfiguration">
@@ -546,13 +541,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1551617450032</updated>
-    </task>
-    <task id="LOCAL-00016" summary="messages">
-      <created>1563148959514</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1563148959514</updated>
     </task>
     <task id="LOCAL-00017" summary="messages ok">
       <created>1563181502867</created>
@@ -890,7 +878,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593039019418</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="linux comp">
+      <created>1594995558643</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1594995558644</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -908,7 +903,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="register" />
     <MESSAGE value="auth live data" />
     <MESSAGE value="bottom navigation" />
     <MESSAGE value="settings bottom fragment" />
@@ -933,7 +927,8 @@
     <MESSAGE value="chatttttttttttt" />
     <MESSAGE value="chats" />
     <MESSAGE value="todos" />
-    <option name="LAST_COMMIT_MESSAGE" value="todos" />
+    <MESSAGE value="linux comp" />
+    <option name="LAST_COMMIT_MESSAGE" value="linux comp" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
@@ -946,30 +941,35 @@
     </state>
     <state x="286" y="144" key="#PSD/0.0.1536.824@0.0.1536.824" timestamp="1592599785978" />
     <state x="358" y="199" width="950" height="537" key="#PSD/0.27.1920.985@0.27.1920.985" timestamp="1594995214289" />
-    <state x="352" y="7" key="CommitChangelistDialog2" timestamp="1593039018272">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="440" y="35" width="1001" height="858" key="CommitChangelistDialog2" timestamp="1594995558529">
+      <screen x="0" y="27" width="1920" height="985" />
     </state>
     <state x="352" y="7" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1593039018272" />
+    <state x="440" y="35" width="1001" height="858" key="CommitChangelistDialog2/0.27.1920.985@0.27.1920.985" timestamp="1594995558529" />
     <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1592599796905">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1592599796905" />
-    <state width="1476" height="274" key="GridCell.Tab.0.bottom" timestamp="1593031795924">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1874" height="464" key="GridCell.Tab.0.bottom" timestamp="1595002881118">
+      <screen x="0" y="27" width="1920" height="985" />
     </state>
     <state width="1476" height="274" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1593031795924" />
-    <state width="1476" height="274" key="GridCell.Tab.0.center" timestamp="1593031795924">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1874" height="464" key="GridCell.Tab.0.bottom/0.27.1920.985@0.27.1920.985" timestamp="1595002881118" />
+    <state width="1874" height="464" key="GridCell.Tab.0.center" timestamp="1595002881117">
+      <screen x="0" y="27" width="1920" height="985" />
     </state>
     <state width="1476" height="274" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1593031795924" />
-    <state width="1476" height="274" key="GridCell.Tab.0.left" timestamp="1593031795923">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1874" height="464" key="GridCell.Tab.0.center/0.27.1920.985@0.27.1920.985" timestamp="1595002881117" />
+    <state width="1874" height="464" key="GridCell.Tab.0.left" timestamp="1595002881116">
+      <screen x="0" y="27" width="1920" height="985" />
     </state>
     <state width="1476" height="274" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1593031795923" />
-    <state width="1476" height="274" key="GridCell.Tab.0.right" timestamp="1593031795924">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state width="1874" height="464" key="GridCell.Tab.0.left/0.27.1920.985@0.27.1920.985" timestamp="1595002881116" />
+    <state width="1874" height="464" key="GridCell.Tab.0.right" timestamp="1595002881117">
+      <screen x="0" y="27" width="1920" height="985" />
     </state>
     <state width="1476" height="274" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1593031795924" />
+    <state width="1874" height="464" key="GridCell.Tab.0.right/0.27.1920.985@0.27.1920.985" timestamp="1595002881117" />
     <state x="349" y="155" key="IDE.errors.dialog" timestamp="1592599577252">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -979,27 +979,34 @@
     </state>
     <state x="277" y="55" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1592603181442" />
     <state x="346" y="93" width="1022" height="737" key="SettingsEditor/0.27.1920.985@0.27.1920.985" timestamp="1594995132603" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1593039024458">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="451" y="200" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1594995571239">
+      <screen x="0" y="27" width="1920" height="985" />
     </state>
     <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1593039024458" />
+    <state x="451" y="200" width="800" height="535" key="Vcs.Push.Dialog.v2/0.27.1920.985@0.27.1920.985" timestamp="1594995571239" />
     <state x="100" y="127" width="1720" height="785" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1594994710905">
       <screen x="0" y="27" width="1920" height="985" />
     </state>
     <state x="100" y="127" width="1720" height="785" key="com.android.tools.idea.avdmanager.AvdListDialog/0.27.1920.985@0.27.1920.985" timestamp="1594994710905" />
-    <state x="95" y="44" width="1244" height="683" key="find.popup" timestamp="1593115500551">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="119" y="80" width="1555" height="817" key="find.popup" timestamp="1595002163319">
+      <screen x="0" y="27" width="1920" height="985" />
     </state>
     <state x="95" y="44" width="1244" height="683" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1593115500551" />
-    <state width="408" height="88" key="javadoc.popup.new" timestamp="1593117874766">
-      <screen x="0" y="0" width="1536" height="824" />
+    <state x="119" y="80" width="1555" height="817" key="find.popup/0.27.1920.985@0.27.1920.985" timestamp="1595002163319" />
+    <state width="510" height="106" key="javadoc.popup.new" timestamp="1595003113758">
+      <screen x="0" y="27" width="1920" height="985" />
     </state>
     <state width="408" height="88" key="javadoc.popup.new/0.0.1536.824@0.0.1536.824" timestamp="1593117874766" />
+    <state width="510" height="106" key="javadoc.popup.new/0.27.1920.985@0.27.1920.985" timestamp="1595003113758" />
     <state x="533" y="253" key="run.anything.popup" timestamp="1594995250939">
       <screen x="0" y="27" width="1920" height="985" />
     </state>
     <state x="426" y="189" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1593028414823" />
     <state x="533" y="253" key="run.anything.popup/0.27.1920.985@0.27.1920.985" timestamp="1594995250939" />
+    <state x="624" y="162" width="672" height="676" key="search.everywhere.popup" timestamp="1594996381460">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state x="624" y="162" width="672" height="676" key="search.everywhere.popup/0.27.1920.985@0.27.1920.985" timestamp="1594996381460" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

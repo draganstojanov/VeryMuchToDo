@@ -2,35 +2,19 @@ package com.andraganoid.verymuchtodo.util
 
 import android.text.format.DateFormat
 import android.util.Patterns
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.andraganoid.verymuchtodo.kmodel.User
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import java.util.*
 
 
 fun String.isValidEmail() = isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
-fun String.isValidPassword(): Boolean = length >= 6 && length < 15
+fun String.isValidPassword(): Boolean = length in 6..14
 
-fun String.isValidConfirmedPassword(pass: String): Boolean = length >= 6 && length < 15 && this.equals(pass)
+fun String.isValidConfirmedPassword(pass: String): Boolean = length in 6..14 && this == pass
 
-fun String.isValidDisplayName(): Boolean = length >= 3 && length < 24
+fun String.isValidDisplayName(): Boolean = length in 3..23
 
 var myUser = User()
-
-//@ExperimentalCoroutinesApi
-//val _networkStateFlow = MutableStateFlow<Boolean>(false)
-//@ExperimentalCoroutinesApi
-//val networkStateFlow: StateFlow<Boolean> = _networkStateFlow
-
-@ExperimentalCoroutinesApi
-val networkStateChannel = ConflatedBroadcastChannel<Boolean>()
-
-val _networkStatus = MutableLiveData<Boolean>()
-val networkStatus: LiveData<Boolean>
-    get() = _networkStatus
 
 fun Long.getFormattedDate(): String {
     return if (this > 0) {

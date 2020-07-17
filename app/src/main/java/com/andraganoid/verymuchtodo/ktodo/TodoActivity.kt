@@ -1,27 +1,24 @@
 package com.andraganoid.verymuchtodo.ktodo
 
-import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.andraganoid.verymuchtodo.BaseActivity
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.ktodo.settings.SettingsDialogFragment
 import com.andraganoid.verymuchtodo.repository.ListenersRepository
-import com.andraganoid.verymuchtodo.util.networkStateChannel
 import kotlinx.android.synthetic.main.activity_todo_k.*
-import kotlinx.coroutines.channels.consumeEach
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 import org.koin.android.ext.android.inject
+import java.util.*
 
-
-class TodoActivity() : AppCompatActivity() {
+@ObsoleteCoroutinesApi
+@ExperimentalCoroutinesApi
+class TodoActivity() : BaseActivity() {
 
     private val listenersRepository: ListenersRepository by inject()
     lateinit var todoNavController: NavController
@@ -29,31 +26,10 @@ class TodoActivity() : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_todo_k)
-
-        Log.d("TODOSTART", "TODOACTIVITY")
-
         listenersRepository.setFirestoreListeners()
         setNavigationListener()
         networkListener()
-        //  conn()
-        // toast(myUser.name.toString())
-    }
-
-    private fun networkListener() {
-        lifecycleScope.launchWhenCreated {
-            networkStateChannel.consumeEach {
-                toast(it.toString())
-                lostNetworkIcon.isVisible = !it
-            }
-        }
-
-     //   networkStatus.observe(this, Observer {
-         //   Log.d("CCONN", "TODO-LIVEDATA " + it)
-            //    toast(it.toString())
-            //    lostNetworkIcon.isVisible = !it
-    //    })
-
-
+        errorMessageListener()
     }
 
     private fun setNavigationListener() {
@@ -75,7 +51,7 @@ class TodoActivity() : AppCompatActivity() {
                 getString(R.string.map_frag_label) -> title = getString(R.string.map)
                 getString(R.string.chat_frag_label) -> title = getString(R.string.chats)
             }
-            todoTitle.text = title.toUpperCase()
+            todoTitle.text = title.toUpperCase(Locale.ROOT)
             backIcon.isVisible = backArrow
             bottomNavBar.isVisible = bottomBar
 
@@ -85,11 +61,6 @@ class TodoActivity() : AppCompatActivity() {
     fun loaderVisibility(visibility: Boolean) {
         hideKeyboard()
         todoLoader.isVisible = visibility
-    }
-
-    fun hideKeyboard() {
-        val imm = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(window.decorView.windowToken, 0)
     }
 
     fun menuClicked(view: View) {
@@ -102,17 +73,11 @@ class TodoActivity() : AppCompatActivity() {
         onBackPressed()
     }
 
-
     override fun onBackPressed() {
         if (todoNavController.currentDestination?.label!!.equals(getString(R.string.stacks_frag_label))) {
             finishAffinity()
         }
         super.onBackPressed()
-    }
-
-
-    private fun toast(txt: String) {
-        Toast.makeText(this, txt, Toast.LENGTH_SHORT).show()
     }
 
     fun setTitle(title: String) {
