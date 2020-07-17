@@ -6,8 +6,8 @@ import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.andraganoid.verymuchtodo.BaseActivity
 import com.andraganoid.verymuchtodo.R
+import com.andraganoid.verymuchtodo.base.BaseActivity
 import com.andraganoid.verymuchtodo.ktodo.settings.SettingsDialogFragment
 import com.andraganoid.verymuchtodo.repository.ListenersRepository
 import kotlinx.android.synthetic.main.activity_todo_k.*

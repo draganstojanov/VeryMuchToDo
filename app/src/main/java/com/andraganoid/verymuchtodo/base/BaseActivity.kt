@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo
+package com.andraganoid.verymuchtodo.base
 
 import android.app.Activity
 import android.os.Bundle
@@ -7,7 +7,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.andraganoid.verymuchtodo.auth.dialog.MessageDialogFragment
+import com.andraganoid.verymuchtodo.R
+import com.andraganoid.verymuchtodo.base.dialog.MessageDialogFragment
 import com.andraganoid.verymuchtodo.util.BUNDLE_MSG_DIALOG_LIST
 import com.andraganoid.verymuchtodo.util.ERROR_PLACEHOLDER
 import com.andraganoid.verymuchtodo.util.messageStateFlow

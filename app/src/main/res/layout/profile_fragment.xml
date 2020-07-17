@@ -44,20 +44,18 @@
                 app:cameraPictureSizeMinWidth="200"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
+            <TextView
                 android:id="@+id/takePicture"
                 style="@style/buttonSmall"
-                android:paddingHorizontal="16dp"
                 android:onClick="@{()-> fragment.takePicture()}"
                 android:text="@string/take_picture"
                 app:layout_constraintBottom_toTopOf="@id/cancelCamera"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
-            <Button
+            <TextView
                 android:id="@+id/cancelCamera"
                 style="@style/buttonSmall"
-                android:paddingHorizontal="16dp"
                 android:onClick="@{()-> fragment.closeCamera()}"
                 android:text="@string/cancel"
                 app:layout_constraintBottom_toBottomOf="parent"

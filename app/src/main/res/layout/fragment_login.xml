@@ -51,13 +51,10 @@
             app:layout_constraintTop_toBottomOf="@+id/userMailEt"
             tools:ignore="MissingConstraints" />
 
-        <Button
+        <TextView
             android:id="@+id/loginBtn"
             style="@style/buttonSmall"
-            android:layout_marginTop="32dp"
             android:onClick="@{()-> fragment.submitLogin()}"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
             android:text="@string/login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

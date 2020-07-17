@@ -16,7 +16,7 @@
         app:startDestination="@id/listsFragment" >
         <fragment
             android:id="@+id/listsFragment"
-            android:name="com.andraganoid.verymuchtodo.ktodo.stack.StacksFragment"
+            android:name="com.andraganoid.verymuchtodo.ktodo.stack.stacks.StacksFragment"
             android:label="@string/stacks_frag_label"
             tools:layout="@layout/stacks_fragment" />
     </navigation>

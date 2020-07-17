@@ -22,6 +22,7 @@ class MessagesAdapter(private val msgList: List<Message>, private val fragment: 
     inner class MessageHolder(private val binding: MessageItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(message: Message) {
             binding.message = message
+            binding.executePendingBindings()
         }
     }
 }

@@ -11,10 +11,14 @@ import com.andraganoid.verymuchtodo.kmodel.Chat
 import com.andraganoid.verymuchtodo.ktodo.TodoBaseFragment
 import com.andraganoid.verymuchtodo.ktodo.chat.ChatsViewModel
 import kotlinx.android.synthetic.main.messages_fragment.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
+@ObsoleteCoroutinesApi
+@ExperimentalCoroutinesApi
 class MessagesFragment : TodoBaseFragment() {
 
     private lateinit var binding: MessagesFragmentBinding

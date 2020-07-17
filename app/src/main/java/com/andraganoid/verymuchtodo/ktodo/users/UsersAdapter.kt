@@ -29,6 +29,7 @@ class UsersAdapter( private val fragment: UsersFragment) : RecyclerView.Adapter<
             binding.user = user
             binding.fragment = fragment
             binding.background = layoutPosition != 0
+            binding.executePendingBindings()
         }
     }
 }

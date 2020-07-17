@@ -11,6 +11,8 @@ import coil.api.load
 import coil.transform.CircleCropTransformation
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.kmodel.Message
+import com.andraganoid.verymuchtodo.kmodel.Stack
+import com.andraganoid.verymuchtodo.kmodel.Todo
 
 
 object BindingAdapters {
@@ -48,7 +50,7 @@ object BindingAdapters {
             tv.background = ContextCompat.getDrawable(tv.context, R.drawable.button_background)
             params.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
 
-          //  params.endToEnd= ConstraintSet.PARENT_ID
+            //  params.endToEnd= ConstraintSet.PARENT_ID
         }
         tv.layoutParams = params
     }
@@ -74,6 +76,20 @@ object BindingAdapters {
             error(R.drawable.ic_chat_placeholder)
             transformations(CircleCropTransformation())
         }
+    }
+
+    @BindingAdapter("userAndDate")
+    @JvmStatic
+    fun userAndDate(tv: TextView, stack: Stack) {
+        val txt = "${{ stack.user!!.name }}, ${stack.timestamp.getFormattedDate()}"
+        tv.text = txt
+    }
+
+    @BindingAdapter("userAndDate")
+    @JvmStatic
+    fun userAndDate(tv: TextView, todo: Todo) {
+        val txt = "${{ todo.user!!.name }}, ${todo.timestamp.getFormattedDate()}"
+        tv.text = txt
     }
 
 }

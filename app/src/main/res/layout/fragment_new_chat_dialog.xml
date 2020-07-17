@@ -40,7 +40,7 @@
             tools:listitem="@layout/new_chat_item" />
 
 
-        <Button
+        <TextView
             android:id="@+id/newChatOkBtn"
             style="@style/buttonSmall"
             android:layout_marginHorizontal="32dp"
@@ -51,7 +51,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
+        <TextView
             android:id="@+id/newChatCancelBtn"
             style="@style/buttonSmall"
             android:layout_marginHorizontal="32dp"

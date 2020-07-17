@@ -32,12 +32,10 @@
             app:layout_constraintTop_toTopOf="parent"
             tool:listitem="@layout/chat_item" />
 
-        <Button
+        <TextView
             android:id="@+id/chatsCreateNew"
             style="@style/buttonSmall"
-            android:paddingHorizontal="16dp"
             android:text="@string/new_chat"
-            android:layout_margin="8dp"
             android:onClick="@{()->fragment.createNewChat()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

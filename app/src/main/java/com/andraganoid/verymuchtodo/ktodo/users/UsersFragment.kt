@@ -10,12 +10,13 @@ import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.kmodel.User
 import com.andraganoid.verymuchtodo.ktodo.TodoBaseFragment
 import com.andraganoid.verymuchtodo.util.Preferences
-import com.andraganoid.verymuchtodo.util._messageStateFlow
 import com.andraganoid.verymuchtodo.util.myUser
 import kotlinx.android.synthetic.main.users_fragment.*
-import kotlinx.coroutines.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
+
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
 class UsersFragment : TodoBaseFragment() {
@@ -30,7 +31,7 @@ class UsersFragment : TodoBaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        userAdapter = UsersAdapter( this)
+        userAdapter = UsersAdapter(this)
         usersRecView.adapter = userAdapter
         viewModel.allUsers.observe(viewLifecycleOwner, Observer { userList ->
             val uList = userList as ArrayList<User>
@@ -41,13 +42,6 @@ class UsersFragment : TodoBaseFragment() {
             uList.add(0, me.get(0))
             userAdapter.setUserList(uList)
         })
-
-
-            GlobalScope.launch(Dispatchers.Default) {
-                _messageStateFlow.value ="AAAAAAAAAAAAA"
-            }
-
-
     }
 
     fun onUserClick(user: User) {

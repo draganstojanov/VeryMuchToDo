@@ -28,4 +28,8 @@ open class TodoBaseFragment : Fragment() {
         todo.setTitle(title)
     }
 
+    fun toast(txt: String) {
+       todo.toast(txt)
+    }
+
 }

@@ -32,7 +32,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
-        <Button
+        <TextView
             android:id="@+id/profileYesBtn"
             style="@style/buttonSmall"
             showText="@{viewModel.dialogYesLabel}"
@@ -43,7 +43,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profileDialogMsg" />
 
-        <Button
+        <TextView
             android:id="@+id/profileNoBtn"
             style="@style/buttonSmall"
             showText="@{viewModel.dialogNoLabel}"
@@ -54,7 +54,7 @@
             app:layout_constraintStart_toEndOf="@id/profileYesBtn"
             app:layout_constraintTop_toBottomOf="@id/profileDialogMsg" />
 
-        <Button
+        <TextView
             android:id="@+id/profileCancelBtn"
             style="@style/buttonSmall"
             showText="@{viewModel.dialogCancelLabel}"

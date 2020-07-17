@@ -7,7 +7,7 @@
 
         <variable
             name="fragment"
-            type="com.andraganoid.verymuchtodo.ktodo.stack.stacks.StacksFragment" />
+            type="com.andraganoid.verymuchtodo.ktodo.stack.todos.TodosFragment" />
 
     </data>
 
@@ -18,19 +18,19 @@
 
         <androidx.recyclerview.widget.RecyclerView
 
-            android:id="@+id/stacksRecView"
+            android:id="@+id/todosRecView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@id/stacksCreateNew"
+            app:layout_constraintBottom_toTopOf="@id/todosCreateNew"
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/stacks_item" />
 
         <TextView
-            android:id="@+id/stacksCreateNew"
+            android:id="@+id/todosCreateNew"
             style="@style/buttonSmall"
-            android:onClick="@{()->fragment.createNewStack()}"
+            android:onClick="@{()->fragment.createNewTodo()}"
             android:text="@string/new_stack"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
