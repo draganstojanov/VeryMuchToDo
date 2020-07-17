@@ -92,23 +92,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5f1c441c-a69b-4c58-a2c9-273a864b41f4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/database/dao/StackDao.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/database/Converters.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/database/Converters.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/database/TodoDatabase.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/database/TodoDatabase.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/database/dao/MessageDao.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/di/Modules.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/di/Modules.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/kmodel/Document.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/kmodel/Document.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/kmodel/Group.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/kmodel/Group.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/kmodel/Message.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/kmodel/Message.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/kmodel/Stack.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/kmodel/Stack.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/kmodel/Todo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/kmodel/Todo.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/settings/SettingsDialogFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/settings/SettingsDialogFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/stack/StacksFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/stack/StacksFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/stack/StacksViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/ktodo/stack/StacksViewModel.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/repository/DatabaseRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/repository/DatabaseRepository.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/repository/ListenersRepository.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/andraganoid/verymuchtodo/repository/ListenersRepository.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -497,13 +481,6 @@
       <option name="presentableId" value="Default" />
       <updated>1551617450032</updated>
     </task>
-    <task id="LOCAL-00016" summary="messages">
-      <created>1563148959514</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1563148959514</updated>
-    </task>
     <task id="LOCAL-00017" summary="messages ok">
       <created>1563181502867</created>
       <option name="number" value="00017" />
@@ -840,7 +817,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593039019418</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="todos">
+      <created>1593119508408</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1593119508409</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -895,10 +879,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="286" y="144" key="#PSD/0.0.1536.824@0.0.1536.824" timestamp="1592599785978" />
-    <state x="352" y="7" key="CommitChangelistDialog2" timestamp="1593039018272">
+    <state x="352" y="7" key="CommitChangelistDialog2" timestamp="1595006666452">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="352" y="7" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1593039018272" />
+    <state x="352" y="7" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1595006666452" />
     <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1592599796905">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -927,14 +911,18 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="277" y="55" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1592603181442" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1593039024458">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1593119526773">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1593039024458" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1593119526773" />
     <state x="95" y="44" width="1244" height="683" key="find.popup" timestamp="1593115500551">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="95" y="44" width="1244" height="683" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1593115500551" />
+    <state x="466" y="204" key="git4idea.merge.GitPullDialog" timestamp="1595006641188">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="466" y="204" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1595006641188" />
     <state width="408" height="88" key="javadoc.popup.new" timestamp="1593117874766">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
