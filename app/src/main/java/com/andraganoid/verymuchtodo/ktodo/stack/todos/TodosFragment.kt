@@ -30,7 +30,7 @@ class TodosFragment : TodoBaseFragment() {
       //  viewModel.allStacks.observe(viewLifecycleOwner, Observer { stacks -> adapter.stackList = stacks })
     }
 
-    fun todoClicked(todo: Todo) {//TODO go to toasts fragment
+    fun todoClicked(todo: Todo) {//TODO go to todos fragment
         toast(todo.content)
     }
 
@@ -39,7 +39,7 @@ class TodosFragment : TodoBaseFragment() {
         return false
     }
 
-    fun createNewTodo() {//TODO new stack
+    fun createNewTodo() {//TODO new todo
         toast("new todo")
     }
 

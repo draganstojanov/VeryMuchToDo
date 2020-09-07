@@ -33,7 +33,7 @@ class StacksFragment : TodoBaseFragment() {
         viewModel.allStacks.observe(viewLifecycleOwner, Observer { stacks -> adapter.stackList = stacks })
     }
 
-    fun stackClicked(stack: Stack) {//TODO go to toasts fragment
+    fun stackClicked(stack: Stack) {//TODO go to todos fragment
         toast(stack.title)
     }
 
