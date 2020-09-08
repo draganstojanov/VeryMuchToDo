@@ -19,7 +19,7 @@ var myUser = User()
 fun Long.getFormattedDate(): String {
     return if (this > 0) {
         val cal = Calendar.getInstance()
-        cal.setTimeInMillis(this)
+        cal.timeInMillis = this
         DateFormat.format("dd.MM.yyyy HH:mm", cal).toString()
     } else {
         ""

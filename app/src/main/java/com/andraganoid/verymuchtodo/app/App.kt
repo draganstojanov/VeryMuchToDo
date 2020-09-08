@@ -43,7 +43,7 @@ class App : Application(), CoroutineScope {
 
     private fun conn() {
         val networkCallback: ConnectivityManager.NetworkCallback = object : ConnectivityManager.NetworkCallback() {
-            override fun onAvailable(network: Network?) {
+            override fun onAvailable(network: Network) {
                 // network available
                 Log.d("CCONN", "AVAILABLE")
                 launch {
@@ -55,7 +55,7 @@ class App : Application(), CoroutineScope {
 
             }
 
-            override fun onLost(network: Network?) {
+            override fun onLost(network: Network) {
                 // network unavailable
                 Log.d("CCONN", "UNAVAILABLE")
                 launch {

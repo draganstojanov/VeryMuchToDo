@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ModuleRenamingHistory">
-    <module old-name="VeryMuchToDo" new-name="VeryMuchToDo.VeryMuchToDo" />
-    <module old-name="app" new-name="VeryMuchToDo.app.app" />
-  </component>
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidSProjects-VeryMuchToDo.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidSProjects-VeryMuchToDo.iml" group="VeryMuchToDo" />
-      <module fileurl="file://$PROJECT_DIR$/VeryMuchToDo.iml" filepath="$PROJECT_DIR$/VeryMuchToDo.iml" group="VeryMuchToDo" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/VeryMuchToDo-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/VeryMuchToDo-app.iml" group="VeryMuchToDo/app" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="VeryMuchToDo/app" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/projects-VeryMuchToDo.iml" filepath="$PROJECT_DIR$/.idea/modules/projects-VeryMuchToDo.iml" group="VeryMuchToDo" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/projects-VeryMuchToDo-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/projects-VeryMuchToDo-app.iml" group="VeryMuchToDo/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/VeryMuchToDo.iml" filepath="$PROJECT_DIR$/.idea/modules/VeryMuchToDo.iml" group="VeryMuchToDo" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="VeryMuchToDo/app" />
     </modules>
   </component>
 </project>

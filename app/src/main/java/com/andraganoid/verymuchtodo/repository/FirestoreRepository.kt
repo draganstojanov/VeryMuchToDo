@@ -6,7 +6,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 class FirestoreRepository(private val firebaseFirestore: FirebaseFirestore) {
 
     fun addDocument(document: Document) {
-
         firebaseFirestore
                 .collection(document.collection)
                 .document(document.name)

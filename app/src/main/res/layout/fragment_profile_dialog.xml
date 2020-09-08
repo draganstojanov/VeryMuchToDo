@@ -36,7 +36,6 @@
             android:id="@+id/profileYesBtn"
             style="@style/buttonSmall"
             showText="@{viewModel.dialogYesLabel}"
-            android:layout_margin="32dp"
             android:onClick="@{()-> fragment.yesBtn()}"
             android:visibility="@{viewModel.dialogType==DialogType.MESSAGE?View.GONE:View.VISIBLE}"
             app:layout_constraintEnd_toStartOf="@+id/profileNoBtn"

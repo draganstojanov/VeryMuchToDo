@@ -19,7 +19,6 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class RegisterFragment : AuthBaseFragment() {
 
-    // private val viewModel: RegisterViewModel by viewModel()
     private val viewModel: AuthViewModel by sharedViewModel()
     private lateinit var binding: FragmentRegisterBinding
 
