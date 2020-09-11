@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.andraganoid.verymuchtodo.databinding.StacksFragmentBinding
 import com.andraganoid.verymuchtodo.kmodel.Stack
 import com.andraganoid.verymuchtodo.ktodo.TodoBaseFragment
@@ -44,6 +46,8 @@ class StacksFragment : TodoBaseFragment() {
 
     fun createNewStack() {//TODO new stack
         toast("new stack")
+        val action = StacksFragmentDirections.actionStacksFragmentToStacksEditFragment()
+        findNavController().navigate(action)
     }
 
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:id="@+id/todoRoot"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,7 +11,7 @@
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/backgorundColor"
+        android:background="@color/backgroundColor"
         android:minHeight="@dimen/bar_height"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -22,35 +23,35 @@
             android:text="NASLOV"
             android:textColor="@color/primDark"
             android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/menuIcon"
             android:layout_width="@dimen/bar_height"
             android:layout_height="@dimen/bar_height"
-            android:scaleType="center"
             android:onClick="menuClicked"
+            android:scaleType="center"
             android:src="@drawable/ic_menu"
-            android:tint="@color/primDark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/primDark" />
 
         <ImageView
             android:id="@+id/backIcon"
             android:layout_width="@dimen/bar_height"
             android:layout_height="@dimen/bar_height"
-            android:scaleType="center"
             android:onClick="backClicked"
+            android:scaleType="center"
             android:src="@drawable/ic_arrow_back"
-            android:tint="@color/primDark"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/primDark" />
 
         <ImageView
             android:id="@+id/lostNetworkIcon"
@@ -58,11 +59,11 @@
             android:layout_height="@dimen/bar_height"
             android:scaleType="center"
             android:src="@drawable/ic_network_lost"
-            android:tint="@color/secDark"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/backIcon"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/secDark" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -83,7 +84,7 @@
         android:id="@+id/bottomNavBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bar_height"
-        android:background="@color/backgorundColor"
+        android:background="@color/backgroundColor"
         app:itemIconTint="@color/bottom_nav_color"
         app:itemTextColor="@color/bottom_nav_color"
         app:labelVisibilityMode="labeled"
@@ -94,7 +95,7 @@
         android:id="@+id/todoLoader"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/backgorundColor"
+        android:background="@color/backgroundColor"
         android:visibility="gone">
 
         <ProgressBar

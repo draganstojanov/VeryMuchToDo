@@ -30,6 +30,8 @@ class MessagesFragment : TodoBaseFragment() {
         binding.viewModel = viewModel
         setTitle(viewModel.currentChat!!.name)
         return binding.root
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,7 +47,7 @@ class MessagesFragment : TodoBaseFragment() {
                 if (viewModel.updateCurrentChat()) {
                     messageAdapter = MessagesAdapter(viewModel.currentChat?.messages!!, this@MessagesFragment)
                     messagesRecView.adapter = messageAdapter
-                    if (viewModel.currentChat!!.messages.size > 0) {
+                    if (viewModel.currentChat!!.messages.isNotEmpty()) {
                         messagesRecView.scrollToPosition(viewModel.currentChat?.messages!!.size - 1)
                     }
                 }

@@ -7,7 +7,7 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
-        <item name="android:windowBackground">@color/backgorundColor</item>
+        <item name="android:windowBackground">@color/backgroundColor</item>
 
         <item name="fontFamily">@font/poppins_light</item>
 
@@ -59,7 +59,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/bar_height</item>
         <item name="android:textSize">@dimen/inputTextSize</item>
-        <item name="android:textColor">@color/backgorundColor</item>
+        <item name="android:textColor">@color/backgroundColor</item>
         <item name="android:textColorHint">@color/primVeryLite</item>
         <item name="android:background">@drawable/input_background</item>
         <item name="android:layout_marginStart">@dimen/loginMargin</item>
@@ -80,7 +80,7 @@
         <item name="android:paddingBottom">8dp</item>
         <item name="android:background">@drawable/button_background</item>
         <item name="android:textSize">@dimen/smallButtonTextSize</item>
-        <item name="android:textColor">@color/backgorundColor</item>
+        <item name="android:textColor">@color/backgroundColor</item>
         <item name="android:textAllCaps">true</item>
 
     </style>
@@ -89,7 +89,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/dialogTextSize</item>
-        <item name="android:textColor">@color/backgorundColor</item>
+        <item name="android:textColor">@color/backgroundColor</item>
         <item name="android:padding">16dp</item>
         <item name="android:gravity">center</item>
     </style>

@@ -1,6 +1,7 @@
 package com.andraganoid.verymuchtodo.ktodo
 
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
@@ -29,7 +30,7 @@ open class TodoBaseFragment : Fragment() {
     }
 
     fun toast(txt: String) {
-       todo.toast(txt)
+        todo.toast(txt)
     }
 
 }

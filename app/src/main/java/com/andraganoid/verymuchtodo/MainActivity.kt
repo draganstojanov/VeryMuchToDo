@@ -27,7 +27,7 @@ class MainActivity : BaseActivity() {
         setNavigationListener()
         myUser = preferences.getMyUser()
         networkListener()
-        window.statusBarColor = ContextCompat.getColor(this, R.color.backgorundColor)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.backgroundColor)
     }
 
     private fun setNavigationListener() {

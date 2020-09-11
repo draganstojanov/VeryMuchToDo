@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{stack.title}"
-            android:textColor="@color/backgorundColor"
+            android:textColor="@color/backgroundColor"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:gravity="end"
             android:padding="8dp"
-            android:textColor="@color/backgorundColor"
+            android:textColor="@color/backgroundColor"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

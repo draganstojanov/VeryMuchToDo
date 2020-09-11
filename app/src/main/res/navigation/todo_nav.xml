@@ -13,12 +13,20 @@
         tools:layout="@layout/profile_fragment"/>
     <navigation
         android:id="@+id/stack_nav"
-        app:startDestination="@id/listsFragment" >
+        app:startDestination="@id/stacksFragment">
         <fragment
-            android:id="@+id/listsFragment"
+            android:id="@+id/stacksFragment"
             android:name="com.andraganoid.verymuchtodo.ktodo.stack.stacks.StacksFragment"
-            android:label="@string/stacks_frag_label"
-            tools:layout="@layout/stacks_fragment" />
+            android:label="StacksFragment" >
+            <action
+                android:id="@+id/action_stacksFragment_to_stacksEditFragment"
+                app:destination="@id/stacksEditFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/stacksEditFragment"
+            android:name="com.andraganoid.verymuchtodo.ktodo.stack.stacks.StacksEditFragment"
+            android:label="fragment_stacks_edit"
+            tools:layout="@layout/fragment_stacks_edit" />
     </navigation>
     <navigation
         android:id="@+id/msg_nav"

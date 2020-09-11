@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.andraganoid.verymuchtodo.R
+import com.andraganoid.verymuchtodo.ktodo.TodoBaseFragment
 
-class StacksEditFragment : Fragment() {
+class StacksEditFragment :TodoBaseFragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

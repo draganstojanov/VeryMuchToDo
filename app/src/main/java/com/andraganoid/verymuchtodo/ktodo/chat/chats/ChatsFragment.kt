@@ -32,8 +32,9 @@ class ChatsFragment : TodoBaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.allChats.observe(viewLifecycleOwner, Observer { chats ->
             val sortedChats = chats.sortedByDescending { chat -> chat.lastEdit }
-            lifecycleScope.launch { chatsRecView.adapter = ChatsAdapter(sortedChats, viewModel.getUserMap(), this@ChatsFragment)
-                if (chats.size > 0) {
+            lifecycleScope.launch {
+                chatsRecView.adapter = ChatsAdapter(sortedChats, viewModel.getUserMap(), this@ChatsFragment)
+                if (chats.isNotEmpty()) {
                     chatsRecView.scrollToPosition(sortedChats.size - 1)
                 }
             }
@@ -50,8 +51,7 @@ class ChatsFragment : TodoBaseFragment() {
 
 
     fun createNewChat() {
-        val newChatDialog = NewChatDialog()
-        newChatDialog.show(todo.supportFragmentManager, null)
+        NewChatDialog().show(todo.supportFragmentManager, null)
     }
 
     fun showMessages(chat: Chat) {

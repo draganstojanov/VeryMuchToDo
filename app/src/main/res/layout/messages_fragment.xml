@@ -28,15 +28,14 @@
             app:layout_constraintTop_toTopOf="parent"
             tool:listitem="@layout/message_item" />
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/composeContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent">
 
-
             <EditText
+                android:id="@+id/messageInput"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/input_background"
@@ -45,7 +44,7 @@
                 android:minHeight="@dimen/bar_height"
                 android:padding="8dp"
                 android:text="@={viewModel.messageText}"
-                android:textColor="@color/backgorundColor"
+                android:textColor="@color/backgroundColor"
                 android:textColorHint="@color/primVeryLite"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@+id/composeSend"
@@ -60,7 +59,7 @@
                 android:onClick="@{()->viewModel.sendMessage()}"
                 android:scaleType="center"
                 android:src="@drawable/ic_send"
-                android:tint="@color/primDark"
+                app:tint="@color/primDark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

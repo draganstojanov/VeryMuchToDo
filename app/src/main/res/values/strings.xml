@@ -66,7 +66,7 @@
     <string name="take_picture">Take a picture</string>
     <string name="auth_error">"ERROR: "</string>
     <string name="email_chooser">\"Send email using...\"</string>
-    <string name="stacks_frag_label">ListsFragment</string>
+    <string name="stacks_frag_label">StacksFragment</string>
     <string name="messages_frag_label">MessagesFragment</string>
     <string name="map_frag_label">MapFragment</string>
     <string name="users_frag_label">UsersFragment</string>

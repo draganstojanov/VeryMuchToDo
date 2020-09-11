@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/select_members"
-            android:textColor="@color/backgorundColor"
+            android:textColor="@color/backgroundColor"
             android:textSize="20sp"
             app:layout_constraintTop_toTopOf="parent" />
 

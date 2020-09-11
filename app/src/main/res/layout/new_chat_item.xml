@@ -20,7 +20,7 @@
             android:id="@+id/topLine"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/backgorundColor"
+            android:background="@color/backgroundColor"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -30,7 +30,7 @@
             android:layout_marginVertical="8dp"
             android:gravity="center_vertical"
             android:text="@{newUser.user.name}"
-            android:textColor="@color/backgorundColor"
+            android:textColor="@color/backgroundColor"
             android:textSize="16sp"
             android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -50,7 +50,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/backgorundColor"
+            android:background="@color/backgroundColor"
             app:layout_constraintBottom_toBottomOf="parent" />
 
 

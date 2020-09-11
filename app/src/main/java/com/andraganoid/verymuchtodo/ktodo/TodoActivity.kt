@@ -1,5 +1,6 @@
 package com.andraganoid.verymuchtodo.ktodo
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -16,12 +17,14 @@ import kotlinx.coroutines.ObsoleteCoroutinesApi
 import org.koin.android.ext.android.inject
 import java.util.*
 
+
 @ObsoleteCoroutinesApi
 @ExperimentalCoroutinesApi
 class TodoActivity() : BaseActivity() {
 
     private val listenersRepository: ListenersRepository by inject()
     lateinit var todoNavController: NavController
+    private var bottomValue: Int = 0;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +33,25 @@ class TodoActivity() : BaseActivity() {
         setNavigationListener()
         networkListener()
         errorMessageListener()
+        bottomBarToggleListener()
+        bottomValue = getBottomValue()
+    }
+
+    fun getBottomValue(): Int {
+        val rect = Rect()
+        todoRoot.getWindowVisibleDisplayFrame(rect)
+        return rect.bottom
+    }
+
+    private fun bottomBarToggleListener() {
+        todoRoot.viewTreeObserver.addOnGlobalLayoutListener {
+            val tempBottomValue = getBottomValue()
+            if (bottomValue - tempBottomValue > 100) {
+                hideBottomBar()
+            } else {
+                showBottomBar()
+            }
+        }
     }
 
     private fun setNavigationListener() {
@@ -82,6 +104,14 @@ class TodoActivity() : BaseActivity() {
 
     fun setTitle(title: String) {
         todoTitle.text = title
+    }
+
+    fun hideBottomBar() {
+        bottomNavBar.isVisible = false
+    }
+
+    fun showBottomBar() {
+        bottomNavBar.isVisible = true
     }
 
 }
