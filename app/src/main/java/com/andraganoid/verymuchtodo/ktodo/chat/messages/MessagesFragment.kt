@@ -29,9 +29,8 @@ class MessagesFragment : TodoBaseFragment() {
         binding = MessagesFragmentBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         setTitle(viewModel.currentChat!!.name)
+        hideBottomBar()
         return binding.root
-
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

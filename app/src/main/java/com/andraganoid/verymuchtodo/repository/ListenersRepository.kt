@@ -53,7 +53,7 @@ class ListenersRepository(
                         val added = mutableListOf<Chat>()
                         val updated = mutableListOf<Chat>()
                         val deleted = mutableListOf<Chat>()
-                        for (doc in snapshots!!.documentChanges) {
+                        for (doc in snapshots.documentChanges) {
                             when (doc.type) {
                                 DocumentChange.Type.ADDED -> added.add(doc.document.toObject(Chat::class.java))
                                 DocumentChange.Type.MODIFIED -> updated.add(doc.document.toObject(Chat::class.java))
@@ -86,7 +86,7 @@ class ListenersRepository(
                         val added = mutableListOf<Stack>()
                         val updated = mutableListOf<Stack>()
                         val deleted = mutableListOf<Stack>()
-                        for (doc in snapshots!!.documentChanges) {
+                        for (doc in snapshots.documentChanges) {
                             when (doc.type) {
                                 DocumentChange.Type.ADDED -> added.add(doc.document.toObject(Stack::class.java))
                                 DocumentChange.Type.MODIFIED -> updated.add(doc.document.toObject(Stack::class.java))

@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="android.text.InputType" />
+
         <variable
             name="viewModel"
             type="com.andraganoid.verymuchtodo.ktodo.profile.ProfileViewModel" />
@@ -32,11 +34,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:keepScreenOn="true"
+                android:orientation="vertical"
                 app:cameraAudio="off"
                 app:cameraFacing="front"
                 app:cameraFlash="auto"
                 app:cameraMode="picture"
-                android:orientation="vertical"
                 app:cameraPictureFormat="jpeg"
                 app:cameraPictureSizeMaxHeight="640"
                 app:cameraPictureSizeMaxWidth="640"
@@ -91,14 +93,8 @@
 
             <ImageView
                 android:id="@+id/profileImgEdit"
-                android:layout_width="@dimen/bar_height"
-                android:layout_height="@dimen/bar_height"
-                android:layout_marginEnd="@dimen/loginMargin"
-                android:background="@drawable/button_background"
+                style="@style/editButton"
                 android:onClick="@{v->fragment.editButtonClicked(v)}"
-                android:scaleType="center"
-                android:src="@drawable/ic_edit"
-                android:tint="@color/primDark"
                 app:layout_constraintBottom_toBottomOf="@id/profileUserImageIv"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/profileUserImageIv" />
@@ -120,13 +116,8 @@
 
             <ImageView
                 android:id="@+id/profileNameEdit"
-                android:layout_width="@dimen/bar_height"
-                android:layout_height="0dp"
-                android:layout_marginEnd="@dimen/loginMargin"
-                android:background="@drawable/button_background"
+                style="@style/editButton"
                 android:onClick="@{v->fragment.editButtonClicked(v)}"
-                android:scaleType="center"
-                android:src="@drawable/ic_edit"
                 app:layout_constraintBottom_toBottomOf="@id/profileNameEt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/profileNameEt" />
@@ -138,7 +129,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="0dp"
                 android:hint="@string/your_email"
-                android:inputType="textEmailAddress"
+                android:inputType="textPassword"
                 android:text="@={viewModel.userMail}"
                 app:layout_constraintEnd_toStartOf="@id/profileMailEdit"
                 app:layout_constraintStart_toStartOf="parent"
@@ -147,16 +138,13 @@
 
             <ImageView
                 android:id="@+id/profileMailEdit"
-                android:layout_width="@dimen/bar_height"
-                android:layout_height="0dp"
-                android:layout_marginEnd="@dimen/loginMargin"
-                android:background="@drawable/button_background"
+                style="@style/editButton"
                 android:onClick="@{v->fragment.editButtonClicked(v)}"
-                android:scaleType="center"
-                android:src="@drawable/ic_edit"
                 app:layout_constraintBottom_toBottomOf="@id/profileMailEt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/profileMailEt" />
+
+
 
             <EditText
                 android:id="@+id/profilePassEt"
@@ -166,22 +154,30 @@
                 android:layout_marginEnd="0dp"
                 android:enabled="false"
                 android:hint="@string/your_pass"
-                android:inputType="textPassword"
                 android:text="password"
+                android:inputType="@{viewModel.passIsVisible? InputType.TYPE_CLASS_TEXT: (InputType.TYPE_CLASS_TEXT
+                |InputType.TYPE_TEXT_VARIATION_PASSWORD)}"
+                android:paddingEnd="@dimen/bar_height"
                 app:layout_constraintEnd_toStartOf="@id/profilePassEdit"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profileMailEt"
                 tools:ignore="MissingConstraints" />
 
             <ImageView
-                android:id="@+id/profilePassEdit"
+                android:id="@+id/profilePassToggle"
                 android:layout_width="@dimen/bar_height"
-                android:layout_height="0dp"
-                android:layout_marginEnd="@dimen/loginMargin"
-                android:background="@drawable/button_background"
-                android:onClick="@{v->fragment.editButtonClicked(v)}"
+                android:layout_height="@dimen/bar_height"
+                android:onClick="@{()->fragment.togglePasswordVisibility()}"
                 android:scaleType="center"
-                android:src="@drawable/ic_edit"
+                android:src="@{viewModel.passIsVisible?@drawable/ic_edit:@drawable/ic_send}"
+                app:layout_constraintBottom_toBottomOf="@id/profilePassEt"
+                app:layout_constraintEnd_toEndOf="@+id/profilePassEt"
+                app:layout_constraintTop_toTopOf="@id/profilePassEt" />
+
+            <ImageView
+                android:id="@+id/profilePassEdit"
+                style="@style/editButton"
+                android:onClick="@{v->fragment.editButtonClicked(v)}"
                 app:layout_constraintBottom_toBottomOf="@id/profilePassEt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/profilePassEt" />

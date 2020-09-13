@@ -151,4 +151,8 @@ class ProfileFragment : TodoBaseFragment() {
         }
     }
 
+    public fun togglePasswordVisibility() {
+        viewModel.passIsVisible.set(!viewModel.passIsVisible.get())
+    }
+
 }

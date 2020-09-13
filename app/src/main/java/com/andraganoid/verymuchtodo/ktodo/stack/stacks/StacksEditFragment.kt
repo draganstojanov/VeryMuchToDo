@@ -12,6 +12,10 @@ class StacksEditFragment :TodoBaseFragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
+
+
+        hideBottomBar()
         return inflater.inflate(R.layout.fragment_stacks_edit, container, false)
     }
 

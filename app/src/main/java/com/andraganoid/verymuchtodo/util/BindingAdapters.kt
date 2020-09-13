@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import coil.api.load
+import coil.load
 import coil.transform.CircleCropTransformation
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.kmodel.Message
@@ -15,10 +15,10 @@ import com.andraganoid.verymuchtodo.kmodel.Stack
 import com.andraganoid.verymuchtodo.kmodel.Todo
 
 
-object BindingAdapters {
+//object BindingAdapters {
 
     @BindingAdapter("showText")
-    @JvmStatic
+  //  @JvmStatic
     fun setTextFromAny(tv: TextView, message: Any?) {
         var txt = ""
         when (message) {
@@ -30,7 +30,7 @@ object BindingAdapters {
 
 
     @BindingAdapter("senderAndDate")
-    @JvmStatic
+  //  @JvmStatic
     fun senderAndDate(tv: TextView, message: Message) {
         val txt = "${if (message.isMyMsg) "" else message.from.name} ${message.timestamp.getFormattedDate()}"
         tv.gravity = if (message.isMyMsg) Gravity.END else Gravity.START
@@ -39,7 +39,7 @@ object BindingAdapters {
 
 
     @BindingAdapter("messageText")
-    @JvmStatic
+  //  @JvmStatic
     fun messageText(tv: TextView, message: Message) {
         tv.text = message.text
         val params = tv.layoutParams as ConstraintLayout.LayoutParams
@@ -57,7 +57,7 @@ object BindingAdapters {
 
 
     @BindingAdapter("profileImage")
-    @JvmStatic
+  //  @JvmStatic
     fun setProfileRoundImage(iv: ImageView, urlString: String?) {
         val url: String = if (urlString != null) urlString else ""
         iv.load(url) {
@@ -68,7 +68,7 @@ object BindingAdapters {
     }
 
     @BindingAdapter("chatImage")
-    @JvmStatic
+ //   @JvmStatic
     fun setChatRoundImage(iv: ImageView, urlString: String?) {
         val url: String = if (urlString != null) urlString else ""
         iv.load(url) {
@@ -79,18 +79,18 @@ object BindingAdapters {
     }
 
     @BindingAdapter("userAndDate")
-    @JvmStatic
+ //   @JvmStatic
     fun userAndDate(tv: TextView, stack: Stack) {
         val txt = "${{ stack.user!!.name }}, ${stack.timestamp.getFormattedDate()}"
         tv.text = txt
     }
 
     @BindingAdapter("userAndDate")
-    @JvmStatic
+ //   @JvmStatic
     fun userAndDate(tv: TextView, todo: Todo) {
         val txt = "${{ todo.user!!.name }}, ${todo.timestamp.getFormattedDate()}"
         tv.text = txt
     }
 
-}
+//}
 

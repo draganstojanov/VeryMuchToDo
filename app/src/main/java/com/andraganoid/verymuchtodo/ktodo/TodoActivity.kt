@@ -24,7 +24,7 @@ class TodoActivity() : BaseActivity() {
 
     private val listenersRepository: ListenersRepository by inject()
     lateinit var todoNavController: NavController
-    private var bottomValue: Int = 0;
+ //   private var bottomValue: Int = 0;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,26 +33,26 @@ class TodoActivity() : BaseActivity() {
         setNavigationListener()
         networkListener()
         errorMessageListener()
-        bottomBarToggleListener()
-        bottomValue = getBottomValue()
+     //   bottomBarToggleListener()
+    //    bottomValue = getBottomValue()
     }
 
-    fun getBottomValue(): Int {
-        val rect = Rect()
-        todoRoot.getWindowVisibleDisplayFrame(rect)
-        return rect.bottom
-    }
+//    fun getBottomValue(): Int {
+//        val rect = Rect()
+//        todoRoot.getWindowVisibleDisplayFrame(rect)
+//        return rect.bottom
+//    }
 
-    private fun bottomBarToggleListener() {
-        todoRoot.viewTreeObserver.addOnGlobalLayoutListener {
-            val tempBottomValue = getBottomValue()
-            if (bottomValue - tempBottomValue > 100) {
-                hideBottomBar()
-            } else {
-                showBottomBar()
-            }
-        }
-    }
+//    private fun bottomBarToggleListener() {TODO listener???
+//        todoRoot.viewTreeObserver.addOnGlobalLayoutListener {
+//            val tempBottomValue = getBottomValue()
+//            if (bottomValue - tempBottomValue > 100) {
+//                hideBottomBar()
+//            } else {
+//                showBottomBar()
+//            }
+//        }
+//    }
 
     private fun setNavigationListener() {
         todoNavController = findNavController(R.id.todoFragmentLayout)

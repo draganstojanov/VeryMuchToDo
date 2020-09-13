@@ -1,6 +1,7 @@
 package com.andraganoid.verymuchtodo.ktodo.profile
 
 import android.net.Uri
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -32,6 +33,7 @@ class ProfileViewModel(
     val userName = ObservableField<String>()
     val userMail = ObservableField<String>()
     val profileImage = ObservableField<String>()
+    val passIsVisible = ObservableBoolean(false)
 
     private val _loaderVisibility = MutableLiveData<Boolean>(false)
     val loaderVisibility: LiveData<Boolean>
