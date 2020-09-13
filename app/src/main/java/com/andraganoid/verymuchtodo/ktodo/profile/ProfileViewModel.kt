@@ -33,7 +33,6 @@ class ProfileViewModel(
     val userName = ObservableField<String>()
     val userMail = ObservableField<String>()
     val profileImage = ObservableField<String>()
-    val passIsVisible = ObservableBoolean(false)
 
     private val _loaderVisibility = MutableLiveData<Boolean>(false)
     val loaderVisibility: LiveData<Boolean>

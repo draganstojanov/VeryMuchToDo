@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="android.text.InputType" />
+
         <variable
             name="viewModel"
             type="com.andraganoid.verymuchtodo.auth.AuthViewModel" />
@@ -47,9 +49,21 @@
             android:layout_marginTop="16dp"
             android:hint="@string/your_pass"
             android:imeOptions="actionDone"
-            android:inputType="textPassword"
+            android:inputType="@{viewModel.passIsVisible? InputType.TYPE_CLASS_TEXT: (InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD)}"
             app:layout_constraintTop_toBottomOf="@+id/userMailEt"
             tools:ignore="MissingConstraints" />
+
+        <ImageView
+            android:id="@+id/userPassToggle"
+            tint="@color/primDark"
+            android:layout_width="@dimen/bar_height"
+            android:layout_height="@dimen/bar_height"
+            android:onClick="@{()->fragment.togglePasswordVisibility()}"
+            android:scaleType="center"
+            android:src="@{viewModel.passIsVisible?@drawable/ic_visibility_on:@drawable/ic_visibility_off}"
+            app:layout_constraintBottom_toBottomOf="@id/userPassEt"
+            app:layout_constraintEnd_toEndOf="@+id/userPassEt"
+            app:layout_constraintTop_toTopOf="@id/userPassEt" />
 
         <TextView
             android:id="@+id/loginBtn"

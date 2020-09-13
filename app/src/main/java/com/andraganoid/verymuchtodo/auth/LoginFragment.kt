@@ -59,6 +59,11 @@ class LoginFragment : AuthBaseFragment() {
         })
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewModel.passIsVisible.set(false)
+    }
+
     fun submitLogin() {
         val mail = userMailEt.text.toString()
         val pass = userPassEt.text.toString()
@@ -93,5 +98,7 @@ class LoginFragment : AuthBaseFragment() {
         }
     }
 
-
+    fun togglePasswordVisibility() {
+        viewModel.passIsVisible.set(!viewModel.passIsVisible.get())
+    }
 }

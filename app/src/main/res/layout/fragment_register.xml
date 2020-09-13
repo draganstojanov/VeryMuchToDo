@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="android.text.InputType" />
+
         <variable
             name="viewModel"
             type="com.andraganoid.verymuchtodo.auth.AuthViewModel" />
@@ -59,9 +61,21 @@
                 android:layout_marginTop="16dp"
                 android:hint="@string/your_pass"
                 android:imeOptions="actionNext"
-                android:inputType="textPassword"
+                android:inputType="@{viewModel.passIsVisible? InputType.TYPE_CLASS_TEXT: (InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD)}"
                 app:layout_constraintTop_toBottomOf="@+id/registerMailEt"
                 tools:ignore="MissingConstraints" />
+
+            <ImageView
+                android:id="@+id/registerPassToggle"
+                android:layout_width="@dimen/bar_height"
+                android:layout_height="@dimen/bar_height"
+                android:onClick="@{()->fragment.togglePasswordVisibility()}"
+                android:scaleType="center"
+                tint="@color/primDark"
+                android:src="@{viewModel.passIsVisible?@drawable/ic_visibility_on:@drawable/ic_visibility_off}"
+                app:layout_constraintBottom_toBottomOf="@id/registerPassEt"
+                app:layout_constraintEnd_toEndOf="@+id/registerPassEt"
+                app:layout_constraintTop_toTopOf="@id/registerPassEt" />
 
             <EditText
                 android:id="@+id/registerConfirmPassEt"
@@ -69,9 +83,21 @@
                 android:layout_marginTop="16dp"
                 android:hint="@string/confirm_pass"
                 android:imeOptions="actionDone"
-                android:inputType="textPassword"
+                android:inputType="@{viewModel.passIsVisible? InputType.TYPE_CLASS_TEXT: (InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD)}"
                 app:layout_constraintTop_toBottomOf="@+id/registerPassEt"
                 tools:ignore="MissingConstraints" />
+
+            <ImageView
+                android:id="@+id/registerConfirmPassToggle"
+                tint="@color/primDark"
+                android:layout_width="@dimen/bar_height"
+                android:layout_height="@dimen/bar_height"
+                android:onClick="@{()->fragment.togglePasswordVisibility()}"
+                android:scaleType="center"
+                android:src="@{viewModel.passIsVisible?@drawable/ic_visibility_on:@drawable/ic_visibility_off}"
+                app:layout_constraintBottom_toBottomOf="@id/registerConfirmPassEt"
+                app:layout_constraintEnd_toEndOf="@+id/registerConfirmPassEt"
+                app:layout_constraintTop_toTopOf="@id/registerConfirmPassEt" />
 
             <TextView
                 android:id="@+id/registerBtn"

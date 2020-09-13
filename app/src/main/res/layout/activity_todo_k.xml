@@ -58,7 +58,7 @@
             android:layout_width="@dimen/bar_height"
             android:layout_height="@dimen/bar_height"
             android:scaleType="center"
-            android:src="@drawable/ic_network_lost"
+            android:src="@drawable/ic_no_network"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/backIcon"

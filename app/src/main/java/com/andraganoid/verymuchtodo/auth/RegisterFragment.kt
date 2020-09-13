@@ -24,10 +24,14 @@ class RegisterFragment : AuthBaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         setObservers()
-        binding = FragmentRegisterBinding.inflate(inflater, container, false)//todo mozda izbaciti viewbinding
+        binding = FragmentRegisterBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.fragment = this
         return binding.root
+    }
+    override fun onPause() {
+        super.onPause()
+        viewModel.passIsVisible.set(false)
     }
 
     private fun setObservers() {
@@ -88,5 +92,8 @@ class RegisterFragment : AuthBaseFragment() {
         }
     }
 
+    fun togglePasswordVisibility() {
+        viewModel.passIsVisible.set(!viewModel.passIsVisible.get())
+    }
 
 }

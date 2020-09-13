@@ -1,5 +1,6 @@
 package com.andraganoid.verymuchtodo.auth
 
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,6 +23,8 @@ class AuthViewModel(
     : ViewModel() {
     var firebaseAuth: FirebaseAuth? = null
     var user: User? = null
+
+    val passIsVisible = ObservableBoolean(false)
 
     private val _loaderVisibility = MutableLiveData<Boolean>()
     val loaderVisibility: LiveData<Boolean>

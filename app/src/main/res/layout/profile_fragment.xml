@@ -6,8 +6,6 @@
 
     <data>
 
-        <import type="android.text.InputType" />
-
         <variable
             name="viewModel"
             type="com.andraganoid.verymuchtodo.ktodo.profile.ProfileViewModel" />
@@ -155,23 +153,12 @@
                 android:enabled="false"
                 android:hint="@string/your_pass"
                 android:text="password"
-                android:inputType="@{viewModel.passIsVisible? InputType.TYPE_CLASS_TEXT: (InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD)}"
+                android:inputType="textPassword"
                 android:paddingEnd="@dimen/bar_height"
                 app:layout_constraintEnd_toStartOf="@id/profilePassEdit"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profileMailEt"
                 tools:ignore="MissingConstraints" />
-
-            <ImageView
-                android:id="@+id/profilePassToggle"
-                android:layout_width="@dimen/bar_height"
-                android:layout_height="@dimen/bar_height"
-                android:onClick="@{()->fragment.togglePasswordVisibility()}"
-                android:scaleType="center"
-                android:src="@{viewModel.passIsVisible?@drawable/ic_edit:@drawable/ic_send}"
-                app:layout_constraintBottom_toBottomOf="@id/profilePassEt"
-                app:layout_constraintEnd_toEndOf="@+id/profilePassEt"
-                app:layout_constraintTop_toTopOf="@id/profilePassEt" />
 
             <ImageView
                 android:id="@+id/profilePassEdit"
