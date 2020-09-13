@@ -155,8 +155,7 @@
                 android:enabled="false"
                 android:hint="@string/your_pass"
                 android:text="password"
-                android:inputType="@{viewModel.passIsVisible? InputType.TYPE_CLASS_TEXT: (InputType.TYPE_CLASS_TEXT
-                |InputType.TYPE_TEXT_VARIATION_PASSWORD)}"
+                android:inputType="@{viewModel.passIsVisible? InputType.TYPE_CLASS_TEXT: (InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD)}"
                 android:paddingEnd="@dimen/bar_height"
                 app:layout_constraintEnd_toStartOf="@id/profilePassEdit"
                 app:layout_constraintStart_toStartOf="parent"
