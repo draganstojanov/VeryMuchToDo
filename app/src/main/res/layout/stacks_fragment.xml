@@ -9,32 +9,81 @@
             name="fragment"
             type="com.andraganoid.verymuchtodo.ktodo.stack.stacks.StacksFragment" />
 
+        <variable
+            name="viewModel"
+            type="com.andraganoid.verymuchtodo.ktodo.stack.StacksViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="8dp">
+        android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
 
-            android:id="@+id/stacksRecView"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@id/stacksCreateNew"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/stacks_item" />
+            android:layout_height="match_parent"
+            android:padding="8dp">
 
-        <TextView
-            android:id="@+id/stacksCreateNew"
-            style="@style/buttonSmall"
-            android:onClick="@{()->fragment.createNewStack()}"
-            android:text="@string/new_stack"
+            <androidx.recyclerview.widget.RecyclerView
+
+                android:id="@+id/stacksRecView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toTopOf="@id/stacksCreateNew"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/stacks_item" />
+
+            <TextView
+                android:id="@+id/stacksCreateNew"
+                style="@style/buttonSmall"
+                android:onClick="@{()->fragment.createNewStack()}"
+                android:text="@string/new_stack"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/topModalWrapper"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/topModal"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@drawable/top_modal_background"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="128dp"
+
+                    android:background="#f00"
+                    android:gravity="center"
+                    android:text="AAAAAAAAA"
+                    android:textSize="44sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

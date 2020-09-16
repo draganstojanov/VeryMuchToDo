@@ -1,16 +1,19 @@
 package com.andraganoid.verymuchtodo.ktodo.stack.stacks
 
+import android.animation.ValueAnimator
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.animation.doOnEnd
+import androidx.core.animation.doOnStart
 import androidx.lifecycle.Observer
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.andraganoid.verymuchtodo.databinding.StacksFragmentBinding
 import com.andraganoid.verymuchtodo.kmodel.Stack
 import com.andraganoid.verymuchtodo.ktodo.TodoBaseFragment
 import com.andraganoid.verymuchtodo.ktodo.stack.StacksViewModel
+import kotlinx.android.synthetic.main.stacks_fragment.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -22,9 +25,12 @@ class StacksFragment : TodoBaseFragment() {
     private lateinit var binding: StacksFragmentBinding
     private val viewModel: StacksViewModel by sharedViewModel()
 
+
+    var toggle = true
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = StacksFragmentBinding.inflate(inflater, container, false)
-        //  binding.viewModel = viewModel
+        binding.viewModel = viewModel
         binding.fragment = this
         return binding.root
     }
@@ -33,6 +39,16 @@ class StacksFragment : TodoBaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         val adapter = StacksAdapter(this);
         viewModel.allStacks.observe(viewLifecycleOwner, Observer { stacks -> adapter.stackList = stacks })
+
+        topModalWrapper.setOnClickListener { v ->
+              if (toggle) {
+                  expandStackEdit()
+               } else {
+            collapseStackEdit()
+              }
+               toggle = !toggle
+        }
+
     }
 
     fun stackClicked(stack: Stack) {//TODO go to todos fragment
@@ -46,9 +62,51 @@ class StacksFragment : TodoBaseFragment() {
 
     fun createNewStack() {//TODO new stack
         toast("new stack")
-        val action = StacksFragmentDirections.actionStacksFragmentToStacksEditFragment()
-        findNavController().navigate(action)
+     //   expandStackEdit()
+//        val action = StacksFragmentDirections.actionStacksFragmentToStacksEditFragment()
+//        findNavController().navigate(action)
+    }
+
+
+    fun expandStackEdit() {
+
+
+        val va = ValueAnimator.ofInt(0,  300 * (Resources.getSystem().displayMetrics.density).toInt());
+        va.apply {
+            duration = 2000
+            addUpdateListener { animation ->
+                val value = animation.animatedValue as Int
+                topModal.layoutParams.height = value
+                topModal.requestLayout()
+            }
+            doOnEnd {
+                toast((topModal.layoutParams.height / (Resources.getSystem().displayMetrics.density).toInt()).toString())
+                toast(topModal.layoutParams.height.toString())
+            }
+            start()
+        }
+    }
+
+    fun collapseStackEdit() {
+        val va = ValueAnimator.ofInt(topModal.layoutParams.height, 0);
+        va.apply {
+            duration = 2000
+            addUpdateListener { animation ->
+                val value = animation.animatedValue as Int
+                topModal.layoutParams.height = value
+                topModal.requestLayout()
+            }
+            doOnEnd {
+                toast((topModal.height / (Resources.getSystem().displayMetrics.density).toInt()).toString())
+            }
+
+            start()
+        }
+
     }
 
 
 }
+
+
+
