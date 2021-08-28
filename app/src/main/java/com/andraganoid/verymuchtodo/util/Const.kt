@@ -21,4 +21,9 @@ const val FIELD_MEMBERS = "members"
 const val ARGS_CURRENT_CHAT = "currentChat"
 
 
+const val LOGIN_EMAIL = "andraganoid@gmail.com"
+const val LOGIN_NAME = "andraganoid"
+const val LOGIN_PASS = "VeryMuchToDo"
+
+
 

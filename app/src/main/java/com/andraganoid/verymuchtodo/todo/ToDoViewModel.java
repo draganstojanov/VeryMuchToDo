@@ -23,8 +23,6 @@ import com.andraganoid.verymuchtodo.todo.menu.MenuAlert;
 import com.andraganoid.verymuchtodo.todo.menu.TodoBars;
 import com.andraganoid.verymuchtodo.todo.repository.FirebaseCallback;
 import com.andraganoid.verymuchtodo.todo.repository.FirebaseRepository;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.maps.android.SphericalUtil;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -44,7 +42,7 @@ public class ToDoViewModel extends AndroidViewModel implements FirebaseCallback,
         super(application);
         prefs = PreferenceManager.getDefaultSharedPreferences(getApplication());
         fbRepo = new FirebaseRepository(this);
-        locationHandler = new LocationHandler(application, this);
+      //  locationHandler = new LocationHandler(application, this);
         setTodoList(new ArrayList<TodoList>());
         setMessageList(new ArrayList<Message>());
         setMyself();
@@ -221,31 +219,31 @@ public class ToDoViewModel extends AndroidViewModel implements FirebaseCallback,
     }
 
     void getCurrentLocation() {
-        locationHandler.getCurrentLocation();
+   //     locationHandler.getCurrentLocation();
     }
 
     @Override
     public void saveCurrentLocation(Location location) {
-        if (location != null) {
-            LatLng lastSavedLocation = new LatLng(prefs.getFloat("PREFS_LATITUDE",
-                    0), prefs.getFloat("PREFS_LONGITUDE", 0));
-            LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-            mLocation = location;
-
-            if (lastSavedLocation.latitude == 0 && lastSavedLocation.longitude == 0) {
-                fbRepo.addDocument(new Document(new ToDoLocation(mUser, location)));
-
-            } else {
-                if (SphericalUtil.computeDistanceBetween(lastSavedLocation, currentLocation) > 50) {
-                    fbRepo.updateDocument(new Document(new ToDoLocation(mUser, location)));
-                    prefs.edit()
-                            .putFloat("PREFS_LATITUDE", (float) currentLocation.latitude)
-                            .putFloat("PREFS_LONGITUDE", (float) currentLocation.longitude)
-                            .apply();
-                }
-            }
-        } else {
-            mLocation = new Location("");
-        }
-    }
+//        if (location != null) {
+//            LatLng lastSavedLocation = new LatLng(prefs.getFloat("PREFS_LATITUDE",
+//                    0), prefs.getFloat("PREFS_LONGITUDE", 0));
+//            LatLng currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+//            mLocation = location;
+//
+//            if (lastSavedLocation.latitude == 0 && lastSavedLocation.longitude == 0) {
+//                fbRepo.addDocument(new Document(new ToDoLocation(mUser, location)));
+//
+//            } else {
+//                if (SphericalUtil.computeDistanceBetween(lastSavedLocation, currentLocation) > 50) {
+//                    fbRepo.updateDocument(new Document(new ToDoLocation(mUser, location)));
+//                    prefs.edit()
+//                            .putFloat("PREFS_LATITUDE", (float) currentLocation.latitude)
+//                            .putFloat("PREFS_LONGITUDE", (float) currentLocation.longitude)
+//                            .apply();
+//                }
+//            }
+//        } else {
+//            mLocation = new Location("");
+//        }
+   }
 }

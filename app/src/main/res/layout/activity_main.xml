@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".shortVersion.main.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topBar"
@@ -14,30 +14,30 @@
         android:minHeight="@dimen/bar_height"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/backIcon"
-            android:layout_width="@dimen/bar_height"
-            android:layout_height="@dimen/bar_height"
-            android:onClick="backClicked"
-            android:scaleType="center"
-            android:src="@drawable/ic_arrow_back"
-            android:tint="@color/primDark"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <ImageView-->
+<!--            android:id="@+id/backIcon"-->
+<!--            android:layout_width="@dimen/bar_height"-->
+<!--            android:layout_height="@dimen/bar_height"-->
+<!--            android:onClick="backClicked"-->
+<!--            android:scaleType="center"-->
+<!--            android:src="@drawable/ic_arrow_back"-->
+<!--            android:visibility="gone"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:tint="@color/primDark" />-->
 
-        <ImageView
-            android:id="@+id/lostNetworkIcon"
-            android:layout_width="@dimen/bar_height"
-            android:layout_height="@dimen/bar_height"
-            android:scaleType="center"
-            android:src="@drawable/ic_no_network"
-            android:tint="@color/secDark"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/backIcon"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <ImageView-->
+<!--            android:id="@+id/lostNetworkIcon"-->
+<!--            android:layout_width="@dimen/bar_height"-->
+<!--            android:layout_height="@dimen/bar_height"-->
+<!--            android:scaleType="center"-->
+<!--            android:src="@drawable/ic_no_network"-->
+<!--            android:visibility="visible"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@id/backIcon"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:tint="@color/secDark" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

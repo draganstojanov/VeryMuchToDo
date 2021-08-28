@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-
 import com.andraganoid.verymuchtodo.R;
 import com.andraganoid.verymuchtodo.databinding.ActivityTodoBinding;
 import com.andraganoid.verymuchtodo.todo.item.ItemEditFragment;
@@ -20,7 +19,7 @@ import com.andraganoid.verymuchtodo.todo.map.MapFragment;
 import com.andraganoid.verymuchtodo.todo.message.MessageFragment;
 import com.andraganoid.verymuchtodo.todo.users.UserFragment;
 import com.google.firebase.auth.FirebaseAuth;
-import com.rw.keyboardlistener.KeyboardUtils;
+
 
 
 public class Todo extends AppCompatActivity {
@@ -76,13 +75,13 @@ public class Todo extends AppCompatActivity {
     }
 
     private void setKeyboardListener() {
-        KeyboardUtils.addKeyboardToggleListener(this, isVisible -> {
-            if (isVisible) {
-                bottomBar.setVisibility(View.GONE);
-            } else {
-                bottomBar.setVisibility(View.VISIBLE);
-            }
-        });
+//        KeyboardUtils.addKeyboardToggleListener(this, isVisible -> {
+//            if (isVisible) {
+//                bottomBar.setVisibility(View.GONE);
+//            } else {
+//                bottomBar.setVisibility(View.VISIBLE);
+//            }
+//        });
     }
 
 

@@ -59,7 +59,7 @@ import com.andraganoid.verymuchtodo.kmodel.Todo
     @BindingAdapter("profileImage")
   //  @JvmStatic
     fun setProfileRoundImage(iv: ImageView, urlString: String?) {
-        val url: String = if (urlString != null) urlString else ""
+        val url: String = urlString ?: ""
         iv.load(url) {
             placeholder(R.drawable.ic_profile_img_placeholder)
             error(R.drawable.ic_profile_img_placeholder)
@@ -70,7 +70,7 @@ import com.andraganoid.verymuchtodo.kmodel.Todo
     @BindingAdapter("chatImage")
  //   @JvmStatic
     fun setChatRoundImage(iv: ImageView, urlString: String?) {
-        val url: String = if (urlString != null) urlString else ""
+        val url: String = urlString ?: ""
         iv.load(url) {
             placeholder(R.drawable.ic_chat_placeholder)
             error(R.drawable.ic_chat_placeholder)

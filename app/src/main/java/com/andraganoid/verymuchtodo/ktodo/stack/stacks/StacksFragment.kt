@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.animation.doOnEnd
-import androidx.core.animation.doOnStart
 import androidx.lifecycle.Observer
 import com.andraganoid.verymuchtodo.databinding.StacksFragmentBinding
 import com.andraganoid.verymuchtodo.kmodel.Stack
@@ -40,7 +39,7 @@ class StacksFragment : TodoBaseFragment() {
         val adapter = StacksAdapter(this);
         viewModel.allStacks.observe(viewLifecycleOwner, Observer { stacks -> adapter.stackList = stacks })
 
-        topModalWrapper.setOnClickListener { v ->
+        topModalWrapper.setOnClickListener {
               if (toggle) {
                   expandStackEdit()
                } else {
@@ -70,27 +69,31 @@ class StacksFragment : TodoBaseFragment() {
 
     fun expandStackEdit() {
 
+     //   binding.topModal.doOnLayout {
+            val va = ValueAnimator.ofInt(0,  binding.topModalContent.height );
+         //   val va = ValueAnimator.ofInt(0,  300 * (Resources.getSystem().displayMetrics.density).toInt());
+            va.apply {
+                duration = 300
+                addUpdateListener { animation ->
+                    val value = animation.animatedValue as Int
+                    topModal.layoutParams.height = value
+                    topModal.requestLayout()
+                }
+                doOnEnd {
+                    toast((topModal.layoutParams.height / (Resources.getSystem().displayMetrics.density).toInt()).toString())
+                    toast(topModal.layoutParams.height.toString())
+                }
+                start()
+            }
+  //  }
 
-        val va = ValueAnimator.ofInt(0,  300 * (Resources.getSystem().displayMetrics.density).toInt());
-        va.apply {
-            duration = 2000
-            addUpdateListener { animation ->
-                val value = animation.animatedValue as Int
-                topModal.layoutParams.height = value
-                topModal.requestLayout()
-            }
-            doOnEnd {
-                toast((topModal.layoutParams.height / (Resources.getSystem().displayMetrics.density).toInt()).toString())
-                toast(topModal.layoutParams.height.toString())
-            }
-            start()
-        }
+
     }
 
     fun collapseStackEdit() {
         val va = ValueAnimator.ofInt(topModal.layoutParams.height, 0);
         va.apply {
-            duration = 2000
+            duration = 300
             addUpdateListener { animation ->
                 val value = animation.animatedValue as Int
                 topModal.layoutParams.height = value

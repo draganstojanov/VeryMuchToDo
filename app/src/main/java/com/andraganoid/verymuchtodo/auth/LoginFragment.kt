@@ -14,7 +14,7 @@ import com.andraganoid.verymuchtodo.ktodo.TodoActivity
 import com.andraganoid.verymuchtodo.util.isValidEmail
 import com.andraganoid.verymuchtodo.util.isValidPassword
 import kotlinx.android.synthetic.main.fragment_login.*
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class LoginFragment : AuthBaseFragment() {

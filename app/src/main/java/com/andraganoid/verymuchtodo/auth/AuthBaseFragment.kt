@@ -2,7 +2,7 @@ package com.andraganoid.verymuchtodo.auth
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.andraganoid.verymuchtodo.MainActivity
+import com.andraganoid.verymuchtodo.shortVersion.main.MainActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 

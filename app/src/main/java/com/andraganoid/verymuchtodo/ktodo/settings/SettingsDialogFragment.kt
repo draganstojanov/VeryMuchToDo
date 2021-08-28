@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ObservableBoolean
-import com.andraganoid.verymuchtodo.MainActivity
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.FragmentSettingsDialogBinding
 import com.andraganoid.verymuchtodo.ktodo.TodoActivity
 import com.andraganoid.verymuchtodo.repository.ListenersRepository
+import com.andraganoid.verymuchtodo.shortVersion.main.MainActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import org.koin.android.ext.android.inject

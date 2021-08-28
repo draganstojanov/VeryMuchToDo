@@ -14,7 +14,7 @@ import com.andraganoid.verymuchtodo.util.isValidDisplayName
 import com.andraganoid.verymuchtodo.util.isValidEmail
 import com.andraganoid.verymuchtodo.util.isValidPassword
 import kotlinx.android.synthetic.main.fragment_register.*
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class RegisterFragment : AuthBaseFragment() {
@@ -29,6 +29,7 @@ class RegisterFragment : AuthBaseFragment() {
         binding.fragment = this
         return binding.root
     }
+
     override fun onPause() {
         super.onPause()
         viewModel.passIsVisible.set(false)
@@ -39,7 +40,7 @@ class RegisterFragment : AuthBaseFragment() {
             back.let {
                 if (it) {
                     main.mainNavController.popBackStack()
-                    viewModel._back.value=false
+                    viewModel._back.value = false
                 }
             }
         })

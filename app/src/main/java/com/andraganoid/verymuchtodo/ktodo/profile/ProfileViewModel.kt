@@ -1,7 +1,6 @@
 package com.andraganoid.verymuchtodo.ktodo.profile
 
 import android.net.Uri
-import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -20,6 +19,7 @@ import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
+
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(
