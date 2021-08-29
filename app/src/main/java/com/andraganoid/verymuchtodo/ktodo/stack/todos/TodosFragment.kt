@@ -8,7 +8,7 @@ import com.andraganoid.verymuchtodo.databinding.FragmentTodosBinding
 import com.andraganoid.verymuchtodo.kmodel.Todo
 import com.andraganoid.verymuchtodo.ktodo.TodoBaseFragment
 import com.andraganoid.verymuchtodo.ktodo.stack.StacksViewModel
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class TodosFragment : TodoBaseFragment() {

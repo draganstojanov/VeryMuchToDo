@@ -4,16 +4,28 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.andraganoid.verymuchtodo.shortVersion.model.TodoList
 import com.andraganoid.verymuchtodo.shortVersion.repository.AuthRepo
-import com.andraganoid.verymuchtodo.shortVersion.repository.AuthState
 import com.andraganoid.verymuchtodo.shortVersion.repository.FirestoreRepo
-import com.andraganoid.verymuchtodo.util.ERROR_PLACEHOLDER
+import com.andraganoid.verymuchtodo.shortVersion.repository.ListenersRepo
+import com.andraganoid.verymuchtodo.shortVersion.repository.SnapshotState
+import com.andraganoid.verymuchtodo.shortVersion.util.ERROR_PLACEHOLDER
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val authRepo: AuthRepo,
-    private val firestoreRepo: FirestoreRepo
+    private val firestoreRepo: FirestoreRepo,
+    private val listenersRepo: ListenersRepo
 ) : ViewModel() {
+
+
+    fun getSnapshotState():StateFlow<SnapshotState> =listenersRepo.getSnapshotState()
+
+//    private val _todoLists = MutableLiveData<ArrayList<TodoList?>>()
+//    val todoLists: LiveData<ArrayList<TodoList?>>
+//        get() = _todoLists
 
     private val _loaderVisibility = MutableLiveData<Boolean>()
     val loaderVisibility: LiveData<Boolean>
@@ -26,18 +38,37 @@ class MainViewModel(
     init {
         _loaderVisibility.value = true
         viewModelScope.launch {
-
-            when (val auth = authRepo.authenticate()) {
-                is AuthState.Success -> {
-                    _message.value = "SUCCESS"//TODO
+            if (authRepo.isLoggedIn()) {
+                listenersRepo.setFirestoreListeners()
+                showMessage("LOGGED IN")//TODO
+            } else {
+                authRepo.login().addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        showMessage("SUCCESS")//TODO
+                        listenersRepo.setFirestoreListeners()
+                    } else if (task.isCanceled) {
+                        showMessage("CANCELLED")//TODO
+                    } else {
+                        if (task.exception != null) {
+                            showMessage(ERROR_PLACEHOLDER + task.exception!!.message)//TODO
+                        }
+                    }
                 }
-                is AuthState.Error -> _message.value = ERROR_PLACEHOLDER + auth.errorMsg
             }
-
-
         }
+    }
 
+
+    private fun showMessage(msg: Any?) {
+        _loaderVisibility.value = false
+        _message.value = msg
+    }
+
+    override fun onCleared() {
+        listenersRepo.remove()
+        super.onCleared()
     }
 
 
 }
+

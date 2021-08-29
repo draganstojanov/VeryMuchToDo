@@ -16,7 +16,7 @@ import com.andraganoid.verymuchtodo.util.myUser
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_new_chat_dialog.*
 import kotlinx.coroutines.launch
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class NewChatDialog : BottomSheetDialogFragment() {

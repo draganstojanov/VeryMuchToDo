@@ -85,7 +85,7 @@ class LoginFragment : AuthBaseFragment() {
 
     fun notRegistered() {
         val action = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
-        main.mainNavController.navigate(action)
+      //  main.mainNavController.navigate(action)
     }
 
     fun forgotPassword() {

@@ -39,7 +39,7 @@ class RegisterFragment : AuthBaseFragment() {
         viewModel.back.observe(viewLifecycleOwner, Observer { back ->
             back.let {
                 if (it) {
-                    main.mainNavController.popBackStack()
+             //       main.mainNavController.popBackStack()
                     viewModel._back.value = false
                 }
             }

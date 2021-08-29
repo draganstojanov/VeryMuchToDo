@@ -1,6 +1,5 @@
 package com.andraganoid.verymuchtodo.shortVersion.model
 
-
 import com.andraganoid.verymuchtodo.kmodel.User
 
 data class TodoItem(
@@ -9,6 +8,5 @@ data class TodoItem(
     val completed: Boolean? = false,
     val timestamp: Long? = 0,
     val user: User? = null,
-    val id: String? = "",//todo ???
-    val group: Group? = null
+    val id: String? = ""
 )

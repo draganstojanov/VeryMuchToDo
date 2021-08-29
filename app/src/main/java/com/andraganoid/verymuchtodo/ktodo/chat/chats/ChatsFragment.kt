@@ -14,7 +14,8 @@ import com.andraganoid.verymuchtodo.ktodo.chat.ChatsViewModel
 import com.andraganoid.verymuchtodo.ktodo.chat.dialog.NewChatDialog
 import kotlinx.android.synthetic.main.chats_fragment.*
 import kotlinx.coroutines.launch
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+
 
 class ChatsFragment : TodoBaseFragment() {
 

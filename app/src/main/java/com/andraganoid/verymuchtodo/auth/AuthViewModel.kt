@@ -10,7 +10,8 @@ import com.andraganoid.verymuchtodo.kmodel.Document
 import com.andraganoid.verymuchtodo.kmodel.User
 import com.andraganoid.verymuchtodo.repository.AuthRepository
 import com.andraganoid.verymuchtodo.repository.FirestoreRepository
-import com.andraganoid.verymuchtodo.util.ERROR_PLACEHOLDER
+import com.andraganoid.verymuchtodo.shortVersion.util.ERROR_PLACEHOLDER
+
 import com.andraganoid.verymuchtodo.util.Preferences
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest

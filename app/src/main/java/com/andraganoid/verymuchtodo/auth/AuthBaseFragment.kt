@@ -18,15 +18,15 @@ open class AuthBaseFragment : Fragment() {
     }
 
     fun loaderVisibility(visibility: Boolean) {
-        main.loaderVisibility(visibility)
+    //    main.loaderVisibility(visibility)
     }
 
     fun hideKeyboard() {
-        main.hideKeyboard()
+  //      main.hideKeyboard()
     }
 
     fun showMessage(message: Any?) {
-        main.showMessage(message)
+    //    main.showMessage(message)
     }
 
 //    fun sendEmailToAdmin() {

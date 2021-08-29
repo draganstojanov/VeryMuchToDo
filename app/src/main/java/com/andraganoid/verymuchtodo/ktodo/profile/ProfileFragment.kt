@@ -17,11 +17,11 @@ import com.andraganoid.verymuchtodo.databinding.ProfileFragmentBinding
 import com.andraganoid.verymuchtodo.ktodo.TodoBaseFragment
 import com.andraganoid.verymuchtodo.util.IMAGE_FROM_CAMERA
 import com.andraganoid.verymuchtodo.util.IMAGE_FROM_GALERY
-import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
+
 import com.otaliastudios.cameraview.CameraListener
 import com.otaliastudios.cameraview.PictureResult
 import kotlinx.android.synthetic.main.profile_fragment.*
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 
 class ProfileFragment : TodoBaseFragment() {
@@ -105,19 +105,19 @@ class ProfileFragment : TodoBaseFragment() {
 
     fun fromCamera() {
 
-        runWithPermissions(Manifest.permission.CAMERA) {
-            cameraView.isVisible = true
-            profileView.isVisible = false
-            camera.apply {
-                setLifecycleOwner(viewLifecycleOwner)
-                addCameraListener(object : CameraListener() {
-                    override fun onPictureTaken(result: PictureResult) {
-                        closeCamera()
-                        viewModel.uploadImage(result.data, ".jpg")
-                    }
-                })
-            }
-        }
+//        runWithPermissions(Manifest.permission.CAMERA) {
+//            cameraView.isVisible = true
+//            profileView.isVisible = false
+//            camera.apply {
+//                setLifecycleOwner(viewLifecycleOwner)
+//                addCameraListener(object : CameraListener() {
+//                    override fun onPictureTaken(result: PictureResult) {
+//                        closeCamera()
+//                        viewModel.uploadImage(result.data, ".jpg")
+//                    }
+//                })
+//            }
+//        }
     }
 
     fun takePicture() {

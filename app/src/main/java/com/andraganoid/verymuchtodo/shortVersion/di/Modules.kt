@@ -13,6 +13,8 @@ import com.andraganoid.verymuchtodo.repository.FirestoreRepository
 import com.andraganoid.verymuchtodo.repository.ListenersRepository
 import com.andraganoid.verymuchtodo.shortVersion.main.MainViewModel
 import com.andraganoid.verymuchtodo.shortVersion.repository.AuthRepo
+import com.andraganoid.verymuchtodo.shortVersion.repository.FirestoreRepo
+import com.andraganoid.verymuchtodo.shortVersion.repository.ListenersRepo
 import com.andraganoid.verymuchtodo.shortVersion.util.Prefs
 import com.andraganoid.verymuchtodo.util.Preferences
 import com.google.firebase.auth.FirebaseAuth
@@ -25,7 +27,7 @@ import org.koin.dsl.module
 object Modules {
 
     private val viewModelModule = module {
-        viewModel { MainViewModel(get(), get()) }
+        viewModel { MainViewModel(get(), get(), get()) }
 
 
         viewModel { AuthViewModel(get(), get(), get()) }
@@ -37,8 +39,9 @@ object Modules {
 
     private val singleModule = module {
         single { Prefs(context = androidContext()) }
-        single { AuthRepo(firebaseAuth = FirebaseAuth.getInstance())}
-
+        single { AuthRepo(firebaseAuth = FirebaseAuth.getInstance()) }
+        single { FirestoreRepo(firebaseFirestore = FirebaseFirestore.getInstance()) }
+        single { ListenersRepo(firebaseFirestore = FirebaseFirestore.getInstance()) }
 
         single { Preferences(context = androidContext()) }
         single { AuthRepository(firebaseAuth = FirebaseAuth.getInstance()) }

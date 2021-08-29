@@ -9,8 +9,8 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.base.dialog.MessageDialogFragment
+import com.andraganoid.verymuchtodo.shortVersion.util.ERROR_PLACEHOLDER
 import com.andraganoid.verymuchtodo.util.BUNDLE_MSG_DIALOG_LIST
-import com.andraganoid.verymuchtodo.util.ERROR_PLACEHOLDER
 import com.andraganoid.verymuchtodo.util.messageStateFlow
 import com.andraganoid.verymuchtodo.util.networkStateFlow
 import kotlinx.android.synthetic.main.activity_todo_k.*

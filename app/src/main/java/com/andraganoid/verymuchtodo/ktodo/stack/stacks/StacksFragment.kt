@@ -15,7 +15,7 @@ import com.andraganoid.verymuchtodo.ktodo.stack.StacksViewModel
 import kotlinx.android.synthetic.main.stacks_fragment.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 @ExperimentalCoroutinesApi
 @ObsoleteCoroutinesApi

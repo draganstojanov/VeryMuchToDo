@@ -12,7 +12,7 @@ import com.andraganoid.verymuchtodo.util.IMAGE_FROM_GALERY
 import com.andraganoid.verymuchtodo.util.isValidDisplayName
 import com.andraganoid.verymuchtodo.util.isValidEmail
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class ProfileDialogFragment : BottomSheetDialogFragment() {
 

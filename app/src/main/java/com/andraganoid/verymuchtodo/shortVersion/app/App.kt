@@ -5,6 +5,7 @@ import com.andraganoid.verymuchtodo.BuildConfig
 import com.andraganoid.verymuchtodo.shortVersion.di.Modules
 import com.andraganoid.verymuchtodo.util.TodoDebugTree
 import com.andraganoid.verymuchtodo.util.TodoReleaseTree
+import com.google.firebase.FirebaseApp
 import kotlinx.coroutines.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -17,6 +18,7 @@ class App : Application()
 
     override fun onCreate() {
         super.onCreate()
+    //    FirebaseApp.initializeApp(applicationContext)
         startKoin {
             androidContext(this@App)
             modules(Modules.appModule)

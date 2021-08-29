@@ -11,7 +11,7 @@ import com.andraganoid.verymuchtodo.kmodel.Document
 import com.andraganoid.verymuchtodo.kmodel.User
 import com.andraganoid.verymuchtodo.repository.AuthRepository
 import com.andraganoid.verymuchtodo.repository.FirestoreRepository
-import com.andraganoid.verymuchtodo.util.ERROR_PLACEHOLDER
+import com.andraganoid.verymuchtodo.shortVersion.util.ERROR_PLACEHOLDER
 import com.andraganoid.verymuchtodo.util.PROFILE_IMAGES_FOLDER
 import com.andraganoid.verymuchtodo.util.Preferences
 import com.google.firebase.auth.FirebaseAuth
@@ -19,13 +19,12 @@ import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
-
 import kotlinx.coroutines.launch
 
 class ProfileViewModel(
-        private val preferences: Preferences,
-        private val authRepository: AuthRepository,
-        private val firestoreRepository: FirestoreRepository
+    private val preferences: Preferences,
+    private val authRepository: AuthRepository,
+    private val firestoreRepository: FirestoreRepository
 ) : ViewModel() {
 
     private var firebaseAuth: FirebaseAuth? = null
@@ -79,18 +78,18 @@ class ProfileViewModel(
         _loaderVisibility.value = true
         viewModelScope.launch {
             val profileUpdates = UserProfileChangeRequest.Builder()
-                    .setDisplayName(userName.get())
-                    .build()
+                .setDisplayName(userName.get())
+                .build()
             authRepository.updateProfile(profileUpdates)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            setMessage(R.string.sucess)
-                            user.name = userName.get()
-                            updateUser()
-                        } else {
-                            setMessage(ERROR_PLACEHOLDER + task.exception.toString())
-                        }
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        setMessage(R.string.sucess)
+                        user.name = userName.get()
+                        updateUser()
+                    } else {
+                        setMessage(ERROR_PLACEHOLDER + task.exception.toString())
                     }
+                }
         }
     }
 
@@ -100,15 +99,15 @@ class ProfileViewModel(
         _loaderVisibility.value = true
         viewModelScope.launch {
             authRepository.updateEmail(userMail.get()!!)
-                    // firebaseAuth?.currentUser?.updateEmail(userMail.get()!!)
-                    ?.addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            setMessage(R.string.sucess)
-                            verifyEmail()
-                        } else {
-                            setMessage(ERROR_PLACEHOLDER + task.exception.toString())
-                        }
+                // firebaseAuth?.currentUser?.updateEmail(userMail.get()!!)
+                ?.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        setMessage(R.string.sucess)
+                        verifyEmail()
+                    } else {
+                        setMessage(ERROR_PLACEHOLDER + task.exception.toString())
                     }
+                }
         }
     }
 
@@ -131,29 +130,29 @@ class ProfileViewModel(
         _loaderVisibility.value = true
         viewModelScope.launch {
             authRepository.resetPassword(user.email!!)
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            setMessage(R.string.check_mail_for_pass_reset)
-                        } else {
-                            setMessage(ERROR_PLACEHOLDER + task.exception.toString())
-                        }
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        setMessage(R.string.check_mail_for_pass_reset)
+                    } else {
+                        setMessage(ERROR_PLACEHOLDER + task.exception.toString())
                     }
+                }
         }
     }
 
     private fun updateImage(uri: Uri) {
         val profileUpdates = UserProfileChangeRequest.Builder().setPhotoUri(uri).build()
         authRepository.updateProfile(profileUpdates)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        user.imageUrl = uri.toString()
-                        profileImage.set(user.imageUrl)
-                        updateUser()
-                        setMessage(R.string.sucess)
-                    } else {
-                        setMessage(ERROR_PLACEHOLDER + task.exception.toString())
-                    }
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    user.imageUrl = uri.toString()
+                    profileImage.set(user.imageUrl)
+                    updateUser()
+                    setMessage(R.string.sucess)
+                } else {
+                    setMessage(ERROR_PLACEHOLDER + task.exception.toString())
                 }
+            }
     }
 
 
