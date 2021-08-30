@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.ActivityMainBinding
+import com.andraganoid.verymuchtodo.shortVersion.util.bottomToast
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -34,7 +35,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun setup() {
      viewModel.loaderVisibility.observe(this, { loaderVisibility -> binding.loader.isVisible = loaderVisibility })
-      viewModel.message.observe(this, { message -> Snackbar.make(binding.root, message.toString(), Snackbar.LENGTH_LONG).show() })
+//      viewModel.message.observe(this, { message -> Snackbar.make(binding.root, message.toString(), Snackbar.LENGTH_LONG).show() })
+
+        viewModel.message.observe(this, { message -> bottomToast(message) })
+
     }
 
 //    private fun setNavigationListener() {

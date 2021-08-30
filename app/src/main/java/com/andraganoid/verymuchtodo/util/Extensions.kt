@@ -16,15 +16,15 @@ fun String.isValidDisplayName(): Boolean = length in 3..23
 
 var myUser = User()
 
-fun Long.getFormattedDate(): String {
-    return if (this > 0) {
-        val cal = Calendar.getInstance()
-        cal.timeInMillis = this
-        DateFormat.format("dd.MM.yyyy HH:mm", cal).toString()
-    } else {
-        ""
-    }
-}
+//fun Long.getFormattedDate(): String {
+//    return if (this > 0) {
+//        val cal = Calendar.getInstance()
+//        cal.timeInMillis = this
+//        DateFormat.format("dd.MM.yyyy HH:mm", cal).toString()
+//    } else {
+//        ""
+//    }
+//}
 
 
 

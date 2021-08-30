@@ -5,6 +5,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class FirestoreRepo(private val firebaseFirestore: FirebaseFirestore) {
 
+    //TODO add success
+
     fun addDocument(document: Document) {
         firebaseFirestore
             .collection(document.collection)

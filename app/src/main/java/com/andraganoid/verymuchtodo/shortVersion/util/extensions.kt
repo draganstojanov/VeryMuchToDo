@@ -1,9 +1,13 @@
 package com.andraganoid.verymuchtodo.shortVersion.util
 
 import android.app.Activity
+import android.text.format.DateFormat
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import com.andraganoid.verymuchtodo.shortVersion.main.MainActivity
+import com.andraganoid.verymuchtodo.shortVersion.main.msgDialog.MessageDialog
+import com.andraganoid.verymuchtodo.shortVersion.main.msgDialog.MessageDialogData
+import java.util.*
 
 //val Fragment.checkIcon: Drawable?
 //    get() = ContextCompat.getDrawable(requireContext(), R.drawable.ic_check)
@@ -18,6 +22,28 @@ fun MainActivity.hideKeyboard() {
 
 fun Fragment.hideKeyboard() {
     main.hideKeyboard()
+}
+
+fun MainActivity.bottomToast(msg: Any?) {
+    MessageDialog(MessageDialogData(toast = msg.toString())).show(supportFragmentManager, MessageDialog::class.simpleName)
+}
+
+fun Fragment.bottomToast(msg: Any?) {
+    main.bottomToast(msg)
+}
+
+fun Fragment.messageDialog(data: MessageDialogData) {
+    MessageDialog(data).show(requireActivity().supportFragmentManager, MessageDialog::class.simpleName)
+}
+
+fun Long.getFormattedDate(): String {
+    return if (this > 0) {
+        val cal = Calendar.getInstance()
+        cal.timeInMillis = this
+        DateFormat.format("dd.MM.yyyy HH:mm", cal).toString()
+    } else {
+        ""
+    }
 }
 
 //val Int.toDp: Int

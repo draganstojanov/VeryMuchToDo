@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.andraganoid.verymuchtodo.shortVersion.main.MainFragment"
+        android:name="com.andraganoid.verymuchtodo.shortVersion.ui.stack.StackFragment"
         android:label="@string/main_frag_label"
         tools:layout="@layout/fragment_login">
     </fragment>

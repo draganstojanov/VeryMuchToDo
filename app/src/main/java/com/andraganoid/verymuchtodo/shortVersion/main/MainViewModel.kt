@@ -4,13 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.andraganoid.verymuchtodo.shortVersion.model.TodoList
 import com.andraganoid.verymuchtodo.shortVersion.repository.AuthRepo
 import com.andraganoid.verymuchtodo.shortVersion.repository.FirestoreRepo
 import com.andraganoid.verymuchtodo.shortVersion.repository.ListenersRepo
-import com.andraganoid.verymuchtodo.shortVersion.repository.SnapshotState
+import com.andraganoid.verymuchtodo.shortVersion.state.StackState
 import com.andraganoid.verymuchtodo.shortVersion.util.ERROR_PLACEHOLDER
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
@@ -21,11 +19,7 @@ class MainViewModel(
 ) : ViewModel() {
 
 
-    fun getSnapshotState():StateFlow<SnapshotState> =listenersRepo.getSnapshotState()
-
-//    private val _todoLists = MutableLiveData<ArrayList<TodoList?>>()
-//    val todoLists: LiveData<ArrayList<TodoList?>>
-//        get() = _todoLists
+    fun getSnapshotState():StateFlow<StackState> =listenersRepo.getSnapshotState()
 
     private val _loaderVisibility = MutableLiveData<Boolean>()
     val loaderVisibility: LiveData<Boolean>
