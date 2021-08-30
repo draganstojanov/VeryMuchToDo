@@ -1,6 +1,7 @@
 package com.andraganoid.verymuchtodo.shortVersion.repository
 
-import com.andraganoid.verymuchtodo.kmodel.Document
+
+import com.andraganoid.verymuchtodo.shortVersion.model.Document
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FirestoreRepo(private val firebaseFirestore: FirebaseFirestore) {

@@ -1,8 +1,12 @@
 package com.andraganoid.verymuchtodo.shortVersion.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.andraganoid.verymuchtodo.shortVersion.model.TodoList
 import com.andraganoid.verymuchtodo.shortVersion.state.StackState
 import com.andraganoid.verymuchtodo.shortVersion.util.COL_LIST
+import com.andraganoid.verymuchtodo.shortVersion.util.logA
+import com.andraganoid.verymuchtodo.shortVersion.util.logX
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,9 +15,12 @@ import kotlinx.coroutines.flow.StateFlow
 class ListenersRepo(private val firebaseFirestore: FirebaseFirestore) {
 
     private lateinit var todoListListener: ListenerRegistration
-    private val stackState: MutableStateFlow<StackState> = MutableStateFlow(StackState.Unchecked)
+//    private val stackState: MutableStateFlow<StackState> = MutableStateFlow(StackState.Unchecked)
+private val stackState: MutableLiveData<StackState> = MutableLiveData()
 
-    fun getSnapshotState(): StateFlow<StackState> = stackState
+   // fun getSnapshotState(): MutableStateFlow<StackState> = stackState
+
+    fun  getStackState(): LiveData<StackState> = stackState
 
     fun setFirestoreListeners() {
         todoListListener = firebaseFirestore.collection(COL_LIST)
@@ -24,6 +31,7 @@ class ListenersRepo(private val firebaseFirestore: FirebaseFirestore) {
                         todoList.add(documentSnapshot.toObject(TodoList::class.java))
                     }
                     stackState.value = StackState.Stack(todoList)
+                    logX(1,todoList)
                 }
 
                 if (exc != null) {

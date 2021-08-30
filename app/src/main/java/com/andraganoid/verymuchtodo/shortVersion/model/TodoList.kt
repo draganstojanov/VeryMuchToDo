@@ -1,12 +1,13 @@
 package com.andraganoid.verymuchtodo.shortVersion.model
 
 data class TodoList(
-    val title: String? = "",
-    val description: String? = "",
-    val completed: Boolean? = false,
-    val todoList: List<TodoItem> = arrayListOf<TodoItem>(),
-    val timestamp: Long? = 0,
+    var title: String? = "",
+    var description: String? = "",
+    var completed: Boolean? = false,
+    var todoList: List<TodoItem> = arrayListOf<TodoItem>(),
+    var timestamp: Long? = 0,
 //    val user: User? = null,
-    val userName: String? = "",
-    val id: String? = ""
+    var userName: String? = "",
+    var id: String = "",
+    var edited: Boolean = false
 )

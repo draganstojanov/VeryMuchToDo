@@ -13,6 +13,7 @@ import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.kmodel.Message
 import com.andraganoid.verymuchtodo.kmodel.Stack
 import com.andraganoid.verymuchtodo.kmodel.Todo
+import com.andraganoid.verymuchtodo.shortVersion.util.getFormattedDate
 
 
 //object BindingAdapters {

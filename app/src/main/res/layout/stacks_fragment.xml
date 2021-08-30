@@ -32,12 +32,12 @@
                 android:layout_height="0dp"
                 android:layout_marginBottom="8dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toTopOf="@id/stacksCreateNew"
+                app:layout_constraintBottom_toTopOf="@id/createNewList"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:listitem="@layout/stacks_item" />
 
             <TextView
-                android:id="@+id/stacksCreateNew"
+                android:id="@+id/createNewList"
                 style="@style/buttonSmall"
                 android:onClick="@{()->fragment.createNewStack()}"
                 android:text="@string/new_stack"

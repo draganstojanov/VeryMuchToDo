@@ -9,11 +9,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.andraganoid.verymuchtodo.databinding.StackFragmentBinding
-import com.andraganoid.verymuchtodo.ktodo.stack.stacks.StacksAdapter
 import com.andraganoid.verymuchtodo.shortVersion.main.MainViewModel
 import com.andraganoid.verymuchtodo.shortVersion.state.StackState
 import com.andraganoid.verymuchtodo.shortVersion.util.bottomToast
-import com.google.android.material.snackbar.Snackbar
+import com.andraganoid.verymuchtodo.shortVersion.util.logX
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -39,20 +38,44 @@ class StackFragment : Fragment() {
     private fun setup() {
 
         val adapter = StackAdapter(this)
-        binding.stacksRecView.adapter=adapter
+        binding.stacksRecView.adapter = adapter
 
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getSnapshotState().collect { tlState ->
-                    when (tlState) {
-                        is StackState.Stack -> adapter.stackList=tlState.stacks
-                        is StackState.Error -> bottomToast(tlState.errorMsg)
-                        else -> {
-                        }
-                    }
+         //   repeatOnLifecycle(Lifecycle.State.STARTED) {
+         //       viewModel.getSnapshotState().collect { tlState ->
+//                    when (tlState) {
+//                        is StackState.Stack ->{
+//                            logX(2,tlState.stacks)
+//                            testlist=tlState.stacks
+//                            adapter.stackList = tlState.stacks}
+//                        is StackState.Error -> bottomToast(tlState.errorMsg)
+//                        else -> {
+//                        }
+//                    }
 
+        //        }
+         //   }
+
+            viewModel.getStack().observe(viewLifecycleOwner,{state->
+                when (state) {
+                    is StackState.Stack -> {
+                        logX(2, state.stacks)
+                        testlist = state.stacks
+                        adapter.stackList = state.stacks
+                    }
+                    is StackState.Error -> bottomToast(state.errorMsg)
+                    else -> {
+                    }
                 }
-            }
+            })
+
         }
+
+        binding.createNewList.setOnClickListener { testlist[0]?.let { it1 -> viewModel.updateListTest(it1) } }
+
+
     }
+
+    private var testlist: ArrayList<com.andraganoid.verymuchtodo.shortVersion.model.TodoList?> = arrayListOf()
+
 }

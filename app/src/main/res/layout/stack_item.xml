@@ -17,7 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/bar_height"
         android:layout_marginTop="8dp"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:background="@color/primMid">
 
         <TextView
             android:id="@+id/stackTitle"
