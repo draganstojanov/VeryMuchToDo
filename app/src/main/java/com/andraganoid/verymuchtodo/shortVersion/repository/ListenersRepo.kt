@@ -9,18 +9,19 @@ import com.andraganoid.verymuchtodo.shortVersion.util.logA
 import com.andraganoid.verymuchtodo.shortVersion.util.logX
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
 class ListenersRepo(private val firebaseFirestore: FirebaseFirestore) {
 
     private lateinit var todoListListener: ListenerRegistration
-//    private val stackState: MutableStateFlow<StackState> = MutableStateFlow(StackState.Unchecked)
-private val stackState: MutableLiveData<StackState> = MutableLiveData()
+    private val stackState: MutableSharedFlow<StackState> = MutableSharedFlow<StackState>(1)
+//private val stackState: MutableLiveData<StackState> = MutableLiveData()
 
-   // fun getSnapshotState(): MutableStateFlow<StackState> = stackState
+   fun getSnapshotState(): MutableSharedFlow<StackState> = stackState
 
-    fun  getStackState(): LiveData<StackState> = stackState
+  //  fun  getStackState(): LiveData<StackState> = stackState
 
     fun setFirestoreListeners() {
         todoListListener = firebaseFirestore.collection(COL_LIST)
@@ -30,12 +31,12 @@ private val stackState: MutableLiveData<StackState> = MutableLiveData()
                     snapshots.documents.forEach { documentSnapshot ->
                         todoList.add(documentSnapshot.toObject(TodoList::class.java))
                     }
-                    stackState.value = StackState.Stack(todoList)
+                    stackState.tryEmit(StackState.Stack(todoList))
                     logX(1,todoList)
                 }
 
                 if (exc != null) {
-                    stackState.value = StackState.Error(exc.message)
+                    stackState.tryEmit(StackState.Error(exc.message))
                 }
             }
     }

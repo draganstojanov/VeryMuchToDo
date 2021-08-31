@@ -10,6 +10,22 @@
         android:name="com.andraganoid.verymuchtodo.shortVersion.ui.stack.StackFragment"
         android:label="@string/main_frag_label"
         tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_mainFragment_to_todoListFragment"
+            app:destination="@id/todoListFragment"
+            app:enterAnim="@animator/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/todoListFragment"
+        android:name="com.andraganoid.verymuchtodo.shortVersion.ui.list.TodoListFragment"
+        android:label="TodoListFragment">
+        <argument
+            android:name="todoListId"
+            android:defaultValue='""'
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 
 </navigation>

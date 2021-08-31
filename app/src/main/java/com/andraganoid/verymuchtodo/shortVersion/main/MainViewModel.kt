@@ -13,6 +13,7 @@ import com.andraganoid.verymuchtodo.shortVersion.repository.ListenersRepo
 import com.andraganoid.verymuchtodo.shortVersion.state.StackState
 import com.andraganoid.verymuchtodo.shortVersion.util.ERROR_PLACEHOLDER
 import com.andraganoid.verymuchtodo.shortVersion.util.logA
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
 class MainViewModel(
@@ -22,9 +23,17 @@ class MainViewModel(
 ) : ViewModel() {
 
 
-//    fun getSnapshotState(): StateFlow<StackState> = listenersRepo.getSnapshotState()
 
-    fun getStack(): LiveData<StackState> = listenersRepo.getStackState()
+    var selectedListId: String = ""
+
+//    private val _selectedListId = MutableLiveData<String>()
+//    val selectedListId: LiveData<String>
+//        get() = _selectedListId
+
+
+    fun getSnapshotState(): SharedFlow<StackState> = listenersRepo.getSnapshotState()
+
+//    fun getStack(): LiveData<StackState> = listenersRepo.getStackState()
 
     private val _loaderVisibility = MutableLiveData<Boolean>()
     val loaderVisibility: LiveData<Boolean>
@@ -110,11 +119,11 @@ class MainViewModel(
         val ts = System.currentTimeMillis()
 
         todoList.timestamp = ts
-        todoList.userName = "ddd"
-        todoList.title = "qqqqqqqqqqqqqqqqqqqq"
+        todoList.userName = "ddeeed"
+        todoList.title = "wwewwewewewewewe"
 
         todoList.todoList[0].timestamp = ts
-        todoList.todoList[0].userName = "ddd"
+        todoList.todoList[0].userName = "eee"
 
         logA(todoList)
 
@@ -139,6 +148,10 @@ class MainViewModel(
 
         viewModelScope.launch { firestoreRepo.addDocument(Document(todoList)) }
     }
+
+//    fun setSelectedListId(id: String) {
+//        _selectedListId.value = id
+//    }
 
 
 }
