@@ -10,7 +10,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.andraganoid.verymuchtodo.databinding.TodoListFragmentBinding
 import com.andraganoid.verymuchtodo.shortVersion.main.MainViewModel
+import com.andraganoid.verymuchtodo.shortVersion.model.TodoItem
+import com.andraganoid.verymuchtodo.shortVersion.model.TodoList
 import com.andraganoid.verymuchtodo.shortVersion.state.StackState
+import com.andraganoid.verymuchtodo.shortVersion.ui.stack.StackEditDialog
 import com.andraganoid.verymuchtodo.shortVersion.util.bottomToast
 import com.andraganoid.verymuchtodo.shortVersion.util.logC
 import com.andraganoid.verymuchtodo.shortVersion.util.logX
@@ -22,10 +25,10 @@ class TodoListFragment : Fragment() {
 
     private var _binding: TodoListFragmentBinding? = null
     private val binding get() = _binding!!
-
     private val viewModel: MainViewModel by sharedViewModel()
 
     private lateinit var adapter: TodoListAdapter
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = TodoListFragmentBinding.inflate(inflater, container, false)
@@ -50,16 +53,9 @@ class TodoListFragment : Fragment() {
                     when (tlState) {
                         is StackState.Stack -> {
                             logX(3, tlState.stacks)
-
                             val tList=tlState.stacks.filter { tl->tl!!.id==viewModel.selectedListId }
-
                             logC(tList[0]!!.todoList)
-
-
                             adapter.todoList=tList[0]!!.todoList
-
-//                            testlist = tlState.stacks
-//                            adapter.stackList = tlState.stacks
                         }
                         is StackState.Error -> bottomToast(tlState.errorMsg)
                         else -> {
@@ -70,19 +66,13 @@ class TodoListFragment : Fragment() {
             }
 
         }
+
+        binding.createNewItem.setOnClickListener { openTodoItemEditor(TodoItem()) }
+
     }
 
 
-//    fun todoClicked(todo: Todo) {//TODO go to todos fragment
-//        toast(todo.content)
-//    }
-//
-//    fun todoEdit(todo: Todo): Boolean {//TODO edit stack name
-//        toast(todo.content)
-//        return false
-//    }
-//
-//    fun createNewTodo() {//TODO new todo
-//        toast("new todo")
-//    }
+    fun openTodoItemEditor(ti: TodoItem) {
+        TodoListEditDialog(ti).show(requireActivity().supportFragmentManager, TodoListEditDialog::class.simpleName)
+    }
 }

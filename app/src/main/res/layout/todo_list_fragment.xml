@@ -21,7 +21,7 @@
             tools:listitem="@layout/stacks_item" />
 
         <TextView
-            android:id="@+id/todosCreateNew"
+            android:id="@+id/createNewItem"
             style="@style/buttonSmall"
 
             android:text="@string/new_stack"

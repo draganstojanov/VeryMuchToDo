@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.StackFragmentBinding
 import com.andraganoid.verymuchtodo.shortVersion.main.MainViewModel
+import com.andraganoid.verymuchtodo.shortVersion.model.TodoList
 import com.andraganoid.verymuchtodo.shortVersion.state.StackState
 import com.andraganoid.verymuchtodo.shortVersion.util.bottomToast
 import com.andraganoid.verymuchtodo.shortVersion.util.logX
@@ -23,8 +24,9 @@ class StackFragment : Fragment() {
 
     private var _binding: StackFragmentBinding? = null
     private val binding get() = _binding!!
-
     private val viewModel: MainViewModel by sharedViewModel()
+
+    private var stack: ArrayList<TodoList?> = arrayListOf()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = StackFragmentBinding.inflate(inflater, container, false)
@@ -48,8 +50,8 @@ class StackFragment : Fragment() {
                     when (tlState) {
                         is StackState.Stack -> {
                             logX(2, tlState.stacks)
-                            testlist = tlState.stacks
-                            adapter.stackList = tlState.stacks
+                            stack = tlState.stacks
+                            adapter.stackList = stack
                         }
                         is StackState.Error -> bottomToast(tlState.errorMsg)
                         else -> {
@@ -58,37 +60,22 @@ class StackFragment : Fragment() {
 
                 }
             }
-
-//            viewModel.getStack().observe(viewLifecycleOwner,{state->
-//                when (state) {
-//                    is StackState.Stack -> {
-//                        logX(2, state.stacks)
-//                        testlist = state.stacks
-//                        adapter.stackList = state.stacks
-//                    }
-//                    is StackState.Error -> bottomToast(state.errorMsg)
-//                    else -> {
-//                    }
-//                }
-//            })
-
         }
 
-        binding.createNewList.setOnClickListener { testlist[0]?.let { it1 -> viewModel.updateListTest(it1) } }//TODO TEST
+        //  binding.createNewList.setOnClickListener { testlist[0]?.let { it1 -> viewModel.updateListTest(it1) } }//TODO TEST
 
+        binding.createNewList.setOnClickListener { openTodoListEditor(TodoList()) }
 
     }
 
     fun listSelected(id: String) {
-//        viewModel.setSelectedListId(id)
         viewModel.selectedListId = id
         findNavController().navigate(R.id.todoListFragment)
-//        val action = StackFragmentDirections.actionMainFragmentToTodoListFragment()
-//        action.todoListId = id
-//
-//        findNavController().navigate(action)
     }
 
-    private var testlist: ArrayList<com.andraganoid.verymuchtodo.shortVersion.model.TodoList?> = arrayListOf()
-
+     fun openTodoListEditor(tl: TodoList) {
+        StackEditDialog(tl).show(requireActivity().supportFragmentManager, StackEditDialog::class.simpleName)
+    }
 }
+
+

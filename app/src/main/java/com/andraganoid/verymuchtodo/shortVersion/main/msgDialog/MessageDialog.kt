@@ -25,7 +25,7 @@ class MessageDialog(private val message: MessageDialogData) : BottomSheetDialogF
             isVisible = message.toast.isNotEmpty()
             text = message.toast
             if (message.toast.isNotEmpty()) {
-                Timer().schedule(timerTask { dismiss() }, 2000)
+                Timer().schedule(timerTask { dismiss() }, 3000)
             }
         }
 

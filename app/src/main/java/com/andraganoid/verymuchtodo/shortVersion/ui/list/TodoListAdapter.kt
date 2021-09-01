@@ -25,10 +25,12 @@ class TodoListAdapter(private val fragment: TodoListFragment) : RecyclerView.Ada
 
     inner class TodoListHolder(private val binding: TodoListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(todoItem: TodoItem) {
-           binding.todoItem = todoItem
+            binding.todoItem = todoItem
+            binding.todoItemEdit.setOnClickListener { fragment.openTodoItemEditor(todoItem) }
+
 //            binding.root.setOnClickListener { fragment.todoClicked(todo) }
 //            binding.root.setOnLongClickListener { fragment.todoEdit(todo) }
-//            binding.executePendingBindings()
+            binding.executePendingBindings()
         }
     }
 }
