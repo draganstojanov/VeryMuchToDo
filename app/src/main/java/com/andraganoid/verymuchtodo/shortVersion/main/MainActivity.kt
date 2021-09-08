@@ -3,6 +3,7 @@ package com.andraganoid.verymuchtodo.shortVersion.main
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.core.view.isVisible
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.ActivityMainBinding
@@ -30,7 +31,12 @@ class MainActivity : AppCompatActivity() {
         //   myUser = preferences.getMyUser()
         //   networkListener()
         setup()
-        window.statusBarColor = ContextCompat.getColor(this, R.color.backgroundColor)
+
+
+//       window.statusBarColor = ContextCompat.getColor(this, R.color.backgroundColor)
+//        val windowInsetController = ViewCompat.getWindowInsetsController(window.decorView)
+//        windowInsetController?.isAppearanceLightStatusBars = true // or false
+
     }
 
     private fun setup() {

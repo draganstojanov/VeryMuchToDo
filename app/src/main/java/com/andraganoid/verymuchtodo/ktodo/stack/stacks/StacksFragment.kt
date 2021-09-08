@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.animation.doOnEnd
+import androidx.core.view.doOnLayout
 import androidx.lifecycle.Observer
 import com.andraganoid.verymuchtodo.databinding.StacksFragmentBinding
 import com.andraganoid.verymuchtodo.kmodel.Stack
@@ -69,7 +70,7 @@ class StacksFragment : TodoBaseFragment() {
 
     fun expandStackEdit() {
 
-     //   binding.topModal.doOnLayout {
+      binding.topModal.doOnLayout {
             val va = ValueAnimator.ofInt(0,  binding.topModalContent.height );
          //   val va = ValueAnimator.ofInt(0,  300 * (Resources.getSystem().displayMetrics.density).toInt());
             va.apply {
@@ -85,7 +86,7 @@ class StacksFragment : TodoBaseFragment() {
                 }
                 start()
             }
-  //  }
+  }
 
 
     }

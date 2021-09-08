@@ -69,6 +69,19 @@
         <item name="android:singleLine">true</item>
     </style>
 
+
+    <style name="TopModalEditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/inputTextSize</item>
+        <item name="android:textColor">@color/backgroundColor</item>
+        <item name="android:textColorHint">@color/primVeryLite</item>
+        <item name="android:background">@drawable/input_background</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
     <style name="buttonSmall" parent="Widget.AppCompat.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -76,8 +89,8 @@
         <item name="android:layout_margin">8dp</item>
         <item name="android:paddingStart">16dp</item>
         <item name="android:paddingEnd">16dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
         <item name="android:background">@drawable/button_background</item>
         <item name="android:textSize">@dimen/smallButtonTextSize</item>
         <item name="android:textColor">@color/backgroundColor</item>
@@ -105,7 +118,6 @@
     </style>
 
 
-
     <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/BottomModalSheetStyle</item>
     </style>
@@ -114,20 +126,17 @@
         <item name="android:background">@drawable/bottom_sheet_dialog</item>
     </style>
 
-<!--    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">-->
-<!--        <item name="bottomSheetStyle">@style/BottomModalSheetStyle</item>-->
-<!--    </style>-->
+    <!--    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">-->
+    <!--        <item name="bottomSheetStyle">@style/BottomModalSheetStyle</item>-->
+    <!--    </style>-->
 
-<!--    <style name="BottomModalSheetStyle" parent="Widget.Design.BottomSheet.Modal">-->
-<!--        <item name="android:background">@drawable/message_dialog_back_round</item>-->
-<!--        <item name="behavior_skipCollapsed">true</item>-->
-<!--        <item name="behavior_fitToContents">true</item>-->
-<!--        <item name="behavior_peekHeight">1000dp</item>-->
-<!--        <item name="behavior_hideable">true</item>-->
-<!--    </style>-->
-
-
-
+    <!--    <style name="BottomModalSheetStyle" parent="Widget.Design.BottomSheet.Modal">-->
+    <!--        <item name="android:background">@drawable/message_dialog_back_round</item>-->
+    <!--        <item name="behavior_skipCollapsed">true</item>-->
+    <!--        <item name="behavior_fitToContents">true</item>-->
+    <!--        <item name="behavior_peekHeight">1000dp</item>-->
+    <!--        <item name="behavior_hideable">true</item>-->
+    <!--    </style>-->
 
 
     <style name="MessageDialogStyle">
