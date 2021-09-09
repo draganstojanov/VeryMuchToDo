@@ -35,6 +35,12 @@ class StackFragment : Fragment() {
     private var topModalHeight = 0
     private val ANIMATION_DURATION = 300L
 
+    private var isNewList = false
+
+    //    private var title = ""
+//    private var description = ""
+    var listForEdit: TodoList = TodoList()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = StackFragmentBinding.inflate(inflater, container, false)
@@ -77,19 +83,14 @@ class StackFragment : Fragment() {
 
         binding.createNewList.setOnClickListener { //openTodoListEditor(TodoList())
             if (!binding.topModalWrapper.isVisible) {
-                binding.listTitle.setText("TITLE")
-                binding.listDescription.setText("DEsCRIPTION")
+                listForEdit = TodoList(title = "", description = "", id = "id-${System.currentTimeMillis()}")
+                binding.listTitle.setText(listForEdit.title)
+                binding.listDescription.setText(listForEdit.description)
                 expandStackEdit()
+                isNewList = true
             }
         }
-        binding.editList.setOnClickListener {
-            if (!binding.topModalWrapper.isVisible) {
-                binding.listTitle.setText("TITLE")
-                binding.listDescription.setText("DEsCRIPTION")
-                expandStackEdit()
-            }
 
-        }
 
         binding.cancelBtn.setOnClickListener {
             hideKeyboard()
@@ -100,6 +101,15 @@ class StackFragment : Fragment() {
             //todo save
             hideKeyboard()
             collapseStackEdit()
+
+            listForEdit.title = binding.listTitle.text.toString()
+            listForEdit.description = binding.listDescription.text.toString()
+
+            if (isNewList) {
+                viewModel.addList(listForEdit)
+            } else {
+                viewModel.updateList(listForEdit)
+            }
         }
 
 
@@ -111,7 +121,14 @@ class StackFragment : Fragment() {
     }
 
     fun openTodoListEditor(tl: TodoList) {
-        StackEditDialog(tl).show(requireActivity().supportFragmentManager, StackEditDialog::class.simpleName)
+        //  StackEditDialog(tl).show(requireActivity().supportFragmentManager, StackEditDialog::class.simpleName)
+
+        listForEdit = tl
+
+        binding.listTitle.setText(tl.title)
+        binding.listDescription.setText(tl.description)
+        expandStackEdit()
+        isNewList = false
     }
 
 
@@ -122,13 +139,13 @@ class StackFragment : Fragment() {
         (ValueAnimator.ofInt(0, topModalHeight)).apply {
             duration = ANIMATION_DURATION
             addUpdateListener { animation ->
-                with(binding.topModal) {
+                binding.topModal.apply {
                     layoutParams.height = animation.animatedValue as Int
                     requestLayout()
                 }
             }
             doOnEnd {
-                with(binding.topModal) {
+                binding.topModal.apply {
                     layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
                     requestLayout()
                 }
@@ -152,7 +169,7 @@ class StackFragment : Fragment() {
         (ValueAnimator.ofInt(topModalHeight, 0)).apply {
             duration = animationDuration
             addUpdateListener { animation ->
-                with(binding.topModal) {
+                binding.topModal.apply {
                     layoutParams.height = animation.animatedValue as Int
                     requestLayout()
                 }

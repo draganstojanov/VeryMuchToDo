@@ -13,6 +13,7 @@ import com.andraganoid.verymuchtodo.shortVersion.repository.ListenersRepo
 import com.andraganoid.verymuchtodo.shortVersion.state.StackState
 import com.andraganoid.verymuchtodo.shortVersion.util.ERROR_PLACEHOLDER
 import com.andraganoid.verymuchtodo.shortVersion.util.logA
+import com.andraganoid.verymuchtodo.shortVersion.util.logX
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
@@ -23,8 +24,8 @@ class MainViewModel(
 ) : ViewModel() {
 
 
-
     var selectedListId: String = ""
+//    var listForEdit: TodoList = TodoList()
 
 //    private val _selectedListId = MutableLiveData<String>()
 //    val selectedListId: LiveData<String>
@@ -79,10 +80,18 @@ class MainViewModel(
 
 
     fun addList(todoList: TodoList) {
+        todoList.userName="USER_NAME"//TODO
+        todoList.timestamp = System.currentTimeMillis()
+
+        logX("xxx101",todoList)
+
+
         viewModelScope.launch { firestoreRepo.addDocument(Document(todoList)) }
     }
 
     fun updateList(todoList: TodoList) {
+        todoList.userName="USER_NAME"//TODO
+        todoList.timestamp = System.currentTimeMillis()
         viewModelScope.launch { firestoreRepo.updateDocument(Document(todoList)) }
     }
 
