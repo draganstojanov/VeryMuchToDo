@@ -23,7 +23,7 @@ class MainViewModel(
     private val listenersRepo: ListenersRepo
 ) : ViewModel() {
 
-
+    var stack: ArrayList<TodoList?> = arrayListOf()
     var selectedListId: String = ""
 //    var listForEdit: TodoList = TodoList()
 
@@ -80,23 +80,38 @@ class MainViewModel(
 
 
     fun addList(todoList: TodoList) {
-        todoList.userName="USER_NAME"//TODO
+        todoList.userName = "USER_NAME"//TODO
         todoList.timestamp = System.currentTimeMillis()
 
-        logX("xxx101",todoList)
+        logX("xxx101", todoList)
 
 
         viewModelScope.launch { firestoreRepo.addDocument(Document(todoList)) }
     }
 
     fun updateList(todoList: TodoList) {
-        todoList.userName="USER_NAME"//TODO
+        todoList.userName = "USER_NAME"//TODO
         todoList.timestamp = System.currentTimeMillis()
         viewModelScope.launch { firestoreRepo.updateDocument(Document(todoList)) }
     }
 
     fun deleteList(todoList: TodoList) {
         viewModelScope.launch { firestoreRepo.deleteDocument(Document(todoList)) }
+    }
+
+    fun deleteMultipleList() {
+
+        stack.filter { todoList -> todoList?.completed == true }.also {
+            if (it.isNullOrEmpty()) {
+                val documentList = arrayListOf<Document>()
+                it.forEach { todoList ->
+                    documentList.add(Document(todoList))
+                }
+                viewModelScope.launch { firestoreRepo.deleteMultipleDocument(documentList) }
+            }
+        }
+
+
     }
 
 
@@ -157,6 +172,7 @@ class MainViewModel(
 
         viewModelScope.launch { firestoreRepo.addDocument(Document(todoList)) }
     }
+
 
 //    fun setSelectedListId(id: String) {
 //        _selectedListId.value = id

@@ -16,11 +16,12 @@ import androidx.navigation.fragment.findNavController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.StackFragmentBinding
 import com.andraganoid.verymuchtodo.shortVersion.main.MainViewModel
+import com.andraganoid.verymuchtodo.shortVersion.main.msgDialog.MessageDialogData
 import com.andraganoid.verymuchtodo.shortVersion.model.TodoList
 import com.andraganoid.verymuchtodo.shortVersion.state.StackState
 import com.andraganoid.verymuchtodo.shortVersion.util.bottomToast
 import com.andraganoid.verymuchtodo.shortVersion.util.hideKeyboard
-import com.andraganoid.verymuchtodo.shortVersion.util.logX
+import com.andraganoid.verymuchtodo.shortVersion.util.messageDialog
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -31,14 +32,11 @@ class StackFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: MainViewModel by sharedViewModel()
 
-    private var stack: ArrayList<TodoList?> = arrayListOf()
+    //    private var stack: ArrayList<TodoList?> = arrayListOf()
     private var topModalHeight = 0
     private val ANIMATION_DURATION = 300L
 
     private var isNewList = false
-
-    //    private var title = ""
-//    private var description = ""
     var listForEdit: TodoList = TodoList()
 
 
@@ -67,9 +65,8 @@ class StackFragment : Fragment() {
                 viewModel.getSnapshotState().collect { tlState ->
                     when (tlState) {
                         is StackState.Stack -> {
-                            logX(2, tlState.stacks)
-                            stack = tlState.stacks
-                            adapter.stackList = stack
+                            viewModel.stack = tlState.stacks
+                            adapter.stackList = viewModel.stack
                         }
                         is StackState.Error -> bottomToast(tlState.errorMsg)
                         else -> {
@@ -112,6 +109,16 @@ class StackFragment : Fragment() {
             }
         }
 
+        binding.clearList.setOnClickListener {
+
+            viewModel.deleteMultipleList()
+
+//            stack.filter { todoList -> todoList?.completed == true }.also {
+//                if (it.isNullOrEmpty()) {
+//                    viewModel.deleteMultipleList(it)
+//                }
+//            }
+        }
 
     }
 
@@ -129,6 +136,18 @@ class StackFragment : Fragment() {
         binding.listDescription.setText(tl.description)
         expandStackEdit()
         isNewList = false
+    }
+
+    fun deleteList(todoList: TodoList) {
+        val data = MessageDialogData(
+            title = "Are you sure?",
+            //   desc = resources.getText(R.string.set_widget).toString(),
+            btnLeftText = "Cancel",
+            btnLeft = {},
+            //   btnLeft = this::showHelp,
+            btnRightText = "OK",
+            btnRight = { viewModel.deleteList(todoList) })
+        messageDialog(data)
     }
 
 

@@ -33,7 +33,11 @@ class StackAdapter(private val fragment: StackFragment) : RecyclerView.Adapter<S
                     fragment.openTodoListEditor(todoList)
                 }
             }
-//            binding.root.setOnLongClickListener { fragment.stackEdit(stack) }
+            binding.stackDelete.setOnClickListener {
+                if (todoList != null) {
+                    fragment.deleteList(todoList)
+                }
+            }
             binding.executePendingBindings()
         }
     }

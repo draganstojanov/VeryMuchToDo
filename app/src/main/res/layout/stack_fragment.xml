@@ -29,22 +29,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/editList"-->
-<!--        style="@style/buttonSmall"-->
-<!--        android:text="Edit"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toStartOf="@id/createNewList"-->
-<!--        app:layout_constraintHorizontal_chainStyle="packed"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/editList"-->
+    <!--        style="@style/buttonSmall"-->
+    <!--        android:text="Edit"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toStartOf="@id/createNewList"-->
+    <!--        app:layout_constraintHorizontal_chainStyle="packed"-->
+    <!--        app:layout_constraintStart_toStartOf="parent" />-->
 
     <TextView
         android:id="@+id/createNewList"
         style="@style/buttonSmall"
-        android:text="@string/new_stack"
+        android:text="New list"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/clearList"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/clearList"
+        style="@style/buttonSmall"
+        android:text="Clear"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toEndOf="@id/createNewList" />
 
     <LinearLayout
         android:id="@+id/topModalWrapper"

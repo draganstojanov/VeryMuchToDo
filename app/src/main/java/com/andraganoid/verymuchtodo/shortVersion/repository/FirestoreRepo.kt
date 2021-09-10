@@ -9,7 +9,8 @@ class FirestoreRepo(private val firebaseFirestore: FirebaseFirestore) {
 
     //TODO add success
 
-    fun addDocument(document: Document) { logX("xxx102",document)
+    fun addDocument(document: Document) {
+        logX("xxx102", document)
         firebaseFirestore
             .collection(document.collection)
             .document(document.name)
@@ -28,5 +29,18 @@ class FirestoreRepo(private val firebaseFirestore: FirebaseFirestore) {
             .collection(document.collection)
             .document(document.name)
             .update(document.values)
+    }
+
+    fun deleteMultipleDocument(documents: List<Document>) {
+        firebaseFirestore.runBatch { batch ->
+            documents.forEach { document ->
+                val doc = firebaseFirestore.collection(document.collection).document(document.name)
+                batch.delete(doc)
+            }
+
+        }
+//            .collection(document.collection)
+//            .document(document.name)
+//            .update(document.values)
     }
 }

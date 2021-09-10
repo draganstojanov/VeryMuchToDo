@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -17,18 +18,30 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/bar_height"
         android:layout_marginTop="8dp"
-        android:padding="8dp"
-        android:background="@color/primMid">
+        android:background="@color/primMid"
+        android:padding="4dp">
 
         <TextView
             android:id="@+id/stackEdit"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:text="EDIT"
             android:textColor="@color/secLite"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/stackDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DEL"
+            android:textColor="@color/secLite"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/stackTitle"
@@ -38,19 +51,19 @@
             android:textColor="@color/backgroundColor"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="TITLE" />
 
         <TextView
             android:id="@+id/stackUserDate"
             userAndDate="@{todoList}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:padding="8dp"
             android:textColor="@color/backgroundColor"
-            android:textSize="14sp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="user and date" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
