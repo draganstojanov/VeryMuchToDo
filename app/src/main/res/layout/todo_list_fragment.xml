@@ -34,7 +34,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/createNewItem" />
 
-    <com.andraganoid.verymuchtodo.shortVersion.ui.custom.TopModal
+    <com.andraganoid.verymuchtodo.ui.custom.TopModal
         android:id="@+id/topModal"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -10,7 +10,7 @@
 
         <variable
             name="todoList"
-            type="com.andraganoid.verymuchtodo.shortVersion.model.TodoList" />
+            type="com.andraganoid.verymuchtodo.model.TodoList" />
 
     </data>
 

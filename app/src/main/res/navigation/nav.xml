@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.andraganoid.verymuchtodo.shortVersion.ui.stack.StackFragment"
+        android:name="com.andraganoid.verymuchtodo.ui.stack.StackFragment"
         android:label="@string/main_frag_label"
         tools:layout="@layout/fragment_login">
         <action
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/todoListFragment"
-        android:name="com.andraganoid.verymuchtodo.shortVersion.ui.list.TodoListFragment"
+        android:name="com.andraganoid.verymuchtodo.ui.list.TodoListFragment"
         android:label="TodoListFragment">
         <argument
             android:name="todoListId"
