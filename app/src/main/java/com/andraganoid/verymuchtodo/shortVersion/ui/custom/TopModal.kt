@@ -13,12 +13,12 @@ import com.andraganoid.verymuchtodo.databinding.TopModalCoreBinding
 import com.andraganoid.verymuchtodo.shortVersion.util.ANIMATION_DURATION
 
 
-class TopModal @JvmOverloads constructor( ctx: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
+class TopModal @JvmOverloads constructor(  ctx: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
     ConstraintLayout(ctx, attrs, defStyle) {
 
     private var topModalHeight: Int = 0
 
-    var binding: TopModalCoreBinding = TopModalCoreBinding.inflate(LayoutInflater.from(ctx), this, true)
+    var binding: TopModalCoreBinding = TopModalCoreBinding.inflate(LayoutInflater.from(this.context), this, false)
 
     init {
         binding.topModal.doOnLayout { initCollapse() }

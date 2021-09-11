@@ -5,14 +5,7 @@
     <color name="colorAccent">@color/secMid</color>
     <!--    <color name="colorAccent">#FF6F00</color>-->
 
-    <color name="completed">#3BA50F</color>
     <color name="colorWhite">#ffffff</color>
-    <color name="colorHint">#969696</color>
-    <color name="colorEmergency">#E72323</color>
-
-    <color name="colorBack01">#0b132b</color>
-    <color name="colorBack02">#0D468B</color>
-    <color name="colorBack03">#034aa1</color>
 
     <color name="backgroundColor">#fff</color>
     <color name="primDark">#0F2155</color>
@@ -22,13 +15,5 @@
 
     <color name="secMid">#FD2851</color>
     <color name="secLite">#F87373</color>
-    <color name="secDark">#AD0E0E</color>
-    <color name="light_blue_400">#FF29B6F6</color>
-    <color name="light_blue_600">#FF039BE5</color>
-    <color name="gray_400">#FFBDBDBD</color>
-    <color name="gray_600">#FF757575</color>
 
 </resources>
-
-
-    <!--    #F44336-->

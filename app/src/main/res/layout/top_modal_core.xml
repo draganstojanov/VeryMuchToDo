@@ -41,13 +41,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Title"
                 android:textColor="@color/primLite" />
 
             <EditText
                 android:id="@+id/input_1"
                 style="@style/TopModalEditText"
-                android:hint=" List title"
                 android:maxLength="50" />
 
             <TextView

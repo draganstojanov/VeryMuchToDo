@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="title_size">24sp</dimen>
-    <dimen name="text_size">16sp</dimen>
-    <dimen name="small_text_size">12sp</dimen>
-    <dimen name="textSizeTitle">20sp</dimen>
     <dimen name="smallTextSize">14sp</dimen>
-    <dimen name="list_item_spacing">16dp</dimen>
-    <dimen name="list_item_spacing_half">8dp</dimen>
     <dimen name="smallButtonTextSize">16sp</dimen>
     <dimen name="bar_height">56dp</dimen>
-    <dimen name="login_text_size">16dp</dimen>
     <dimen name="loginMargin">32dp</dimen>
-    <dimen name="dialogTextSize">20sp</dimen>
     <dimen name="inputTextSize">20sp</dimen>
 </resources>
