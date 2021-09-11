@@ -4,6 +4,6 @@ import com.andraganoid.verymuchtodo.shortVersion.model.TodoList
 
 sealed class StackState {
     data class Error(val errorMsg: String?) : StackState()
-    data class Stack(val stacks: ArrayList<TodoList?>) : StackState()
+    data class Stack(val stack: ArrayList<TodoList?>) : StackState()
     object Unchecked : StackState()
 }

@@ -3,7 +3,7 @@
     <color name="colorPrimary">#1379C5</color>
     <color name="colorPrimaryDark">#12436B</color>
     <color name="colorAccent">@color/secMid</color>
-<!--    <color name="colorAccent">#FF6F00</color>-->
+    <!--    <color name="colorAccent">#FF6F00</color>-->
 
     <color name="completed">#3BA50F</color>
     <color name="colorWhite">#ffffff</color>
@@ -23,9 +23,12 @@
     <color name="secMid">#FD2851</color>
     <color name="secLite">#F87373</color>
     <color name="secDark">#AD0E0E</color>
+    <color name="light_blue_400">#FF29B6F6</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="gray_400">#FFBDBDBD</color>
+    <color name="gray_600">#FF757575</color>
 
 </resources>
 
 
-
-<!--    #F44336-->
+    <!--    #F44336-->

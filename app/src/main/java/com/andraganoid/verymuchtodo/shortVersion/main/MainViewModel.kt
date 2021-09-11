@@ -25,16 +25,10 @@ class MainViewModel(
 
     var stack: ArrayList<TodoList?> = arrayListOf()
     var selectedListId: String = ""
-//    var listForEdit: TodoList = TodoList()
-
-//    private val _selectedListId = MutableLiveData<String>()
-//    val selectedListId: LiveData<String>
-//        get() = _selectedListId
 
 
     fun getSnapshotState(): SharedFlow<StackState> = listenersRepo.getSnapshotState()
 
-//    fun getStack(): LiveData<StackState> = listenersRepo.getStackState()
 
     private val _loaderVisibility = MutableLiveData<Boolean>()
     val loaderVisibility: LiveData<Boolean>
@@ -82,10 +76,6 @@ class MainViewModel(
     fun addList(todoList: TodoList) {
         todoList.userName = "USER_NAME"//TODO
         todoList.timestamp = System.currentTimeMillis()
-
-        logX("xxx101", todoList)
-
-
         viewModelScope.launch { firestoreRepo.addDocument(Document(todoList)) }
     }
 
@@ -126,18 +116,43 @@ class MainViewModel(
             userName = "Dragan",
             todoList = listOf(
                 TodoItem(
-                    id = ts.toString(),
+                    id = "1-$ts",
                     description = "Description of new Very Much To Do ITEM",
                     completed = false,
-                    content = "Test item",
+                    content = "Test item 1",
                     timestamp = ts,
                     userName = "Dragan"
-                )
+                ),
+                TodoItem(
+                    id = "2-$ts",
+                    description = "Description of new Very Much To Do ITEM",
+                    completed = false,
+                    content = "Test item 2",
+                    timestamp = ts,
+                    userName = "Dragan"
+                ),
+                TodoItem(
+                    id = "3-$ts",
+                    description = "Description of new Very Much To Do ITEM",
+                    completed = false,
+                    content = "Test item 3",
+                    timestamp = ts,
+                    userName = "Dragan"
+                ),
+                TodoItem(
+                    id = "4-$ts",
+                    description = "Description of new Very Much To Do ITEM",
+                    completed = false,
+                    content = "Test item 4",
+                    timestamp = ts,
+                    userName = "Dragan"
+                ),
             )
         )
 
         viewModelScope.launch { firestoreRepo.addDocument(Document(test)) }
     }
+
 
     fun updateListTest(todoList: TodoList) {//TODO TEST
         val ts = System.currentTimeMillis()

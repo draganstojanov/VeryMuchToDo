@@ -1,13 +1,9 @@
 package com.andraganoid.verymuchtodo.shortVersion.ui.stack
 
-import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.animation.doOnEnd
-import androidx.core.view.doOnLayout
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -32,13 +28,8 @@ class StackFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: MainViewModel by sharedViewModel()
 
-    //    private var stack: ArrayList<TodoList?> = arrayListOf()
-    private var topModalHeight = 0
-    private val ANIMATION_DURATION = 300L
-
     private var isNewList = false
-    var listForEdit: TodoList = TodoList()
-
+    private var listForEdit: TodoList = TodoList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = StackFragmentBinding.inflate(inflater, container, false)
@@ -51,11 +42,6 @@ class StackFragment : Fragment() {
         _binding = null
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        binding.topModal.doOnLayout { initCollapse() }
-    }
-
     private fun setup() {
         val adapter = StackAdapter(this)
         binding.stacksRecView.adapter = adapter
@@ -65,7 +51,7 @@ class StackFragment : Fragment() {
                 viewModel.getSnapshotState().collect { tlState ->
                     when (tlState) {
                         is StackState.Stack -> {
-                            viewModel.stack = tlState.stacks
+                            viewModel.stack = tlState.stack
                             adapter.stackList = viewModel.stack
                         }
                         is StackState.Error -> bottomToast(tlState.errorMsg)
@@ -76,48 +62,41 @@ class StackFragment : Fragment() {
             }
         }
 
-        //  binding.createNewList.setOnClickListener { testlist[0]?.let { it1 -> viewModel.updateListTest(it1) } }//TODO TEST
+        binding.topModal.setupFields(
+            "Title",
+            "Description",
+            this::closeTopModal,
+            this::submitChanges
+        )
 
-        binding.createNewList.setOnClickListener { //openTodoListEditor(TodoList())
-            if (!binding.topModalWrapper.isVisible) {
-                listForEdit = TodoList(title = "", description = "", id = "id-${System.currentTimeMillis()}")
-                binding.listTitle.setText(listForEdit.title)
-                binding.listDescription.setText(listForEdit.description)
-                expandStackEdit()
-                isNewList = true
-            }
-        }
-
-
-        binding.cancelBtn.setOnClickListener {
-            hideKeyboard()
-            collapseStackEdit()
-        }
-
-        binding.submitBtn.setOnClickListener {
-            //todo save
-            hideKeyboard()
-            collapseStackEdit()
-
-            listForEdit.title = binding.listTitle.text.toString()
-            listForEdit.description = binding.listDescription.text.toString()
-
-            if (isNewList) {
-                viewModel.addList(listForEdit)
-            } else {
-                viewModel.updateList(listForEdit)
+        binding.createNewList.setOnClickListener {
+            if (!binding.topModal.isOpen()) {
+                openTodoListEditor(TodoList(title = "", description = "", id = "id-${System.currentTimeMillis()}"), true)//todo
             }
         }
 
         binding.clearList.setOnClickListener {
-
             viewModel.deleteMultipleList()
+        }
+    }
 
-//            stack.filter { todoList -> todoList?.completed == true }.also {
-//                if (it.isNullOrEmpty()) {
-//                    viewModel.deleteMultipleList(it)
-//                }
-//            }
+    private fun closeTopModal() {
+        hideKeyboard()
+        binding.topModal.collapse()
+    }
+
+    private fun submitChanges() {
+        closeTopModal()
+
+        listForEdit.apply {
+            title = binding.topModal.getInputValue1()
+            description = binding.topModal.getInputValue2()
+        }
+
+        if (isNewList) {
+            viewModel.addList(listForEdit)
+        } else {
+            viewModel.updateList(listForEdit)
         }
 
     }
@@ -127,15 +106,11 @@ class StackFragment : Fragment() {
         findNavController().navigate(R.id.todoListFragment)
     }
 
-    fun openTodoListEditor(tl: TodoList) {
-        //  StackEditDialog(tl).show(requireActivity().supportFragmentManager, StackEditDialog::class.simpleName)
-
+    fun openTodoListEditor(tl: TodoList, isNew: Boolean) {
         listForEdit = tl
-
-        binding.listTitle.setText(tl.title)
-        binding.listDescription.setText(tl.description)
-        expandStackEdit()
-        isNewList = false
+        binding.topModal.setInputValues(tl.title.toString(), tl.description.toString())
+        binding.topModal.expand()
+        isNewList = isNew
     }
 
     fun deleteList(todoList: TodoList) {
@@ -149,58 +124,6 @@ class StackFragment : Fragment() {
             btnRight = { viewModel.deleteList(todoList) })
         messageDialog(data)
     }
-
-
-    private fun expandStackEdit() {
-
-        binding.topModalWrapper.isVisible = true
-        binding.overlay.isVisible = true
-        (ValueAnimator.ofInt(0, topModalHeight)).apply {
-            duration = ANIMATION_DURATION
-            addUpdateListener { animation ->
-                binding.topModal.apply {
-                    layoutParams.height = animation.animatedValue as Int
-                    requestLayout()
-                }
-            }
-            doOnEnd {
-                binding.topModal.apply {
-                    layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                    requestLayout()
-                }
-            }
-            start()
-        }
-
-    }
-
-    private fun collapseStackEdit() {
-        collapse(ANIMATION_DURATION)
-    }
-
-
-    private fun initCollapse() {
-        topModalHeight = binding.topModal.height
-        collapse(1)
-    }
-
-    private fun collapse(animationDuration: Long) {
-        (ValueAnimator.ofInt(topModalHeight, 0)).apply {
-            duration = animationDuration
-            addUpdateListener { animation ->
-                binding.topModal.apply {
-                    layoutParams.height = animation.animatedValue as Int
-                    requestLayout()
-                }
-            }
-            doOnEnd {
-                binding.topModalWrapper.isVisible = false
-                binding.overlay.isVisible = false
-            }
-            start()
-        }
-    }
-
 
 }
 

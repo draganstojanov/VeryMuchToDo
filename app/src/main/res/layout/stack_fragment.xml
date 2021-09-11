@@ -15,29 +15,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/stacks_item" />
 
-    <FrameLayout
-        android:id="@+id/overlay"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:alpha=".2"
-        android:background="@color/primMid"
-        android:clickable="true"
-        android:focusable="true"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/editList"-->
-    <!--        style="@style/buttonSmall"-->
-    <!--        android:text="Edit"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toStartOf="@id/createNewList"-->
-    <!--        app:layout_constraintHorizontal_chainStyle="packed"-->
-    <!--        app:layout_constraintStart_toStartOf="parent" />-->
-
     <TextView
         android:id="@+id/createNewList"
         style="@style/buttonSmall"
@@ -54,79 +31,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/createNewList" />
 
-    <LinearLayout
-        android:id="@+id/topModalWrapper"
+    <com.andraganoid.verymuchtodo.shortVersion.ui.custom.TopModal
+        android:id="@+id/topModal"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:id="@+id/topModal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/top_modal_background"
-            android:orientation="vertical"
-            android:paddingHorizontal="8dp"
-            android:paddingBottom="16dp"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <TextView
-                android:id="@+id/titleLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Title"
-                android:textColor="@color/primLite" />
-
-            <EditText
-                android:id="@+id/listTitle"
-                style="@style/TopModalEditText"
-                android:hint=" List title"
-                android:maxLength="50" />
-
-            <TextView
-                android:id="@+id/descriptionLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Description"
-                android:textColor="@color/primLite" />
-
-            <EditText
-                android:id="@+id/listDescription"
-                style="@style/TopModalEditText"
-                android:hint=" List description"
-                android:maxLength="50" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp">
-
-                <TextView
-                    android:id="@+id/cancelBtn"
-                    style="@style/buttonSmall"
-                    android:text="@string/cancel" />
-
-                <TextView
-                    android:id="@+id/submitBtn"
-                    style="@style/buttonSmall"
-                    android:text="Submit" />
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-    </LinearLayout>
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

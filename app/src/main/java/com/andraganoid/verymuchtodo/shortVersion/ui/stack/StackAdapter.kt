@@ -8,7 +8,6 @@ import com.andraganoid.verymuchtodo.shortVersion.model.TodoList
 
 class StackAdapter(private val fragment: StackFragment) : RecyclerView.Adapter<StackAdapter.StackHolder>() {
 
-
     var stackList: ArrayList<TodoList?> = arrayListOf()
         set(value) {
             field = value
@@ -30,7 +29,7 @@ class StackAdapter(private val fragment: StackFragment) : RecyclerView.Adapter<S
             binding.root.setOnClickListener { fragment.listSelected(todoList!!.id) }
             binding.stackEdit.setOnClickListener {
                 if (todoList != null) {
-                    fragment.openTodoListEditor(todoList)
+                    fragment.openTodoListEditor(todoList,false)
                 }
             }
             binding.stackDelete.setOnClickListener {

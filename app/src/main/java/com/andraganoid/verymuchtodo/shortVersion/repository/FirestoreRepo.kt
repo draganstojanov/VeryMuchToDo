@@ -2,15 +2,13 @@ package com.andraganoid.verymuchtodo.shortVersion.repository
 
 
 import com.andraganoid.verymuchtodo.shortVersion.model.Document
-import com.andraganoid.verymuchtodo.shortVersion.util.logX
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FirestoreRepo(private val firebaseFirestore: FirebaseFirestore) {
 
-    //TODO add success
+    //TODO add failed listener
 
     fun addDocument(document: Document) {
-        logX("xxx102", document)
         firebaseFirestore
             .collection(document.collection)
             .document(document.name)
@@ -34,13 +32,12 @@ class FirestoreRepo(private val firebaseFirestore: FirebaseFirestore) {
     fun deleteMultipleDocument(documents: List<Document>) {
         firebaseFirestore.runBatch { batch ->
             documents.forEach { document ->
-                val doc = firebaseFirestore.collection(document.collection).document(document.name)
-                batch.delete(doc)
+                batch.delete(
+                    firebaseFirestore
+                        .collection(document.collection)
+                        .document(document.name)
+                )
             }
-
         }
-//            .collection(document.collection)
-//            .document(document.name)
-//            .update(document.values)
     }
 }

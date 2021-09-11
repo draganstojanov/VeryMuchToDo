@@ -32,7 +32,6 @@ class ListenersRepo(private val firebaseFirestore: FirebaseFirestore) {
                         todoList.add(documentSnapshot.toObject(TodoList::class.java))
                     }
                     stackState.tryEmit(StackState.Stack(todoList))
-                    logX("xxx103",todoList)
                 }
 
                 if (exc != null) {
