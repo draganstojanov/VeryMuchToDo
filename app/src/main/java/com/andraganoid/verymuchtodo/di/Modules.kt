@@ -9,13 +9,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.scope.get
 import org.koin.dsl.module
 
 
 object Modules {
 
     private val viewModelModule = module {
-        viewModel { MainViewModel(get(), get(), get()) }
+        viewModel { MainViewModel(get(), get(), get(),get()) }
     }
 
     private val singleModule = module {

@@ -1,20 +1,29 @@
 package com.andraganoid.verymuchtodo.util
 
 import android.content.Context
+import android.content.SharedPreferences
 
 class Prefs
     (private val context: Context) {
 
     companion object {
-        private const val PREF_NAME = "com.andraganoid.memoryfields.SHARED_PREFERENCES"
-        private const val PREF_TYPES = "prefTypes"
-        private const val PREF_BOARDS = "prefBoards"
-        private const val PREF_LATEST_HI_SCORE = "prefLatestHiScore"
-        private const val PREF_THEME = "prefTheme"
+        private const val PREF = "com.andraganoid.memoryfields.SHARED_PREFERENCES"
+        private const val PREF_USERNAME = "prefUsername"
+//        private const val PREF_TYPES = "prefTypes"
+//        private const val PREF_BOARDS = "prefBoards"
+//        private const val PREF_LATEST_HI_SCORE = "prefLatestHiScore"
+//        private const val PREF_THEME = "prefTheme"
     }
 
-//    private val sharedPreferences: SharedPreferences
-//        get() = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+    private val sharedPreferences: SharedPreferences
+        get() = context.getSharedPreferences(PREF, Context.MODE_PRIVATE)
+
+    fun saveUserName(userName: String) {
+        sharedPreferences.edit().putString(PREF_USERNAME, userName).apply()
+    }
+
+    fun getUserName(): String? = sharedPreferences.getString(PREF_USERNAME, null)
+
 //
 //    fun saveTypes(types: ArrayList<Type>) {
 //        val prefType = gson.toJson(types)

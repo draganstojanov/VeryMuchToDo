@@ -24,16 +24,24 @@ class TopModal @JvmOverloads constructor(ctx: Context, attrs: AttributeSet? = nu
         binding.topModal.doOnLayout { initCollapse() }
     }
 
-    fun setupFields(label1: String, label2: String, cancelClick: () -> Unit, submitClick: () -> Unit) {
+    fun setupFields(label1: String, label2: String?, cancelClick: (() -> Unit)?, submitClick: () -> Unit) {
         binding.label1.text = label1
-        binding.label2.text = label2
-        binding.cancelBtn.setOnClickListener { cancelClick.invoke() }
+        if (label2 != null) {
+            binding.label2.text = label2
+        }
+        binding.cancelBtn.setOnClickListener { cancelClick?.invoke() }
         binding.submitBtn.setOnClickListener { submitClick.invoke() }
+
+        binding.label2.isVisible = label2 != null
+        binding.input2.isVisible = label2 != null
+        binding.cancelBtn.isVisible = cancelClick != null
+
     }
 
-    fun setHints(hint1: String, hint2: String) {
+    fun setHints(hint1: String, hint2: String?) {
         binding.input1.hint = hint1
-        binding.input2.hint = hint2
+        if (hint2 != null)
+            binding.input2.hint = hint2
     }
 
     fun setInputValues(input1: String, input2: String) {

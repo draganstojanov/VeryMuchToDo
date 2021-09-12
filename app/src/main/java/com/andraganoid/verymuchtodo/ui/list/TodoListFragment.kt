@@ -80,7 +80,7 @@ class TodoListFragment : Fragment() {
 
         binding.createNewItem.setOnClickListener {
             if (!binding.topModal.isOpen()) {
-                openTodoItemEditor(TodoItem(content = "", description = "", id = "id-${System.currentTimeMillis()}"), true)//todo
+                openTodoItemEditor(TodoItem(content = "", description = "", id = "ITEM-${System.currentTimeMillis()}"), true)
             }
         }
 

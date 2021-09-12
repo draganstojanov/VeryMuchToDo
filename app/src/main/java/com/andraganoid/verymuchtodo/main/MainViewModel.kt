@@ -12,14 +12,17 @@ import com.andraganoid.verymuchtodo.repository.FirestoreRepo
 import com.andraganoid.verymuchtodo.repository.ListenersRepo
 import com.andraganoid.verymuchtodo.state.StackState
 import com.andraganoid.verymuchtodo.util.ERROR_PLACEHOLDER
+import com.andraganoid.verymuchtodo.util.Prefs
 import com.andraganoid.verymuchtodo.util.logA
+import com.andraganoid.verymuchtodo.util.logD
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
 class MainViewModel(
     private val authRepo: AuthRepo,
     private val firestoreRepo: FirestoreRepo,
-    private val listenersRepo: ListenersRepo
+    private val listenersRepo: ListenersRepo,
+    private val prefs: Prefs
 ) : ViewModel() {
 
     var stack: ArrayList<TodoList?> = arrayListOf()
@@ -28,15 +31,21 @@ class MainViewModel(
     var itemForEdit: TodoItem = TodoItem()
 
     private val _loaderVisibility = MutableLiveData<Boolean>()
-
     val loaderVisibility: LiveData<Boolean>
         get() = _loaderVisibility
-    private val _message = MutableLiveData<Any?>()
 
+    private val _message = MutableLiveData<Any?>()
     val message: LiveData<Any?>
         get() = _message
 
+    private val _userName = MutableLiveData<String>("")
+    val userName: LiveData<String>
+        get() = _userName
+
     init {
+
+        _userName.value = prefs.getUserName()
+
         _loaderVisibility.value = true
         viewModelScope.launch {
             if (authRepo.isLoggedIn()) {
@@ -59,6 +68,9 @@ class MainViewModel(
 
     fun getSnapshotState(): SharedFlow<StackState> = listenersRepo.getSnapshotState()
 
+    fun closeLoader() {
+        _loaderVisibility.value = false
+    }
 
     private fun showMessage(msg: Any?) {
         _loaderVisibility.value = false
@@ -83,7 +95,7 @@ class MainViewModel(
 
     fun addList() {
         listForEdit.apply {
-            userName = "USER_NAME"//TODO
+            userName = this@MainViewModel.userName.value
             timestamp = System.currentTimeMillis()
         }
         viewModelScope.launch { firestoreRepo.addDocument(Document(listForEdit)) }
@@ -91,7 +103,7 @@ class MainViewModel(
 
     fun updateList() {
         listForEdit.apply {
-            userName = "USER_NAME"//TODO
+            userName = this@MainViewModel.userName.value
             timestamp = System.currentTimeMillis()
         }
 
@@ -146,6 +158,12 @@ class MainViewModel(
             }
         }
         return false
+    }
+
+    fun saveUserName(name: String) {
+        logD(3)
+        prefs.saveUserName(name)
+        _userName.value = name
     }
 
 
@@ -230,8 +248,6 @@ class MainViewModel(
 
         viewModelScope.launch { firestoreRepo.addDocument(Document(todoList)) }
     }
-
-
 
 
 //    fun setSelectedListId(id: String) {

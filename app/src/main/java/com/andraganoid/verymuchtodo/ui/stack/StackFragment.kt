@@ -18,9 +18,13 @@ import com.andraganoid.verymuchtodo.state.StackState
 import com.andraganoid.verymuchtodo.util.areYouSure
 import com.andraganoid.verymuchtodo.util.bottomToast
 import com.andraganoid.verymuchtodo.util.hideKeyboard
+import com.andraganoid.verymuchtodo.util.logD
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import java.util.*
 
 class StackFragment : Fragment() {
 
@@ -42,6 +46,28 @@ class StackFragment : Fragment() {
     }
 
     private fun setup() {
+        viewModel.closeLoader()
+
+        viewModel.userName.observe(viewLifecycleOwner, { userName ->
+            viewModel.closeLoader()
+            logD(0)
+            if (userName == null) {
+                lifecycleScope.launch(Dispatchers.Main) {
+                    delay(1000)
+                    with(binding.topModal) {
+                        setupFields(
+                            "Your name",
+                            null,
+                            null,
+                             this@StackFragment::saveUsername
+                        )
+                        setHints("Your name", null)
+                        expand()
+                    }
+                }
+            }
+        })
+
         val adapter = StackAdapter(this)
         binding.stacksRecView.adapter = adapter
 
@@ -62,20 +88,9 @@ class StackFragment : Fragment() {
             }
         }
 
-        with(binding.topModal) {
-            setupFields(
-                "Title",
-                "Description",
-                this@StackFragment::closeTopModal,
-                this@StackFragment::submitChanges
-            )
-            setHints("List title", "List description")
-        }
-
-
         binding.createNewList.setOnClickListener {
             if (!binding.topModal.isOpen()) {
-                openTodoListEditor(TodoList(title = "", description = "", id = "id-${System.currentTimeMillis()}"), true)//todo
+                openTodoListEditor(TodoList(title = "", description = "", id = "LIST-${System.currentTimeMillis()}"), true)
             }
         }
 
@@ -84,7 +99,7 @@ class StackFragment : Fragment() {
         }
     }
 
-    private fun closeTopModal() {
+    private fun closeTopModal() { logD(2)
         hideKeyboard()
         binding.topModal.collapse()
     }
@@ -109,14 +124,28 @@ class StackFragment : Fragment() {
     fun openTodoListEditor(tl: TodoList, isNew: Boolean) {
         viewModel.listForEdit = tl
         isNewList = isNew
+
         with(binding.topModal) {
+            setupFields(
+                "Title",
+                "Description",
+                this@StackFragment::closeTopModal,
+                this@StackFragment::submitChanges
+            )
+            setHints("List title", "List description")
             setInputValues(tl.title.toString(), tl.description.toString())
+            isVisible = true
             expand()
         }
     }
 
     fun deleteList(todoList: TodoList) {
         areYouSure { viewModel.deleteList(todoList) }
+    }
+
+    private fun saveUsername() { logD(1)
+        closeTopModal()
+        viewModel.saveUserName(binding.topModal.getInputValue1())
     }
 
 }
