@@ -113,7 +113,7 @@ class MainViewModel(
             description = "Description of new Very Much To Do Stacks",
             title = "Test",
             userName = "Dragan",
-            todoList = listOf(
+            todoList = arrayListOf(
                 TodoItem(
                     id = "1-$ts",
                     description = "Description of new Very Much To Do ITEM",

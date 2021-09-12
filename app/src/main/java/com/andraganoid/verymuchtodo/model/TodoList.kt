@@ -4,7 +4,7 @@ data class TodoList(
     var title: String? = "",
     var description: String? = "",
     var completed: Boolean? = false,
-    var todoList: List<TodoItem> = arrayListOf<TodoItem>(),
+    var todoList: ArrayList<TodoItem> = arrayListOf<TodoItem>(),
     var timestamp: Long? = 0,
 //    val user: User? = null,
     var userName: String? = "",

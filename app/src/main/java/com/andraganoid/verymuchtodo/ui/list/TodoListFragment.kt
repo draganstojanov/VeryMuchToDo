@@ -8,17 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
-import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.TodoListFragmentBinding
 import com.andraganoid.verymuchtodo.main.MainViewModel
 import com.andraganoid.verymuchtodo.main.msgDialog.MessageDialogData
 import com.andraganoid.verymuchtodo.model.TodoItem
 import com.andraganoid.verymuchtodo.model.TodoList
 import com.andraganoid.verymuchtodo.state.StackState
-import com.andraganoid.verymuchtodo.util.bottomToast
-import com.andraganoid.verymuchtodo.util.hideKeyboard
-import com.andraganoid.verymuchtodo.util.messageDialog
+import com.andraganoid.verymuchtodo.util.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -30,6 +26,10 @@ class TodoListFragment : Fragment() {
     private val viewModel: MainViewModel by sharedViewModel()
 
     private lateinit var adapter: TodoListAdapter
+
+    private var isNewItem = false
+    private var itemForEdit: TodoItem = TodoItem()
+    private var listForEdit: TodoList = TodoList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = TodoListFragmentBinding.inflate(inflater, container, false)
@@ -54,7 +54,10 @@ class TodoListFragment : Fragment() {
                         is StackState.Stack -> {
                             viewModel.stack = tlState.stack
                             val tList = tlState.stack.filter { tl -> tl!!.id == viewModel.selectedListId }
-                            adapter.todoList = tList[0]!!.todoList
+                            if (tList[0] != null) {
+                                listForEdit = tList[0]!!
+                            }
+                            adapter.todoList = listForEdit.todoList
                         }
                         is StackState.Error -> bottomToast(tlState.errorMsg)
                         else -> {
@@ -64,7 +67,6 @@ class TodoListFragment : Fragment() {
             }
         }
 
-     //   binding.createNewItem.setOnClickListener { openTodoItemEditor(TodoItem()) }
 
         binding.topModal.setupFields(
             "Content",
@@ -73,14 +75,16 @@ class TodoListFragment : Fragment() {
             this::submitChanges
         )
 
+        binding.topModal.setHints("Content", "Description")
+
         binding.createNewItem.setOnClickListener {
-//            if (!binding.topModal.isOpen()) {
-//                openTodoListEditor(TodoList(title = "", description = "", id = "id-${System.currentTimeMillis()}"), true)//todo
-//            }
+            if (!binding.topModal.isOpen()) {
+                openTodoItemEditor(TodoItem(content = "", description = "", id = "id-${System.currentTimeMillis()}"), true)//todo
+            }
         }
 
         binding.clearItems.setOnClickListener {
-         //   viewModel.deleteMultipleList()
+          if(!listForEdit.todoList.filter { ti-> ti.completed }.isNullOrEmpty()){}//todo
         }
     }
 
@@ -92,32 +96,32 @@ class TodoListFragment : Fragment() {
     private fun submitChanges() {
         closeTopModal()
 
-//        listForEdit.apply {
-//            title = binding.topModal.getInputValue1()
-//            description = binding.topModal.getInputValue2()
-//        }
-//
-//        if (isNewList) {
-//            viewModel.addList(listForEdit)
-//        } else {
-//            viewModel.updateList(listForEdit)
-//        }
+        itemForEdit.apply {
+            content = binding.topModal.getInputValue1()
+            description = binding.topModal.getInputValue2()
+        }
+
+
+        logA(itemForEdit)
+        logB(listForEdit)
+        logC(viewModel.stack)
+
+        if (isNewItem) {
+            listForEdit.todoList.add(itemForEdit)
+        }
+        viewModel.updateList(listForEdit)
 
     }
 
-    fun listSelected(id: String) {
-        viewModel.selectedListId = id
-        findNavController().navigate(R.id.todoListFragment)
+    fun checkItem(todoItem: TodoItem) {
+
+        showLongToast(todoItem.completed)
+
+        todoItem.completed = !todoItem.completed
+        viewModel.updateList(listForEdit)
     }
 
-    fun openTodoListEditor(tl: TodoList, isNew: Boolean) {
-//        listForEdit = tl
-//        binding.topModal.setInputValues(tl.title.toString(), tl.description.toString())
-//        binding.topModal.expand()
-//        isNewList = isNew
-    }
-
-    fun deleteList(todoList: TodoList) {
+    fun deleteItem(ti: TodoItem) {
         val data = MessageDialogData(
             title = "Are you sure?",
             //   desc = resources.getText(R.string.set_widget).toString(),
@@ -125,12 +129,21 @@ class TodoListFragment : Fragment() {
             btnLeft = {},
             //   btnLeft = this::showHelp,
             btnRightText = "OK",
-            btnRight = { viewModel.deleteList(todoList) })
+            btnRight = { itemDelete(ti) })
         messageDialog(data)
     }
 
-
-    fun openTodoItemEditor(ti: TodoItem) {
-        //   TodoListEditDialog(ti).show(requireActivity().supportFragmentManager, TodoListEditDialog::class.simpleName)
+    private fun itemDelete(ti: TodoItem) {
+        listForEdit.todoList.remove(ti)
+        viewModel.updateList(listForEdit)
     }
+
+    fun openTodoItemEditor(ti: TodoItem, isNew: Boolean) {
+        itemForEdit = ti
+        binding.topModal.setInputValues(ti.content.toString(), ti.description.toString())
+        binding.topModal.expand()
+        isNewItem = isNew
+    }
+
+
 }
