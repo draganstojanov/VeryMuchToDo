@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -12,12 +13,11 @@ import androidx.navigation.fragment.findNavController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.StackFragmentBinding
 import com.andraganoid.verymuchtodo.main.MainViewModel
-import com.andraganoid.verymuchtodo.main.msgDialog.MessageDialogData
 import com.andraganoid.verymuchtodo.model.TodoList
 import com.andraganoid.verymuchtodo.state.StackState
+import com.andraganoid.verymuchtodo.util.areYouSure
 import com.andraganoid.verymuchtodo.util.bottomToast
 import com.andraganoid.verymuchtodo.util.hideKeyboard
-import com.andraganoid.verymuchtodo.util.messageDialog
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -29,7 +29,6 @@ class StackFragment : Fragment() {
     private val viewModel: MainViewModel by sharedViewModel()
 
     private var isNewList = false
-    private var listForEdit: TodoList = TodoList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = StackFragmentBinding.inflate(inflater, container, false)
@@ -53,6 +52,7 @@ class StackFragment : Fragment() {
                         is StackState.Stack -> {
                             viewModel.stack = tlState.stack
                             adapter.stackList = viewModel.stack
+                            binding.clearList.isVisible = viewModel.checkClearVisibilityStack()
                         }
                         is StackState.Error -> bottomToast(tlState.errorMsg)
                         else -> {
@@ -62,14 +62,16 @@ class StackFragment : Fragment() {
             }
         }
 
-        binding.topModal.setupFields(
-            "Title",
-            "Description",
-            this::closeTopModal,
-            this::submitChanges
-        )
+        with(binding.topModal) {
+            setupFields(
+                "Title",
+                "Description",
+                this@StackFragment::closeTopModal,
+                this@StackFragment::submitChanges
+            )
+            setHints("List title", "List description")
+        }
 
-        binding.topModal.setHints("List title", "List description")
 
         binding.createNewList.setOnClickListener {
             if (!binding.topModal.isOpen()) {
@@ -89,18 +91,14 @@ class StackFragment : Fragment() {
 
     private fun submitChanges() {
         closeTopModal()
-
-        listForEdit.apply {
+        viewModel.listForEdit.apply {
             title = binding.topModal.getInputValue1()
             description = binding.topModal.getInputValue2()
         }
-
         if (isNewList) {
-            viewModel.addList(listForEdit)
-        } else {
-            viewModel.updateList(listForEdit)
+            viewModel.addList()
         }
-
+        viewModel.updateList()
     }
 
     fun listSelected(id: String) {
@@ -109,22 +107,16 @@ class StackFragment : Fragment() {
     }
 
     fun openTodoListEditor(tl: TodoList, isNew: Boolean) {
-        listForEdit = tl
-        binding.topModal.setInputValues(tl.title.toString(), tl.description.toString())
-        binding.topModal.expand()
+        viewModel.listForEdit = tl
         isNewList = isNew
+        with(binding.topModal) {
+            setInputValues(tl.title.toString(), tl.description.toString())
+            expand()
+        }
     }
 
     fun deleteList(todoList: TodoList) {
-        val data = MessageDialogData(
-            title = "Are you sure?",
-            //   desc = resources.getText(R.string.set_widget).toString(),
-            btnLeftText = "Cancel",
-            btnLeft = {},
-            //   btnLeft = this::showHelp,
-            btnRightText = "OK",
-            btnRight = { viewModel.deleteList(todoList) })
-        messageDialog(data)
+        areYouSure { viewModel.deleteList(todoList) }
     }
 
 }

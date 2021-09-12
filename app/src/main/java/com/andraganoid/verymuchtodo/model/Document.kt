@@ -21,7 +21,7 @@ class Document(value: Any?) {
             "description" to todoList.description,
             "completed" to todoList.completed,
             "userName" to todoList.userName,
-            "todoList" to todoList.todoList,
+            "itemList" to todoList.itemList,
             "timestamp" to todoList.timestamp
         )
     }

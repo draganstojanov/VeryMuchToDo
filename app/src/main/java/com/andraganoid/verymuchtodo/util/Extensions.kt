@@ -36,6 +36,20 @@ fun Fragment.messageDialog(data: MessageDialogData) {
     MessageDialog(data).show(requireActivity().supportFragmentManager, MessageDialog::class.simpleName)
 }
 
+fun Fragment.areYouSure(click: () -> Unit) {
+    messageDialog(
+        MessageDialogData(
+            title = "Are you sure?",
+            //   desc = resources.getText(R.string.set_widget).toString(),
+            btnLeftText = "Cancel",
+            btnLeft = {},
+            //   btnLeft = this::showHelp,
+            btnRightText = "OK",
+            btnRight = { click.invoke() })
+    )
+
+}
+
 fun Long.getFormattedDate(): String {
     return if (this > 0) {
         val cal = Calendar.getInstance()

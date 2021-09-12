@@ -16,7 +16,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@id/createNewItem"
             app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/stacks_item" />
+            tools:listitem="@layout/stack_item" />
 
     <TextView
         android:id="@+id/createNewItem"
