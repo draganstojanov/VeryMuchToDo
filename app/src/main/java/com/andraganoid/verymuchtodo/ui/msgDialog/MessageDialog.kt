@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.main.msgDialog
+package com.andraganoid.verymuchtodo.ui.msgDialog
 
 import android.os.Bundle
 import android.view.LayoutInflater

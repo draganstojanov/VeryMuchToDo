@@ -47,7 +47,7 @@
             <EditText
                 android:id="@+id/input_1"
                 style="@style/TopModalEditText"
-                android:maxLength="50" />
+        />
 
             <TextView
                 android:id="@+id/label_2"
@@ -60,8 +60,7 @@
             <EditText
                 android:id="@+id/input_2"
                 style="@style/TopModalEditText"
-                android:hint=" List description"
-                android:maxLength="50" />
+                android:hint=" List description" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

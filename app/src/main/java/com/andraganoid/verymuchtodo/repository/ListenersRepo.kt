@@ -11,11 +11,8 @@ class ListenersRepo(private val firebaseFirestore: FirebaseFirestore) {
 
     private lateinit var todoListListener: ListenerRegistration
     private val stackState: MutableSharedFlow<StackState> = MutableSharedFlow<StackState>(1)
-//private val stackState: MutableLiveData<StackState> = MutableLiveData()
 
    fun getSnapshotState(): MutableSharedFlow<StackState> = stackState
-
-  //  fun  getStackState(): LiveData<StackState> = stackState
 
     fun setFirestoreListeners() {
         todoListListener = firebaseFirestore.collection(COL_LIST)

@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#1379C5</color>
-    <color name="colorPrimaryDark">#12436B</color>
+    <color name="colorPrimary">@color/primMid</color>
+    <color name="colorPrimaryDark">@color/primDark</color>
     <color name="colorAccent">@color/secMid</color>
-    <!--    <color name="colorAccent">#FF6F00</color>-->
 
-    <color name="colorWhite">#ffffff</color>
+    <color name="white">#FFFFFF</color>
 
-    <color name="backgroundColor">#fff</color>
     <color name="primDark">#0F2155</color>
-    <color name="primMid">#2979FF</color>
-    <color name="primLite">#7BCAED</color>
-    <color name="primVeryLite">#B1EAE7</color>
+    <color name="primMid">#134598</color>
+    <color name="primLite">#4C9EC3</color>
+    <color name="primVeryLite">#B2DDF1</color>
 
     <color name="secMid">#FD2851</color>
     <color name="secLite">#F87373</color>
+
+    <color name="backgroundColor">@color/white</color>
+
+    <color name="titleColor">@color/primVeryLite</color>
+    <color name="itemTitleColor">@color/white</color>
+    <color name="itemDescColor">@color/primVeryLite</color>
+    <color name="itemDateColor">@color/primLite</color>
+
+    <color name="inputTextColor">@color/white</color>
+    <color name="inputHintColor">@color/primLite</color>
+
+    <color name="labelTextColor">@color/primLite</color>
+    <color name="buttonTextColor">@color/white</color>
+
+
+    <color name="titleBackColor">@color/primDark</color>
+    <color name="topModalBackColor">@color/primDark</color>
+    <color name="textBackColor">@color/primMid</color>
+    <color name="bottomSheetBackColor">@color/primDark</color>
+    <color name="buttonBackColor">@color/secMid</color>
 
 </resources>

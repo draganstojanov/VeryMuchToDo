@@ -43,7 +43,6 @@ class MainViewModel(
         get() = _userName
 
     init {
-
         _userName.value = prefs.getUserName()
 
         _loaderVisibility.value = true

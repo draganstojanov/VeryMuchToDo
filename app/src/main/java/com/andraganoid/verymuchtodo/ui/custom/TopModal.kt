@@ -2,6 +2,7 @@ package com.andraganoid.verymuchtodo.ui.custom
 
 import android.animation.ValueAnimator
 import android.content.Context
+import android.text.InputFilter
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -26,6 +27,7 @@ class TopModal @JvmOverloads constructor(ctx: Context, attrs: AttributeSet? = nu
 
     fun setupFields(label1: String, label2: String?, cancelClick: (() -> Unit)?, submitClick: () -> Unit) {
         binding.label1.text = label1
+        binding.input1.filters = arrayOf(InputFilter.LengthFilter(if (label2 == null) 20 else 50))
         if (label2 != null) {
             binding.label2.text = label2
         }

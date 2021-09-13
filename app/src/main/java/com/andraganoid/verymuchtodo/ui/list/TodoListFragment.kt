@@ -16,6 +16,7 @@ import com.andraganoid.verymuchtodo.state.StackState
 import com.andraganoid.verymuchtodo.util.areYouSure
 import com.andraganoid.verymuchtodo.util.bottomToast
 import com.andraganoid.verymuchtodo.util.hideKeyboard
+import com.andraganoid.verymuchtodo.util.logB
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -42,6 +43,14 @@ class TodoListFragment : Fragment() {
     }
 
     private fun setup() {
+
+        val ssset = mutableSetOf<String>()
+
+        ssset.add("BABA")
+        ssset.add("deda")
+
+
+        logB(ssset.filter { name -> name.contains("ab") })
 
         adapter = TodoListAdapter(this)
         binding.todoListRecView.adapter = adapter

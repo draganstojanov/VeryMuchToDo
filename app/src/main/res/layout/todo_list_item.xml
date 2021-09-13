@@ -16,7 +16,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/bar_height"
+        android:layout_height="@dimen/barHeight"
         android:layout_marginTop="8dp"
         android:background="@color/primMid"
         android:padding="4dp">
@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CH"
-            android:textColor="@{todoItem.completed?@color/secMid:@color/colorWhite}"
+            android:textColor="@{todoItem.completed?@color/secMid:@color/white}"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

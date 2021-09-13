@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.main.msgDialog
+package com.andraganoid.verymuchtodo.ui.msgDialog
 
 data class MessageDialogData(
         val title: String = "",

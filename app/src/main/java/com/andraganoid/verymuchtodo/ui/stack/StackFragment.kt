@@ -15,10 +15,7 @@ import com.andraganoid.verymuchtodo.databinding.StackFragmentBinding
 import com.andraganoid.verymuchtodo.main.MainViewModel
 import com.andraganoid.verymuchtodo.model.TodoList
 import com.andraganoid.verymuchtodo.state.StackState
-import com.andraganoid.verymuchtodo.util.areYouSure
-import com.andraganoid.verymuchtodo.util.bottomToast
-import com.andraganoid.verymuchtodo.util.hideKeyboard
-import com.andraganoid.verymuchtodo.util.logD
+import com.andraganoid.verymuchtodo.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
@@ -46,6 +43,7 @@ class StackFragment : Fragment() {
     }
 
     private fun setup() {
+        main.setTitle("TODO")
         viewModel.closeLoader()
 
         viewModel.userName.observe(viewLifecycleOwner, { userName ->

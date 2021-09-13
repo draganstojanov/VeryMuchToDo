@@ -7,7 +7,6 @@ import timber.log.Timber
 class TodoReleaseTree : Timber.Tree() {
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         if (priority == Log.ERROR && t != null) {
-         //   FirebaseCrashlytics.getInstance().log(message)
             FirebaseCrashlytics.getInstance().recordException(t)
         }
     }
