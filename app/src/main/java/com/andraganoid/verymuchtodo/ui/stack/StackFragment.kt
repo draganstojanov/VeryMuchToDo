@@ -57,7 +57,7 @@ class StackFragment : Fragment() {
                             "Your name",
                             null,
                             null,
-                             this@StackFragment::saveUsername
+                            this@StackFragment::saveUsername
                         )
                         setHints("Your name", null)
                         expand()
@@ -97,7 +97,8 @@ class StackFragment : Fragment() {
         }
     }
 
-    private fun closeTopModal() { logD(2)
+    private fun closeTopModal() {
+        logD(2)
         hideKeyboard()
         binding.topModal.collapse()
     }
@@ -138,10 +139,18 @@ class StackFragment : Fragment() {
     }
 
     fun deleteList(todoList: TodoList) {
-        areYouSure { viewModel.deleteList(todoList) }
+        if (todoList.completed) {
+            areYouSure { viewModel.deleteList(todoList) }
+        } else if (todoList.userName.equals(viewModel.userName.value)) {
+            areYouSure { viewModel.deleteList(todoList) }
+        } else {
+            bottomToast("Only poster can delete uncompleted list")
+        }
     }
 
-    private fun saveUsername() { logD(1)
+
+    private fun saveUsername() {
+        logD(1)
         closeTopModal()
         viewModel.saveUserName(binding.topModal.getInputValue1())
     }

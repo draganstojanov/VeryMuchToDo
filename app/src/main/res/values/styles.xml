@@ -23,9 +23,28 @@
         <item name="android:background">@color/titleBackColor</item>
     </style>
 
+    <style name="ItemText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+    </style>
 
+    <style name="ItemTitleText" parent="ItemText">
+        <item name="android:textSize">@dimen/itemTitleSize</item>
+        <item name="android:textColor">@color/itemTitleColor</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
+    <style name="ItemDescText" parent="ItemText">
+        <item name="android:textSize">@dimen/itemDescSize</item>
+        <item name="android:textColor">@color/itemDescColor</item>
+    </style>
 
+    <style name="ItemDateText" parent="ItemText">
+        <item name="android:textSize">@dimen/itemDateSize</item>
+        <item name="android:textColor">@color/itemDateColor</item>
+    </style>
 
 
     <style name="AuthEditText">

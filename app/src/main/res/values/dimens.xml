@@ -7,7 +7,7 @@
     <dimen name="barHeight">56dp</dimen>
     <dimen name="minBarHeight">56dp</dimen>
 
-    <dimen name="itemTitleSize">16sp</dimen>
+    <dimen name="itemTitleSize">18sp</dimen>
     <dimen name="itemDescSize">14sp</dimen>
     <dimen name="itemDateSize">12sp</dimen>
 

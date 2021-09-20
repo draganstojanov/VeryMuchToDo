@@ -27,12 +27,12 @@ class StackAdapter(private val fragment: StackFragment) : RecyclerView.Adapter<S
         fun bind(todoList: TodoList?) {
             binding.todoList = todoList
             binding.root.setOnClickListener { fragment.listSelected(todoList!!.id) }
-            binding.stackEdit.setOnClickListener {
+            binding.stackEditIcon.setOnClickListener {
                 if (todoList != null) {
-                    fragment.openTodoListEditor(todoList,false)
+                    fragment.openTodoListEditor(todoList, false)
                 }
             }
-            binding.stackDelete.setOnClickListener {
+            binding.stackCheckDeleteIcon.setOnClickListener {
                 if (todoList != null) {
                     fragment.deleteList(todoList)
                 }

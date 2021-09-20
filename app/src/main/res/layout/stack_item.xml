@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -11,72 +10,61 @@
         <variable
             name="todoList"
             type="com.andraganoid.verymuchtodo.model.TodoList" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/barHeight"
-        android:layout_marginTop="8dp"
-        android:background="@color/primMid"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/text_background"
+        android:minHeight="@dimen/barHeight"
         android:padding="4dp">
 
-        <TextView
-            android:id="@+id/listCompleted"
+        <ImageView
+            android:id="@+id/stackCheckDeleteIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CH"
-            android:textColor="@{todoList.completed?@color/secMid:@color/white}"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:layout_marginStart="4dp"
+            android:src="@{todoList.completed?@drawable/ic_check_circle:@drawable/ic_delete}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/stackEdit"
+        <ImageView
+            android:id="@+id/stackEditIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="EDIT"
-            android:textColor="@color/secLite"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:layout_marginEnd="4dp"
+            android:src="@drawable/ic_edit"
+            android:visibility="@{todoList.completed?View.INVISIBLE:View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/stackDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DEL"
-            android:textColor="@color/secLite"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:id="@+id/stackTitle"
+            style="@style/ItemTitleText"
+            android:text="@{todoList.title}"
+            app:layout_constraintEnd_toStartOf="@id/stackEditIcon"
+            app:layout_constraintStart_toEndOf="@+id/stackCheckDeleteIcon"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/stackTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{todoList.title}"
-            android:textColor="@color/backgroundColor"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/listCompleted"
-            tools:text="TITLE" />
+            android:id="@+id/stackDescription"
+            style="@style/ItemDescText"
+            android:text="@{todoList.description}"
+            app:layout_constraintEnd_toStartOf="@id/stackEditIcon"
+            app:layout_constraintStart_toEndOf="@+id/stackCheckDeleteIcon"
+            app:layout_constraintTop_toBottomOf="@id/stackTitle" />
 
         <TextView
             android:id="@+id/stackUserDate"
+            style="@style/ItemDateText"
             userAndDate="@{todoList}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/backgroundColor"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/listCompleted"
-            tools:text="user and date" />
+            app:layout_constraintEnd_toStartOf="@id/stackEditIcon"
+            app:layout_constraintStart_toEndOf="@+id/stackCheckDeleteIcon"
+            app:layout_constraintTop_toBottomOf="@id/stackDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

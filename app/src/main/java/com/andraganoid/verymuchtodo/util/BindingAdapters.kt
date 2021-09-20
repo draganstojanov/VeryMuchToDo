@@ -16,13 +16,13 @@ fun messageDialog(tv: TextView, txt: String) {
 
 @BindingAdapter("userAndDate")
 fun userAndDate(tv: TextView, todoList: TodoList?) {
-    val txt = "${{ todoList?.userName }}, ${todoList?.timestamp?.getFormattedDate()}"
+    val txt = "${ todoList?.userName}, ${todoList?.timestamp?.getFormattedDate()}"
     tv.text = txt
 }
 
 @BindingAdapter("userAndDate")
 fun userAndDate(tv: TextView, todoItem: TodoItem?) {
-    val txt = "${{ todoItem?.userName }}, ${todoItem?.timestamp?.getFormattedDate()}"
+    val txt = "${ todoItem?.userName }, ${todoItem?.timestamp?.getFormattedDate()}"
     tv.text = txt
 }
 
