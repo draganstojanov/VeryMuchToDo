@@ -31,7 +31,11 @@ class TodoListFragment : Fragment() {
 
     private var isNewItem = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = TodoListFragmentBinding.inflate(inflater, container, false)
         setup()
         return binding.root
@@ -61,7 +65,8 @@ class TodoListFragment : Fragment() {
                     when (tlState) {
                         is StackState.Stack -> {
                             viewModel.stack = tlState.stack
-                            val tList = tlState.stack.filter { tl -> tl!!.id == viewModel.selectedListId }
+                            val tList =
+                                tlState.stack.filter { tl -> tl!!.id == viewModel.selectedListId }
                             if (tList[0] != null) {
                                 viewModel.listForEdit = tList[0]!!
                             }
@@ -89,7 +94,13 @@ class TodoListFragment : Fragment() {
 
         binding.createNewItem.setOnClickListener {
             if (!binding.topModal.isOpen()) {
-                openTodoItemEditor(TodoItem(content = "", description = "", id = "ITEM-${System.currentTimeMillis()}"), true)
+                openTodoItemEditor(
+                    TodoItem(
+                        content = "",
+                        description = "",
+                        id = "ITEM-${System.currentTimeMillis()}"
+                    ), true
+                )
             }
         }
 
@@ -105,14 +116,17 @@ class TodoListFragment : Fragment() {
 
     private fun submitChanges() {
         closeTopModal()
-        viewModel.itemForEdit.apply {
-            content = binding.topModal.getInputValue1()
-            description = binding.topModal.getInputValue2()
+        val content = binding.topModal.getInputValue1()
+        if (content.isNotEmpty()) {
+            viewModel.itemForEdit.apply {
+                this.content = content
+                description = binding.topModal.getInputValue2()
+            }
+            if (isNewItem) {
+                viewModel.listForEdit.itemList.add(viewModel.itemForEdit)
+            }
+            viewModel.updateList()
         }
-        if (isNewItem) {
-            viewModel.listForEdit.itemList.add(viewModel.itemForEdit)
-        }
-        viewModel.updateList()
     }
 
     fun checkItem(todoItem: TodoItem) {

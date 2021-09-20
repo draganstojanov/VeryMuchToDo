@@ -31,7 +31,11 @@ class StackFragment : Fragment() {
 
     private var isNewList = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = StackFragmentBinding.inflate(inflater, container, false)
         setup()
         return binding.root
@@ -88,7 +92,13 @@ class StackFragment : Fragment() {
 
         binding.createNewList.setOnClickListener {
             if (!binding.topModal.isOpen()) {
-                openTodoListEditor(TodoList(title = "", description = "", id = "LIST-${System.currentTimeMillis()}"), true)
+                openTodoListEditor(
+                    TodoList(
+                        title = "",
+                        description = "",
+                        id = "LIST-${System.currentTimeMillis()}"
+                    ), true
+                )
             }
         }
 
@@ -105,14 +115,17 @@ class StackFragment : Fragment() {
 
     private fun submitChanges() {
         closeTopModal()
-        viewModel.listForEdit.apply {
-            title = binding.topModal.getInputValue1()
-            description = binding.topModal.getInputValue2()
+        val title = binding.topModal.getInputValue1()
+        if (title.isNotEmpty()) {
+            viewModel.listForEdit.apply {
+                this.title = title
+                description = binding.topModal.getInputValue2()
+            }
+            if (isNewList) {
+                viewModel.addList()
+            }
+            viewModel.updateList()
         }
-        if (isNewList) {
-            viewModel.addList()
-        }
-        viewModel.updateList()
     }
 
     fun listSelected(id: String) {
