@@ -121,9 +121,15 @@ class TodoListFragment : Fragment() {
     }
 
     fun deleteItem(ti: TodoItem) {
-        areYouSure { viewModel.deleteItem(ti) }
-    }
 
+        if (!ti.completed) {
+            if (ti.userName.equals(viewModel.userName.value)) {
+                areYouSure { viewModel.deleteItem(ti) }
+            } else {
+                bottomToast("Only poster can delete uncompleted list")
+            }
+        }
+    }
 
     fun openTodoItemEditor(ti: TodoItem, isNew: Boolean) {
         viewModel.itemForEdit = ti

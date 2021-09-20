@@ -26,9 +26,9 @@ class TodoListAdapter(private val fragment: TodoListFragment) : RecyclerView.Ada
     inner class TodoListHolder(private val binding: TodoListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(todoItem: TodoItem) {
             binding.todoItem = todoItem
-            binding.todoItemEdit.setOnClickListener { fragment.openTodoItemEditor(todoItem, false) }
-            binding.todoItemDelete.setOnClickListener { fragment.deleteItem(todoItem) }
-            binding.checkItem.setOnClickListener { fragment.checkItem(todoItem) }
+            binding.listEditIcon.setOnClickListener { fragment.openTodoItemEditor(todoItem, false) }
+            binding.listCheckDeleteIcon.setOnClickListener { fragment.deleteItem(todoItem) }
+            binding.root.setOnClickListener { fragment.checkItem(todoItem) }
             binding.executePendingBindings()
         }
     }
