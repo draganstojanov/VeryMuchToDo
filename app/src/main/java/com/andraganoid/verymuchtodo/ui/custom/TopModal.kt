@@ -42,8 +42,7 @@ class TopModal @JvmOverloads constructor(ctx: Context, attrs: AttributeSet? = nu
 
     fun setHints(hint1: String, hint2: String?) {
         binding.input1.hint = hint1
-        if (hint2 != null)
-            binding.input2.hint = hint2
+        if (hint2 != null) binding.input2.hint = hint2
     }
 
     fun setInputValues(input1: String, input2: String) {

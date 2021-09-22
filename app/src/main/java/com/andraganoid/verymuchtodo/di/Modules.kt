@@ -1,41 +1,33 @@
 package com.andraganoid.verymuchtodo.di
 
 import com.andraganoid.verymuchtodo.main.MainViewModel
-import com.andraganoid.verymuchtodo.repository.AuthRepo
-import com.andraganoid.verymuchtodo.repository.FirestoreRepo
-import com.andraganoid.verymuchtodo.repository.ListenersRepo
+import com.andraganoid.verymuchtodo.repository.AuthRepository
+import com.andraganoid.verymuchtodo.repository.FirestoreRepository
+import com.andraganoid.verymuchtodo.repository.ListenersRepository
 import com.andraganoid.verymuchtodo.util.Prefs
+import com.andraganoid.verymuchtodo.util.ResConst
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.scope.get
 import org.koin.dsl.module
 
 
 object Modules {
 
     private val viewModelModule = module {
-        viewModel { MainViewModel(get(), get(), get(),get()) }
+        viewModel { MainViewModel(get(), get(), get(), get(), get()) }
     }
 
     private val singleModule = module {
         single { Prefs(context = androidContext()) }
-        single { AuthRepo(firebaseAuth = FirebaseAuth.getInstance()) }
-        single { FirestoreRepo(firebaseFirestore = FirebaseFirestore.getInstance()) }
-        single { ListenersRepo(firebaseFirestore = FirebaseFirestore.getInstance()) }
+        single { AuthRepository(firebaseAuth = FirebaseAuth.getInstance()) }
+        single { FirestoreRepository(firebaseFirestore = FirebaseFirestore.getInstance(), get()) }
+        single { ListenersRepository(firebaseFirestore = FirebaseFirestore.getInstance()) }
+        single { ResConst(context = androidContext()) }
     }
 
-    private val factoryModule = module {
-        // factory { ListenersRepository(FirebaseFirestore.getInstance(), get()) }
-    }
-
-
-    val appModule =
-        listOf(
-            viewModelModule,
-            singleModule
-        )
+    val appModule = listOf(viewModelModule, singleModule)
 
 }
 

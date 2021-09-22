@@ -2,6 +2,7 @@ package com.andraganoid.verymuchtodo.util
 
 import android.text.format.DateFormat
 import androidx.fragment.app.Fragment
+import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.main.MainActivity
 import com.andraganoid.verymuchtodo.ui.msgDialog.MessageDialogData
 import java.util.*
@@ -12,10 +13,10 @@ val Fragment.main: MainActivity
 fun Fragment.areYouSure(click: () -> Unit) {
     messageDialog(
         MessageDialogData(
-            title = "Are you sure?",
-            btnLeftText = "Cancel",
+            title = getString(R.string.are_you_sure),
+            btnLeftText = getString(R.string.cancel),
             btnLeft = {},
-            btnRightText = "OK",
+            btnRightText = getString(R.string.ok),
             btnRight = { click.invoke() })
     )
 }

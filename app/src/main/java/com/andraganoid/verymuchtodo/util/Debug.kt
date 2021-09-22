@@ -23,11 +23,3 @@ fun logD(msg: Any) {
 fun logX(tag:Any,msg: Any) {
     Log.d("DEBUG-$tag", msg.toString())
 }
-
-fun Fragment.showToast(msg: Any?) {
-    Toast.makeText(activity, msg.toString(), Toast.LENGTH_SHORT).show()
-}
-
-fun Fragment.showLongToast(msg: Any?) {
-    Toast.makeText(activity, msg.toString(), Toast.LENGTH_LONG).show()
-}

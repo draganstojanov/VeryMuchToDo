@@ -8,5 +8,18 @@ data class TodoList(
     var userName: String? = "",
     var id: String = "",
 ) {
-    val completed: Boolean get() = itemList.isNotEmpty()
+    val completed: Boolean
+        get() {
+            if (itemList.isEmpty()) {
+                return true
+            } else {
+                itemList.forEach {
+                    if (!it.completed) {
+                        return false
+                    }
+                }
+            }
+            return true
+        }
+
 }

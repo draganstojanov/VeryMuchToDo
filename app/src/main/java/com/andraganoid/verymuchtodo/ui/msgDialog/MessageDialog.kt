@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.andraganoid.verymuchtodo.databinding.MessageDialogBinding
+import com.andraganoid.verymuchtodo.util.MESSAGE_DURATION
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.util.*
 import kotlin.concurrent.timerTask
@@ -25,7 +26,7 @@ class MessageDialog(private val message: MessageDialogData) : BottomSheetDialogF
             isVisible = message.toast.isNotEmpty()
             text = message.toast
             if (message.toast.isNotEmpty()) {
-                Timer().schedule(timerTask { dismiss() }, 3000)
+                Timer().schedule(timerTask { dismiss() }, MESSAGE_DURATION)
             }
         }
 

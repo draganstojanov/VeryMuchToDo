@@ -7,22 +7,21 @@ import androidx.lifecycle.viewModelScope
 import com.andraganoid.verymuchtodo.model.Document
 import com.andraganoid.verymuchtodo.model.TodoItem
 import com.andraganoid.verymuchtodo.model.TodoList
-import com.andraganoid.verymuchtodo.repository.AuthRepo
-import com.andraganoid.verymuchtodo.repository.FirestoreRepo
-import com.andraganoid.verymuchtodo.repository.ListenersRepo
+import com.andraganoid.verymuchtodo.repository.AuthRepository
+import com.andraganoid.verymuchtodo.repository.FirestoreRepository
+import com.andraganoid.verymuchtodo.repository.ListenersRepository
 import com.andraganoid.verymuchtodo.state.StackState
-import com.andraganoid.verymuchtodo.util.ERROR_PLACEHOLDER
-import com.andraganoid.verymuchtodo.util.Prefs
-import com.andraganoid.verymuchtodo.util.logA
-import com.andraganoid.verymuchtodo.util.logD
+import com.andraganoid.verymuchtodo.util.*
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class MainViewModel(
-    private val authRepo: AuthRepo,
-    private val firestoreRepo: FirestoreRepo,
-    private val listenersRepo: ListenersRepo,
-    private val prefs: Prefs
+    private val authRepository: AuthRepository,
+    private val firestoreRepository: FirestoreRepository,
+    private val listenersRepository: ListenersRepository,
+    private val prefs: Prefs,
+    private val resConst: ResConst
 ) : ViewModel() {
 
     var stack: ArrayList<TodoList?> = arrayListOf()
@@ -47,25 +46,30 @@ class MainViewModel(
 
         _loaderVisibility.value = true
         viewModelScope.launch {
-            if (authRepo.isLoggedIn()) {
-                listenersRepo.setFirestoreListeners()
+            if (authRepository.isLoggedIn()) {
+                listenersRepository.setFirestoreListeners()
             } else {
-                authRepo.login().addOnCompleteListener { task ->
+                authRepository.login().addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        listenersRepo.setFirestoreListeners()
+                        listenersRepository.setFirestoreListeners()
                     } else if (task.isCanceled) {
-                        showMessage("CANCELLED")//TODO
+                        showMessage(resConst.CANCELLED)
                     } else {
                         if (task.exception != null) {
-                            showMessage(ERROR_PLACEHOLDER + task.exception!!.message)//TODO
+                            showMessage("${resConst.ERROR_PLACEHOLDER}: ${task.exception!!.message}")
                         }
                     }
                 }
             }
         }
+        getDocumentError()
     }
 
-    fun getSnapshotState(): SharedFlow<StackState> = listenersRepo.getSnapshotState()
+    fun getSnapshotState(): SharedFlow<StackState> = listenersRepository.stackState
+
+    private fun getDocumentError() {
+        viewModelScope.launch { firestoreRepository.documentState.collect { error -> showMessage(error) } }
+    }
 
     fun closeLoader() {
         _loaderVisibility.value = false
@@ -77,7 +81,7 @@ class MainViewModel(
     }
 
     override fun onCleared() {
-        listenersRepo.remove()
+        listenersRepository.remove()
         super.onCleared()
     }
 
@@ -91,13 +95,33 @@ class MainViewModel(
         updateList()
     }
 
+    fun updateItem(content: String, description: String, isNewItem: Boolean) {
+        itemForEdit.apply {
+            this.content = content
+            this.description = description
+            timestamp = System.currentTimeMillis()
+            id = "ITEM-$timestamp}"
+            this.userName = this@MainViewModel.userName.value
+        }
+        if (isNewItem) {
+            listForEdit.itemList.add(itemForEdit)
+        }
+        updateList()
+    }
 
-    fun addList() {
+    fun changeList(title: String, description: String, isNewList: Boolean) {
         listForEdit.apply {
+            this.title = title
+            this.description = description
             userName = this@MainViewModel.userName.value
             timestamp = System.currentTimeMillis()
         }
-        viewModelScope.launch { firestoreRepo.addDocument(Document(listForEdit)) }
+        if (isNewList) {
+            listForEdit.id = "LIST-${listForEdit.timestamp}"
+            viewModelScope.launch { firestoreRepository.addDocument(Document(listForEdit)) }
+        } else {
+            viewModelScope.launch { firestoreRepository.updateDocument(Document(listForEdit)) }
+        }
     }
 
     fun updateList() {
@@ -105,40 +129,20 @@ class MainViewModel(
             userName = this@MainViewModel.userName.value
             timestamp = System.currentTimeMillis()
         }
-
-//        todoList.completed = true
-//        todoList.itemList.forEach { todoItem ->
-//            if (!todoItem.completed) {
-//                todoList.completed = false
-//            }
-//        }
-
-        viewModelScope.launch { firestoreRepo.updateDocument(Document(listForEdit)) }
+        viewModelScope.launch { firestoreRepository.updateDocument(Document(listForEdit)) }
     }
 
     fun deleteList(todoList: TodoList) {
-        viewModelScope.launch { firestoreRepo.deleteDocument(Document(todoList)) }
+        viewModelScope.launch { firestoreRepository.deleteDocument(Document(todoList)) }
     }
 
     fun deleteMultipleList() {
-
-//        stack.filter { todoList -> todoList?.completed == true }.also {
-//            if (it.isNullOrEmpty()) {
-//                val documentList = arrayListOf<Document>()
-//                it.forEach { todoList ->
-//                    documentList.add(Document(todoList))
-//                }
-//                viewModelScope.launch { firestoreRepo.deleteMultipleDocument(documentList) }
-//            }
-//        }
-
-
         stack.removeAll { todoList ->
             todoList?.completed == true
         }
         val documentList = arrayListOf<Document>()
         stack.forEach { todoList -> documentList.add(Document(todoList)) }
-        viewModelScope.launch { firestoreRepo.deleteMultipleDocument(documentList) }
+        viewModelScope.launch { firestoreRepository.deleteMultipleDocument(documentList) }
     }
 
     fun checkClearVisibilityStack(): Boolean {
@@ -151,8 +155,8 @@ class MainViewModel(
     }
 
     fun checkClearVisibilityList(): Boolean {
-        listForEdit.itemList.forEach { il ->
-            if (il.completed) {
+        listForEdit.itemList.forEach { ti ->
+            if (ti.completed) {
                 return true
             }
         }
@@ -160,99 +164,9 @@ class MainViewModel(
     }
 
     fun saveUserName(name: String) {
-        logD(3)
         prefs.saveUserName(name)
         _userName.value = name
     }
-
-
-    fun addListTest() {//TODO TEST
-        val ts = System.currentTimeMillis()
-        val test = TodoList(
-            timestamp = ts,
-            id = ts.toString(),
-            description = "Description of new Very Much To Do Stacks",
-            title = "Test",
-            userName = "Dragan",
-            itemList = arrayListOf(
-                TodoItem(
-                    id = "1-$ts",
-                    description = "Description of new Very Much To Do ITEM",
-                    completed = false,
-                    content = "Test item 1",
-                    timestamp = ts,
-                    userName = "Dragan"
-                ),
-                TodoItem(
-                    id = "2-$ts",
-                    description = "Description of new Very Much To Do ITEM",
-                    completed = false,
-                    content = "Test item 2",
-                    timestamp = ts,
-                    userName = "Dragan"
-                ),
-                TodoItem(
-                    id = "3-$ts",
-                    description = "Description of new Very Much To Do ITEM",
-                    completed = false,
-                    content = "Test item 3",
-                    timestamp = ts,
-                    userName = "Dragan"
-                ),
-                TodoItem(
-                    id = "4-$ts",
-                    description = "Description of new Very Much To Do ITEM",
-                    completed = false,
-                    content = "Test item 4",
-                    timestamp = ts,
-                    userName = "Dragan"
-                ),
-            )
-        )
-
-        viewModelScope.launch { firestoreRepo.addDocument(Document(test)) }
-    }
-
-
-    fun updateListTest(todoList: TodoList) {//TODO TEST
-        val ts = System.currentTimeMillis()
-
-        todoList.timestamp = ts
-        todoList.userName = "ddeeed"
-        todoList.title = "wwewwewewewewewe"
-
-        todoList.itemList[0].timestamp = ts
-        todoList.itemList[0].userName = "eee"
-
-        logA(todoList)
-
-//        val test = TodoList(
-//            timestamp = ts,
-//            id = ts.toString(),
-//            completed = false,
-//            description = "Description of new Very Much To Do Stacks",
-//            title = "Test",
-//            userName = "Dragan",
-//            todoList = listOf(
-//                TodoItem(
-//                    id = ts.toString(),
-//                    description = "Description of new Very Much To Do ITEM",
-//                    completed = false,
-//                    content = "Test item",
-//                    timestamp = ts,
-//                    userName = "Dragan"
-//                )
-//            )
-//        )
-
-        viewModelScope.launch { firestoreRepo.addDocument(Document(todoList)) }
-    }
-
-
-//    fun setSelectedListId(id: String) {
-//        _selectedListId.value = id
-//    }
-
 
 }
 

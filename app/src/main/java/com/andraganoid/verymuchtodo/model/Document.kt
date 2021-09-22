@@ -1,6 +1,6 @@
 package com.andraganoid.verymuchtodo.model
 
-import com.andraganoid.verymuchtodo.util.COL_LIST
+import com.andraganoid.verymuchtodo.util.*
 
 class Document(value: Any?) {
 
@@ -16,15 +16,14 @@ class Document(value: Any?) {
         collection = COL_LIST
         name = todoList.id
         values = mapOf(
-            "title" to todoList.title,
-            "id" to todoList.id,
-            "description" to todoList.description,
-            "completed" to todoList.completed,
-            "userName" to todoList.userName,
-            "itemList" to todoList.itemList,
-            "timestamp" to todoList.timestamp
+            KEY_TITLE to todoList.title,
+            KEY_ID to todoList.id,
+            KEY_DESCRIPTION to todoList.description,
+            KEY_COMPLETED to todoList.completed,
+            KEY_USER_NAME to todoList.userName,
+            KEY_ITEM_LIST to todoList.itemList,
+            KEY_TIMESTAMP to todoList.timestamp
         )
     }
-
 
 }

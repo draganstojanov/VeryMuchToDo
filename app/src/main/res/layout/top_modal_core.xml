@@ -46,8 +46,7 @@
 
             <EditText
                 android:id="@+id/input_1"
-                style="@style/TopModalEditText"
-        />
+                style="@style/TopModalEditText" />
 
             <TextView
                 android:id="@+id/label_2"

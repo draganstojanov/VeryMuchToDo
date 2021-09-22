@@ -9,4 +9,19 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="main_frag_label">MainFragment</string>
+
+
+
+
+    <string name="cancelled">Cancelled</string>
+    <string name="document_error">Document error</string>
+    <string name="content">COntent</string>
+    <string name="description">Description</string>
+    <string name="only_owner">Only owner can delete uncompleted list</string>
+    <string name="error">ERROR</string>
+    <string name="todo">To Do</string>
+    <string name="your_name">Your name</string>
+    <string name="title">Title</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="ok">OK</string>
 </resources>

@@ -31,11 +31,7 @@ class StackFragment : Fragment() {
 
     private var isNewList = false
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = StackFragmentBinding.inflate(inflater, container, false)
         setup()
         return binding.root
@@ -47,7 +43,7 @@ class StackFragment : Fragment() {
     }
 
     private fun setup() {
-        main.setTitle("TODO")
+        main.showTitle(getString(R.string.todo))
         viewModel.closeLoader()
 
         viewModel.userName.observe(viewLifecycleOwner, { userName ->
@@ -58,12 +54,12 @@ class StackFragment : Fragment() {
                     delay(1000)
                     with(binding.topModal) {
                         setupFields(
-                            "Your name",
+                            getString(R.string.your_name),
                             null,
                             null,
                             this@StackFragment::saveUsername
                         )
-                        setHints("Your name", null)
+                        setHints(getString(R.string.your_name), null)
                         expand()
                     }
                 }
@@ -92,13 +88,7 @@ class StackFragment : Fragment() {
 
         binding.createNewList.setOnClickListener {
             if (!binding.topModal.isOpen()) {
-                openTodoListEditor(
-                    TodoList(
-                        title = "",
-                        description = "",
-                        id = "LIST-${System.currentTimeMillis()}"
-                    ), true
-                )
+                openTodoListEditor(TodoList(), true)
             }
         }
 
@@ -114,18 +104,11 @@ class StackFragment : Fragment() {
     }
 
     private fun submitChanges() {
-        closeTopModal()
         val title = binding.topModal.getInputValue1()
         if (title.isNotEmpty()) {
-            viewModel.listForEdit.apply {
-                this.title = title
-                description = binding.topModal.getInputValue2()
-            }
-            if (isNewList) {
-                viewModel.addList()
-            }
-            viewModel.updateList()
+            viewModel.changeList(title, binding.topModal.getInputValue2(), isNewList)
         }
+        closeTopModal()
     }
 
     fun listSelected(id: String) {
@@ -139,15 +122,17 @@ class StackFragment : Fragment() {
 
         with(binding.topModal) {
             setupFields(
-                "Title",
-                "Description",
+                getString(R.string.title),
+                getString(R.string.description),
                 this@StackFragment::closeTopModal,
                 this@StackFragment::submitChanges
             )
-            setHints("List title", "List description")
+            setHints(getString(R.string.title), getString(R.string.description))
             setInputValues(tl.title.toString(), tl.description.toString())
             isVisible = true
             expand()
+            binding.input1.requestFocus()
+            showKeyboard()
         }
     }
 
@@ -157,13 +142,12 @@ class StackFragment : Fragment() {
         } else if (todoList.userName.equals(viewModel.userName.value)) {
             areYouSure { viewModel.deleteList(todoList) }
         } else {
-            bottomToast("Only poster can delete uncompleted list")
+            bottomToast(getString(R.string.only_owner))
         }
     }
 
 
     private fun saveUsername() {
-        logD(1)
         closeTopModal()
         viewModel.saveUserName(binding.topModal.getInputValue1())
     }

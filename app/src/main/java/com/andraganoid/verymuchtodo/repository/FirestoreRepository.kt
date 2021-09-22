@@ -2,17 +2,20 @@ package com.andraganoid.verymuchtodo.repository
 
 
 import com.andraganoid.verymuchtodo.model.Document
+import com.andraganoid.verymuchtodo.util.ResConst
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.flow.MutableSharedFlow
 
-class FirestoreRepo(private val firebaseFirestore: FirebaseFirestore) {
+class FirestoreRepository(private val firebaseFirestore: FirebaseFirestore, private val resConst: ResConst) {
 
-    //TODO add failed listener
+    val documentState: MutableSharedFlow<String> = MutableSharedFlow<String>(1)
 
     fun addDocument(document: Document) {
         firebaseFirestore
             .collection(document.collection)
             .document(document.name)
             .set(document.values)
+            .addOnFailureListener { exc -> showErrorMsg(exc) }
     }
 
     fun deleteDocument(document: Document) {
@@ -20,6 +23,7 @@ class FirestoreRepo(private val firebaseFirestore: FirebaseFirestore) {
             .collection(document.collection)
             .document(document.name)
             .delete()
+            .addOnFailureListener { exc -> showErrorMsg(exc) }
     }
 
     fun updateDocument(document: Document) {
@@ -27,6 +31,7 @@ class FirestoreRepo(private val firebaseFirestore: FirebaseFirestore) {
             .collection(document.collection)
             .document(document.name)
             .update(document.values)
+            .addOnFailureListener { exc -> showErrorMsg(exc) }
     }
 
     fun deleteMultipleDocument(documents: List<Document>) {
@@ -38,6 +43,10 @@ class FirestoreRepo(private val firebaseFirestore: FirebaseFirestore) {
                         .document(document.name)
                 )
             }
-        }
+        }.addOnFailureListener { exc -> showErrorMsg(exc) }
+    }
+
+    private fun showErrorMsg(exc: Exception) {
+        documentState.tryEmit("${resConst.DOCUMENT_ERROR}: ${exc.localizedMessage}")
     }
 }

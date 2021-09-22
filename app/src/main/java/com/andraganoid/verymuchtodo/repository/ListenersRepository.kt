@@ -7,12 +7,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import kotlinx.coroutines.flow.MutableSharedFlow
 
-class ListenersRepo(private val firebaseFirestore: FirebaseFirestore) {
+class ListenersRepository(private val firebaseFirestore: FirebaseFirestore) {
 
     private lateinit var todoListListener: ListenerRegistration
-    private val stackState: MutableSharedFlow<StackState> = MutableSharedFlow<StackState>(1)
-
-   fun getSnapshotState(): MutableSharedFlow<StackState> = stackState
+    val stackState: MutableSharedFlow<StackState> = MutableSharedFlow<StackState>(1)
 
     fun setFirestoreListeners() {
         todoListListener = firebaseFirestore.collection(COL_LIST)
@@ -24,9 +22,8 @@ class ListenersRepo(private val firebaseFirestore: FirebaseFirestore) {
                     }
                     stackState.tryEmit(StackState.Stack(todoList))
                 }
-
                 if (exc != null) {
-                    stackState.tryEmit(StackState.Error(exc.message))
+                    stackState.tryEmit(StackState.Error(exc.localizedMessage))
                 }
             }
     }

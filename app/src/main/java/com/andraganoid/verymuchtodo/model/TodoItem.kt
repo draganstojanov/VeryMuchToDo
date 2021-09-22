@@ -5,8 +5,7 @@ data class TodoItem(
     var description: String? = "",
     var completed: Boolean = false,
     var timestamp: Long? = 0,
-    //    val user: User? = null,
     var userName: String? = "",
-    val id: String? = "",
+    var id: String? = "",
     var edited: Boolean = false
 )

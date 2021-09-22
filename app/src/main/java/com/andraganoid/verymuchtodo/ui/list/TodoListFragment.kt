@@ -9,16 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.TodoListFragmentBinding
 import com.andraganoid.verymuchtodo.main.MainViewModel
 import com.andraganoid.verymuchtodo.model.TodoItem
 import com.andraganoid.verymuchtodo.state.StackState
-import com.andraganoid.verymuchtodo.util.areYouSure
-import com.andraganoid.verymuchtodo.util.bottomToast
-import com.andraganoid.verymuchtodo.util.hideKeyboard
-import com.andraganoid.verymuchtodo.util.logB
+import com.andraganoid.verymuchtodo.util.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class TodoListFragment : Fragment() {
@@ -28,14 +27,9 @@ class TodoListFragment : Fragment() {
     private val viewModel: MainViewModel by sharedViewModel()
 
     private lateinit var adapter: TodoListAdapter
-
     private var isNewItem = false
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = TodoListFragmentBinding.inflate(inflater, container, false)
         setup()
         return binding.root
@@ -47,15 +41,6 @@ class TodoListFragment : Fragment() {
     }
 
     private fun setup() {
-
-        val ssset = mutableSetOf<String>()
-
-        ssset.add("BABA")
-        ssset.add("deda")
-
-
-        logB(ssset.filter { name -> name.contains("ab") })
-
         adapter = TodoListAdapter(this)
         binding.todoListRecView.adapter = adapter
 
@@ -65,13 +50,13 @@ class TodoListFragment : Fragment() {
                     when (tlState) {
                         is StackState.Stack -> {
                             viewModel.stack = tlState.stack
-                            val tList =
-                                tlState.stack.filter { tl -> tl!!.id == viewModel.selectedListId }
-                            if (tList[0] != null) {
-                                viewModel.listForEdit = tList[0]!!
+                            val tList = tlState.stack.firstOrNull { it?.id == viewModel.selectedListId }
+                            if (tList != null) {
+                                viewModel.listForEdit = tList
                             }
                             adapter.itemList = viewModel.listForEdit.itemList
                             binding.clearItems.isVisible = viewModel.checkClearVisibilityList()
+                            main.showTitle(viewModel.listForEdit.title.toString())
                         }
                         is StackState.Error -> bottomToast(tlState.errorMsg)
                         else -> {
@@ -83,30 +68,17 @@ class TodoListFragment : Fragment() {
 
         with(binding.topModal) {
             setupFields(
-                "Content",
-                "Description",
+                getString(R.string.content),
+                getString(R.string.description),
                 this@TodoListFragment::closeTopModal,
                 this@TodoListFragment::submitChanges
             )
-            setHints("Content", "Description")
+            setHints(getString(R.string.content), getString(R.string.description))
         }
 
+        binding.createNewItem.setOnClickListener { setNewItem() }
 
-        binding.createNewItem.setOnClickListener {
-            if (!binding.topModal.isOpen()) {
-                openTodoItemEditor(
-                    TodoItem(
-                        content = "",
-                        description = "",
-                        id = "ITEM-${System.currentTimeMillis()}"
-                    ), true
-                )
-            }
-        }
-
-        binding.clearItems.setOnClickListener {
-            viewModel.clearItemList()
-        }
+        binding.clearItems.setOnClickListener { viewModel.clearItemList() }
     }
 
     private fun closeTopModal() {
@@ -115,18 +87,11 @@ class TodoListFragment : Fragment() {
     }
 
     private fun submitChanges() {
-        closeTopModal()
         val content = binding.topModal.getInputValue1()
         if (content.isNotEmpty()) {
-            viewModel.itemForEdit.apply {
-                this.content = content
-                description = binding.topModal.getInputValue2()
-            }
-            if (isNewItem) {
-                viewModel.listForEdit.itemList.add(viewModel.itemForEdit)
-            }
-            viewModel.updateList()
+            viewModel.updateItem(content, binding.topModal.getInputValue2(), isNewItem)
         }
+        setNewItem()
     }
 
     fun checkItem(todoItem: TodoItem) {
@@ -135,14 +100,17 @@ class TodoListFragment : Fragment() {
     }
 
     fun deleteItem(ti: TodoItem) {
-
         if (!ti.completed) {
             if (ti.userName.equals(viewModel.userName.value)) {
                 areYouSure { viewModel.deleteItem(ti) }
             } else {
-                bottomToast("Only poster can delete uncompleted list")
+                bottomToast(getString(R.string.only_owner))
             }
         }
+    }
+
+    private fun setNewItem() {
+        openTodoItemEditor(TodoItem(), true)
     }
 
     fun openTodoItemEditor(ti: TodoItem, isNew: Boolean) {
@@ -150,7 +118,11 @@ class TodoListFragment : Fragment() {
         isNewItem = isNew
         with(binding.topModal) {
             setInputValues(ti.content.toString(), ti.description.toString())
-            expand()
+            if (!isOpen()) {
+                expand()
+            }
+            binding.input1.requestFocus()
+            showKeyboard()
         }
     }
 

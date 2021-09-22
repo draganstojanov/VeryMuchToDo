@@ -7,7 +7,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 
-class AuthRepo(private val firebaseAuth: FirebaseAuth) {
+class AuthRepository(private val firebaseAuth: FirebaseAuth) {
 
     fun isLoggedIn(): Boolean = firebaseAuth.currentUser != null
 
