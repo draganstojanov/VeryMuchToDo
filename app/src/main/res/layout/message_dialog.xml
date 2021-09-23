@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="message"
+            type="com.andraganoid.verymuchtodo.ui.msgDialog.MessageDialogData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="32dp">
+
+        <TextView
+            android:id="@+id/msgDialogTitle"
+            style="@style/MessageDialogTitle"
+            messageDialog="@{message.title}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/msgDialogDesc"
+            style="@style/MessageDialogDesc"
+            messageDialog="@{message.desc}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/msgDialogTitle" />
+
+        <TextView
+            android:id="@+id/msgDialogBtnLeft"
+            style="@style/MessageDialogButton"
+            messageDialog="@{message.btnLeftText}"
+            app:layout_constraintEnd_toStartOf="@+id/msgDialogBtnMid"
+            app:layout_constraintTop_toTopOf="@+id/msgDialogBtnRight" />
+
+        <TextView
+            android:id="@+id/msgDialogBtnMid"
+            style="@style/MessageDialogButton"
+            messageDialog="@{message.btnMidText}"
+            app:layout_constraintEnd_toStartOf="@+id/msgDialogBtnRight"
+            app:layout_constraintTop_toTopOf="@+id/msgDialogBtnRight" />
+
+        <TextView
+            android:id="@+id/msgDialogBtnRight"
+            style="@style/MessageDialogButton"
+            messageDialog="@{message.btnRightText}"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/msgDialogDesc" />
+
+        <TextView
+            android:id="@+id/msgDialogToast"
+            style="@style/MessageDialogToast"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

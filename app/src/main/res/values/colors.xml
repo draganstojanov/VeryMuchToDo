@@ -1,15 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#1379C5</color>
-    <color name="colorPrimaryDark">#12436B</color>
-    <color name="colorAccent">#FF6F00</color>
+    <color name="colorPrimary">@color/primMid</color>
+    <color name="colorPrimaryDark">@color/primDark</color>
+    <color name="colorAccent">@color/secMid</color>
 
-    <color name="completed">#3BA50F</color>
-    <color name="colorWhite">#ffffff</color>
-    <color name="colorHint">#969696</color>
-    <color name="colorEmergency">#E72323</color>
+    <color name="white">#FFFFFF</color>
 
-    <color name="colorBack01">#0b132b</color>
-    <color name="colorBack02">#0D468B</color>
-    <color name="colorBack03">#034aa1</color>
+    <color name="primDark">#0F2155</color>
+    <color name="primMid">#134598</color>
+    <color name="primLite">#4C9EC3</color>
+    <color name="primVeryLite">#B2DDF1</color>
+
+    <color name="secMid">#FD2851</color>
+
+    <color name="backgroundColor">@color/white</color>
+
+    <color name="titleColor">@color/primVeryLite</color>
+    <color name="itemTitleColor">@color/white</color>
+    <color name="itemDescColor">@color/primVeryLite</color>
+    <color name="itemDateColor">@color/primLite</color>
+
+
+    <color name="titleBackColor">@color/primDark</color>
+    <color name="topModalBackColor">@color/primDark</color>
+    <color name="textBackColor">@color/primMid</color>
+    <color name="bottomSheetBackColor">@color/primDark</color>
+    <color name="buttonBackColor">@color/secMid</color>
+
 </resources>

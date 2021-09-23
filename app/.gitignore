@@ -1,3 +1,14 @@
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
 /build
-/google-services.json
+/captures
+.idea
+app/google-services.json
 app/src/main/res/values/key.xml
+/google-services.json
+app/src/main/java/com/andraganoid/verymuchtodo/secret
+
