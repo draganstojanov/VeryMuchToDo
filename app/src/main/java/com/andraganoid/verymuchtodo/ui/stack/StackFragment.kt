@@ -48,7 +48,6 @@ class StackFragment : Fragment() {
 
         viewModel.userName.observe(viewLifecycleOwner, { userName ->
             viewModel.closeLoader()
-            logD(0)
             if (userName == null) {
                 lifecycleScope.launch(Dispatchers.Main) {
                     delay(1000)
@@ -98,17 +97,16 @@ class StackFragment : Fragment() {
     }
 
     private fun closeTopModal() {
-        logD(2)
         hideKeyboard()
         binding.topModal.collapse()
     }
 
     private fun submitChanges() {
         val title = binding.topModal.getInputValue1()
-        if (title.isNotEmpty()) {
+        if (title.isNotEmpty() && title != viewModel.listForEdit.title) {
             viewModel.changeList(title, binding.topModal.getInputValue2(), isNewList)
+            closeTopModal()
         }
-        closeTopModal()
     }
 
     fun listSelected(id: String) {
@@ -131,8 +129,6 @@ class StackFragment : Fragment() {
             setInputValues(tl.title.toString(), tl.description.toString())
             isVisible = true
             expand()
-            binding.input1.requestFocus()
-            showKeyboard()
         }
     }
 

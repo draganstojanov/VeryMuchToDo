@@ -22,8 +22,8 @@
     <LinearLayout
         android:id="@+id/topModalWrapper"
         android:layout_width="0dp"
-        android:visibility="invisible"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -53,13 +53,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Description"
+                android:text="@string/description"
                 android:textColor="@color/primLite" />
 
             <EditText
                 android:id="@+id/input_2"
-                style="@style/TopModalEditText"
-                android:hint=" List description" />
+                style="@style/TopModalEditText" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -69,13 +68,13 @@
 
                 <TextView
                     android:id="@+id/cancelBtn"
-                    style="@style/buttonSmall"
+                    style="@style/ButtonStyle"
                     android:text="@string/cancel" />
 
                 <TextView
                     android:id="@+id/submitBtn"
-                    style="@style/buttonSmall"
-                    android:text="Submit" />
+                    style="@style/ButtonStyle"
+                    android:text="@string/save" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -21,10 +21,10 @@ class Prefs
 
     fun getUserName(): String? = sharedPreferences.getString(PREF_USERNAME, null)
 
-    fun saveFavoriteItems(itemNames: Set<String>) {
+    fun saveFavoriteItems(itemNames: Set<String>) {//todo
         sharedPreferences.edit().putStringSet(PREF_FAVORITE_ITEMS, itemNames).apply()
     }
 
-    fun getFavoriteItems(): MutableSet<String>? = sharedPreferences.getStringSet(PREF_FAVORITE_ITEMS, setOf())
+    fun getFavoriteItems(): MutableSet<String>? = sharedPreferences.getStringSet(PREF_FAVORITE_ITEMS, setOf())//todo
 
 }

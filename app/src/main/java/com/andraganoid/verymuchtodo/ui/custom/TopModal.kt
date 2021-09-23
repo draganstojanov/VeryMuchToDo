@@ -6,6 +6,7 @@ import android.text.InputFilter
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.animation.doOnEnd
 import androidx.core.view.doOnLayout
@@ -14,8 +15,7 @@ import com.andraganoid.verymuchtodo.databinding.TopModalCoreBinding
 import com.andraganoid.verymuchtodo.util.ANIMATION_DURATION
 
 
-class TopModal @JvmOverloads constructor(ctx: Context, attrs: AttributeSet? = null, defStyle: Int = 0) :
-    ConstraintLayout(ctx, attrs, defStyle) {
+class TopModal @JvmOverloads constructor(ctx: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : FrameLayout(ctx, attrs, defStyle) {
 
     private var topModalHeight: Int = 0
 

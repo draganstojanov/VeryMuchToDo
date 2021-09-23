@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
-        <item>@font/assistant_semibold</item>
-        <item>@font/basic</item>
-        <item>@font/capriola</item>
-        <item>@font/duru_sans</item>
-        <item>@font/overpass_semibold</item>
         <item>@font/poppins_light</item>
-        <item>@font/rubik</item>
-        <item>@font/telex</item>
     </array>
 </resources>

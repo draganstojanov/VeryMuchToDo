@@ -8,26 +8,27 @@
 
     <androidx.recyclerview.widget.RecyclerView
 
-            android:id="@+id/todoListRecView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@id/createNewItem"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/stack_item" />
+        android:id="@+id/todoListRecView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@id/createNewItem"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/stack_item" />
 
     <TextView
         android:id="@+id/createNewItem"
-        style="@style/buttonSmall"
-        android:text="New item"
+        style="@style/ButtonStyle"
+        android:text="@string/new_item"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/clearItems"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/clearItems"
-        style="@style/buttonSmall"
-        android:text="Clear"
+        style="@style/ButtonStyle"
+        android:text="@string/clear"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/createNewItem" />

@@ -5,10 +5,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="android:windowBackground">@color/backgroundColor</item>
-
         <item name="fontFamily">@font/poppins_light</item>
 
     </style>
@@ -47,19 +45,19 @@
     </style>
 
 
-    <style name="AuthEditText">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/barHeight</item>
-        <item name="android:textSize">@dimen/inputTextSize</item>
-        <item name="android:textColor">@color/backgroundColor</item>
-        <item name="android:textColorHint">@color/primVeryLite</item>
-        <item name="android:background">@drawable/text_background</item>
-        <item name="android:layout_marginStart">@dimen/loginMargin</item>
-        <item name="android:layout_marginEnd">@dimen/loginMargin</item>
-        <item name="android:padding">8dp</item>
-        <item name="android:paddingEnd">16dp</item>
-        <item name="android:singleLine">true</item>
-    </style>
+    <!--    <style name="AuthEditText">-->
+    <!--        <item name="android:layout_width">match_parent</item>-->
+    <!--        <item name="android:layout_height">@dimen/barHeight</item>-->
+    <!--        <item name="android:textSize">@dimen/inputTextSize</item>-->
+    <!--        <item name="android:textColor">@color/backgroundColor</item>-->
+    <!--        <item name="android:textColorHint">@color/primVeryLite</item>-->
+    <!--        <item name="android:background">@drawable/text_background</item>-->
+    <!--        <item name="android:layout_marginStart">@dimen/loginMargin</item>-->
+    <!--        <item name="android:layout_marginEnd">@dimen/loginMargin</item>-->
+    <!--        <item name="android:padding">8dp</item>-->
+    <!--        <item name="android:paddingEnd">16dp</item>-->
+    <!--        <item name="android:singleLine">true</item>-->
+    <!--    </style>-->
 
 
     <style name="TopModalEditText">
@@ -70,22 +68,25 @@
         <item name="android:textColorHint">@color/primVeryLite</item>
         <item name="android:background">@drawable/text_background</item>
         <item name="android:padding">8dp</item>
-        <item name="android:inputType">textMultiLine</item>
         <item name="android:ellipsize">end</item>
+        <item name="android:inputType">text|textMultiLine</item>
+
     </style>
 
-    <style name="buttonSmall" parent="Widget.AppCompat.TextView">
-        <item name="android:layout_width">wrap_content</item>
+    <style name="ButtonStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">120dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">8dp</item>
         <item name="android:paddingStart">16dp</item>
         <item name="android:paddingEnd">16dp</item>
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
+        <item name="android:gravity">center</item>
         <item name="android:background">@drawable/button_background</item>
         <item name="android:textSize">@dimen/buttonTextSize</item>
         <item name="android:textColor">@color/backgroundColor</item>
         <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:includeFontPadding">false</item>
     </style>
 
@@ -111,17 +112,17 @@
     </style>
 
     <style name="MessageDialogTitle" parent="@style/MessageDialogEdge">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">@dimen/itemTitleSize</item>
     </style>
 
     <style name="MessageDialogButton" parent="@style/MessageDialogEdge">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/buttonTextSize</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:minWidth">96dp</item>
     </style>
 
     <style name="MessageDialogDesc" parent="@style/MessageDialogStyle">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">@dimen/itemDescSize</item>
         <item name="android:layout_marginTop">32dp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:lineSpacingMultiplier">1.2</item>

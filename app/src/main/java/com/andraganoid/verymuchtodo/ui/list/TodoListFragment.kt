@@ -17,7 +17,6 @@ import com.andraganoid.verymuchtodo.state.StackState
 import com.andraganoid.verymuchtodo.util.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class TodoListFragment : Fragment() {
@@ -88,10 +87,10 @@ class TodoListFragment : Fragment() {
 
     private fun submitChanges() {
         val content = binding.topModal.getInputValue1()
-        if (content.isNotEmpty()) {
+        if (content.isNotEmpty() && content != viewModel.itemForEdit.content) {
             viewModel.updateItem(content, binding.topModal.getInputValue2(), isNewItem)
+            setNewItem()
         }
-        setNewItem()
     }
 
     fun checkItem(todoItem: TodoItem) {
@@ -121,8 +120,6 @@ class TodoListFragment : Fragment() {
             if (!isOpen()) {
                 expand()
             }
-            binding.input1.requestFocus()
-            showKeyboard()
         }
     }
 

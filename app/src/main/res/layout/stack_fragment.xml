@@ -16,16 +16,17 @@
 
     <TextView
         android:id="@+id/createNewList"
-        style="@style/buttonSmall"
-        android:text="New list"
+        style="@style/ButtonStyle"
+        android:text="@string/new_list"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/clearList"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/clearList"
-        style="@style/buttonSmall"
-        android:text="Clear"
+        style="@style/ButtonStyle"
+        android:text="@string/clear"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/createNewList" />
