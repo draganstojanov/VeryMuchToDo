@@ -18,8 +18,8 @@ data class TodoList(
                         return false
                     }
                 }
+                return true
             }
-            return true
         }
 
 }

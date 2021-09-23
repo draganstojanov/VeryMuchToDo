@@ -138,7 +138,7 @@ class MainViewModel(
 
     fun deleteMultipleList() {
         stack.removeAll { todoList ->
-            todoList?.completed == true
+            todoList?.completed == false
         }
         val documentList = arrayListOf<Document>()
         stack.forEach { todoList -> documentList.add(Document(todoList)) }
