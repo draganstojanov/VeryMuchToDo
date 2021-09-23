@@ -29,7 +29,4 @@ class MainActivity : AppCompatActivity() {
         binding.topBar.text = title
     }
 
-    companion object {
-
-    }
 }
