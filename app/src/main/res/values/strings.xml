@@ -1,18 +1,7 @@
 <resources>
 
-    <string name="login">Login</string>
-    <string name="your_email">Enter your email</string>
-    <string name="your_pass">Enter your password</string>
-    <string name="cancel">Cancel</string>
-    <string name="not_registered">Not registered</string>
-    <string name="forgot_password">Forgot password</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="main_frag_label">MainFragment</string>
-
-
-
     <string name="app_name">VeryMuchToDo</string>
+    <string name="cancel">Cancel</string>
     <string name="cancelled">Cancelled</string>
     <string name="document_error">Document error</string>
     <string name="content">Content</string>

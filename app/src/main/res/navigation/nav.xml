@@ -2,29 +2,15 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/mainFragment">
-
+    app:startDestination="@id/stackFragment">
     <fragment
-        android:id="@+id/mainFragment"
+        android:id="@+id/stackFragment"
         android:name="com.andraganoid.verymuchtodo.ui.stack.StackFragment"
-        android:label="@string/main_frag_label"
-        tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_mainFragment_to_todoListFragment"
-            app:destination="@id/todoListFragment"
-            app:enterAnim="@animator/nav_default_pop_enter_anim"
-            app:exitAnim="@anim/nav_default_pop_exit_anim" />
-
-    </fragment>
+        android:label="StackFragment"
+        tools:layout="@layout/stack_fragment" />
     <fragment
         android:id="@+id/todoListFragment"
         android:name="com.andraganoid.verymuchtodo.ui.list.TodoListFragment"
-        android:label="TodoListFragment">
-        <argument
-            android:name="todoListId"
-            android:defaultValue='""'
-            app:argType="string"
-            app:nullable="true" />
-    </fragment>
-
+        android:label="TodoListFragment"
+        tools:layout="@layout/todo_list_fragment"/>
 </navigation>
