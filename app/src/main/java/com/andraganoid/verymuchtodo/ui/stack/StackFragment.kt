@@ -78,8 +78,6 @@ class StackFragment : Fragment() {
                             binding.clearList.isVisible = viewModel.checkClearVisibilityStack()
                         }
                         is StackState.Error -> bottomToast(tlState.errorMsg)
-                        else -> {
-                        }
                     }
                 }
             }
