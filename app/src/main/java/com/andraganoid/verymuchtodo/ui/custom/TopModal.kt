@@ -7,12 +7,12 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.animation.doOnEnd
 import androidx.core.view.doOnLayout
 import androidx.core.view.isVisible
 import com.andraganoid.verymuchtodo.databinding.TopModalCoreBinding
 import com.andraganoid.verymuchtodo.util.ANIMATION_DURATION
+import com.andraganoid.verymuchtodo.util.showKeyboard
 
 
 class TopModal @JvmOverloads constructor(ctx: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : FrameLayout(ctx, attrs, defStyle) {
@@ -48,6 +48,11 @@ class TopModal @JvmOverloads constructor(ctx: Context, attrs: AttributeSet? = nu
     fun setInputValues(input1: String, input2: String) {
         binding.input1.setText(input1)
         binding.input2.setText(input2)
+        binding.input1.apply {
+            requestFocusFromTouch()
+            setSelection(input1.length)
+        }
+        context.showKeyboard()
     }
 
     fun getInputValue1(): String = binding.input1.text.toString()

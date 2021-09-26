@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.TodoListFragmentBinding
 import com.andraganoid.verymuchtodo.main.MainViewModel
@@ -54,14 +55,20 @@ class TodoListFragment : Fragment() {
                             val tList = tlState.stack.firstOrNull { it?.id == viewModel.selectedListId }
                             if (tList != null) {
                                 viewModel.listForEdit = tList
+                                if (tList.itemList.isNotEmpty()) {
+                                    adapter.itemList = viewModel.listForEdit.itemList
+                                } else {
+                                    if (adapter.itemList.isNullOrEmpty()) {
+                                        adapter.itemList = arrayListOf()
+                                    } else {
+                                        findNavController().popBackStack()
+                                    }
+                                }
                             }
-                            adapter.itemList = viewModel.listForEdit.itemList
                             binding.clearItems.isVisible = viewModel.checkClearVisibilityList()
                             main.showTitle(viewModel.listForEdit.title.toString())
                         }
                         is StackState.Error -> bottomToast(tlState.errorMsg)
-                        else -> {
-                        }
                     }
                 }
             }
