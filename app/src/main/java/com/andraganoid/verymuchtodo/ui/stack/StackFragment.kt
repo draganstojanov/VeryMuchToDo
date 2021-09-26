@@ -140,7 +140,6 @@ class StackFragment : Fragment() {
         }
     }
 
-
     private fun saveUsername() {
         closeTopModal()
         viewModel.saveUserName(binding.topModal.getInputValue1())

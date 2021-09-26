@@ -13,6 +13,10 @@ import androidx.core.view.isVisible
 import com.andraganoid.verymuchtodo.databinding.TopModalCoreBinding
 import com.andraganoid.verymuchtodo.util.ANIMATION_DURATION
 import com.andraganoid.verymuchtodo.util.showKeyboard
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class TopModal @JvmOverloads constructor(ctx: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : FrameLayout(ctx, attrs, defStyle) {
@@ -48,11 +52,18 @@ class TopModal @JvmOverloads constructor(ctx: Context, attrs: AttributeSet? = nu
     fun setInputValues(input1: String, input2: String) {
         binding.input1.setText(input1)
         binding.input2.setText(input2)
-        binding.input1.apply {
-            requestFocusFromTouch()
-            setSelection(input1.length)
+        setFocus(input1)
+    }
+
+    private fun setFocus(txt: String) {
+        CoroutineScope(Dispatchers.Main).launch {
+            binding.input1.apply {
+                delay(200)
+                requestFocusFromTouch()
+                setSelection(txt.length)
+            }
+            context.showKeyboard()
         }
-        context.showKeyboard()
     }
 
     fun getInputValue1(): String = binding.input1.text.toString()
