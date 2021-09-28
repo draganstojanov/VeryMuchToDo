@@ -10,11 +10,13 @@ import com.andraganoid.verymuchtodo.model.TodoList
 import com.andraganoid.verymuchtodo.repository.AuthRepository
 import com.andraganoid.verymuchtodo.repository.FirestoreRepository
 import com.andraganoid.verymuchtodo.repository.ListenersRepository
+import com.andraganoid.verymuchtodo.state.AuthState
 import com.andraganoid.verymuchtodo.state.StackState
 import com.andraganoid.verymuchtodo.util.*
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class MainViewModel(
     private val authRepository: AuthRepository,
@@ -43,25 +45,20 @@ class MainViewModel(
 
     init {
         _userName.value = prefs.getUserName()
-
         _loaderVisibility.value = true
+
         viewModelScope.launch {
-            if (authRepository.isLoggedIn()) {
-                listenersRepository.setFirestoreListeners()
-            } else {
-                authRepository.login().addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        listenersRepository.setFirestoreListeners()
-                    } else if (task.isCanceled) {
-                        showMessage(resConst.CANCELLED)
-                    } else {
-                        if (task.exception != null) {
-                            showMessage("${resConst.ERROR_PLACEHOLDER}: ${task.exception!!.message}")
-                        }
-                    }
+            authRepository.loginCheck()
+            authRepository.authState.collect { authState ->
+                when (authState) {
+                    is AuthState.Success -> listenersRepository.setFirestoreListeners()
+                    is AuthState.Error -> showMessage("${resConst.ERROR_PLACEHOLDER}: ${authState.errorMsg}")
+                    is AuthState.Cancelled -> showMessage(resConst.CANCELLED)
+                    else -> Timber.d("Not logged in")
                 }
             }
         }
+
         getDocumentError()
     }
 
