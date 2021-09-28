@@ -27,4 +27,6 @@
     <color name="bottomSheetBackColor">@color/primDark</color>
     <color name="buttonBackColor">@color/secMid</color>
 
+    <color name="dividerColor">@color/primLite</color>
+
 </resources>

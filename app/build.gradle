@@ -12,8 +12,8 @@ android {
         applicationId "com.andraganoid.verymuchtodo"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 5
-        versionName "3.0.1"
+        versionCode 8
+        versionName "3.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -25,7 +25,6 @@ android {
             debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            ext.enableCrashlytics = false
         }
     }
     buildFeatures {
@@ -82,7 +81,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
-    implementation 'com.google.firebase:firebase-storage-ktx'
 
     // Timber
     implementation 'com.jakewharton.timber:timber:5.0.1'
