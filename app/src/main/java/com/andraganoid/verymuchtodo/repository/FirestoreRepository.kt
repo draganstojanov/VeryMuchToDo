@@ -29,8 +29,7 @@ class FirestoreRepository(private val firebaseFirestore: FirebaseFirestore, priv
     fun updateDocument(document: Document) {
         firebaseFirestore
             .collection(document.collection)
-            .document(document.name) //TODO ovde nema vrednosti
-
+            .document(document.name)
             .update(document.values)
             .addOnFailureListener { exc -> showErrorMsg(exc) }
     }
