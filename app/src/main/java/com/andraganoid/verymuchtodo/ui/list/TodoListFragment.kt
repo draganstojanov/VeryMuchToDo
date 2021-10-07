@@ -90,15 +90,23 @@ class TodoListFragment : Fragment() {
     }
 
     private fun closeTopModal() {
-        hideKeyboard()
+        _keyboardState.tryEmit(false)
         binding.topModal.collapse()
     }
 
     private fun submitChanges() {
         val content = binding.topModal.getInputValue1()
-        if (content.isNotEmpty() && content != viewModel.itemForEdit.content) {
-            viewModel.updateItem(content, binding.topModal.getInputValue2(), isNewItem)
-            setNewItem()
+        val desc = binding.topModal.getInputValue2()
+
+        if (content.isNotEmpty()) {
+            if (content != viewModel.itemForEdit.content || desc != viewModel.itemForEdit.description) {
+                viewModel.updateItem(content, desc, isNewItem)
+                if (isNewItem) {
+                    setNewItem()
+                } else {
+                    closeTopModal()
+                }
+            }
         }
     }
 

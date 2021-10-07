@@ -8,9 +8,9 @@ import com.andraganoid.verymuchtodo.model.TodoList
 
 class StackAdapter(private val fragment: StackFragment) : RecyclerView.Adapter<StackAdapter.StackHolder>() {
 
-    var stackList: ArrayList<TodoList?> = arrayListOf()
+    var stackList: List<TodoList?> = emptyList()
         set(value) {
-            field = value
+            field = value.sortedByDescending { it?.timestamp }
             notifyDataSetChanged()
         }
 
@@ -32,7 +32,7 @@ class StackAdapter(private val fragment: StackFragment) : RecyclerView.Adapter<S
                     fragment.openTodoListEditor(todoList, false)
                 }
             }
-            binding.stackCheckDeleteIcon.setOnClickListener {
+            binding.stackDeleteIcon.setOnClickListener {
                 if (todoList != null) {
                     fragment.deleteList(todoList)
                 }

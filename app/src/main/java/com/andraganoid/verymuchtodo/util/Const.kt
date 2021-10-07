@@ -12,3 +12,5 @@ const val KEY_TIMESTAMP = "timestamp"
 
 const val ANIMATION_DURATION = 300L
 const val MESSAGE_DURATION = 3000L
+
+const val ARGS_DIALOG_DATA = "dialogData"

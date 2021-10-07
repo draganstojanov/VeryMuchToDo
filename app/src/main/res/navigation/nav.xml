@@ -12,9 +12,13 @@
         android:id="@+id/todoListFragment"
         android:name="com.andraganoid.verymuchtodo.ui.list.TodoListFragment"
         android:label="TodoListFragment"
-        tools:layout="@layout/todo_list_fragment"/>
+        tools:layout="@layout/todo_list_fragment" />
     <activity
         android:id="@+id/mainActivity"
         android:name="com.andraganoid.verymuchtodo.main.MainActivity"
         android:label="MainActivity" />
+    <dialog
+        android:id="@+id/messageDialog"
+        android:name="com.andraganoid.verymuchtodo.ui.msgDialog.MessageDialog"
+        android:label="MessageDialog" />
 </navigation>
