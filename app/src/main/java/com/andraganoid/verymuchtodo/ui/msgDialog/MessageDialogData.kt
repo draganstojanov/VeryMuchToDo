@@ -1,5 +1,7 @@
 package com.andraganoid.verymuchtodo.ui.msgDialog
 
+import java.io.Serializable
+
 data class MessageDialogData(
     val title: String = "",
     val desc: String = "",
@@ -10,4 +12,4 @@ data class MessageDialogData(
     val btnMid: (() -> Unit)? = {},
     val btnRight: (() -> Unit)? = {},
     val toast: String = "",
-)
+) : Serializable

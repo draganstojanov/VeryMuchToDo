@@ -22,14 +22,26 @@
         android:padding="4dp">
 
         <ImageView
-            android:id="@+id/stackCheckDeleteIcon"
+            android:id="@+id/stackCheckIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="4dp"
-            android:src="@{todoList.completed?@drawable/ic_check_circle:@drawable/ic_delete}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/ic_check_circle"
+            android:visibility="@{todoList.completed?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toTopOf="@id/stackDeleteIcon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/stackDeleteIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="4dp"
+            android:src="@drawable/ic_delete"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/stackCheckIcon" />
+
 
         <View
             android:id="@+id/dividerLeft"
@@ -38,7 +50,7 @@
             android:layout_marginVertical="4dp"
             android:background="@color/dividerColor"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/stackCheckDeleteIcon"
+            app:layout_constraintStart_toEndOf="@+id/stackDeleteIcon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -81,7 +93,6 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="4dp"
             android:src="@drawable/ic_edit"
-            android:visibility="@{todoList.completed?View.INVISIBLE:View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

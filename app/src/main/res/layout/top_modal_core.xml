@@ -26,7 +26,14 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:fillViewport="true">
 
         <LinearLayout
             android:id="@+id/topModal"
@@ -77,6 +84,7 @@
                     android:text="@string/save" />
             </LinearLayout>
         </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

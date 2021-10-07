@@ -95,15 +95,18 @@ class StackFragment : Fragment() {
     }
 
     private fun closeTopModal() {
-        hideKeyboard()
+        _keyboardState.tryEmit(false)
         binding.topModal.collapse()
     }
 
     private fun submitChanges() {
         val title = binding.topModal.getInputValue1()
-        if (title.isNotEmpty() && title != viewModel.listForEdit.title) {
-            viewModel.changeList(title, binding.topModal.getInputValue2(), isNewList)
-            closeTopModal()
+        val desc = binding.topModal.getInputValue2()
+        if (title.isNotEmpty()) {
+            if (title != viewModel.listForEdit.title || desc != viewModel.itemForEdit.description) {
+                viewModel.changeList(title, desc, isNewList)
+                closeTopModal()
+            }
         }
     }
 

@@ -6,14 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.andraganoid.verymuchtodo.databinding.MessageDialogBinding
+import com.andraganoid.verymuchtodo.util.ARGS_DIALOG_DATA
 import com.andraganoid.verymuchtodo.util.MESSAGE_DURATION
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.util.*
 import kotlin.concurrent.timerTask
 
-class MessageDialog(private val message: MessageDialogData) : BottomSheetDialogFragment() {
+class MessageDialog : BottomSheetDialogFragment() {
 
     private lateinit var binding: MessageDialogBinding
+    private lateinit var message: MessageDialogData
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = MessageDialogBinding.inflate(inflater, container, false)
@@ -21,6 +23,9 @@ class MessageDialog(private val message: MessageDialogData) : BottomSheetDialogF
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        arguments?.takeIf { it.containsKey(ARGS_DIALOG_DATA) }?.apply {
+            message = getSerializable(ARGS_DIALOG_DATA) as MessageDialogData
+        }
         binding.message = message
         binding.msgDialogToast.apply {
             isVisible = message.toast.isNotEmpty()
