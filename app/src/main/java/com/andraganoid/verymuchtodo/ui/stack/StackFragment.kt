@@ -77,7 +77,7 @@ class StackFragment : Fragment() {
                             adapter.stackList = viewModel.stack
                             binding.clearList.isVisible = viewModel.checkClearVisibilityStack()
                         }
-                        is StackState.Error -> bottomToast(tlState.errorMsg)
+                        is StackState.Error -> main.bottomToast(tlState.errorMsg)
                     }
                 }
             }
@@ -139,7 +139,7 @@ class StackFragment : Fragment() {
         } else if (todoList.userName.equals(viewModel.userName.value)) {
             areYouSure { viewModel.deleteList(todoList) }
         } else {
-            bottomToast(getString(R.string.only_owner))
+            main.bottomToast(getString(R.string.only_owner))
         }
     }
 

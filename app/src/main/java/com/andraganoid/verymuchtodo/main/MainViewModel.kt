@@ -72,7 +72,7 @@ class MainViewModel(
         _loaderVisibility.value = false
     }
 
-    private fun showMessage(msg: Any?) {
+     fun showMessage(msg: Any?) {
         _loaderVisibility.value = false
         _message.value = msg
     }

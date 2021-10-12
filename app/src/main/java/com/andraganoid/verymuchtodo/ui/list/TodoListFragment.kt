@@ -68,7 +68,7 @@ class TodoListFragment : Fragment() {
                             binding.clearItems.isVisible = viewModel.checkClearVisibilityList()
                             main.showTitle(viewModel.listForEdit.title.toString())
                         }
-                        is StackState.Error -> bottomToast(tlState.errorMsg)
+                        is StackState.Error -> main.bottomToast(tlState.errorMsg)
                     }
                 }
             }
@@ -120,7 +120,7 @@ class TodoListFragment : Fragment() {
             if (ti.userName.equals(viewModel.userName.value)) {
                 areYouSure { viewModel.deleteItem(ti) }
             } else {
-                bottomToast(getString(R.string.only_owner))
+                main.bottomToast(getString(R.string.only_owner))
             }
         }
     }

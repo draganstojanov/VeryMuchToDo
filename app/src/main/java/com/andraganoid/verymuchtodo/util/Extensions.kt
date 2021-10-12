@@ -11,7 +11,7 @@ val Fragment.main: MainActivity
     get() = activity as MainActivity
 
 fun Fragment.areYouSure(click: () -> Unit) {
-    messageDialog(
+    main.messageDialog(
         MessageDialogData(
             title = getString(R.string.are_you_sure),
             btnLeftText = getString(R.string.cancel),
