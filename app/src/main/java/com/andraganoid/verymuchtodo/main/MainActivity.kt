@@ -46,10 +46,7 @@ class MainActivity : AppCompatActivity() {
     private fun setup() {
         viewModel.loaderVisibility.observe(this, { loaderVisibility -> binding.loader.isVisible = loaderVisibility })
         viewModel.message.observe(this, { message -> bottomToast(message) })
-        binding.backArrow.setOnClickListener {
-          //  findNavController(R.id.fragmentLayout).popBackStack()
-            navController.popBackStack()
-        }
+        binding.backArrow.setOnClickListener { navController.popBackStack() }
         lifecycleScope.launch(Dispatchers.Main) {
             keyboardState.collect { state ->
                 if (state) showKeyboard() else hideKeyboard()
