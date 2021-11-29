@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="4dp"
         android:layout_marginTop="4dp"
-        android:background="@drawable/text_background"
+        android:background="@drawable/stack_text_background"
         android:minHeight="@dimen/barHeight"
         android:padding="4dp">
 

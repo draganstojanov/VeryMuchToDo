@@ -24,7 +24,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/createNewItem"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/stack_item" />
+        tools:listitem="@layout/todo_list_item" />
 
     </androidx.core.widget.NestedScrollView>
 
