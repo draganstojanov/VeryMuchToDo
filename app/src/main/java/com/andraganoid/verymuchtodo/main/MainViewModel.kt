@@ -7,11 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.andraganoid.verymuchtodo.model.Document
 import com.andraganoid.verymuchtodo.model.TodoItem
 import com.andraganoid.verymuchtodo.model.TodoList
+import com.andraganoid.verymuchtodo.model.state.AuthState
+import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.repository.AuthRepository
 import com.andraganoid.verymuchtodo.repository.FirestoreRepository
 import com.andraganoid.verymuchtodo.repository.ListenersRepository
-import com.andraganoid.verymuchtodo.state.AuthState
-import com.andraganoid.verymuchtodo.state.StackState
 import com.andraganoid.verymuchtodo.util.*
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.collect
@@ -43,6 +43,10 @@ class MainViewModel(
     val userName: LiveData<String>
         get() = _userName
 
+    private val _autocompleteItemList = MutableLiveData<MutableList<String>>()
+    val autocompleteItemList: LiveData<MutableList<String>>
+        get() = _autocompleteItemList
+
     init {
         _userName.value = prefs.getUserName()
         _loaderVisibility.value = true
@@ -60,6 +64,7 @@ class MainViewModel(
         }
 
         getDocumentError()
+        _autocompleteItemList.value = prefs.getAutocompleteIemList() ?: mutableListOf()
     }
 
     fun getSnapshotState(): SharedFlow<StackState> = listenersRepository.stackState
@@ -72,7 +77,7 @@ class MainViewModel(
         _loaderVisibility.value = false
     }
 
-     fun showMessage(msg: Any?) {
+    fun showMessage(msg: Any?) {
         _loaderVisibility.value = false
         _message.value = msg
     }
@@ -104,6 +109,9 @@ class MainViewModel(
             listForEdit.itemList.add(itemForEdit)
         }
         updateList()
+
+        _autocompleteItemList.value = _autocompleteItemList.value.also { it?.add(content) }
+        prefs.saveAutocompleteItemList(autocompleteItemList.value)
     }
 
     fun changeList(title: String, description: String, isNewList: Boolean) {

@@ -14,7 +14,7 @@ import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.TodoListFragmentBinding
 import com.andraganoid.verymuchtodo.main.MainViewModel
 import com.andraganoid.verymuchtodo.model.TodoItem
-import com.andraganoid.verymuchtodo.state.StackState
+import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.util.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -84,8 +84,11 @@ class TodoListFragment : Fragment() {
             setHints(getString(R.string.content), getString(R.string.description))
         }
 
-        binding.createNewItem.setOnClickListener { setNewItem() }
+        viewModel.autocompleteItemList.observe(viewLifecycleOwner, {
+            binding.topModal.setAutocompleteAdapter(it)
+        })
 
+        binding.createNewItem.setOnClickListener { setNewItem() }
         binding.clearItems.setOnClickListener { viewModel.clearItemList() }
     }
 

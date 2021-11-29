@@ -3,7 +3,7 @@ package com.andraganoid.verymuchtodo.repository
 
 import com.andraganoid.verymuchtodo.secret.LOGIN_EMAIL
 import com.andraganoid.verymuchtodo.secret.LOGIN_PASS
-import com.andraganoid.verymuchtodo.state.AuthState
+import com.andraganoid.verymuchtodo.model.state.AuthState
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.flow.MutableStateFlow
 

@@ -14,7 +14,7 @@ import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.StackFragmentBinding
 import com.andraganoid.verymuchtodo.main.MainViewModel
 import com.andraganoid.verymuchtodo.model.TodoList
-import com.andraganoid.verymuchtodo.state.StackState
+import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

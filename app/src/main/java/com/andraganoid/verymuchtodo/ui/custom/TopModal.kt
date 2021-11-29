@@ -6,6 +6,7 @@ import android.text.InputFilter
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.FrameLayout
 import androidx.core.animation.doOnEnd
 import androidx.core.view.doOnLayout
@@ -41,7 +42,20 @@ class TopModal @JvmOverloads constructor(ctx: Context, attrs: AttributeSet? = nu
         binding.label2.isVisible = label2 != null
         binding.input2.isVisible = label2 != null
         binding.cancelBtn.isVisible = cancelClick != null
+    }
 
+    fun setAutocompleteAdapter(autocompleteItemList: MutableList<String>) {
+        val adapter: ArrayAdapter<String> =
+            ArrayAdapter(
+                context,
+                com.andraganoid.verymuchtodo.R.layout.autocomplete_item,
+                com.andraganoid.verymuchtodo.R.id.autocompleteTv,
+                autocompleteItemList
+            )
+        binding.input1.apply {
+            threshold = 1
+            setAdapter(adapter)
+        }
     }
 
     fun setHints(hint1: String, hint2: String?) {
