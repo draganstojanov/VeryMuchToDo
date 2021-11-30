@@ -11,6 +11,7 @@ import android.widget.FrameLayout
 import androidx.core.animation.doOnEnd
 import androidx.core.view.doOnLayout
 import androidx.core.view.isVisible
+import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.TopModalCoreBinding
 import com.andraganoid.verymuchtodo.util.ANIMATION_DURATION
 import com.andraganoid.verymuchtodo.util._keyboardState
@@ -48,8 +49,8 @@ class TopModal @JvmOverloads constructor(ctx: Context, attrs: AttributeSet? = nu
         val adapter: ArrayAdapter<String> =
             ArrayAdapter(
                 context,
-                com.andraganoid.verymuchtodo.R.layout.autocomplete_item,
-                com.andraganoid.verymuchtodo.R.id.autocompleteTv,
+                R.layout.autocomplete_item,
+                R.id.autocompleteTv,
                 autocompleteItemList
             )
         binding.input1.apply {

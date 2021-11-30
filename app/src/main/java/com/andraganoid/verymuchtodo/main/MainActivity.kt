@@ -1,6 +1,7 @@
 package com.andraganoid.verymuchtodo.main
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
@@ -39,14 +40,24 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         navController = findNavController(R.id.fragmentLayout)
+
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+
+            Toast.makeText(this, destination.label, Toast.LENGTH_SHORT).show()
+
+        }
         insetController = ViewCompat.getWindowInsetsController(binding.root)!!
     }
 
 
     private fun setup() {
+
+
+
         viewModel.loaderVisibility.observe(this, { loaderVisibility -> binding.loader.isVisible = loaderVisibility })
         viewModel.message.observe(this, { message -> bottomToast(message) })
         binding.backArrow.setOnClickListener { navController.popBackStack() }
+        binding.settingsBtn.setOnClickListener { navController.navigate(R.id.settingsFragment) }
         lifecycleScope.launch(Dispatchers.Main) {
             keyboardState.collect { state ->
                 if (state) showKeyboard() else hideKeyboard()
@@ -60,6 +71,10 @@ class MainActivity : AppCompatActivity() {
 
     fun showArrow(arrowVisibility: Boolean) {
         binding.backArrow.isVisible = arrowVisibility
+    }
+
+    fun showSettings(settingsVisibility: Boolean) {
+        binding.settingsBtn.isVisible = settingsVisibility
     }
 
     private fun showKeyboard() {

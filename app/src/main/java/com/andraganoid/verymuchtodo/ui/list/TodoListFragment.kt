@@ -35,14 +35,22 @@ class TodoListFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.checkAutocompleteList()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
-        main.showArrow(false)
+        //  with(main){showArrow(false)}
         _binding = null
     }
 
     private fun setup() {
-        main.showArrow(true)
+        with(main) {
+            showArrow(true)
+            showSettings(true)
+        }
         adapter = TodoListAdapter(this)
         binding.todoListRecView.adapter = adapter
 

@@ -64,6 +64,10 @@ class MainViewModel(
         }
 
         getDocumentError()
+        checkAutocompleteList()
+    }
+
+    fun checkAutocompleteList() {
         _autocompleteItemList.value = prefs.getAutocompleteIemList() ?: mutableListOf()
     }
 
@@ -110,7 +114,7 @@ class MainViewModel(
         }
         updateList()
 
-        _autocompleteItemList.value = _autocompleteItemList.value.also { it?.add(content) }
+        _autocompleteItemList.value = _autocompleteItemList.value.also { it?.add(content) }?.toSet()?.toMutableList()
         prefs.saveAutocompleteItemList(autocompleteItemList.value)
     }
 

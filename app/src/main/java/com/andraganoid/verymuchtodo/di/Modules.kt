@@ -4,6 +4,7 @@ import com.andraganoid.verymuchtodo.main.MainViewModel
 import com.andraganoid.verymuchtodo.repository.AuthRepository
 import com.andraganoid.verymuchtodo.repository.FirestoreRepository
 import com.andraganoid.verymuchtodo.repository.ListenersRepository
+import com.andraganoid.verymuchtodo.ui.settings.SettingsViewModel
 import com.andraganoid.verymuchtodo.util.Prefs
 import com.andraganoid.verymuchtodo.util.ResConst
 import com.google.firebase.auth.FirebaseAuth
@@ -17,6 +18,7 @@ object Modules {
 
     private val viewModelModule = module {
         viewModel { MainViewModel(get(), get(), get(), get(), get()) }
+        viewModel { SettingsViewModel(get()) }
     }
 
     private val singleModule = module {

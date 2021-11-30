@@ -13,7 +13,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 31
         versionCode 11
-        versionName "3.2.1"
+        versionName "3.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -41,16 +41,11 @@ android {
     }
 }
 
-
 def koin_version = "3.1.4"
 def lifecycle_version = "2.4.0"
 def coroutines_version = '1.5.2-native-mt'
 
-
 dependencies {
-
-    // Kotlin
- //   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
@@ -63,7 +58,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'androidx.core:core-ktx:1.7.0'
 
-  //  implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.4.0'
 
     // Lifecycle
@@ -87,6 +81,7 @@ dependencies {
 
     // Moshi
     implementation 'com.squareup.moshi:moshi-kotlin:1.12.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // Testing
     testImplementation 'junit:junit:4.13.2'

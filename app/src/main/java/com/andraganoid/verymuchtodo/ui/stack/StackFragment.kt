@@ -43,7 +43,11 @@ class StackFragment : Fragment() {
     }
 
     private fun setup() {
-        main.showTitle(getString(R.string.todo))
+        with(main) {
+            showTitle(getString(R.string.todo))
+            showArrow(false)
+            showSettings(true)
+        }
         viewModel.closeLoader()
 
         viewModel.userName.observe(viewLifecycleOwner, { userName ->
