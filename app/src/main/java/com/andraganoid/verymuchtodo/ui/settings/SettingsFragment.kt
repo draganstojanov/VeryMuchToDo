@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.SettingsFragmentBinding
 import com.andraganoid.verymuchtodo.util.areYouSure
-import com.andraganoid.verymuchtodo.util.main
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SettingsFragment : Fragment() {
@@ -30,11 +29,6 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setup() {
-        with(main) {
-            showTitle(getString(R.string.settings))
-            showArrow(true)
-            showSettings(false)
-        }
         binding.clearAutocompleteBtn.setOnClickListener { areYouSure { viewModel.clearAutocompleteList() } }
         binding.editAutocompleteBtn.setOnClickListener { findNavController().navigate(R.id.autocompleteEditFragment) }
     }

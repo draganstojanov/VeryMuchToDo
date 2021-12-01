@@ -42,15 +42,10 @@ class TodoListFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        //  with(main){showArrow(false)}
         _binding = null
     }
 
     private fun setup() {
-        with(main) {
-            showArrow(true)
-            showSettings(true)
-        }
         adapter = TodoListAdapter(this)
         binding.todoListRecView.adapter = adapter
 

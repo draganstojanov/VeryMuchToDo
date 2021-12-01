@@ -8,11 +8,9 @@ import android.widget.EditText
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.AutocompleteEditFragmentBinding
 import com.andraganoid.verymuchtodo.ui.settings.SettingsViewModel
 import com.andraganoid.verymuchtodo.util.areYouSure
-import com.andraganoid.verymuchtodo.util.main
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class AutocompleteEditFragment : Fragment() {
@@ -28,7 +26,6 @@ class AutocompleteEditFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onResume() {
         super.onResume()
         viewModel.checkAutocompleteList()
@@ -40,12 +37,6 @@ class AutocompleteEditFragment : Fragment() {
     }
 
     private fun setup() {
-        with(main) {
-            showTitle(getString(R.string.edit_autocomplete))
-            showArrow(true)
-            showSettings(false)
-        }
-
         editAdapter = AutocompleteEditAdapter(this)
         binding.editRecView.apply {
             adapter = editAdapter

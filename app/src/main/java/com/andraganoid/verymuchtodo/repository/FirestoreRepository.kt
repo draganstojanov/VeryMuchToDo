@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 
 class FirestoreRepository(private val firebaseFirestore: FirebaseFirestore, private val resConst: ResConst) {
 
-    val documentState: MutableSharedFlow<String> = MutableSharedFlow<String>(1)
+    val documentState: MutableSharedFlow<String> = MutableSharedFlow(1)
 
     fun addDocument(document: Document) {
         firebaseFirestore

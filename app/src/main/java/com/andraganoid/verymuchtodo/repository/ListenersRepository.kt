@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 class ListenersRepository(private val firebaseFirestore: FirebaseFirestore) {
 
     private lateinit var todoListListener: ListenerRegistration
-    val stackState: MutableSharedFlow<StackState> = MutableSharedFlow<StackState>(1)
+    val stackState: MutableSharedFlow<StackState> = MutableSharedFlow(1)
 
     fun setFirestoreListeners() {
         todoListListener = firebaseFirestore.collection(COL_LIST)

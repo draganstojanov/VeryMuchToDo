@@ -1,7 +1,6 @@
 package com.andraganoid.verymuchtodo.main
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
@@ -39,16 +38,33 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        navController = findNavController(R.id.fragmentLayout)
-
-        navController.addOnDestinationChangedListener { controller, destination, arguments ->
-
-            Toast.makeText(this, destination.label, Toast.LENGTH_SHORT).show()
-
-        }
         insetController = ViewCompat.getWindowInsetsController(binding.root)!!
+        navController = findNavController(R.id.fragmentLayout)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.stackFragment -> {
+                    showTitle(getString(R.string.todo))
+                    showArrow(false)
+                    showSettings(true)
+                }
+                R.id.todoListFragment -> {
+                    showTitle("")
+                    showArrow(true)
+                    showSettings(true)
+                }
+                R.id.settingsFragment -> {
+                    showTitle(getString(R.string.settings))
+                    showArrow(true)
+                    showSettings(false)
+                }
+                R.id.autocompleteEditFragment -> {
+                    showTitle(getString(R.string.edit_autocomplete))
+                    showArrow(true)
+                    showSettings(false)
+                }
+            }
+        }
     }
-
 
     private fun setup() {
         viewModel.loaderVisibility.observe(this, { loaderVisibility -> binding.loader.isVisible = loaderVisibility })
@@ -66,11 +82,11 @@ class MainActivity : AppCompatActivity() {
         binding.topBar.text = title
     }
 
-    fun showArrow(arrowVisibility: Boolean) {
+    private fun showArrow(arrowVisibility: Boolean) {
         binding.backArrow.isVisible = arrowVisibility
     }
 
-    fun showSettings(settingsVisibility: Boolean) {
+    private fun showSettings(settingsVisibility: Boolean) {
         binding.settingsBtn.isVisible = settingsVisibility
     }
 

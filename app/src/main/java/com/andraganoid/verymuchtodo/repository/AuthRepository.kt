@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 class AuthRepository(private val firebaseAuth: FirebaseAuth) {
 
-    val authState: MutableStateFlow<AuthState> = MutableStateFlow<AuthState>(AuthState.Unchecked)
+    val authState: MutableStateFlow<AuthState> = MutableStateFlow(AuthState.Unchecked)
 
     fun loginCheck() {
         if (firebaseAuth.currentUser != null) {
