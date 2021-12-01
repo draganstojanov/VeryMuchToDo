@@ -22,6 +22,16 @@
         app:layout_constraintStart_toStartOf="@id/topBar"
         app:layout_constraintTop_toTopOf="@id/topBar" />
 
+    <ImageView
+        android:id="@+id/settingsBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:src="@drawable/ic_settings"
+        app:layout_constraintBottom_toBottomOf="@id/topBar"
+        app:layout_constraintEnd_toEndOf="@id/topBar"
+        app:layout_constraintTop_toTopOf="@id/topBar" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentLayout"
         android:name="androidx.navigation.fragment.NavHostFragment"

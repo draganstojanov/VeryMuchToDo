@@ -14,7 +14,7 @@ import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.StackFragmentBinding
 import com.andraganoid.verymuchtodo.main.MainViewModel
 import com.andraganoid.verymuchtodo.model.TodoList
-import com.andraganoid.verymuchtodo.state.StackState
+import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -43,9 +43,7 @@ class StackFragment : Fragment() {
     }
 
     private fun setup() {
-        main.showTitle(getString(R.string.todo))
         viewModel.closeLoader()
-
         viewModel.userName.observe(viewLifecycleOwner, { userName ->
             viewModel.closeLoader()
             if (userName == null) {
@@ -77,7 +75,7 @@ class StackFragment : Fragment() {
                             adapter.stackList = viewModel.stack
                             binding.clearList.isVisible = viewModel.checkClearVisibilityStack()
                         }
-                        is StackState.Error -> bottomToast(tlState.errorMsg)
+                        is StackState.Error -> main.bottomToast(tlState.errorMsg)
                     }
                 }
             }
@@ -139,7 +137,7 @@ class StackFragment : Fragment() {
         } else if (todoList.userName.equals(viewModel.userName.value)) {
             areYouSure { viewModel.deleteList(todoList) }
         } else {
-            bottomToast(getString(R.string.only_owner))
+            main.bottomToast(getString(R.string.only_owner))
         }
     }
 

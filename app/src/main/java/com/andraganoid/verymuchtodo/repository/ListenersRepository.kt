@@ -1,7 +1,7 @@
 package com.andraganoid.verymuchtodo.repository
 
 import com.andraganoid.verymuchtodo.model.TodoList
-import com.andraganoid.verymuchtodo.state.StackState
+import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.util.COL_LIST
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 class ListenersRepository(private val firebaseFirestore: FirebaseFirestore) {
 
     private lateinit var todoListListener: ListenerRegistration
-    val stackState: MutableSharedFlow<StackState> = MutableSharedFlow<StackState>(1)
+    val stackState: MutableSharedFlow<StackState> = MutableSharedFlow(1)
 
     fun setFirestoreListeners() {
         todoListListener = firebaseFirestore.collection(COL_LIST)

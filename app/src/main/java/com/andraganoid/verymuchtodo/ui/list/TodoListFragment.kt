@@ -14,7 +14,7 @@ import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.TodoListFragmentBinding
 import com.andraganoid.verymuchtodo.main.MainViewModel
 import com.andraganoid.verymuchtodo.model.TodoItem
-import com.andraganoid.verymuchtodo.state.StackState
+import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.util.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -35,14 +35,17 @@ class TodoListFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.checkAutocompleteList()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
-        main.showArrow(false)
         _binding = null
     }
 
     private fun setup() {
-        main.showArrow(true)
         adapter = TodoListAdapter(this)
         binding.todoListRecView.adapter = adapter
 
@@ -68,7 +71,7 @@ class TodoListFragment : Fragment() {
                             binding.clearItems.isVisible = viewModel.checkClearVisibilityList()
                             main.showTitle(viewModel.listForEdit.title.toString())
                         }
-                        is StackState.Error -> bottomToast(tlState.errorMsg)
+                        is StackState.Error -> main.bottomToast(tlState.errorMsg)
                     }
                 }
             }
@@ -84,8 +87,11 @@ class TodoListFragment : Fragment() {
             setHints(getString(R.string.content), getString(R.string.description))
         }
 
-        binding.createNewItem.setOnClickListener { setNewItem() }
+        viewModel.autocompleteItemList.observe(viewLifecycleOwner, {
+            binding.topModal.setAutocompleteAdapter(it)
+        })
 
+        binding.createNewItem.setOnClickListener { setNewItem() }
         binding.clearItems.setOnClickListener { viewModel.clearItemList() }
     }
 
@@ -120,7 +126,7 @@ class TodoListFragment : Fragment() {
             if (ti.userName.equals(viewModel.userName.value)) {
                 areYouSure { viewModel.deleteItem(ti) }
             } else {
-                bottomToast(getString(R.string.only_owner))
+                main.bottomToast(getString(R.string.only_owner))
             }
         }
     }

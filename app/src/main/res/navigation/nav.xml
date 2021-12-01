@@ -21,4 +21,13 @@
         android:id="@+id/messageDialog"
         android:name="com.andraganoid.verymuchtodo.ui.msgDialog.MessageDialog"
         android:label="MessageDialog" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.andraganoid.verymuchtodo.ui.settings.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/settings_fragment" />
+    <fragment
+        android:id="@+id/autocompleteEditFragment"
+        android:name="com.andraganoid.verymuchtodo.ui.settings.autocomplete.AutocompleteEditFragment"
+        android:label="AutocompleteEditFragment" />
 </navigation>

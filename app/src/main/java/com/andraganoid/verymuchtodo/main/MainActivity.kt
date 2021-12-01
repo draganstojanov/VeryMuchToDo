@@ -2,15 +2,18 @@ package com.andraganoid.verymuchtodo.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.ActivityMainBinding
-import com.andraganoid.verymuchtodo.util.bottomToast
+import com.andraganoid.verymuchtodo.ui.msgDialog.MessageDialogData
+import com.andraganoid.verymuchtodo.util.ARGS_DIALOG_DATA
 import com.andraganoid.verymuchtodo.util.keyboardState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -24,6 +27,8 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModel()
     private lateinit var insetController: WindowInsetsControllerCompat
 
+    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -31,12 +36,41 @@ class MainActivity : AppCompatActivity() {
         setup()
     }
 
+    override fun onStart() {
+        super.onStart()
+        insetController = ViewCompat.getWindowInsetsController(binding.root)!!
+        navController = findNavController(R.id.fragmentLayout)
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.stackFragment -> {
+                    showTitle(getString(R.string.todo))
+                    showArrow(false)
+                    showSettings(true)
+                }
+                R.id.todoListFragment -> {
+                    showTitle("")
+                    showArrow(true)
+                    showSettings(true)
+                }
+                R.id.settingsFragment -> {
+                    showTitle(getString(R.string.settings))
+                    showArrow(true)
+                    showSettings(false)
+                }
+                R.id.autocompleteEditFragment -> {
+                    showTitle(getString(R.string.edit_autocomplete))
+                    showArrow(true)
+                    showSettings(false)
+                }
+            }
+        }
+    }
 
     private fun setup() {
         viewModel.loaderVisibility.observe(this, { loaderVisibility -> binding.loader.isVisible = loaderVisibility })
         viewModel.message.observe(this, { message -> bottomToast(message) })
-        binding.backArrow.setOnClickListener { findNavController(R.id.fragmentLayout).popBackStack() }
-        insetController = ViewCompat.getWindowInsetsController(binding.root)!!
+        binding.backArrow.setOnClickListener { navController.popBackStack() }
+        binding.settingsBtn.setOnClickListener { navController.navigate(R.id.settingsFragment) }
         lifecycleScope.launch(Dispatchers.Main) {
             keyboardState.collect { state ->
                 if (state) showKeyboard() else hideKeyboard()
@@ -48,8 +82,12 @@ class MainActivity : AppCompatActivity() {
         binding.topBar.text = title
     }
 
-    fun showArrow(arrowVisibility: Boolean) {
+    private fun showArrow(arrowVisibility: Boolean) {
         binding.backArrow.isVisible = arrowVisibility
+    }
+
+    private fun showSettings(settingsVisibility: Boolean) {
+        binding.settingsBtn.isVisible = settingsVisibility
     }
 
     private fun showKeyboard() {
@@ -65,5 +103,14 @@ class MainActivity : AppCompatActivity() {
             insetController.hide(WindowInsetsCompat.Type.ime())
         }
     }
+
+    fun messageDialog(dialogData: MessageDialogData) {
+        navController.navigate(R.id.messageDialog, bundleOf(ARGS_DIALOG_DATA to dialogData))
+    }
+
+    fun bottomToast(msg: Any?) {
+        messageDialog(MessageDialogData(toast = msg.toString()))
+    }
+
 
 }

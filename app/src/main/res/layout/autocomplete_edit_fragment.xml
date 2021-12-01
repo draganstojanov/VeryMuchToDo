@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -15,42 +14,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-
-        android:id="@+id/todoListRecView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:paddingBottom="56dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/createNewItem"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/todo_list_item" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/editRecView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingBottom="56dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/autocomplete_edit_item" />
 
     </androidx.core.widget.NestedScrollView>
 
     <TextView
-        android:id="@+id/createNewItem"
+        android:id="@+id/submitEditBtn"
         style="@style/ButtonStyle"
-        android:text="@string/new_item"
-        app:layout_constraintHorizontal_chainStyle="packed"
+        android:text="@string/save"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/clearItems"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/clearItems"
+        android:id="@+id/deleteBtn"
         style="@style/ButtonStyle"
-        android:text="@string/clear"
+        android:text="@string/delete_checked"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/createNewItem" />
-
-    <com.andraganoid.verymuchtodo.ui.custom.TopModal
-        android:id="@+id/topModal"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 

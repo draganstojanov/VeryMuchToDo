@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.state
+package com.andraganoid.verymuchtodo.model.state
 
 import com.andraganoid.verymuchtodo.model.TodoList
 

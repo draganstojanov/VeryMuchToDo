@@ -5,6 +5,7 @@
     <color name="colorAccent">@color/secMid</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="transparent">#00000000</color>
 
     <color name="primDark">#0F2155</color>
     <color name="primMid">#134598</color>

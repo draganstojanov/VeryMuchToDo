@@ -6,10 +6,12 @@ import android.text.InputFilter
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.FrameLayout
 import androidx.core.animation.doOnEnd
 import androidx.core.view.doOnLayout
 import androidx.core.view.isVisible
+import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.TopModalCoreBinding
 import com.andraganoid.verymuchtodo.util.ANIMATION_DURATION
 import com.andraganoid.verymuchtodo.util._keyboardState
@@ -41,7 +43,20 @@ class TopModal @JvmOverloads constructor(ctx: Context, attrs: AttributeSet? = nu
         binding.label2.isVisible = label2 != null
         binding.input2.isVisible = label2 != null
         binding.cancelBtn.isVisible = cancelClick != null
+    }
 
+    fun setAutocompleteAdapter(autocompleteItemList: MutableList<String>) {
+        val adapter: ArrayAdapter<String> =
+            ArrayAdapter(
+                context,
+                R.layout.autocomplete_item,
+                R.id.autocompleteTv,
+                autocompleteItemList
+            )
+        binding.input1.apply {
+            threshold = 1
+            setAdapter(adapter)
+        }
     }
 
     fun setHints(hint1: String, hint2: String?) {

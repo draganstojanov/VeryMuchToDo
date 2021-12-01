@@ -8,8 +8,9 @@
         <import type="android.view.View" />
 
         <variable
-            name="todoList"
-            type="com.andraganoid.verymuchtodo.model.TodoList" />
+            name="editItem"
+            type="com.andraganoid.verymuchtodo.ui.settings.autocomplete.AutocompleteEditItem" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,31 +18,20 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="4dp"
         android:layout_marginTop="4dp"
-        android:background="@drawable/stack_text_background"
+        android:background="@drawable/settings_button_background"
         android:minHeight="@dimen/barHeight"
         android:padding="4dp">
 
         <ImageView
-            android:id="@+id/stackCheckIcon"
+            android:id="@+id/checkDeleteIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="4dp"
-            android:src="@drawable/ic_check_circle"
-            android:visibility="@{todoList.completed?View.VISIBLE:View.GONE}"
-            app:layout_constraintBottom_toTopOf="@id/stackDeleteIcon"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/stackDeleteIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="4dp"
-            android:src="@drawable/ic_delete"
+            android:src="@{editItem.checkForDeletion?@drawable/ic_check_circle:@drawable/ic_delete}"
+            android:visibility="@{editItem.editState?View.INVISIBLE:View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/stackCheckIcon" />
-
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:id="@+id/dividerLeft"
@@ -50,32 +40,18 @@
             android:layout_marginVertical="4dp"
             android:background="@color/dividerColor"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/stackDeleteIcon"
+            app:layout_constraintStart_toEndOf="@+id/checkDeleteIcon"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/stackTitle"
+        <EditText
+            android:id="@+id/editText"
             style="@style/ItemTitleText"
-            android:text="@{todoList.title}"
+            android:backgroundTint="@{editItem.editState?@color/secMid:@color/transparent}"
+            android:enabled="@{editItem.editState}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/dividerRight"
             app:layout_constraintStart_toEndOf="@+id/dividerLeft"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/stackDescription"
-            style="@style/ItemDescText"
-            android:text="@{todoList.description}"
-            app:layout_constraintEnd_toStartOf="@id/dividerRight"
-            app:layout_constraintStart_toEndOf="@+id/dividerLeft"
-            app:layout_constraintTop_toBottomOf="@id/stackTitle" />
-
-        <TextView
-            android:id="@+id/stackUserDate"
-            style="@style/ItemDateText"
-            userAndDate="@{todoList}"
-            app:layout_constraintEnd_toStartOf="@id/dividerRight"
-            app:layout_constraintStart_toEndOf="@+id/dividerLeft"
-            app:layout_constraintTop_toBottomOf="@id/stackDescription" />
 
         <View
             android:id="@+id/dividerRight"
@@ -84,19 +60,21 @@
             android:layout_marginVertical="4dp"
             android:background="@color/dividerColor"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/stackEditIcon"
+            app:layout_constraintEnd_toStartOf="@+id/editIcon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/stackEditIcon"
+            android:id="@+id/editIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingHorizontal="4dp"
             android:src="@drawable/ic_edit"
+            android:visibility="@{editItem.checkForDeletion?View.INVISIBLE:View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </layout>
