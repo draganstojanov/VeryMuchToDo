@@ -5,19 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.SettingsFragmentBinding
 import com.andraganoid.verymuchtodo.util.areYouSure
 import com.andraganoid.verymuchtodo.util.main
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.reflect.jvm.internal.impl.descriptors.annotations.BuiltInAnnotationDescriptor
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class SettingsFragment : Fragment() {
 
     private var _binding: SettingsFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: SettingsViewModel by viewModel()
-
+    private val viewModel: SettingsViewModel by sharedViewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = SettingsFragmentBinding.inflate(inflater, container, false)
@@ -36,12 +35,8 @@ class SettingsFragment : Fragment() {
             showArrow(true)
             showSettings(false)
         }
-        binding.clearAutocompleteBtn.setOnClickListener { areYouSure { viewModel.clearAutocompleteList()} }
-        binding.editAutocompleteBtn.setOnClickListener {editAutocompleteList() }
+        binding.clearAutocompleteBtn.setOnClickListener { areYouSure { viewModel.clearAutocompleteList() } }
+        binding.editAutocompleteBtn.setOnClickListener { findNavController().navigate(R.id.autocompleteEditFragment) }
     }
 
-
-    private fun editAutocompleteList() {
-        TODO("Not yet implemented")
-    }
 }
