@@ -16,7 +16,6 @@ import com.andraganoid.verymuchtodo.main.MainViewModel
 import com.andraganoid.verymuchtodo.model.TodoItem
 import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.util.*
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -116,8 +115,9 @@ class TodoListFragment : Fragment() {
         }
     }
 
-    fun checkItem(todoItem: TodoItem) {
+    fun checkItem(todoItem: TodoItem) {//xxx
         todoItem.completed = !todoItem.completed
+        todoItem.sortingTimestamp = if (todoItem.completed) -System.currentTimeMillis() else todoItem.timestamp
         viewModel.updateList()
     }
 
@@ -126,7 +126,7 @@ class TodoListFragment : Fragment() {
             if (ti.userName.equals(viewModel.userName.value)) {
                 areYouSure { viewModel.deleteItem(ti) }
             } else {
-                main.bottomToast(getString(R.string.only_owner))
+                main.bottomToast(getString(R.string.only_owner_item))
             }
         }
     }

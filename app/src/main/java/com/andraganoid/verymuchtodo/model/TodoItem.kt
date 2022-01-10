@@ -7,5 +7,6 @@ data class TodoItem(
     var timestamp: Long? = 0,
     var userName: String? = "",
     var id: String? = "",
-    var edited: Boolean = false
+    var edited: Boolean = false,
+    var sortingTimestamp: Long? = Long.MIN_VALUE
 )

@@ -18,7 +18,6 @@ import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.*
@@ -137,7 +136,7 @@ class StackFragment : Fragment() {
         } else if (todoList.userName.equals(viewModel.userName.value)) {
             areYouSure { viewModel.deleteList(todoList) }
         } else {
-            main.bottomToast(getString(R.string.only_owner))
+            main.bottomToast(getString(R.string.only_owner_list))
         }
     }
 

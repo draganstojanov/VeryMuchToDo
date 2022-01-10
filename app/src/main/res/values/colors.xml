@@ -25,6 +25,7 @@
     <color name="titleBackColor">@color/primDark</color>
     <color name="topModalBackColor">@color/primDark</color>
     <color name="textBackColor">@color/primMid</color>
+    <color name="textBackColorCompleted">#191919</color>
     <color name="bottomSheetBackColor">@color/primDark</color>
     <color name="buttonBackColor">@color/secMid</color>
 
