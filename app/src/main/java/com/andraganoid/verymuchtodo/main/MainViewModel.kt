@@ -106,6 +106,7 @@ class MainViewModel(
             this.content = content
             this.description = description
             timestamp = System.currentTimeMillis()
+            sortingTimestamp=timestamp
             id = "ITEM-$timestamp}"
             this.userName = this@MainViewModel.userName.value
         }
