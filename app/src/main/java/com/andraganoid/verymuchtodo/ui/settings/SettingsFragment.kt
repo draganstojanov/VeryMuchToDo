@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.andraganoid.verymuchtodo.BuildConfig
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.SettingsFragmentBinding
 import com.andraganoid.verymuchtodo.util.areYouSure
@@ -31,6 +32,7 @@ class SettingsFragment : Fragment() {
     private fun setup() {
         binding.clearAutocompleteBtn.setOnClickListener { areYouSure { viewModel.clearAutocompleteList() } }
         binding.editAutocompleteBtn.setOnClickListener { findNavController().navigate(R.id.autocompleteEditFragment) }
+        binding.appVersion.text = BuildConfig.VERSION_NAME
     }
 
 }

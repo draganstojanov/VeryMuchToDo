@@ -10,7 +10,7 @@ class TodoListAdapter(private val fragment: TodoListFragment) : RecyclerView.Ada
 
     var itemList: List<TodoItem> = emptyList()
         set(value) {
-            field = value.sortedByDescending { it.timestamp }
+            field = value.sortedByDescending { it.sortingTimestamp }
             notifyDataSetChanged()
         }
 

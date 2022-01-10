@@ -7,7 +7,8 @@
     <string name="document_error">Document error</string>
     <string name="content">Content</string>
     <string name="description">Description</string>
-    <string name="only_owner">Only owner can delete uncompleted list</string>
+    <string name="only_owner_list">Only owner can delete uncompleted list</string>
+    <string name="only_owner_item">Only owner can delete uncompleted item</string>
     <string name="error">ERROR</string>
     <string name="todo">To Do</string>
     <string name="your_name">Your name</string>
