@@ -8,5 +8,5 @@ data class TodoItem(
     var userName: String? = "",
     var id: String? = "",
     var edited: Boolean = false,
-    var sortingTimestamp: Long? = Long.MIN_VALUE
+    var sortingTimestamp: Long? = 0
 )
