@@ -15,7 +15,9 @@ import com.andraganoid.verymuchtodo.databinding.TodoListFragmentBinding
 import com.andraganoid.verymuchtodo.main.MainViewModel
 import com.andraganoid.verymuchtodo.model.TodoItem
 import com.andraganoid.verymuchtodo.model.state.StackState
-import com.andraganoid.verymuchtodo.util.*
+import com.andraganoid.verymuchtodo.util.areYouSure
+import com.andraganoid.verymuchtodo.util.keyboardState
+import com.andraganoid.verymuchtodo.util.main
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -86,16 +88,16 @@ class TodoListFragment : Fragment() {
             setHints(getString(R.string.content), getString(R.string.description))
         }
 
-        viewModel.autocompleteItemList.observe(viewLifecycleOwner, {
+        viewModel.autocompleteItemList.observe(viewLifecycleOwner) {
             binding.topModal.setAutocompleteAdapter(it)
-        })
+        }
 
         binding.createNewItem.setOnClickListener { setNewItem() }
         binding.clearItems.setOnClickListener { viewModel.clearItemList() }
     }
 
     private fun closeTopModal() {
-        _keyboardState.tryEmit(false)
+        keyboardState.tryEmit(false)
         binding.topModal.collapse()
     }
 
@@ -115,9 +117,8 @@ class TodoListFragment : Fragment() {
         }
     }
 
-    fun checkItem(todoItem: TodoItem) {//xxx
+    fun checkItem(todoItem: TodoItem) {
         todoItem.completed = !todoItem.completed
-        todoItem.sortingTimestamp = if (todoItem.completed) -System.currentTimeMillis() else todoItem.timestamp
         viewModel.updateList()
     }
 

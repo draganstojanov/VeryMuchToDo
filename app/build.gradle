@@ -7,13 +7,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 32
     defaultConfig {
         applicationId "com.andraganoid.verymuchtodo"
         minSdkVersion 23
-        targetSdkVersion 31
-        versionCode 13
-        versionName "3.3.2"
+        targetSdkVersion 32
+        versionCode 14
+        versionName "3.3.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -42,7 +42,7 @@ android {
 }
 
 def koin_version = '3.1.5'
-def lifecycle_version = "2.4.0"
+def lifecycle_version = "2.4.1"
 def coroutines_version = '1.6.0-native-mt'
 
 dependencies {
@@ -55,10 +55,12 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     // AndroidX
-    implementation 'androidx.appcompat:appcompat:1.4.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'androidx.core:core-ktx:1.7.0'
 
-    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    implementation 'com.google.android.material:material:1.5.0'
 
     // Lifecycle
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
@@ -81,7 +83,6 @@ dependencies {
 
     // Moshi
     implementation 'com.squareup.moshi:moshi-kotlin:1.13.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // Testing
     testImplementation 'junit:junit:4.13.2'

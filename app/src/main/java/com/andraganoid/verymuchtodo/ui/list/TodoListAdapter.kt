@@ -1,6 +1,5 @@
 package com.andraganoid.verymuchtodo.ui.list
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,13 +10,12 @@ class TodoListAdapter(private val fragment: TodoListFragment) : RecyclerView.Ada
 
     var itemList: List<TodoItem> = emptyList()
         set(value) {
-            field = value.sortedByDescending { it.sortingTimestamp }
-
-          field.forEach {
-              Log.d("ASASAS", "${it.content}-${it.sortingTimestamp}")
-          }
-
-
+            field = value.sortedWith(
+                compareBy(
+                    { it.completed },
+                    { it.timestamp }
+                )
+            )
             notifyDataSetChanged()
         }
 

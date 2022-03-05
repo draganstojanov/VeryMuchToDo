@@ -43,7 +43,7 @@ class AutocompleteEditFragment : Fragment() {
             itemAnimator = null
         }
 
-        viewModel.autocompleteItemList.observe(viewLifecycleOwner, { editAdapter.setList(it) })
+        viewModel.autocompleteItemList.observe(viewLifecycleOwner) { editAdapter.setList(it) }
 
         binding.submitEditBtn.setOnClickListener {
             viewModel.submitChanges()

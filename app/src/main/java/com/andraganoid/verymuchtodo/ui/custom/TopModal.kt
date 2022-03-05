@@ -14,7 +14,7 @@ import androidx.core.view.isVisible
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.TopModalCoreBinding
 import com.andraganoid.verymuchtodo.util.ANIMATION_DURATION
-import com.andraganoid.verymuchtodo.util._keyboardState
+import com.andraganoid.verymuchtodo.util.keyboardState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -72,7 +72,7 @@ class TopModal @JvmOverloads constructor(ctx: Context, attrs: AttributeSet? = nu
 
     private fun setFocus(txt: String) {
         CoroutineScope(Dispatchers.Main).launch {
-            _keyboardState.tryEmit(true)
+            keyboardState.tryEmit(true)
             delay(200)
             binding.input1.apply {
                 requestFocusFromTouch()

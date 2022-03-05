@@ -12,9 +12,9 @@ import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.repository.AuthRepository
 import com.andraganoid.verymuchtodo.repository.FirestoreRepository
 import com.andraganoid.verymuchtodo.repository.ListenersRepository
-import com.andraganoid.verymuchtodo.util.*
+import com.andraganoid.verymuchtodo.util.Prefs
+import com.andraganoid.verymuchtodo.util.ResConst
 import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -53,7 +53,7 @@ class MainViewModel(
 
         viewModelScope.launch {
             authRepository.loginCheck()
-            authRepository.authState.collect { authState ->
+            authRepository.getAuthState().collect { authState ->
                 when (authState) {
                     is AuthState.Success -> listenersRepository.setFirestoreListeners()
                     is AuthState.Error -> showMessage("${resConst.ERROR_PLACEHOLDER}: ${authState.errorMsg}")
@@ -71,10 +71,10 @@ class MainViewModel(
         _autocompleteItemList.value = prefs.getAutocompleteIemList() ?: mutableListOf()
     }
 
-    fun getSnapshotState(): SharedFlow<StackState> = listenersRepository.stackState
+    fun getSnapshotState(): SharedFlow<StackState> = listenersRepository.getStackState()
 
     private fun getDocumentError() {
-        viewModelScope.launch { firestoreRepository.documentState.collect { error -> showMessage(error) } }
+        viewModelScope.launch { firestoreRepository.getDocumentState().collect { error -> showMessage(error) } }
     }
 
     fun closeLoader() {
@@ -106,7 +106,6 @@ class MainViewModel(
             this.content = content
             this.description = description
             timestamp = System.currentTimeMillis()
-            sortingTimestamp=timestamp
             id = "ITEM-$timestamp}"
             this.userName = this@MainViewModel.userName.value
         }

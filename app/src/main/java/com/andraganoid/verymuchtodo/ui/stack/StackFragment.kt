@@ -15,12 +15,13 @@ import com.andraganoid.verymuchtodo.databinding.StackFragmentBinding
 import com.andraganoid.verymuchtodo.main.MainViewModel
 import com.andraganoid.verymuchtodo.model.TodoList
 import com.andraganoid.verymuchtodo.model.state.StackState
-import com.andraganoid.verymuchtodo.util.*
+import com.andraganoid.verymuchtodo.util.areYouSure
+import com.andraganoid.verymuchtodo.util.keyboardState
+import com.andraganoid.verymuchtodo.util.main
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import java.util.*
 
 class StackFragment : Fragment() {
 
@@ -43,7 +44,7 @@ class StackFragment : Fragment() {
 
     private fun setup() {
         viewModel.closeLoader()
-        viewModel.userName.observe(viewLifecycleOwner, { userName ->
+        viewModel.userName.observe(viewLifecycleOwner) { userName ->
             viewModel.closeLoader()
             if (userName == null) {
                 lifecycleScope.launch(Dispatchers.Main) {
@@ -60,7 +61,7 @@ class StackFragment : Fragment() {
                     }
                 }
             }
-        })
+        }
 
         val adapter = StackAdapter(this)
         binding.stacksRecView.adapter = adapter
@@ -92,7 +93,7 @@ class StackFragment : Fragment() {
     }
 
     private fun closeTopModal() {
-        _keyboardState.tryEmit(false)
+        keyboardState.tryEmit(false)
         binding.topModal.collapse()
     }
 

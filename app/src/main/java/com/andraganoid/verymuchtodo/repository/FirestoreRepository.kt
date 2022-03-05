@@ -5,10 +5,12 @@ import com.andraganoid.verymuchtodo.model.Document
 import com.andraganoid.verymuchtodo.util.ResConst
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
 
 class FirestoreRepository(private val firebaseFirestore: FirebaseFirestore, private val resConst: ResConst) {
 
-    val documentState: MutableSharedFlow<String> = MutableSharedFlow(1)
+    private val documentState: MutableSharedFlow<String> = MutableSharedFlow(1)
+    fun getDocumentState(): SharedFlow<String> = documentState
 
     fun addDocument(document: Document) {
         firebaseFirestore
