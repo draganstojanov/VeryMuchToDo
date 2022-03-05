@@ -14,10 +14,9 @@ import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.ActivityMainBinding
 import com.andraganoid.verymuchtodo.ui.msgDialog.MessageDialogData
 import com.andraganoid.verymuchtodo.util.ARGS_DIALOG_DATA
-import com.andraganoid.verymuchtodo.util.keyboardState
+import com.andraganoid.verymuchtodo.util.getKeyboardState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -67,12 +66,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setup() {
-        viewModel.loaderVisibility.observe(this, { loaderVisibility -> binding.loader.isVisible = loaderVisibility })
-        viewModel.message.observe(this, { message -> bottomToast(message) })
+        viewModel.loaderVisibility.observe(this) { loaderVisibility -> binding.loader.isVisible = loaderVisibility }
+        viewModel.message.observe(this) { message -> bottomToast(message) }
         binding.backArrow.setOnClickListener { navController.popBackStack() }
         binding.settingsBtn.setOnClickListener { navController.navigate(R.id.settingsFragment) }
         lifecycleScope.launch(Dispatchers.Main) {
-            keyboardState.collect { state ->
+            getKeyboardState().collect { state ->
                 if (state) showKeyboard() else hideKeyboard()
             }
         }

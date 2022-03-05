@@ -10,7 +10,6 @@ class Prefs
         private const val PREF = "com.andraganoid.memoryfields.SHARED_PREFERENCES"
         private const val PREF_USERNAME = "prefUsername"
         private const val PREF_AUTOCOMPLETE_ITEMS = "prefAutocompleteItems"
-        private const val PREF_FAVORITE_ITEMS = "preFavoriteItems"
     }
 
     private val sharedPreferences: SharedPreferences
@@ -27,11 +26,5 @@ class Prefs
     }
 
     fun getAutocompleteIemList(): MutableList<String>? = (sharedPreferences.getStringSet(PREF_AUTOCOMPLETE_ITEMS, mutableSetOf())?.toMutableList())
-
-    fun saveFavoriteItems(itemNames: Set<String>) {//todo
-        sharedPreferences.edit().putStringSet(PREF_FAVORITE_ITEMS, itemNames).apply()
-    }
-
-    fun getFavoriteItems(): MutableSet<String>? = sharedPreferences.getStringSet(PREF_FAVORITE_ITEMS, setOf())//todo
 
 }
