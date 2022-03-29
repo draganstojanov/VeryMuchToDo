@@ -30,4 +30,8 @@
         android:id="@+id/autocompleteEditFragment"
         android:name="com.andraganoid.verymuchtodo.ui.settings.autocomplete.AutocompleteEditFragment"
         android:label="AutocompleteEditFragment" />
+    <dialog
+        android:id="@+id/calculatorDialog"
+        android:name="com.andraganoid.verymuchtodo.ui.tools.CalculatorDialog"
+        android:label="CalculatorDialog" />
 </navigation>

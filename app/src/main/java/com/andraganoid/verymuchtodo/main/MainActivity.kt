@@ -12,8 +12,11 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.ActivityMainBinding
+import com.andraganoid.verymuchtodo.databinding.CalculatorLayoutBinding
+import com.andraganoid.verymuchtodo.ui.custom.TopModalNEW
 import com.andraganoid.verymuchtodo.ui.msgDialog.MessageDialogData
 import com.andraganoid.verymuchtodo.util.ARGS_DIALOG_DATA
+import com.andraganoid.verymuchtodo.util.calculatorState
 import com.andraganoid.verymuchtodo.util.getKeyboardState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -33,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setup()
+        setObservers()
     }
 
     override fun onStart() {
@@ -66,10 +70,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setup() {
-        viewModel.loaderVisibility.observe(this) { loaderVisibility -> binding.loader.isVisible = loaderVisibility }
-        viewModel.message.observe(this) { message -> bottomToast(message) }
+
         binding.backArrow.setOnClickListener { navController.popBackStack() }
         binding.settingsBtn.setOnClickListener { navController.navigate(R.id.settingsFragment) }
+        binding.calculatorBtn.setOnClickListener {
+            // navController.navigate(R.id.calculatorDialog)
+
+            lifecycleScope.launch(Dispatchers.Main) { calculatorState.value = true }
+
+
+        }
+
+
+    }
+
+    private fun setObservers() {
+        viewModel.loaderVisibility.observe(this) { loaderVisibility -> binding.loader.isVisible = loaderVisibility }
+        viewModel.message.observe(this) { message -> bottomToast(message) }
         lifecycleScope.launch(Dispatchers.Main) {
             getKeyboardState().collect { state ->
                 if (state) showKeyboard() else hideKeyboard()

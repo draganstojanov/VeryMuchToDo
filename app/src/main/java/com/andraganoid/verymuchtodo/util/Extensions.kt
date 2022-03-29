@@ -1,5 +1,6 @@
 package com.andraganoid.verymuchtodo.util
 
+import android.content.res.Resources
 import android.text.format.DateFormat
 import androidx.fragment.app.Fragment
 import com.andraganoid.verymuchtodo.R
@@ -30,3 +31,5 @@ fun Long.getFormattedDate(): String {
         ""
     }
 }
+
+fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()

@@ -14,4 +14,6 @@
     <dimen name="buttonTextSize">16sp</dimen>
     <dimen name="inputTextSize">18sp</dimen>
 
+    <dimen name="labelTextSize">14sp</dimen>
+
 </resources>

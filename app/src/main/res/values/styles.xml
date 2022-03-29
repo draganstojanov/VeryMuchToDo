@@ -131,5 +131,11 @@
         <item name="android:background">@drawable/settings_button_background</item>
     </style>
 
+    <style name="LabelTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/labelTextSize</item>
+        <item name="android:textColor">@color/labelTextColor</item>
+    </style>
 
 </resources>

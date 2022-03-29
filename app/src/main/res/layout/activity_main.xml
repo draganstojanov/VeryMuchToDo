@@ -23,6 +23,16 @@
         app:layout_constraintTop_toTopOf="@id/topBar" />
 
     <ImageView
+        android:id="@+id/calculatorBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/ic_calculate"
+        app:layout_constraintBottom_toBottomOf="@id/topBar"
+        app:layout_constraintEnd_toStartOf="@id/settingsBtn"
+        app:layout_constraintTop_toTopOf="@id/topBar" />
+
+    <ImageView
         android:id="@+id/settingsBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

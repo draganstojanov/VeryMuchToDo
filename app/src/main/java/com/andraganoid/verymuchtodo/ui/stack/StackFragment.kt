@@ -11,10 +11,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.andraganoid.verymuchtodo.R
+import com.andraganoid.verymuchtodo.base.ToolsFragment
 import com.andraganoid.verymuchtodo.databinding.StackFragmentBinding
 import com.andraganoid.verymuchtodo.main.MainViewModel
 import com.andraganoid.verymuchtodo.model.TodoList
 import com.andraganoid.verymuchtodo.model.state.StackState
+import com.andraganoid.verymuchtodo.ui.custom.TopModalNEW
 import com.andraganoid.verymuchtodo.util.areYouSure
 import com.andraganoid.verymuchtodo.util.keyboardState
 import com.andraganoid.verymuchtodo.util.main
@@ -23,7 +25,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class StackFragment : Fragment() {
+class StackFragment : ToolsFragment() {
 
     private var _binding: StackFragmentBinding? = null
     private val binding get() = _binding!!
@@ -31,8 +33,11 @@ class StackFragment : Fragment() {
 
     private var isNewList = false
 
+//    private lateinit var topModal: TopModalNEW
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = StackFragmentBinding.inflate(inflater, container, false)
+        parentView = binding.root
         setup()
         return binding.root
     }
@@ -43,6 +48,10 @@ class StackFragment : Fragment() {
     }
 
     private fun setup() {
+
+//       topModal=TopModalNEW(requireContext(),binding.root)
+
+
         viewModel.closeLoader()
         viewModel.userName.observe(viewLifecycleOwner) { userName ->
             viewModel.closeLoader()
@@ -67,7 +76,7 @@ class StackFragment : Fragment() {
         binding.stacksRecView.adapter = adapter
 
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.getSnapshotState().collect { tlState ->
                     when (tlState) {
                         is StackState.Stack -> {
