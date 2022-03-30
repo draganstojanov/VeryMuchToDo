@@ -1,9 +1,7 @@
 
 activity_main.xml
 build.gradle
-build.gradle
-calculator_layout.xml
-CHANGES
+calculator_layout.xml - TODO
 colors.xml
 dimens.xml
 Extensions.kt
@@ -18,24 +16,16 @@ TodoListFragment.kt
 ToolsFragment.kt
 top_modal_core.xml
 top_modal_layout.xml
-TopModalNEW.kt
-
-
+TopModal.kt
 .gitignore
-.gitignore
-activity_main.xml
-calculator_layout.xml
-Extensions.kt
-Flows.kt
 item_editor_layout.xml
-MainActivity.kt
 name_layout.xml
 stack_editor_layout.xml
-StackFragment.kt
-strings.xml
-styles.xml
-TodoListFragment.kt
-ToolsActivity.kt
-ToolsFragment.kt
-top_modal_layout.xml
-TopModalNEW.kt
+ToolsActivity.kt - TODO
+AndroidManifest.xml
+App.kt
+stack_fragment.xml
+todo_list_fragment.xml
+TodoReleaseTree.kt
+
+

@@ -39,14 +39,13 @@ fun Fragment.areYouSure(click: () -> Unit) {
     )
 }
 
-fun Long.getFormattedDate(): String {
-    return if (this > 0) {
+fun Long.getFormattedDate(): String =
+    if (this > 0) {
         val cal = Calendar.getInstance()
         cal.timeInMillis = this
         DateFormat.format("dd.MM.yyyy HH:mm", cal).toString()
     } else {
         ""
     }
-}
 
 fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()

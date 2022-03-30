@@ -10,4 +10,4 @@
 app/google-services.json
 app/src/main/res/values/key.xml
 app/src/main/java/com/andraganoid/verymuchtodo/secret
-app/src/main/java/com/andraganoid/verymuchtodo/ui/custom/TopModalNEW.kt
+app/src/main/java/com/andraganoid/verymuchtodo/ui/custom/TopModal.kt

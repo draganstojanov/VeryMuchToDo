@@ -3,14 +3,13 @@ package com.andraganoid.verymuchtodo.ui.tools
 import androidx.appcompat.app.AppCompatActivity
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.CalculatorLayoutBinding
-import com.andraganoid.verymuchtodo.ui.custom.TopModalNEW
+import com.andraganoid.verymuchtodo.ui.custom.TopModal
 
 open class ToolsActivity : AppCompatActivity() {
 
     //Calculator
-    private var calculatorTopModal: TopModalNEW? = null
+    private var calculatorTopModal: TopModal? = null
     private lateinit var calculator: CalculatorLayoutBinding
-
 
     internal fun closeTools() {
         calculatorTopModal?.collapse()
@@ -37,10 +36,13 @@ open class ToolsActivity : AppCompatActivity() {
         calculator = CalculatorLayoutBinding.inflate(layoutInflater)
             .also { it.cancelBtn.setOnClickListener { calculatorTopModal?.collapse() } }
 
-        calculatorTopModal = TopModalNEW(
+        calculatorTopModal = TopModal(
             parent = findViewById(R.id.mainActivityRoot),
             customView = calculator.root
-        ).also { it.isClickable = true }
+        ).also {
+            it.isClickable = true
+            it.expand()
+        }
 
 
     }

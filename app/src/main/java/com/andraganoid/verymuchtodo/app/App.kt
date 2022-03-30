@@ -5,6 +5,8 @@ import com.andraganoid.verymuchtodo.BuildConfig
 import com.andraganoid.verymuchtodo.di.Modules
 import com.andraganoid.verymuchtodo.util.TodoDebugTree
 import com.andraganoid.verymuchtodo.util.TodoReleaseTree
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -19,6 +21,7 @@ class App : Application() {
             androidContext(this@App)
             modules(Modules.appModule)
         }
+        Firebase.crashlytics.setCrashlyticsCollectionEnabled(BuildConfig.CRASHLYTICS)
         timberInit()
     }
 

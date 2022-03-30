@@ -2,7 +2,10 @@ package com.andraganoid.verymuchtodo.main
 
 import android.os.Bundle
 import androidx.core.os.bundleOf
-import androidx.core.view.*
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -11,7 +14,6 @@ import com.andraganoid.verymuchtodo.databinding.ActivityMainBinding
 import com.andraganoid.verymuchtodo.ui.msgDialog.MessageDialogData
 import com.andraganoid.verymuchtodo.ui.tools.ToolsActivity
 import com.andraganoid.verymuchtodo.util.ARGS_DIALOG_DATA
-import com.andraganoid.verymuchtodo.util.getKeyboardState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -76,11 +78,6 @@ class MainActivity : ToolsActivity() {
     private fun setObservers() {
         viewModel.loaderVisibility.observe(this) { loaderVisibility -> binding.loader.isVisible = loaderVisibility }
         viewModel.message.observe(this) { message -> bottomToast(message) }
-        lifecycleScope.launch(Dispatchers.Main) {//todo skloni
-            getKeyboardState().collect { state ->
-               // if (state) showKeyboard() else hideKeyboard()
-            }
-        }
     }
 
     fun showTitle(title: String) {
@@ -122,7 +119,7 @@ class MainActivity : ToolsActivity() {
     }
 
     fun invisibleToolbar(isInvisible: Boolean) {
-       binding.topBarMask.isVisible=isInvisible
+        binding.topBarMask.isVisible = isInvisible
     }
 
 
