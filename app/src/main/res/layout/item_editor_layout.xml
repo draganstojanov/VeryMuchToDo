@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/contentLabel"
+        style="@style/LabelTextView"
+        android:text="@string/content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <AutoCompleteTextView
+        android:id="@+id/contentInput"
+        style="@style/TopModalEditText"
+        android:hint="@string/content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/contentLabel" />
+
+    <TextView
+        android:id="@+id/descriptionLabel"
+        style="@style/LabelTextView"
+        android:layout_marginTop="8dp"
+        android:text="@string/description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/contentInput" />
+
+    <EditText
+        android:id="@+id/descriptionInput"
+        style="@style/TopModalEditText"
+        android:hint="@string/description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/descriptionLabel" />
+
+    <TextView
+        android:id="@+id/cancelBtn"
+        style="@style/ButtonStyle"
+        android:layout_marginTop="16dp"
+        android:text="@string/close"
+        app:layout_constraintEnd_toStartOf="@id/saveBtn"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/descriptionInput" />
+
+    <TextView
+        android:id="@+id/saveBtn"
+        style="@style/ButtonStyle"
+        android:layout_marginTop="16dp"
+        android:text="@string/save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/cancelBtn"
+        app:layout_constraintTop_toBottomOf="@id/descriptionInput" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

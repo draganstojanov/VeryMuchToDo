@@ -1,29 +1,23 @@
 package com.andraganoid.verymuchtodo.main
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
-import androidx.core.view.isVisible
+import androidx.core.view.*
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.ActivityMainBinding
-import com.andraganoid.verymuchtodo.databinding.CalculatorLayoutBinding
-import com.andraganoid.verymuchtodo.ui.custom.TopModalNEW
 import com.andraganoid.verymuchtodo.ui.msgDialog.MessageDialogData
+import com.andraganoid.verymuchtodo.ui.tools.ToolsActivity
 import com.andraganoid.verymuchtodo.util.ARGS_DIALOG_DATA
-import com.andraganoid.verymuchtodo.util.calculatorState
 import com.andraganoid.verymuchtodo.util.getKeyboardState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ToolsActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModel()
@@ -49,47 +43,42 @@ class MainActivity : AppCompatActivity() {
                     showTitle(getString(R.string.todo))
                     showArrow(false)
                     showSettings(true)
+                    showCalculator(true)
                 }
                 R.id.todoListFragment -> {
                     showTitle("")
                     showArrow(true)
                     showSettings(true)
+                    showCalculator(true)
                 }
                 R.id.settingsFragment -> {
                     showTitle(getString(R.string.settings))
                     showArrow(true)
                     showSettings(false)
+                    showCalculator(false)
                 }
                 R.id.autocompleteEditFragment -> {
                     showTitle(getString(R.string.edit_autocomplete))
                     showArrow(true)
                     showSettings(false)
+                    showCalculator(false)
                 }
             }
         }
     }
 
     private fun setup() {
-
         binding.backArrow.setOnClickListener { navController.popBackStack() }
         binding.settingsBtn.setOnClickListener { navController.navigate(R.id.settingsFragment) }
-        binding.calculatorBtn.setOnClickListener {
-            // navController.navigate(R.id.calculatorDialog)
-
-            lifecycleScope.launch(Dispatchers.Main) { calculatorState.value = true }
-
-
-        }
-
-
+        binding.calculatorBtn.setOnClickListener { openCalculator() }
     }
 
     private fun setObservers() {
         viewModel.loaderVisibility.observe(this) { loaderVisibility -> binding.loader.isVisible = loaderVisibility }
         viewModel.message.observe(this) { message -> bottomToast(message) }
-        lifecycleScope.launch(Dispatchers.Main) {
+        lifecycleScope.launch(Dispatchers.Main) {//todo skloni
             getKeyboardState().collect { state ->
-                if (state) showKeyboard() else hideKeyboard()
+               // if (state) showKeyboard() else hideKeyboard()
             }
         }
     }
@@ -106,14 +95,18 @@ class MainActivity : AppCompatActivity() {
         binding.settingsBtn.isVisible = settingsVisibility
     }
 
-    private fun showKeyboard() {
+    private fun showCalculator(calculatorVisibility: Boolean) {
+        binding.calculatorBtn.isVisible = calculatorVisibility
+    }
+
+    fun showKeyboard() {
         lifecycleScope.launch(Dispatchers.Main) {
             delay(300)
             insetController.show(WindowInsetsCompat.Type.ime())
         }
     }
 
-    private fun hideKeyboard() {
+    fun hideKeyboard() {
         lifecycleScope.launch(Dispatchers.Main) {
             delay(300)
             insetController.hide(WindowInsetsCompat.Type.ime())
@@ -126,6 +119,10 @@ class MainActivity : AppCompatActivity() {
 
     fun bottomToast(msg: Any?) {
         messageDialog(MessageDialogData(toast = msg.toString()))
+    }
+
+    fun invisibleToolbar(isInvisible: Boolean) {
+       binding.topBarMask.isVisible=isInvisible
     }
 
 
