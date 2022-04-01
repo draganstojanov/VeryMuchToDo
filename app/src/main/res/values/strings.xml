@@ -28,4 +28,7 @@
     <string name="name_cant_be_empty">Name can\'t be empty</string>
     <string name="content_cant_be_empty">Content can\'t be empty</string>
     <string name="title_cant_be_empty">Title can\'t be empty</string>
+    <string name="calculatorTitle">Price per unit calculator</string>
+    <string name="price">Price</string>
+    <string name="currency">Currency</string>
 </resources>

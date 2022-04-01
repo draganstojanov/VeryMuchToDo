@@ -40,10 +40,10 @@ open class ToolsActivity : AppCompatActivity() {
             parent = findViewById(R.id.mainActivityRoot),
             customView = calculator.root
         ).also {
-            it.isClickable = true
+            it.isCancellable = true
             it.expand()
+            it.requestFocusOnExpand = calculator.quantityInput
         }
-
 
     }
 }

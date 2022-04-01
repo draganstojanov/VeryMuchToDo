@@ -21,9 +21,13 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ToolsActivity() {
 
+    companion object {
+        lateinit var insetController: WindowInsetsControllerCompat
+    }
+
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModel()
-    private lateinit var insetController: WindowInsetsControllerCompat
+
 
     private lateinit var navController: NavController
 
@@ -38,7 +42,7 @@ class MainActivity : ToolsActivity() {
     override fun onStart() {
         super.onStart()
         insetController = ViewCompat.getWindowInsetsController(binding.root)!!
-        navController = findNavController(R.id.fragmentLayout)
+        navController = findNavController(R.id.fragmentContainer)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.stackFragment -> {
@@ -97,17 +101,17 @@ class MainActivity : ToolsActivity() {
     }
 
     fun showKeyboard() {
-        lifecycleScope.launch(Dispatchers.Main) {
-            delay(300)
+      //  lifecycleScope.launch(Dispatchers.Main) {
+       //     delay(300)
             insetController.show(WindowInsetsCompat.Type.ime())
-        }
+     //   }
     }
 
     fun hideKeyboard() {
-        lifecycleScope.launch(Dispatchers.Main) {
-            delay(300)
+      //  lifecycleScope.launch(Dispatchers.Main) {
+        //    delay(300)
             insetController.hide(WindowInsetsCompat.Type.ime())
-        }
+      //  }
     }
 
     fun messageDialog(dialogData: MessageDialogData) {
