@@ -20,6 +20,7 @@
         <item name="android:background">@color/titleBackColor</item>
         <item name="android:paddingStart">32dp</item>
         <item name="android:paddingEnd">32dp</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="ItemText">
@@ -27,6 +28,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">8dp</item>
         <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="ItemTitleText" parent="ItemText">
@@ -55,6 +57,7 @@
         <item name="android:padding">8dp</item>
         <item name="android:ellipsize">end</item>
         <item name="android:inputType">text|textMultiLine</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="ButtonStyle" parent="Widget.AppCompat.TextView">
@@ -135,6 +138,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/labelTextSize</item>
         <item name="android:textColor">@color/labelTextColor</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
 </resources>

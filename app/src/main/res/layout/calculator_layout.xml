@@ -4,9 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <!--        <variable-->
-        <!--            name=""-->
-        <!--            type="" />-->
+                <variable
+                    name="calcModel"
+                    type="com.andraganoid.verymuchtodo.ui.tools.CalculatorModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,6 +36,7 @@
             android:layout_width="0dp"
             android:gravity="end"
             android:inputType="numberDecimal"
+            android:text="@={calcModel.quantity.toString()}"
             app:layout_constraintEnd_toStartOf="@id/unitSelector"
             app:layout_constraintHorizontal_weight="3"
             app:layout_constraintStart_toStartOf="parent"
@@ -68,6 +69,19 @@
             app:layout_constraintBottom_toBottomOf="@id/unitSelector"
             app:layout_constraintEnd_toEndOf="@id/unitSelector"
             app:layout_constraintTop_toTopOf="@id/unitSelector" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/unitDropdown"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/item_text_background"
+            android:overScrollMode="never"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@id/unitSelector"
+            app:layout_constraintStart_toStartOf="@id/unitSelector"
+            app:layout_constraintTop_toBottomOf="@id/unitSelector" />
 
         <TextView
             android:id="@+id/priceLabel"
@@ -115,6 +129,19 @@
             app:layout_constraintBottom_toBottomOf="@id/currencySelector"
             app:layout_constraintEnd_toEndOf="@id/currencySelector"
             app:layout_constraintTop_toTopOf="@id/currencySelector" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/currencyDropdown"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/item_text_background"
+            android:overScrollMode="never"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@id/currencySelector"
+            app:layout_constraintStart_toStartOf="@id/currencySelector"
+            app:layout_constraintTop_toBottomOf="@id/currencySelector" />
 
         <TextView
             android:id="@+id/calculatedValue"

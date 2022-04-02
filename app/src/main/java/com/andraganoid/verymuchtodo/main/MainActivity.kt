@@ -1,6 +1,7 @@
 package com.andraganoid.verymuchtodo.main
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -74,6 +75,7 @@ class MainActivity : ToolsActivity() {
     }
 
     private fun setup() {
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         binding.backArrow.setOnClickListener { navController.popBackStack() }
         binding.settingsBtn.setOnClickListener { navController.navigate(R.id.settingsFragment) }
         binding.calculatorBtn.setOnClickListener { openCalculator() }
