@@ -23,73 +23,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/quantityLabel"
-            style="@style/LabelTextView"
-            android:layout_marginTop="16dp"
-            android:text="@string/quantity"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title" />
-
-        <EditText
-            android:id="@+id/quantityInput"
-            style="@style/TopModalEditText"
-            android:layout_width="0dp"
-            android:gravity="end"
-            android:inputType="numberDecimal"
-            android:text="@={calcModel.quantity.toString()}"
-            app:layout_constraintEnd_toStartOf="@id/unitSelector"
-            app:layout_constraintHorizontal_weight="3"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/quantityLabel" />
-
-        <TextView
-            android:id="@+id/unitLabel"
-            style="@style/LabelTextView"
-            android:text="@string/unit"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/quantityLabel" />
-
-        <TextView
-            android:id="@+id/unitSelector"
-            style="@style/TopModalEditText"
-            android:layout_width="0dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toBottomOf="@id/quantityInput"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="2"
-            app:layout_constraintStart_toEndOf="@id/quantityInput"
-            app:layout_constraintTop_toTopOf="@id/quantityInput" />
-
-        <ImageView
-            android:id="@+id/unitArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_arrow_drop_up"
-            app:layout_constraintBottom_toBottomOf="@id/unitSelector"
-            app:layout_constraintEnd_toEndOf="@id/unitSelector"
-            app:layout_constraintTop_toTopOf="@id/unitSelector" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/unitDropdown"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/item_text_background"
-            android:overScrollMode="never"
-            android:visibility="gone"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="@id/unitSelector"
-            app:layout_constraintStart_toStartOf="@id/unitSelector"
-            app:layout_constraintTop_toBottomOf="@id/unitSelector" />
-
-        <TextView
             android:id="@+id/priceLabel"
             style="@style/LabelTextView"
             android:layout_marginTop="8dp"
             android:text="@string/price"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/quantityInput" />
+            app:layout_constraintTop_toBottomOf="@id/title" />
 
         <EditText
             android:id="@+id/priceInput"
@@ -114,6 +53,7 @@
             style="@style/TopModalEditText"
             android:layout_width="0dp"
             android:layout_marginStart="8dp"
+            android:text="@{calcModel.currency.code}"
             app:layout_constraintBottom_toBottomOf="@id/priceInput"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="2"
@@ -144,6 +84,67 @@
             app:layout_constraintTop_toBottomOf="@id/currencySelector" />
 
         <TextView
+            android:id="@+id/quantityLabel"
+            style="@style/LabelTextView"
+            android:layout_marginTop="16dp"
+            android:text="@string/quantity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/priceInput" />
+
+        <EditText
+            android:id="@+id/quantityInput"
+            style="@style/TopModalEditText"
+            android:layout_width="0dp"
+            android:gravity="end"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toStartOf="@id/unitSelector"
+            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/quantityLabel" />
+
+        <TextView
+            android:id="@+id/unitLabel"
+            style="@style/LabelTextView"
+            android:text="@string/unit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/quantityLabel" />
+
+        <TextView
+            android:id="@+id/unitSelector"
+            style="@style/TopModalEditText"
+            android:layout_width="0dp"
+            android:layout_marginStart="8dp"
+            android:text="@{calcModel.unit.code}"
+            app:layout_constraintBottom_toBottomOf="@id/quantityInput"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toEndOf="@id/quantityInput"
+            app:layout_constraintTop_toTopOf="@id/quantityInput" />
+
+        <ImageView
+            android:id="@+id/unitArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_arrow_drop_up"
+            app:layout_constraintBottom_toBottomOf="@id/unitSelector"
+            app:layout_constraintEnd_toEndOf="@id/unitSelector"
+            app:layout_constraintTop_toTopOf="@id/unitSelector" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/unitDropdown"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/item_text_background"
+            android:overScrollMode="never"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@id/unitSelector"
+            app:layout_constraintStart_toStartOf="@id/unitSelector"
+            app:layout_constraintTop_toBottomOf="@id/unitSelector" />
+
+        <TextView
             android:id="@+id/calculatedValue"
             android:layout_width="0dp"
             android:layout_height="@dimen/barHeight"
@@ -152,13 +153,13 @@
             android:backgroundTint="@color/colorAccent"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:text="256,35 din/Kg"
+            android:text="@{calcModel.result}"
             android:textColor="@color/white"
             android:textSize="28sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/priceInput" />
+            app:layout_constraintTop_toBottomOf="@id/quantityInput" />
 
         <TextView
             android:id="@+id/clearBtn"

@@ -22,7 +22,6 @@ class DropdownAdapter(private val itemList: List<String>, private val onItemCLic
         fun bind(item: String) {
             binding.dropdownText.text = item
             binding.root.setOnClickListener { onItemCLick.invoke(item) }
-            binding.
         }
     }
 }
