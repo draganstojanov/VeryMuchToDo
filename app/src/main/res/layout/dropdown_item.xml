@@ -4,8 +4,9 @@
     android:id="@+id/dropdownText"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dropdownItemHeight"
+    android:gravity="center_vertical"
+    android:includeFontPadding="false"
     android:paddingHorizontal="8dp"
     android:textColor="@color/primVeryLite"
-    android:textSize="@dimen/inputTextSize"
-    android:includeFontPadding="false"/>
+    android:textSize="@dimen/inputTextSize" />
 

@@ -15,11 +15,6 @@ open class ToolsActivity : AppCompatActivity() {
     private lateinit var calculator: CalculatorLayoutBinding
     private val calculatorModel = CalculatorModel()
 
-
-    internal fun closeTools() {
-        calculatorTopModal?.collapse()
-    }
-
     //Calculator
     internal fun toggleCalculator() {
         if (calculatorTopModal == null) {
@@ -58,15 +53,32 @@ open class ToolsActivity : AppCompatActivity() {
                     calculatorModel.calculateResult()
                 }
             }
+            setOnFocusChangeListener { _, b ->
+                if (b) {
+                    currencyCollapse()
+                    unitCollapse()
+                }
+            }
         }
 
         setQuantityFilter()
-        calculator.quantityInput.doOnTextChanged { text, _, _, _ ->
-            calculatorModel.apply {
-                quantity?.set(text.toString().toFloatOrNull() ?: 0f)
-                calculatorModel.calculateResult()
+        with(calculator.quantityInput) {
+            doOnTextChanged { text, _, _, _ ->
+                calculatorModel.apply {
+                    quantity?.set(text.toString().toFloatOrNull() ?: 0f)
+                    calculatorModel.calculateResult()
+                }
+            }
+            setOnFocusChangeListener { _, b ->
+                if (b) {
+                    currencyCollapse()
+                    unitCollapse()
+                }
             }
         }
+
+        calculator.unitDropdown.adapter = UnitAdapter(unitList, this::unitClick)
+        calculator.currencyDropdown.adapter = CurrencyAdapter(currencyList, this::currencyClick)
 
         calculator.clearBtn.setOnClickListener {
             with(calculator.priceInput) {
@@ -78,6 +90,24 @@ open class ToolsActivity : AppCompatActivity() {
         }
 
         calculator.calcModel = calculatorModel
+
+        calculator.unitArrow.setOnClickListener {
+            it.toggleArrow()
+            calculator.unitDropdown.toggleExpand()
+
+            currencyCollapse()
+            calculator.quantityInput.clearFocus()
+            calculator.priceInput.clearFocus()
+        }
+
+        calculator.currencyArrow.setOnClickListener {
+            it.toggleArrow()
+            calculator.currencyDropdown.toggleExpand()
+
+            unitCollapse()
+            calculator.quantityInput.clearFocus()
+            calculator.priceInput.clearFocus()
+        }
     }
 
     private fun setQuantityFilter() {
@@ -92,6 +122,26 @@ open class ToolsActivity : AppCompatActivity() {
                 filters = arrayOf<InputFilter>(DecimalFilter(8, 3))
             }
         }
+    }
+
+    private fun currencyCollapse() {
+        calculator.currencyArrow.arrowCollapseIfExpanded()
+        calculator.currencyDropdown.collapseIfExpanded()
+    }
+
+    private fun unitCollapse() {
+        calculator.unitArrow.arrowCollapseIfExpanded()
+        calculator.unitDropdown.collapseIfExpanded()
+    }
+
+    private fun unitClick(unitModel: UnitModel) {
+        calculatorModel.unit?.set(unitModel)
+        calculatorModel.calculateResult()
+    }
+
+    private fun currencyClick(currencyModel: CurrencyModel) {
+        calculatorModel.currency?.set(currencyModel)
+        calculatorModel.calculateResult()
     }
 
 }

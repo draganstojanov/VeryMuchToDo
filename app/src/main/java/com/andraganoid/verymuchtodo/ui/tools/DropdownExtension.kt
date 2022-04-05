@@ -8,12 +8,15 @@ import androidx.core.view.isVisible
 import com.andraganoid.verymuchtodo.R
 
 
-private const val DURATION = 100L
+private const val DURATION = 250L
+private const val EXPANDED = "expanded"
+private const val COLLAPSED = "collapsed"
 
 fun View.expand() {
-    val targetHeight = resources.getDimensionPixelSize(R.dimen.dropdownItemHeight)*3
+    val targetHeight = resources.getDimensionPixelSize(R.dimen.dropdownItemHeight) * 3
     ValueAnimator.ofInt(0, targetHeight).apply {
         duration = DURATION
+        isVisible = true
         addUpdateListener { animation ->
             layoutParams.height = animation.animatedValue as Int
             requestLayout()
@@ -21,6 +24,7 @@ fun View.expand() {
         doOnEnd {
             layoutParams.height = targetHeight
             requestLayout()
+            tag = EXPANDED
         }
         start()
     }
@@ -37,6 +41,7 @@ fun View.collapse() {
         }
         doOnEnd {
             isVisible = false
+            tag = COLLAPSED
         }
         start()
     }
@@ -47,6 +52,7 @@ fun View.arrowRotationExpand() {
         .apply {
             duration = DURATION
             start()
+            tag = EXPANDED
         }
 }
 
@@ -55,5 +61,34 @@ fun View.arrowRotationCollapse() {
         .apply {
             duration = DURATION
             start()
+            tag = COLLAPSED
         }
+}
+
+fun View.toggleExpand() {
+    if (tag == EXPANDED) {
+        collapse()
+    } else {
+        expand()
+    }
+}
+
+fun View.collapseIfExpanded() {
+    if (tag == EXPANDED) {
+        collapse()
+    }
+}
+
+fun View.toggleArrow() {
+    if (tag == EXPANDED) {
+        arrowRotationCollapse()
+    } else {
+        arrowRotationExpand()
+    }
+}
+
+fun View.arrowCollapseIfExpanded() {
+    if (tag == EXPANDED) {
+        arrowRotationCollapse()
+    }
 }

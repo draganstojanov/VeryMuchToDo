@@ -26,7 +26,7 @@ class MainActivity : ToolsActivity() {
         lateinit var insetController: WindowInsetsControllerCompat
     }
 
-    private lateinit var binding: ActivityMainBinding
+     lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModel()
 
 
