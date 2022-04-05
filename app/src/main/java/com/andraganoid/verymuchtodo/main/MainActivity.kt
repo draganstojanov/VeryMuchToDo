@@ -1,13 +1,13 @@
 package com.andraganoid.verymuchtodo.main
 
 import android.os.Bundle
+import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.andraganoid.verymuchtodo.R
@@ -15,9 +15,6 @@ import com.andraganoid.verymuchtodo.databinding.ActivityMainBinding
 import com.andraganoid.verymuchtodo.ui.msgDialog.MessageDialogData
 import com.andraganoid.verymuchtodo.ui.tools.ToolsActivity
 import com.andraganoid.verymuchtodo.util.ARGS_DIALOG_DATA
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ToolsActivity() {
@@ -26,7 +23,7 @@ class MainActivity : ToolsActivity() {
         lateinit var insetController: WindowInsetsControllerCompat
     }
 
-     lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModel()
 
 
@@ -78,7 +75,7 @@ class MainActivity : ToolsActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         binding.backArrow.setOnClickListener { navController.popBackStack() }
         binding.settingsBtn.setOnClickListener { navController.navigate(R.id.settingsFragment) }
-        binding.calculatorBtn.setOnClickListener { openCalculator() }
+        binding.calculatorBtn.setOnClickListener { openCalculator(binding.toolsContainer) }
     }
 
     private fun setObservers() {
