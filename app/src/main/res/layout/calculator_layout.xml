@@ -1,112 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--<layout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto">-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<!--    <data>-->
+    <data>
+                <variable
+                    name="calcModel"
+                    type="com.andraganoid.verymuchtodo.ui.tools.calculator.model.CalculatorModel" />
+    </data>
 
-<!--        <variable-->
-<!--            name="message"-->
-<!--            type="com.andraganoid.verymuchtodo.ui.msgDialog.MessageDialogData" />-->
-<!--    </data>-->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp">
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingHorizontal="16dp"
-    android:paddingTop="32dp"
-    android:paddingBottom="200dp">
+        <TextView
+            android:id="@+id/title"
+            style="@style/TitleText"
+            android:gravity="center"
+            android:text="@string/calculatorTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/quantityLabel"
-        style="@style/LabelTextView"
-        android:layout_marginTop="16dp"
-        android:text="@string/quantity"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/priceLabel"
+            style="@style/LabelTextView"
+            android:layout_marginTop="8dp"
+            android:text="@string/price"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title" />
 
-    <EditText
-        android:id="@+id/quantityInput"
-        style="@style/TopModalEditText"
-        android:inputType="number"
-        app:layout_constraintEnd_toStartOf="@id/unitSelector"
-        app:layout_constraintHorizontal_weight="2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/quantityLabel" />
+        <EditText
+            android:id="@+id/priceInput"
+            style="@style/TopModalEditText"
+            android:layout_width="0dp"
+            android:gravity="end"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toStartOf="@id/currencySelector"
+            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/priceLabel" />
 
-    <TextView
-        android:id="@+id/unitLabel"
-        style="@style/LabelTextView"
-        android:text="@string/unit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/currencyLabel"
+            style="@style/LabelTextView"
+            android:text="@string/currency"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/priceLabel" />
 
-    <EditText
-        android:id="@+id/unitSelector"
-        style="@style/TopModalEditText"
-        android:layout_marginStart="8dp"
-        android:inputType="number"
-        app:layout_constraintBottom_toBottomOf="@id/quantityInput"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toEndOf="@id/quantityInput"
-        app:layout_constraintTop_toTopOf="@id/quantityInput" />
+        <TextView
+            android:id="@+id/currencySelector"
+            style="@style/TopModalEditText"
+            android:layout_width="0dp"
+            android:layout_marginStart="8dp"
+            android:text="@{calcModel.currency.code}"
+            app:layout_constraintBottom_toBottomOf="@id/priceInput"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toEndOf="@id/priceInput"
+            app:layout_constraintTop_toTopOf="@id/priceInput" />
 
+        <ImageView
+            android:id="@+id/currencyArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_arrow_drop_up"
+            app:layout_constraintBottom_toBottomOf="@id/currencySelector"
+            app:layout_constraintEnd_toEndOf="@id/currencySelector"
+            app:layout_constraintTop_toTopOf="@id/currencySelector" />
 
-    <TextView
-        android:id="@+id/cancelBtn"
-        style="@style/ButtonStyle"
-        android:text="@string/close"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/unitSelector" />
-    <!--        <TextView-->
-    <!--            android:id="@+id/msgDialogTitle"-->
-    <!--            style="@style/MessageDialogTitle"-->
-    <!--            messageDialog="@{message.title}"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/currencyDropdown"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/item_text_background"
+            android:overScrollMode="never"
+            android:visibility="gone"
+            android:translationZ="4dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@id/currencySelector"
+            app:layout_constraintStart_toStartOf="@id/currencySelector"
+            app:layout_constraintTop_toBottomOf="@id/currencySelector" />
 
-    <!--        <TextView-->
-    <!--            android:id="@+id/msgDialogDesc"-->
-    <!--            style="@style/MessageDialogDesc"-->
-    <!--            messageDialog="@{message.desc}"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toBottomOf="@+id/msgDialogTitle" />-->
+        <TextView
+            android:id="@+id/quantityLabel"
+            style="@style/LabelTextView"
+            android:layout_marginTop="16dp"
+            android:text="@string/quantity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/priceInput" />
 
-    <!--        <TextView-->
-    <!--            android:id="@+id/msgDialogBtnLeft"-->
-    <!--            style="@style/MessageDialogButton"-->
-    <!--            messageDialog="@{message.btnLeftText}"-->
-    <!--            app:layout_constraintEnd_toStartOf="@+id/msgDialogBtnMid"-->
-    <!--            app:layout_constraintTop_toTopOf="@+id/msgDialogBtnRight" />-->
+        <EditText
+            android:id="@+id/quantityInput"
+            style="@style/TopModalEditText"
+            android:layout_width="0dp"
+            android:gravity="end"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toStartOf="@id/unitSelector"
+            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/quantityLabel" />
 
-    <!--        <TextView-->
-    <!--            android:id="@+id/msgDialogBtnMid"-->
-    <!--            style="@style/MessageDialogButton"-->
-    <!--            messageDialog="@{message.btnMidText}"-->
-    <!--            app:layout_constraintEnd_toStartOf="@+id/msgDialogBtnRight"-->
-    <!--            app:layout_constraintTop_toTopOf="@+id/msgDialogBtnRight" />-->
+        <TextView
+            android:id="@+id/unitLabel"
+            style="@style/LabelTextView"
+            android:text="@string/unit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/quantityLabel" />
 
-    <!--        <TextView-->
-    <!--            android:id="@+id/msgDialogBtnRight"-->
-    <!--            style="@style/MessageDialogButton"-->
-    <!--            messageDialog="@{message.btnRightText}"-->
-    <!--            android:layout_marginTop="32dp"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintTop_toBottomOf="@+id/msgDialogDesc" />-->
+        <TextView
+            android:id="@+id/unitSelector"
+            style="@style/TopModalEditText"
+            android:layout_width="0dp"
+            android:layout_marginStart="8dp"
+            android:text="@{calcModel.unit.code}"
+            app:layout_constraintBottom_toBottomOf="@id/quantityInput"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="2"
+            app:layout_constraintStart_toEndOf="@id/quantityInput"
+            app:layout_constraintTop_toTopOf="@id/quantityInput" />
 
-    <!--        <TextView-->
-    <!--            android:id="@+id/msgDialogToast"-->
-    <!--            style="@style/MessageDialogToast"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <ImageView
+            android:id="@+id/unitArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_arrow_drop_up"
+            app:layout_constraintBottom_toBottomOf="@id/unitSelector"
+            app:layout_constraintEnd_toEndOf="@id/unitSelector"
+            app:layout_constraintTop_toTopOf="@id/unitSelector" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/unitDropdown"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/item_text_background"
+            android:overScrollMode="never"
+            android:visibility="gone"
+            android:translationZ="4dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@id/unitSelector"
+            app:layout_constraintStart_toStartOf="@id/unitSelector"
+            app:layout_constraintTop_toBottomOf="@id/unitSelector" />
 
-    <!--</layout>-->
+        <TextView
+            android:id="@+id/calculatedValue"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/barHeight"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/settings_button_background"
+            android:backgroundTint="@color/colorAccent"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="@{calcModel.result}"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/quantityInput" />
+
+        <TextView
+            android:id="@+id/clearBtn"
+            style="@style/ButtonStyle"
+            android:layout_marginTop="32dp"
+            android:text="@string/clear"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/cancelBtn"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/calculatedValue" />
+
+        <TextView
+            android:id="@+id/cancelBtn"
+            style="@style/ButtonStyle"
+            android:text="@string/close"
+            app:layout_constraintBottom_toBottomOf="@id/clearBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/clearBtn"
+            app:layout_constraintTop_toTopOf="@id/clearBtn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

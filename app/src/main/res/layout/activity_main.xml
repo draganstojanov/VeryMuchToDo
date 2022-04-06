@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainActivityRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -42,8 +43,18 @@
         app:layout_constraintEnd_toEndOf="@id/topBar"
         app:layout_constraintTop_toTopOf="@id/topBar" />
 
+    <View
+        android:id="@+id/topBarMask"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/barHeight"
+        android:background="@color/topModalBackColor"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/topBar"
+        app:layout_constraintStart_toStartOf="@id/topBar"
+        app:layout_constraintTop_toTopOf="@id/topBar" />
+
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentLayout"
+        android:id="@+id/fragmentContainer"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -52,13 +63,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topBar"
-        app:navGraph="@navigation/nav" />
+        app:navGraph="@navigation/main_nav" />
+
+    <FrameLayout
+        android:id="@+id/toolsContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
         android:id="@+id/loader"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/backgroundColor">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/backgroundColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ProgressBar
             android:layout_width="64dp"

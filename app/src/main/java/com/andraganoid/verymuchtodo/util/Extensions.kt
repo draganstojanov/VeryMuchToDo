@@ -11,6 +11,23 @@ import java.util.*
 val Fragment.main: MainActivity
     get() = activity as MainActivity
 
+fun Fragment.hideKeyboard() {
+    main.hideKeyboard()
+}
+
+fun Fragment.showKeyboard() {
+    main.showKeyboard()
+}
+
+fun Fragment.showMessage(msg: Any?) {
+    main.bottomToast(msg)
+}
+
+fun Fragment.invisibleToolbar(isInvisible: Boolean) {
+    main.invisibleToolbar(isInvisible)
+}
+
+
 fun Fragment.areYouSure(click: () -> Unit) {
     main.messageDialog(
         MessageDialogData(
@@ -22,14 +39,13 @@ fun Fragment.areYouSure(click: () -> Unit) {
     )
 }
 
-fun Long.getFormattedDate(): String {
-    return if (this > 0) {
+fun Long.getFormattedDate(): String =
+    if (this > 0) {
         val cal = Calendar.getInstance()
         cal.timeInMillis = this
         DateFormat.format("dd.MM.yyyy HH:mm", cal).toString()
     } else {
         ""
     }
-}
 
 fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()

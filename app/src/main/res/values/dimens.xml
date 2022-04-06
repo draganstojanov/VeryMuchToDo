@@ -16,4 +16,6 @@
 
     <dimen name="labelTextSize">14sp</dimen>
 
+    <dimen name="dropdownItemHeight">40dp</dimen>
+
 </resources>
