@@ -1,7 +1,9 @@
-package com.andraganoid.verymuchtodo.ui.tools
+package com.andraganoid.verymuchtodo.ui.tools.calculator.model
 
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableFloat
+import com.andraganoid.verymuchtodo.ui.tools.calculator.currencyList
+import com.andraganoid.verymuchtodo.ui.tools.calculator.unitList
 import java.text.DecimalFormat
 
 class CalculatorModel(
@@ -31,7 +33,6 @@ class CalculatorModel(
             val df = DecimalFormat("#.00")
             df.isDecimalSeparatorAlwaysShown = false
             (df.format(ppu.toDouble()))
-
         } else {
             null
         }

@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.util
+package com.andraganoid.verymuchtodo.util.timber
 
 import android.util.Log
 import com.google.firebase.crashlytics.ktx.crashlytics

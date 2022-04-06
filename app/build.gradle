@@ -12,8 +12,8 @@ android {
         applicationId "com.andraganoid.verymuchtodo"
         minSdkVersion 23
         targetSdkVersion 32
-        versionCode 14//todo
-        versionName "3.3.3"//todo
+        versionCode 15
+        versionName "3.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

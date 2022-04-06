@@ -1,9 +1,10 @@
-package com.andraganoid.verymuchtodo.ui.tools
+package com.andraganoid.verymuchtodo.ui.tools.calculator.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.andraganoid.verymuchtodo.databinding.DropdownItemBinding
+import com.andraganoid.verymuchtodo.ui.tools.calculator.model.UnitModel
 
 class UnitAdapter(private val unitList: List<UnitModel>, private val onUnitCLick: ((UnitModel) -> Unit)?) :
     RecyclerView.Adapter<UnitAdapter.UnitHolder>() {

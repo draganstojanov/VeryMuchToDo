@@ -1,4 +1,7 @@
-package com.andraganoid.verymuchtodo.ui.tools
+package com.andraganoid.verymuchtodo.ui.tools.calculator
+
+import com.andraganoid.verymuchtodo.ui.tools.calculator.model.CurrencyModel
+import com.andraganoid.verymuchtodo.ui.tools.calculator.model.UnitModel
 
 val unitList: List<UnitModel> = listOf(
     UnitModel(name = "gram", code = "g", reference = "kg", multiplier = 1000),

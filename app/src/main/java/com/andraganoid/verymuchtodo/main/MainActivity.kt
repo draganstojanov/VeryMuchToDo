@@ -1,7 +1,6 @@
 package com.andraganoid.verymuchtodo.main
 
 import android.os.Bundle
-import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat

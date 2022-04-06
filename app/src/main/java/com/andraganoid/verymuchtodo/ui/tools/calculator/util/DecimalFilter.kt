@@ -1,10 +1,9 @@
-package com.andraganoid.verymuchtodo.ui.tools
+package com.andraganoid.verymuchtodo.ui.tools.calculator.util
 
 import android.text.InputFilter
 import android.text.Spanned
 import java.util.regex.Matcher
 import java.util.regex.Pattern
-
 
 class DecimalFilter(digitsBeforeZero: Int, digitsAfterZero: Int) : InputFilter {
     var mPattern: Pattern = Pattern.compile("[0-9]{0," + (digitsBeforeZero - 1) + "}+((\\.[0-9]{0," + (digitsAfterZero - 1) + "})?)||(\\.)?")
@@ -12,7 +11,6 @@ class DecimalFilter(digitsBeforeZero: Int, digitsAfterZero: Int) : InputFilter {
         val matcher: Matcher = mPattern.matcher(dest)
         return if (!matcher.matches()) "" else null
     }
-
 }
 
 

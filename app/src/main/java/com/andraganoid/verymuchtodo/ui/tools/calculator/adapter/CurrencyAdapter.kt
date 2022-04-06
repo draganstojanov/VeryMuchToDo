@@ -1,15 +1,16 @@
-package com.andraganoid.verymuchtodo.ui.tools
+package com.andraganoid.verymuchtodo.ui.tools.calculator.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.andraganoid.verymuchtodo.databinding.DropdownItemBinding
+import com.andraganoid.verymuchtodo.ui.tools.calculator.model.CurrencyModel
 
 
 class CurrencyAdapter(private val currencyList: List<CurrencyModel>, private val onCurrencyCLick: ((CurrencyModel) -> Unit)?) :
     RecyclerView.Adapter<CurrencyAdapter.CurrencyHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyAdapter.CurrencyHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyHolder {
         val binding = DropdownItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CurrencyHolder(binding)
     }
