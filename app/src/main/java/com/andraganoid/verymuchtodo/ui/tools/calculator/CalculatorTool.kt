@@ -8,14 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import com.andraganoid.verymuchtodo.databinding.CalculatorLayoutBinding
-import com.andraganoid.verymuchtodo.ui.custom.TopModal
-import com.andraganoid.verymuchtodo.ui.tools.*
+import com.andraganoid.verymuchtodo.ui.tools.arrowCollapseIfExpanded
 import com.andraganoid.verymuchtodo.ui.tools.calculator.adapter.CurrencyAdapter
 import com.andraganoid.verymuchtodo.ui.tools.calculator.adapter.UnitAdapter
 import com.andraganoid.verymuchtodo.ui.tools.calculator.model.CalculatorModel
 import com.andraganoid.verymuchtodo.ui.tools.calculator.model.CurrencyModel
 import com.andraganoid.verymuchtodo.ui.tools.calculator.model.UnitModel
 import com.andraganoid.verymuchtodo.ui.tools.calculator.util.DecimalFilter
+import com.andraganoid.verymuchtodo.ui.tools.collapseIfExpanded
+import com.andraganoid.verymuchtodo.ui.tools.toggleArrow
+import com.andraganoid.verymuchtodo.ui.tools.toggleExpand
+import com.andraganoid.verymuchtodo.util.tm.TopModal
 
 class CalculatorTool(private val context: Context) {
 

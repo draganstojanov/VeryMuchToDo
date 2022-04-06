@@ -19,8 +19,8 @@ import com.andraganoid.verymuchtodo.databinding.StackFragmentBinding
 import com.andraganoid.verymuchtodo.main.MainViewModel
 import com.andraganoid.verymuchtodo.model.TodoList
 import com.andraganoid.verymuchtodo.model.state.StackState
-import com.andraganoid.verymuchtodo.ui.custom.TopModal
 import com.andraganoid.verymuchtodo.util.*
+import com.andraganoid.verymuchtodo.util.tm.TopModal
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

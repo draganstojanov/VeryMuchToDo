@@ -4,9 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-                <variable
-                    name="calcModel"
-                    type="com.andraganoid.verymuchtodo.ui.tools.calculator.model.CalculatorModel" />
+
+        <variable
+            name="calcModel"
+            type="com.andraganoid.verymuchtodo.ui.tools.calculator.model.CalculatorModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -77,8 +78,8 @@
             android:layout_marginTop="4dp"
             android:background="@drawable/item_text_background"
             android:overScrollMode="never"
-            android:visibility="gone"
             android:translationZ="4dp"
+            android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="@id/currencySelector"
             app:layout_constraintStart_toStartOf="@id/currencySelector"
@@ -139,8 +140,8 @@
             android:layout_marginTop="4dp"
             android:background="@drawable/item_text_background"
             android:overScrollMode="never"
-            android:visibility="gone"
             android:translationZ="4dp"
+            android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="@id/unitSelector"
             app:layout_constraintStart_toStartOf="@id/unitSelector"

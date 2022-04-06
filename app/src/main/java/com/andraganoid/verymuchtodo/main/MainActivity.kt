@@ -99,17 +99,11 @@ class MainActivity : ToolsActivity() {
     }
 
     fun showKeyboard() {
-      //  lifecycleScope.launch(Dispatchers.Main) {
-       //     delay(300)
-            insetController.show(WindowInsetsCompat.Type.ime())
-     //   }
+        insetController.show(WindowInsetsCompat.Type.ime())
     }
 
     fun hideKeyboard() {
-      //  lifecycleScope.launch(Dispatchers.Main) {
-        //    delay(300)
-            insetController.hide(WindowInsetsCompat.Type.ime())
-      //  }
+        insetController.hide(WindowInsetsCompat.Type.ime())
     }
 
     fun messageDialog(dialogData: MessageDialogData) {
@@ -123,6 +117,5 @@ class MainActivity : ToolsActivity() {
     fun invisibleToolbar(isInvisible: Boolean) {
         binding.topBarMask.isVisible = isInvisible
     }
-
 
 }
