@@ -31,4 +31,6 @@
 
     <color name="dividerColor">@color/primLite</color>
 
+    <color name="labelTextColor">@color/primLite</color>
+
 </resources>

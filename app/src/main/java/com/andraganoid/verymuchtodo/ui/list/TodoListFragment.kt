@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -11,13 +12,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.andraganoid.verymuchtodo.R
+import com.andraganoid.verymuchtodo.databinding.ItemEditorLayoutBinding
 import com.andraganoid.verymuchtodo.databinding.TodoListFragmentBinding
 import com.andraganoid.verymuchtodo.main.MainViewModel
 import com.andraganoid.verymuchtodo.model.TodoItem
 import com.andraganoid.verymuchtodo.model.state.StackState
-import com.andraganoid.verymuchtodo.util.areYouSure
-import com.andraganoid.verymuchtodo.util.keyboardState
-import com.andraganoid.verymuchtodo.util.main
+import com.andraganoid.verymuchtodo.ui.custom.TopModal
+import com.andraganoid.verymuchtodo.util.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -30,10 +33,18 @@ class TodoListFragment : Fragment() {
     private lateinit var adapter: TodoListAdapter
     private var isNewItem = false
 
+    private lateinit var itemTopModal: TopModal
+    private lateinit var itemBinding: ItemEditorLayoutBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = TodoListFragmentBinding.inflate(inflater, container, false)
         setup()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setObservers()
     }
 
     override fun onResume() {
@@ -47,11 +58,20 @@ class TodoListFragment : Fragment() {
     }
 
     private fun setup() {
+        itemBinding = ItemEditorLayoutBinding.inflate(layoutInflater).also {
+            it.cancelBtn.setOnClickListener { closeItemEditor() }
+            it.saveBtn.setOnClickListener { submitChanges() }
+        }
+        itemTopModal = TopModal(parent = binding.root, customView = itemBinding.root)
         adapter = TodoListAdapter(this)
         binding.todoListRecView.adapter = adapter
+        binding.createNewItem.setOnClickListener { setNewItem() }
+        binding.clearItems.setOnClickListener { viewModel.clearItemList() }
+    }
 
+    private fun setObservers() {
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.getSnapshotState().collect { tlState ->
                     when (tlState) {
                         is StackState.Stack -> {
@@ -78,41 +98,15 @@ class TodoListFragment : Fragment() {
             }
         }
 
-        with(binding.topModal) {
-            setupFields(
-                getString(R.string.content),
-                getString(R.string.description),
-                this@TodoListFragment::closeTopModal,
-                this@TodoListFragment::submitChanges
-            )
-            setHints(getString(R.string.content), getString(R.string.description))
-        }
-
-        viewModel.autocompleteItemList.observe(viewLifecycleOwner) {
-            binding.topModal.setAutocompleteAdapter(it)
-        }
-
-        binding.createNewItem.setOnClickListener { setNewItem() }
-        binding.clearItems.setOnClickListener { viewModel.clearItemList() }
+        viewModel.autocompleteItemList.observe(viewLifecycleOwner) { setAutocompleteAdapter(it) }
     }
 
-    private fun closeTopModal() {
-        keyboardState.tryEmit(false)
-        binding.topModal.collapse()
-    }
-
-    private fun submitChanges() {
-        val content = binding.topModal.getInputValue1()
-        val desc = binding.topModal.getInputValue2()
-
-        if (content.isNotEmpty()) {
-            if (content != viewModel.itemForEdit.content || desc != viewModel.itemForEdit.description) {
-                viewModel.updateItem(content, desc, isNewItem)
-                if (isNewItem) {
-                    setNewItem()
-                } else {
-                    closeTopModal()
-                }
+    private fun setAutocompleteAdapter(autocompleteItemList: MutableList<String>) {
+        itemBinding.let {
+            val adapter: ArrayAdapter<String> = ArrayAdapter(requireContext(), R.layout.autocomplete_item, R.id.autocompleteTv, autocompleteItemList)
+            itemBinding.contentInput.apply {
+                threshold = 1
+                setAdapter(adapter)
             }
         }
     }
@@ -139,13 +133,49 @@ class TodoListFragment : Fragment() {
     fun openTodoItemEditor(ti: TodoItem, isNew: Boolean) {
         viewModel.itemForEdit = ti
         isNewItem = isNew
-        with(binding.topModal) {
-            setInputValues(ti.content.toString(), ti.description.toString())
-            if (!isOpen()) {
-                expand()
+
+        with(itemBinding) {
+            contentInput.setText(ti.content.toString())
+            descriptionInput.setText(ti.description.toString())
+        }
+        setFocus(ti.content.toString())
+
+        itemTopModal.openIfClosed()
+
+    }
+
+    private fun setFocus(txt: String) {
+        lifecycleScope.launch(Dispatchers.Main) {
+            showKeyboard()
+            delay(200)
+            itemBinding.contentInput.apply {
+                requestFocusFromTouch()
+                setSelection(txt.length)
             }
         }
     }
 
+    private fun closeItemEditor() {
+        itemTopModal.collapse()
+        hideKeyboard()
+    }
+
+    private fun submitChanges() {
+        val content = itemBinding.contentInput.text.toString()
+        val desc = itemBinding.descriptionInput.text.toString()
+
+        if (content.isNotEmpty()) {
+            if (content != viewModel.itemForEdit.content || desc != viewModel.itemForEdit.description) {
+                viewModel.updateItem(content, desc, isNewItem)
+                if (isNewItem) {
+                    setNewItem()
+                } else {
+                    closeItemEditor()
+                }
+            }
+        } else {
+            showMessage(getString(R.string.content_cant_be_empty))
+        }
+    }
 
 }

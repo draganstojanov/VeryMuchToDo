@@ -1,6 +1,8 @@
 package com.andraganoid.verymuchtodo.ui.stack
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +13,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.andraganoid.verymuchtodo.R
+import com.andraganoid.verymuchtodo.databinding.NameLayoutBinding
+import com.andraganoid.verymuchtodo.databinding.StackEditorLayoutBinding
 import com.andraganoid.verymuchtodo.databinding.StackFragmentBinding
 import com.andraganoid.verymuchtodo.main.MainViewModel
 import com.andraganoid.verymuchtodo.model.TodoList
 import com.andraganoid.verymuchtodo.model.state.StackState
-import com.andraganoid.verymuchtodo.util.areYouSure
-import com.andraganoid.verymuchtodo.util.keyboardState
-import com.andraganoid.verymuchtodo.util.main
+import com.andraganoid.verymuchtodo.ui.custom.TopModal
+import com.andraganoid.verymuchtodo.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -29,12 +32,23 @@ class StackFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: MainViewModel by sharedViewModel()
 
+    private lateinit var stackAdapter: StackAdapter
     private var isNewList = false
+
+    private var nameTopModal: TopModal? = null
+    private lateinit var nameBinding: NameLayoutBinding
+    private lateinit var stackTopModal: TopModal
+    private lateinit var stackBinding: StackEditorLayoutBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = StackFragmentBinding.inflate(inflater, container, false)
         setup()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setObservers()
     }
 
     override fun onDestroyView() {
@@ -43,36 +57,28 @@ class StackFragment : Fragment() {
     }
 
     private fun setup() {
-        viewModel.closeLoader()
-        viewModel.userName.observe(viewLifecycleOwner) { userName ->
-            viewModel.closeLoader()
-            if (userName == null) {
-                lifecycleScope.launch(Dispatchers.Main) {
-                    delay(1000)
-                    with(binding.topModal) {
-                        setupFields(
-                            getString(R.string.your_name),
-                            null,
-                            null,
-                            this@StackFragment::saveUsername
-                        )
-                        setHints(getString(R.string.your_name), null)
-                        expand()
-                    }
-                }
-            }
+        viewModel.closeLoader()//TODO
+
+        stackBinding = StackEditorLayoutBinding.inflate(layoutInflater).also {
+            it.cancelBtn.setOnClickListener { closeTodoListEditor() }
+            it.saveBtn.setOnClickListener { submitChanges() }
         }
+        stackTopModal = TopModal(parent = binding.root, customView = stackBinding.root)
 
-        val adapter = StackAdapter(this)
-        binding.stacksRecView.adapter = adapter
+        stackAdapter = StackAdapter(this)
+        binding.stacksRecView.adapter = stackAdapter
+        binding.createNewList.setOnClickListener { openTodoListEditor(TodoList(), true) }
+        binding.clearList.setOnClickListener { viewModel.deleteMultipleList() }
+    }
 
+    private fun setObservers() {
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.getSnapshotState().collect { tlState ->
                     when (tlState) {
                         is StackState.Stack -> {
                             viewModel.stack = tlState.stack
-                            adapter.stackList = viewModel.stack
+                            stackAdapter.stackList = viewModel.stack
                             binding.clearList.isVisible = viewModel.checkClearVisibilityStack()
                         }
                         is StackState.Error -> main.bottomToast(tlState.errorMsg)
@@ -81,54 +87,80 @@ class StackFragment : Fragment() {
             }
         }
 
-        binding.createNewList.setOnClickListener {
-            if (!binding.topModal.isOpen()) {
-                openTodoListEditor(TodoList(), true)
-            }
-        }
-
-        binding.clearList.setOnClickListener {
-            viewModel.deleteMultipleList()
-        }
-    }
-
-    private fun closeTopModal() {
-        keyboardState.tryEmit(false)
-        binding.topModal.collapse()
-    }
-
-    private fun submitChanges() {
-        val title = binding.topModal.getInputValue1()
-        val desc = binding.topModal.getInputValue2()
-        if (title.isNotEmpty()) {
-            if (title != viewModel.listForEdit.title || desc != viewModel.itemForEdit.description) {
-                viewModel.changeList(title, desc, isNewList)
-                closeTopModal()
+        viewModel.userName.observe(viewLifecycleOwner) { userName ->
+            if (userName == null) {
+                Handler(Looper.getMainLooper()).postDelayed({
+                    initNameTopModal()
+                }, 1000)
             }
         }
     }
 
-    fun listSelected(id: String) {
-        viewModel.selectedListId = id
-        findNavController().navigate(R.id.todoListFragment)
+    private fun initNameTopModal() {
+        invisibleToolbar(true)
+        nameBinding = NameLayoutBinding.inflate(layoutInflater).also {
+            it.nameInput.hint = getString(R.string.your_name)
+            it.saveBtn.setOnClickListener { saveUserName() }
+        }
+        nameTopModal = TopModal(parent = binding.root, customView = nameBinding.root)
+        nameTopModal?.expand()
+    }
+
+    private fun saveUserName() {
+        if (nameBinding.nameInput.text.toString().isNotEmpty()) {
+            viewModel.saveUserName(nameBinding.nameInput.text.toString())
+            nameTopModal?.collapse()
+            nameTopModal = null
+            hideKeyboard()
+            invisibleToolbar(false)
+        } else {
+            showMessage(getString(R.string.name_cant_be_empty))
+        }
     }
 
     fun openTodoListEditor(tl: TodoList, isNew: Boolean) {
         viewModel.listForEdit = tl
         isNewList = isNew
-
-        with(binding.topModal) {
-            setupFields(
-                getString(R.string.title),
-                getString(R.string.description),
-                this@StackFragment::closeTopModal,
-                this@StackFragment::submitChanges
-            )
-            setHints(getString(R.string.title), getString(R.string.description))
-            setInputValues(tl.title.toString(), tl.description.toString())
-            isVisible = true
-            expand()
+        with(stackBinding) {
+            titleInput.setText(tl.title.toString())
+            descriptionInput.setText(tl.description.toString())
         }
+        setFocus(tl.title.toString())
+        stackTopModal.openIfClosed()
+    }
+
+    private fun setFocus(txt: String) {
+        lifecycleScope.launch(Dispatchers.Main) {
+            showKeyboard()
+            delay(200)
+            stackBinding.titleInput.apply {
+                requestFocusFromTouch()
+                setSelection(txt.length)
+            }
+        }
+    }
+
+    private fun submitChanges() {
+        val title = stackBinding.titleInput.text.toString()
+        val desc = stackBinding.descriptionInput.text.toString()
+        if (title.isNotEmpty()) {
+            if (title != viewModel.listForEdit.title || desc != viewModel.itemForEdit.description) {
+                viewModel.changeList(title, desc, isNewList)
+                closeTodoListEditor()
+            }
+        } else {
+            showMessage(getString(R.string.title_cant_be_empty))
+        }
+    }
+
+    private fun closeTodoListEditor() {
+        stackTopModal.collapse()
+        hideKeyboard()
+    }
+
+    fun listSelected(id: String) {
+        viewModel.selectedListId = id
+        findNavController().navigate(R.id.todoListFragment)
     }
 
     fun deleteList(todoList: TodoList) {
@@ -139,11 +171,6 @@ class StackFragment : Fragment() {
         } else {
             main.bottomToast(getString(R.string.only_owner_list))
         }
-    }
-
-    private fun saveUsername() {
-        closeTopModal()
-        viewModel.saveUserName(binding.topModal.getInputValue1())
     }
 
 }

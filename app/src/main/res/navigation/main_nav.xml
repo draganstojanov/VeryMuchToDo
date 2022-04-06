@@ -16,11 +16,13 @@
     <activity
         android:id="@+id/mainActivity"
         android:name="com.andraganoid.verymuchtodo.main.MainActivity"
-        android:label="MainActivity" />
+        android:label="MainActivity"
+        tools:layout="@layout/activity_main" />
     <dialog
         android:id="@+id/messageDialog"
         android:name="com.andraganoid.verymuchtodo.ui.msgDialog.MessageDialog"
-        android:label="MessageDialog" />
+        android:label="MessageDialog"
+        tools:layout="@layout/message_dialog" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.andraganoid.verymuchtodo.ui.settings.SettingsFragment"
@@ -29,5 +31,6 @@
     <fragment
         android:id="@+id/autocompleteEditFragment"
         android:name="com.andraganoid.verymuchtodo.ui.settings.autocomplete.AutocompleteEditFragment"
-        android:label="AutocompleteEditFragment" />
+        android:label="AutocompleteEditFragment"
+        tools:layout="@layout/autocomplete_edit_fragment" />
 </navigation>

@@ -23,4 +23,12 @@
     <string name="clear_autocomplete">Clear autocomplete list</string>
     <string name="edit_autocomplete">Edit autocomplete list</string>
     <string name="delete_checked">Delete checked items</string>
+    <string name="quantity">Quantity</string>
+    <string name="unit">Unit</string>
+    <string name="name_cant_be_empty">Name can\'t be empty</string>
+    <string name="content_cant_be_empty">Content can\'t be empty</string>
+    <string name="title_cant_be_empty">Title can\'t be empty</string>
+    <string name="calculatorTitle">Price per unit calculator</string>
+    <string name="price">Price</string>
+    <string name="currency">Currency</string>
 </resources>
