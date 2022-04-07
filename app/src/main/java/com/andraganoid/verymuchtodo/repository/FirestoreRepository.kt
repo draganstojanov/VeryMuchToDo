@@ -2,12 +2,12 @@ package com.andraganoid.verymuchtodo.repository
 
 
 import com.andraganoid.verymuchtodo.model.Document
-import com.andraganoid.verymuchtodo.util.ResConst
+import com.andraganoid.verymuchtodo.util.DOCUMENT_ERROR
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 
-class FirestoreRepository(private val firebaseFirestore: FirebaseFirestore, private val resConst: ResConst) {
+class FirestoreRepository(private val firebaseFirestore: FirebaseFirestore) {
 
     private val documentState: MutableSharedFlow<String> = MutableSharedFlow(1)
     fun getDocumentState(): SharedFlow<String> = documentState
@@ -49,6 +49,6 @@ class FirestoreRepository(private val firebaseFirestore: FirebaseFirestore, priv
     }
 
     private fun showErrorMsg(exc: Exception) {
-        documentState.tryEmit("${resConst.DOCUMENT_ERROR}: ${exc.localizedMessage}")
+        documentState.tryEmit("${DOCUMENT_ERROR}: ${exc.localizedMessage}")
     }
 }
