@@ -14,11 +14,11 @@ import androidx.navigation.fragment.findNavController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.ItemEditorLayoutBinding
 import com.andraganoid.verymuchtodo.databinding.TodoListFragmentBinding
-import com.andraganoid.verymuchtodo.main.MainViewModel
+import com.andraganoid.verymuchtodo.main.TodoViewModel
 import com.andraganoid.verymuchtodo.model.TodoItem
 import com.andraganoid.verymuchtodo.model.state.StackState
-import com.andraganoid.verymuchtodo.ui.custom.TopModal
 import com.andraganoid.verymuchtodo.util.*
+import com.andraganoid.verymuchtodo.util.tm.TopModal
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -28,7 +28,7 @@ class TodoListFragment : Fragment() {
 
     private var _binding: TodoListFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: MainViewModel by sharedViewModel()
+    private val viewModel: TodoViewModel by sharedViewModel()
 
     private lateinit var adapter: TodoListAdapter
     private var isNewItem = false

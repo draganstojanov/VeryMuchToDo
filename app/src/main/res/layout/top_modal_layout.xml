@@ -25,25 +25,27 @@
         android:layout_height="wrap_content"
         android:background="@drawable/top_modal_background"
         android:orientation="vertical"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="16dp"
         android:visibility="gone">
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nsv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fillViewport="true"
-            android:fitsSystemWindows="true"
-            android:overScrollMode="never">
+        <!--        <androidx.core.widget.NestedScrollView-->
+        <!--            android:id="@+id/nsv"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:fillViewport="true"-->
+        <!--            android:fitsSystemWindows="true"-->
+        <!--            android:overScrollMode="never">-->
 
-            <FrameLayout
-                android:id="@+id/topModal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="16dp">
+        <!--            <FrameLayout-->
+        <!--                android:id="@+id/topModal"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:paddingHorizontal="8dp"-->
+        <!--                android:paddingVertical="16dp">-->
 
-            </FrameLayout>
-        </androidx.core.widget.NestedScrollView>
+        <!--            </FrameLayout>-->
+        <!--        </androidx.core.widget.NestedScrollView>-->
     </LinearLayout>
 
 </FrameLayout>

@@ -7,14 +7,20 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.ActivityMainBinding
+import com.andraganoid.verymuchtodo.model.state.AuthState
 import com.andraganoid.verymuchtodo.ui.msgDialog.MessageDialogData
 import com.andraganoid.verymuchtodo.ui.tools.ToolsActivity
 import com.andraganoid.verymuchtodo.util.ARGS_DIALOG_DATA
+import com.andraganoid.verymuchtodo.util.CANCELLED
+import com.andraganoid.verymuchtodo.util.ERROR_PLACEHOLDER
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class MainActivity : ToolsActivity() {
 
@@ -24,8 +30,6 @@ class MainActivity : ToolsActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModel()
-
-
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,8 +82,17 @@ class MainActivity : ToolsActivity() {
     }
 
     private fun setObservers() {
-        viewModel.loaderVisibility.observe(this) { loaderVisibility -> binding.loader.isVisible = loaderVisibility }
-        viewModel.message.observe(this) { message -> bottomToast(message) }
+        lifecycleScope.launch {
+            viewModel.authState.collect { authState ->
+                when (authState) {
+                    is AuthState.Success -> viewModel.setFirestoreListeners()
+                    is AuthState.Error -> bottomToast("${ERROR_PLACEHOLDER}: ${authState.errorMsg}")
+                    is AuthState.Cancelled -> bottomToast(CANCELLED)
+                    else -> Timber.d("Not logged in")
+                }
+            }
+        }
+
     }
 
     fun showTitle(title: String) {
@@ -99,17 +112,11 @@ class MainActivity : ToolsActivity() {
     }
 
     fun showKeyboard() {
-      //  lifecycleScope.launch(Dispatchers.Main) {
-       //     delay(300)
-            insetController.show(WindowInsetsCompat.Type.ime())
-     //   }
+        insetController.show(WindowInsetsCompat.Type.ime())
     }
 
     fun hideKeyboard() {
-      //  lifecycleScope.launch(Dispatchers.Main) {
-        //    delay(300)
-            insetController.hide(WindowInsetsCompat.Type.ime())
-      //  }
+        insetController.hide(WindowInsetsCompat.Type.ime())
     }
 
     fun messageDialog(dialogData: MessageDialogData) {
@@ -123,6 +130,5 @@ class MainActivity : ToolsActivity() {
     fun invisibleToolbar(isInvisible: Boolean) {
         binding.topBarMask.isVisible = isInvisible
     }
-
 
 }

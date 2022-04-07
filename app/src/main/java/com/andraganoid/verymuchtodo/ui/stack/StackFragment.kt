@@ -16,11 +16,11 @@ import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.NameLayoutBinding
 import com.andraganoid.verymuchtodo.databinding.StackEditorLayoutBinding
 import com.andraganoid.verymuchtodo.databinding.StackFragmentBinding
-import com.andraganoid.verymuchtodo.main.MainViewModel
+import com.andraganoid.verymuchtodo.main.TodoViewModel
 import com.andraganoid.verymuchtodo.model.TodoList
 import com.andraganoid.verymuchtodo.model.state.StackState
-import com.andraganoid.verymuchtodo.ui.custom.TopModal
 import com.andraganoid.verymuchtodo.util.*
+import com.andraganoid.verymuchtodo.util.tm.TopModal
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -30,7 +30,7 @@ class StackFragment : Fragment() {
 
     private var _binding: StackFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: MainViewModel by sharedViewModel()
+    private val viewModel: TodoViewModel by sharedViewModel()
 
     private lateinit var stackAdapter: StackAdapter
     private var isNewList = false
@@ -57,7 +57,6 @@ class StackFragment : Fragment() {
     }
 
     private fun setup() {
-        viewModel.closeLoader()//TODO
 
         stackBinding = StackEditorLayoutBinding.inflate(layoutInflater).also {
             it.cancelBtn.setOnClickListener { closeTodoListEditor() }

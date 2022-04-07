@@ -49,3 +49,6 @@ fun Long.getFormattedDate(): String =
     }
 
 fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()
+
+fun getScreenHeight(): Int = Resources.getSystem().displayMetrics.heightPixels
+fun getScreenWidth(): Int = Resources.getSystem().displayMetrics.widthPixels
