@@ -3,9 +3,11 @@ package com.andraganoid.verymuchtodo.ui.tools.calculator
 import android.content.Context
 import android.text.InputFilter
 import android.text.InputType
+import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.core.widget.doOnTextChanged
 import com.andraganoid.verymuchtodo.databinding.CalculatorLayoutBinding
 import com.andraganoid.verymuchtodo.ui.tools.calculator.adapter.CurrencyAdapter
@@ -16,9 +18,14 @@ import com.andraganoid.verymuchtodo.ui.tools.calculator.model.UnitModel
 import com.andraganoid.verymuchtodo.ui.tools.calculator.util.*
 import com.andraganoid.verymuchtodo.util.tm.TopModal
 
-class CalculatorTool(private val context: Context) {
+class CalculatorTool @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyle: Int = 0
+) : FrameLayout(context, attrs, defStyle) {
 
-    private lateinit var calculator: CalculatorLayoutBinding
+    val binding = CalculatorLayoutBinding.inflate(LayoutInflater.from(context), this, false)
+
     private val calculatorModel = CalculatorModel()
     private var calculatorTopModal: TopModal? = null
     private lateinit var root: ViewGroup
@@ -41,19 +48,17 @@ class CalculatorTool(private val context: Context) {
     }
 
     private fun initCalculator() {
-        calculator = CalculatorLayoutBinding.inflate(LayoutInflater.from(context))
-            .also { it.cancelBtn.setOnClickListener { calculatorTopModal?.collapse() } }
 
-        calculatorTopModal = TopModal(
-            parent = root,
-            customView = calculator.root
-        ).also { topModal ->
-            topModal.isCancellable = true
-            topModal.expand()
-            topModal.requestFocusOnExpand = calculator.quantityInput
+        calculatorTopModal = TopModal(parentView = root, customView = binding.root)
+
+        calculatorTopModal?.apply {
+            isCancellable = true
+            expand()
+            requestFocusOnExpand = binding.quantityInput
         }
 
-        calculator.calcModel = calculatorModel
+        binding.cancelBtn.setOnClickListener { calculatorTopModal?.collapse() }
+        binding.calcModel = calculatorModel
 
         setInputs()
         setDropdowns()
@@ -61,7 +66,7 @@ class CalculatorTool(private val context: Context) {
     }
 
     private fun setInputs() {
-        with(calculator.priceInput) {
+        with(binding.priceInput) {
             filters = arrayOf(DecimalFilter(8, 2))
             doOnTextChanged { text, _, _, _ ->
                 calculatorModel.apply {
@@ -73,7 +78,7 @@ class CalculatorTool(private val context: Context) {
         }
 
         setQuantityFilter()
-        with(calculator.quantityInput) {
+        with(binding.quantityInput) {
             doOnTextChanged { text, _, _, _ ->
                 calculatorModel.apply {
                     quantity?.set(text.toString().toFloatOrNull() ?: 0f)
@@ -86,7 +91,7 @@ class CalculatorTool(private val context: Context) {
     }
 
     private fun setQuantityFilter() {
-        with(calculator.quantityInput) {
+        with(binding.quantityInput) {
             if (calculatorModel.unit?.get()?.reference.equals("piece")) {
                 inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_NORMAL
                 filters = arrayOf<InputFilter>(InputFilter.LengthFilter(5))
@@ -99,28 +104,28 @@ class CalculatorTool(private val context: Context) {
     }
 
     private fun setDropdowns() {
-        calculator.unitDropdown.adapter = UnitAdapter(unitList, this::unitClick)
-        calculator.currencyDropdown.adapter = CurrencyAdapter(currencyList, this::currencyClick)
+        binding.unitDropdown.adapter = UnitAdapter(unitList, this::unitClick)
+        binding.currencyDropdown.adapter = CurrencyAdapter(currencyList, this::currencyClick)
 
-        calculator.clearBtn.setOnClickListener {
-            with(calculator.priceInput) {
+        binding.clearBtn.setOnClickListener {
+            with(binding.priceInput) {
                 setText("")
                 requestFocusFromTouch()
             }
-            calculator.quantityInput.setText("")
+            binding.quantityInput.setText("")
             calculatorModel.calculateResult()
         }
 
-        calculator.unitArrow.setOnClickListener {
+        binding.unitArrow.setOnClickListener {
             it.toggleArrow()
-            calculator.unitDropdown.toggleExpand()
+            binding.unitDropdown.toggleExpand()
             currencyCollapse()
             focusClear()
         }
 
-        calculator.currencyArrow.setOnClickListener {
+        binding.currencyArrow.setOnClickListener {
             it.toggleArrow()
-            calculator.currencyDropdown.toggleExpand()
+            binding.currencyDropdown.toggleExpand()
             unitCollapse()
             focusClear()
         }
@@ -134,18 +139,18 @@ class CalculatorTool(private val context: Context) {
     }
 
     private fun focusClear() {
-        calculator.quantityInput.clearFocus()
-        calculator.priceInput.clearFocus()
+        binding.quantityInput.clearFocus()
+        binding.priceInput.clearFocus()
     }
 
     private fun currencyCollapse() {
-        calculator.currencyArrow.arrowCollapseIfExpanded()
-        calculator.currencyDropdown.collapseIfExpanded()
+        binding.currencyArrow.arrowCollapseIfExpanded()
+        binding.currencyDropdown.collapseIfExpanded()
     }
 
     private fun unitCollapse() {
-        calculator.unitArrow.arrowCollapseIfExpanded()
-        calculator.unitDropdown.collapseIfExpanded()
+        binding.unitArrow.arrowCollapseIfExpanded()
+        binding.unitDropdown.collapseIfExpanded()
     }
 
     private fun unitClick(unitModel: UnitModel) {

@@ -6,31 +6,22 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.andraganoid.verymuchtodo.databinding.StackItemBinding
-import com.andraganoid.verymuchtodo.model.TodoItem
 import com.andraganoid.verymuchtodo.model.TodoList
-import com.andraganoid.verymuchtodo.ui.list.TodoListAdapter
+import com.andraganoid.verymuchtodo.model.isCompleted
 
-class StackAdapter(private val fragment: StackFragment) : ListAdapter<TodoList, StackAdapter.StackHolder>(StackAdapter.StackCallback()) {
-    //todo ListAdapter
-
-//    var stackList: List<TodoList?> = emptyList()
-//        set(value) {
-//            field = value.sortedByDescending { it?.timestamp }
-//            notifyDataSetChanged()
-//        }
+class StackAdapter(private val fragment: StackFragment) : ListAdapter<TodoList, StackAdapter.StackHolder>(StackCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StackHolder {
         val binding = StackItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return StackHolder(binding)
     }
 
- //   override fun getItemCount(): Int = stackList.size
-
     override fun onBindViewHolder(holder: StackHolder, position: Int) = holder.bind(getItem(position))
 
     inner class StackHolder(private val binding: StackItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(todoList: TodoList?) {
             binding.todoList = todoList
+            binding.completed = todoList?.isCompleted()
             binding.root.setOnClickListener { fragment.listSelected(todoList!!.id) }
             binding.stackEditIcon.setOnClickListener {
                 if (todoList != null) {

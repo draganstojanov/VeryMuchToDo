@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.andraganoid.verymuchtodo.model.Document
 import com.andraganoid.verymuchtodo.model.TodoItem
 import com.andraganoid.verymuchtodo.model.TodoList
+import com.andraganoid.verymuchtodo.model.isCompleted
 import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.repository.FirestoreRepository
 import com.andraganoid.verymuchtodo.repository.ListenersRepository
@@ -110,7 +111,7 @@ class TodoViewModel(
 
     fun deleteMultipleList() {
         stack.removeAll { todoList ->
-            todoList?.completed == false
+            todoList?.isCompleted() == false
         }
         val documentList = arrayListOf<Document>()
         stack.forEach { todoList -> documentList.add(Document(todoList)) }
@@ -119,7 +120,7 @@ class TodoViewModel(
 
     fun checkClearVisibilityStack(): Boolean {
         stack.forEach { tl ->
-            if (tl!!.completed) {
+            if (tl!!.isCompleted()) {
                 return true
             }
         }

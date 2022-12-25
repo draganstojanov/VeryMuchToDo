@@ -18,6 +18,7 @@ import com.andraganoid.verymuchtodo.databinding.StackEditorLayoutBinding
 import com.andraganoid.verymuchtodo.databinding.StackFragmentBinding
 import com.andraganoid.verymuchtodo.main.TodoViewModel
 import com.andraganoid.verymuchtodo.model.TodoList
+import com.andraganoid.verymuchtodo.model.isCompleted
 import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.util.*
 import com.andraganoid.verymuchtodo.util.tm.TopModal
@@ -46,7 +47,7 @@ class StackFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setObservers()
     }
@@ -62,7 +63,7 @@ class StackFragment : Fragment() {
             it.cancelBtn.setOnClickListener { closeTodoListEditor() }
             it.saveBtn.setOnClickListener { submitChanges() }
         }
-        stackTopModal = TopModal(parent = binding.root, customView = stackBinding.root)
+        stackTopModal = TopModal(parentView = binding.root, customView = stackBinding.root)
 
         stackAdapter = StackAdapter(this)
         binding.stacksRecView.apply {
@@ -104,7 +105,7 @@ class StackFragment : Fragment() {
             it.nameInput.hint = getString(R.string.your_name)
             it.saveBtn.setOnClickListener { saveUserName() }
         }
-        nameTopModal = TopModal(parent = binding.root, customView = nameBinding.root)
+        nameTopModal = TopModal(parentView = binding.root, customView = nameBinding.root)
         nameTopModal?.expand()
     }
 
@@ -166,7 +167,7 @@ class StackFragment : Fragment() {
     }
 
     fun deleteList(todoList: TodoList) {
-        if (todoList.completed) {
+        if (todoList.isCompleted()) {
             areYouSure { viewModel.deleteList(todoList) }
         } else {
             main.bottomToast(getString(R.string.only_completed_list))

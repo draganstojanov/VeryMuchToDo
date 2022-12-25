@@ -61,7 +61,7 @@ class TodoListFragment : Fragment() {
             it.cancelBtn.setOnClickListener { closeItemEditor() }
             it.saveBtn.setOnClickListener { submitChanges() }
         }
-        itemTopModal = TopModal(parent = binding.root, customView = itemBinding.root)
+        itemTopModal = TopModal(parentView = binding.root, customView = itemBinding.root)
         todoAdapter = TodoListAdapter(this)
         binding.todoListRecView.apply {
             adapter = todoAdapter

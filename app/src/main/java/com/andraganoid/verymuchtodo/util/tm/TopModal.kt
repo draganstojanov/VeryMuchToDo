@@ -1,6 +1,7 @@
 package com.andraganoid.verymuchtodo.util.tm
 
 import android.animation.ValueAnimator
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,18 +10,17 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import com.andraganoid.verymuchtodo.databinding.TopModalLayoutBinding
 import com.andraganoid.verymuchtodo.main.MainActivity
-import com.andraganoid.verymuchtodo.util.getScreenHeight
 import com.andraganoid.verymuchtodo.util.toDp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class TopModal(private val parent: ViewGroup, customView: View) {
+class TopModal(private val parentView: ViewGroup, customView: View) {
 
-    private val binding: TopModalLayoutBinding = TopModalLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, true)
+    private val binding: TopModalLayoutBinding = TopModalLayoutBinding.inflate(LayoutInflater.from(parentView.context), parentView, true)
     private var isOpen = false
     internal var isCancellable = false
-    private var maxHeight = getScreenHeight()/2
+    private var maxHeight = Resources.getSystem().displayMetrics.heightPixels / 2
     internal var requestFocusOnExpand: View? = null
 
     init {
@@ -44,7 +44,7 @@ class TopModal(private val parent: ViewGroup, customView: View) {
 
     fun expand() {
         isOpen = true
-        val matchParentMeasureSpec = View.MeasureSpec.makeMeasureSpec((parent as View).width, View.MeasureSpec.EXACTLY)
+        val matchParentMeasureSpec = View.MeasureSpec.makeMeasureSpec((parentView as View).width, View.MeasureSpec.EXACTLY)
         val wrapContentMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
         binding.topModalWrapper.measure(matchParentMeasureSpec, wrapContentMeasureSpec)
         var targetHeight = binding.topModalWrapper.measuredHeight
