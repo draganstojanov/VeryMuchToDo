@@ -52,6 +52,13 @@ class TodoViewModel(
         updateList()
     }
 
+    fun getSortedItemList() = listForEdit.itemList.sortedWith(
+        compareBy(
+            { it.completed },
+            { it.timestamp }
+        )
+    )
+
     fun deleteItem(ti: TodoItem) {
         listForEdit.itemList.remove(ti)
         updateList()

@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.ui.tools.calculator
+package com.andraganoid.verymuchtodo.ui.tools.calculator.util
 
 import com.andraganoid.verymuchtodo.ui.tools.calculator.model.CurrencyModel
 import com.andraganoid.verymuchtodo.ui.tools.calculator.model.UnitModel

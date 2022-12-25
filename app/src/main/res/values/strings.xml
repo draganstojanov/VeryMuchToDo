@@ -9,6 +9,7 @@
     <string name="description">Description</string>
     <string name="only_owner_list">Only owner can delete uncompleted list</string>
     <string name="only_owner_item">Only owner can delete uncompleted item</string>
+    <string name="only_completed_list">Can\'t delete uncompleted list</string>
     <string name="error">ERROR</string>
     <string name="todo">To Do</string>
     <string name="your_name">Your name</string>

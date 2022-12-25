@@ -3,7 +3,7 @@ package com.andraganoid.verymuchtodo.main
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.core.os.bundleOf
-import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
@@ -42,7 +42,7 @@ class MainActivity : ToolsActivity() {
 
     override fun onStart() {
         super.onStart()
-        insetController = ViewCompat.getWindowInsetsController(binding.root)!!
+        insetController = WindowCompat.getInsetsController(window, binding.root)
         navController = findNavController(R.id.fragmentContainer)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {

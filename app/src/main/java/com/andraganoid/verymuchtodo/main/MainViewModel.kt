@@ -37,7 +37,6 @@ class MainViewModel(
     private fun getDocumentError() {
         viewModelScope.launch {
             firestoreRepository.getDocumentState().collect { error ->
-                // showMessage(error)
                 _authState.value = AuthState.Error(errorMsg = error)
             }
         }

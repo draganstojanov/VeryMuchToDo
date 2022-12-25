@@ -33,7 +33,7 @@ fun Fragment.areYouSure(click: () -> Unit) {
         MessageDialogData(
             title = getString(R.string.are_you_sure),
             btnLeftText = getString(R.string.cancel),
-            btnLeft = {},
+            btnLeft = null,
             btnRightText = getString(R.string.ok),
             btnRight = { click.invoke() })
     )

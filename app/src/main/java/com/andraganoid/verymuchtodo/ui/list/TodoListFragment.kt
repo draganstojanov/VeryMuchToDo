@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.ItemEditorLayoutBinding
 import com.andraganoid.verymuchtodo.databinding.TodoListFragmentBinding
@@ -22,15 +21,15 @@ import com.andraganoid.verymuchtodo.util.tm.TopModal
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class TodoListFragment : Fragment() {
 
     private var _binding: TodoListFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: TodoViewModel by sharedViewModel()
+    private val viewModel: TodoViewModel by activityViewModel()
 
-    private lateinit var adapter: TodoListAdapter
+    private lateinit var todoAdapter: TodoListAdapter
     private var isNewItem = false
 
     private lateinit var itemTopModal: TopModal
@@ -63,8 +62,11 @@ class TodoListFragment : Fragment() {
             it.saveBtn.setOnClickListener { submitChanges() }
         }
         itemTopModal = TopModal(parent = binding.root, customView = itemBinding.root)
-        adapter = TodoListAdapter(this)
-        binding.todoListRecView.adapter = adapter
+        todoAdapter = TodoListAdapter(this)
+        binding.todoListRecView.apply {
+            adapter = todoAdapter
+            itemAnimator = null
+        }
         binding.createNewItem.setOnClickListener { setNewItem() }
         binding.clearItems.setOnClickListener { viewModel.clearItemList() }
     }
@@ -79,15 +81,7 @@ class TodoListFragment : Fragment() {
                             val tList = tlState.stack.firstOrNull { it?.id == viewModel.selectedListId }
                             if (tList != null) {
                                 viewModel.listForEdit = tList
-                                if (tList.itemList.isNotEmpty()) {
-                                    adapter.itemList = viewModel.listForEdit.itemList
-                                } else {
-                                    if (adapter.itemList.isNullOrEmpty()) {
-                                        adapter.itemList = arrayListOf()
-                                    } else {
-                                        findNavController().popBackStack()
-                                    }
-                                }
+                                todoAdapter.submitList(viewModel.getSortedItemList())
                             }
                             binding.clearItems.isVisible = viewModel.checkClearVisibilityList()
                             main.showTitle(viewModel.listForEdit.title.toString())

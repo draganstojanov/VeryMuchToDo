@@ -2,26 +2,31 @@ package com.andraganoid.verymuchtodo.ui.stack
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.andraganoid.verymuchtodo.databinding.StackItemBinding
+import com.andraganoid.verymuchtodo.model.TodoItem
 import com.andraganoid.verymuchtodo.model.TodoList
+import com.andraganoid.verymuchtodo.ui.list.TodoListAdapter
 
-class StackAdapter(private val fragment: StackFragment) : RecyclerView.Adapter<StackAdapter.StackHolder>() {
+class StackAdapter(private val fragment: StackFragment) : ListAdapter<TodoList, StackAdapter.StackHolder>(StackAdapter.StackCallback()) {
+    //todo ListAdapter
 
-    var stackList: List<TodoList?> = emptyList()
-        set(value) {
-            field = value.sortedByDescending { it?.timestamp }
-            notifyDataSetChanged()
-        }
+//    var stackList: List<TodoList?> = emptyList()
+//        set(value) {
+//            field = value.sortedByDescending { it?.timestamp }
+//            notifyDataSetChanged()
+//        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StackHolder {
         val binding = StackItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return StackHolder(binding)
     }
 
-    override fun getItemCount(): Int = stackList.size
+ //   override fun getItemCount(): Int = stackList.size
 
-    override fun onBindViewHolder(holder: StackHolder, position: Int) = holder.bind(stackList[position])
+    override fun onBindViewHolder(holder: StackHolder, position: Int) = holder.bind(getItem(position))
 
     inner class StackHolder(private val binding: StackItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(todoList: TodoList?) {
@@ -40,4 +45,16 @@ class StackAdapter(private val fragment: StackFragment) : RecyclerView.Adapter<S
             binding.executePendingBindings()
         }
     }
+
+    class StackCallback : DiffUtil.ItemCallback<TodoList>() {
+
+        override fun areItemsTheSame(oldItem: TodoList, newItem: TodoList): Boolean {
+            return oldItem.id == newItem.id;
+        }
+
+        override fun areContentsTheSame(oldItem: TodoList, newItem: TodoList): Boolean {
+            return oldItem == newItem
+        }
+    }
+
 }

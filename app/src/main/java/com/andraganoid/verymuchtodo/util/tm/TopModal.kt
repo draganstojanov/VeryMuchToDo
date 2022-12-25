@@ -20,7 +20,7 @@ class TopModal(private val parent: ViewGroup, customView: View) {
     private val binding: TopModalLayoutBinding = TopModalLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, true)
     private var isOpen = false
     internal var isCancellable = false
-    internal var maxHeight = getScreenHeight()/2
+    private var maxHeight = getScreenHeight()/2
     internal var requestFocusOnExpand: View? = null
 
     init {
