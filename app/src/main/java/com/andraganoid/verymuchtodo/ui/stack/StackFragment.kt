@@ -18,19 +18,20 @@ import com.andraganoid.verymuchtodo.databinding.StackEditorLayoutBinding
 import com.andraganoid.verymuchtodo.databinding.StackFragmentBinding
 import com.andraganoid.verymuchtodo.main.TodoViewModel
 import com.andraganoid.verymuchtodo.model.TodoList
+import com.andraganoid.verymuchtodo.model.isCompleted
 import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.util.*
 import com.andraganoid.verymuchtodo.util.tm.TopModal
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class StackFragment : Fragment() {
 
     private var _binding: StackFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: TodoViewModel by sharedViewModel()
+    private val viewModel: TodoViewModel by activityViewModel()
 
     private lateinit var stackAdapter: StackAdapter
     private var isNewList = false
@@ -62,10 +63,13 @@ class StackFragment : Fragment() {
             it.cancelBtn.setOnClickListener { closeTodoListEditor() }
             it.saveBtn.setOnClickListener { submitChanges() }
         }
-        stackTopModal = TopModal(parent = binding.root, customView = stackBinding.root)
+        stackTopModal = TopModal(parentView = binding.root, customView = stackBinding.root)
 
         stackAdapter = StackAdapter(this)
-        binding.stacksRecView.adapter = stackAdapter
+        binding.stacksRecView.apply {
+            adapter = stackAdapter
+            itemAnimator = null
+        }
         binding.createNewList.setOnClickListener { openTodoListEditor(TodoList(), true) }
         binding.clearList.setOnClickListener { viewModel.deleteMultipleList() }
     }
@@ -77,7 +81,7 @@ class StackFragment : Fragment() {
                     when (tlState) {
                         is StackState.Stack -> {
                             viewModel.stack = tlState.stack
-                            stackAdapter.stackList = viewModel.stack
+                            stackAdapter.submitList(viewModel.stack.sortedByDescending { it?.timestamp })
                             binding.clearList.isVisible = viewModel.checkClearVisibilityStack()
                         }
                         is StackState.Error -> main.bottomToast(tlState.errorMsg)
@@ -101,7 +105,7 @@ class StackFragment : Fragment() {
             it.nameInput.hint = getString(R.string.your_name)
             it.saveBtn.setOnClickListener { saveUserName() }
         }
-        nameTopModal = TopModal(parent = binding.root, customView = nameBinding.root)
+        nameTopModal = TopModal(parentView = binding.root, customView = nameBinding.root)
         nameTopModal?.expand()
     }
 
@@ -163,12 +167,10 @@ class StackFragment : Fragment() {
     }
 
     fun deleteList(todoList: TodoList) {
-        if (todoList.completed) {
-            areYouSure { viewModel.deleteList(todoList) }
-        } else if (todoList.userName.equals(viewModel.userName.value)) {
+        if (todoList.isCompleted()) {
             areYouSure { viewModel.deleteList(todoList) }
         } else {
-            main.bottomToast(getString(R.string.only_owner_list))
+            main.bottomToast(getString(R.string.only_completed_list))
         }
     }
 

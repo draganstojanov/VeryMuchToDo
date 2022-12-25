@@ -2,8 +2,8 @@ package com.andraganoid.verymuchtodo.ui.tools.calculator.model
 
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableFloat
-import com.andraganoid.verymuchtodo.ui.tools.calculator.currencyList
-import com.andraganoid.verymuchtodo.ui.tools.calculator.unitList
+import com.andraganoid.verymuchtodo.ui.tools.calculator.util.currencyList
+import com.andraganoid.verymuchtodo.ui.tools.calculator.util.unitList
 import java.text.DecimalFormat
 
 class CalculatorModel(

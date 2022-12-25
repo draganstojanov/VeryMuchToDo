@@ -5,9 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.andraganoid.verymuchtodo.databinding.AutocompleteEditItemBinding
 
-
 class AutocompleteEditAdapter(private val fragment: AutocompleteEditFragment) : RecyclerView.Adapter<AutocompleteEditAdapter.EditHolder>() {
-
     private lateinit var editList: ArrayList<AutocompleteEditItem?>
 
     fun setList(eList: MutableList<String>) {

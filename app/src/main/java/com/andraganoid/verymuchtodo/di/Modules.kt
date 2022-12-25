@@ -28,7 +28,6 @@ object Modules {
         single { AuthRepository(firebaseAuth = FirebaseAuth.getInstance()) }
         single { FirestoreRepository(firebaseFirestore = FirebaseFirestore.getInstance()) }
         single { ListenersRepository(firebaseFirestore = FirebaseFirestore.getInstance()) }
-        single { CalculatorTool(context = androidContext()) }
     }
 
     val appModule = listOf(viewModelModule, singleModule)

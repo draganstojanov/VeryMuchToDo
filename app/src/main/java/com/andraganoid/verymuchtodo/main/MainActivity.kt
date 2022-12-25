@@ -2,8 +2,9 @@ package com.andraganoid.verymuchtodo.main
 
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
-import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
@@ -14,7 +15,6 @@ import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.ActivityMainBinding
 import com.andraganoid.verymuchtodo.model.state.AuthState
 import com.andraganoid.verymuchtodo.ui.msgDialog.MessageDialogData
-import com.andraganoid.verymuchtodo.ui.tools.ToolsActivity
 import com.andraganoid.verymuchtodo.util.ARGS_DIALOG_DATA
 import com.andraganoid.verymuchtodo.util.CANCELLED
 import com.andraganoid.verymuchtodo.util.ERROR_PLACEHOLDER
@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class MainActivity : ToolsActivity() {
+class MainActivity : AppCompatActivity() {
 
     companion object {
         lateinit var insetController: WindowInsetsControllerCompat
@@ -42,7 +42,7 @@ class MainActivity : ToolsActivity() {
 
     override fun onStart() {
         super.onStart()
-        insetController = ViewCompat.getWindowInsetsController(binding.root)!!
+        insetController = WindowCompat.getInsetsController(window, binding.root)
         navController = findNavController(R.id.fragmentContainer)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
@@ -78,7 +78,7 @@ class MainActivity : ToolsActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         binding.backArrow.setOnClickListener { navController.popBackStack() }
         binding.settingsBtn.setOnClickListener { navController.navigate(R.id.settingsFragment) }
-        binding.calculatorBtn.setOnClickListener { openCalculator(binding.toolsContainer) }
+        binding.calculatorBtn.setOnClickListener { binding.calculatorContainer.openCalculator(binding.root) }
     }
 
     private fun setObservers() {
