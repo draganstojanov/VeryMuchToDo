@@ -19,7 +19,7 @@ class Document(value: Any?) {
             KEY_TITLE to todoList.title,
             KEY_ID to todoList.id,
             KEY_DESCRIPTION to todoList.description,
-            KEY_COMPLETED to todoList.completed,
+            KEY_COMPLETED to todoList.isCompleted(),
             KEY_USER_NAME to todoList.userName,
             KEY_ITEM_LIST to todoList.itemList,
             KEY_TIMESTAMP to todoList.timestamp

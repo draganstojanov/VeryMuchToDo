@@ -14,7 +14,7 @@ class SettingsViewModel(private val prefs: Prefs) : ViewModel() {
 
     var preEditedText: String = ""
     var changedText: String = ""
-    var deletionList: ArrayList<AutocompleteEditItem?> = arrayListOf()
+    var deletionList: MutableList<AutocompleteEditItem?> = mutableListOf()
 
     init {
         checkAutocompleteList()

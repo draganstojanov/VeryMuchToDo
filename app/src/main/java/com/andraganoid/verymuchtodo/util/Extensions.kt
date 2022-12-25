@@ -27,13 +27,12 @@ fun Fragment.invisibleToolbar(isInvisible: Boolean) {
     main.invisibleToolbar(isInvisible)
 }
 
-
 fun Fragment.areYouSure(click: () -> Unit) {
     main.messageDialog(
         MessageDialogData(
             title = getString(R.string.are_you_sure),
             btnLeftText = getString(R.string.cancel),
-            btnLeft = {},
+            btnLeft = null,
             btnRightText = getString(R.string.ok),
             btnRight = { click.invoke() })
     )
@@ -49,3 +48,4 @@ fun Long.getFormattedDate(): String =
     }
 
 fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()
+

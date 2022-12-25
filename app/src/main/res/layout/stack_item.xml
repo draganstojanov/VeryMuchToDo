@@ -10,6 +10,10 @@
         <variable
             name="todoList"
             type="com.andraganoid.verymuchtodo.model.TodoList" />
+
+        <variable
+            name="completed"
+            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -27,7 +31,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="4dp"
             android:src="@drawable/ic_check_circle"
-            android:visibility="@{todoList.completed?View.VISIBLE:View.GONE}"
+            android:visibility="@{completed?View.VISIBLE:View.GONE}"
             app:layout_constraintBottom_toTopOf="@id/stackDeleteIcon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

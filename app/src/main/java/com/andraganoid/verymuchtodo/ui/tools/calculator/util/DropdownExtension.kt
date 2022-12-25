@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.ui.tools
+package com.andraganoid.verymuchtodo.ui.tools.calculator.util
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator

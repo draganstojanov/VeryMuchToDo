@@ -8,8 +8,8 @@ data class MessageDialogData(
     val btnLeftText: String = "",
     val btnMidText: String = "",
     val btnRightText: String = "",
-    val btnLeft: (() -> Unit)? = {},
-    val btnMid: (() -> Unit)? = {},
-    val btnRight: (() -> Unit)? = {},
+    val btnLeft: (() -> Unit)? = null,
+    val btnMid: (() -> Unit)? = null,
+    val btnRight: (() -> Unit)? = null,
     val toast: String = "",
 ) : Serializable

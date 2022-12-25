@@ -10,13 +10,14 @@ import com.andraganoid.verymuchtodo.BuildConfig
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.SettingsFragmentBinding
 import com.andraganoid.verymuchtodo.util.areYouSure
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
+
 
 class SettingsFragment : Fragment() {
 
     private var _binding: SettingsFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: SettingsViewModel by sharedViewModel()
+    private val viewModel: SettingsViewModel by activityViewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = SettingsFragmentBinding.inflate(inflater, container, false)

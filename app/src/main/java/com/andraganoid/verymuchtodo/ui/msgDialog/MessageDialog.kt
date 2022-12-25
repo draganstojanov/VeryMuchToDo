@@ -24,7 +24,8 @@ class MessageDialog : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.takeIf { it.containsKey(ARGS_DIALOG_DATA) }?.apply {
-            message = getSerializable(ARGS_DIALOG_DATA) as MessageDialogData
+            val m = getString(ARGS_DIALOG_DATA)
+            message = getSerializable(ARGS_DIALOG_DATA) as MessageDialogData//TODO depricated
         }
         binding.message = message
         binding.msgDialogToast.apply {
