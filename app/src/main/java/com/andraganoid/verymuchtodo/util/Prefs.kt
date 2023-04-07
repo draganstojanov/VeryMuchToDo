@@ -7,7 +7,8 @@ class Prefs
     (private val context: Context) {
 
     companion object {
-        private const val PREF = "com.andraganoid.memoryfields.SHARED_PREFERENCES"
+        //        private const val PREF = "com.andraganoid.memoryfields.SHARED_PREFERENCES"
+        private const val PREF = "com.andraganoid.verymuchtodo.SHARED_PREFERENCES"
         private const val PREF_USERNAME = "prefUsername"
         private const val PREF_AUTOCOMPLETE_ITEMS = "prefAutocompleteItems"
     }

@@ -9,5 +9,6 @@
 .idea
 app/google-services.json
 app/src/main/res/values/key.xml
-app/src/main/java/com/andraganoid/verymuchtodo/secret
+app/src/main/java/com/andraganoid/verymuchtodo/util/Secret.kt
 app/src/main/java/com/andraganoid/verymuchtodo/ui/custom/TopModal.kt
+

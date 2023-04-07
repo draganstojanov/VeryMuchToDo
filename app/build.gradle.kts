@@ -13,8 +13,8 @@ android {
         applicationId = "com.andraganoid.verymuchtodo"
         minSdk = 23
         targetSdk = 33
-        versionCode = 16
-        versionName = "3.4.1"
+        versionCode = 17
+        versionName = "3.4.2"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -66,17 +66,17 @@ android {
 
 dependencies {
 
-    val lifecycleVersion = "2.5.1"
+    val lifecycleVersion = "2.6.1"
 
-    implementation("androidx.appcompat:appcompat:1.5.1")
+    implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.core:core-ktx:1.9.0")
-    implementation("com.google.android.material:material:1.7.0")
+    implementation("com.google.android.material:material:1.8.0")
 
     // Kotlin
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
 
     //Gson
-    implementation("com.google.code.gson:gson:2.10")
+    implementation("com.google.code.gson:gson:2.10.1")
 
     // Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
@@ -88,10 +88,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
 
     // Koin
-    implementation("io.insert-koin:koin-android:3.3.1")
+    implementation("io.insert-koin:koin-android:3.4.0")
 
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:31.1.1"))
+    implementation(platform("com.google.firebase:firebase-bom:31.4.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
