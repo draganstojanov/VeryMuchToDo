@@ -9,7 +9,7 @@
 
         <variable
             name="todoItem"
-            type="com.andraganoid.verymuchtodo.model.TodoItem" />
+            type="com.andraganoid.verymuchtodo.old.model.TodoItem" />
 
     </data>
 

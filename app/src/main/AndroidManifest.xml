@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name="com.andraganoid.verymuchtodo.app.App"
+        android:name="com.andraganoid.verymuchtodo.old.app.App"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,7 +14,7 @@
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.andraganoid.verymuchtodo.main.MainActivity"
+            android:name="com.andraganoid.verymuchtodo.old.main.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

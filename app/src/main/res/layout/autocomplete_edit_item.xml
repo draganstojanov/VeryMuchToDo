@@ -9,7 +9,7 @@
 
         <variable
             name="editItem"
-            type="com.andraganoid.verymuchtodo.ui.settings.autocomplete.AutocompleteEditItem" />
+            type="com.andraganoid.verymuchtodo.old.ui.settings.autocomplete.AutocompleteEditItem" />
 
     </data>
 

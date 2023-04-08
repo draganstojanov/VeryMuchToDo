@@ -7,7 +7,7 @@
 
         <variable
             name="calcModel"
-            type="com.andraganoid.verymuchtodo.ui.tools.calculator.model.CalculatorModel" />
+            type="com.andraganoid.verymuchtodo.old.ui.tools.calculator.model.CalculatorModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

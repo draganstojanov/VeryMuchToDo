@@ -7,7 +7,7 @@
 
         <variable
             name="message"
-            type="com.andraganoid.verymuchtodo.ui.msgDialog.MessageDialogData" />
+            type="com.andraganoid.verymuchtodo.old.ui.msgDialog.MessageDialogData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

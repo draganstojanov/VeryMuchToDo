@@ -6,37 +6,37 @@
 
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.andraganoid.verymuchtodo.main.MainActivity"
+        android:name="com.andraganoid.verymuchtodo.old.main.MainActivity"
         android:label="MainActivity"
         tools:layout="@layout/activity_main" />
 
     <fragment
         android:id="@+id/stackFragment"
-        android:name="com.andraganoid.verymuchtodo.ui.stack.StackFragment"
+        android:name="com.andraganoid.verymuchtodo.old.ui.stack.StackFragment"
         android:label="StackFragment"
         tools:layout="@layout/stack_fragment" />
 
     <fragment
         android:id="@+id/todoListFragment"
-        android:name="com.andraganoid.verymuchtodo.ui.list.TodoListFragment"
+        android:name="com.andraganoid.verymuchtodo.old.ui.list.TodoListFragment"
         android:label="TodoListFragment"
         tools:layout="@layout/todo_list_fragment" />
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.andraganoid.verymuchtodo.ui.settings.SettingsFragment"
+        android:name="com.andraganoid.verymuchtodo.old.ui.settings.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@layout/settings_fragment" />
 
     <fragment
         android:id="@+id/autocompleteEditFragment"
-        android:name="com.andraganoid.verymuchtodo.ui.settings.autocomplete.AutocompleteEditFragment"
+        android:name="com.andraganoid.verymuchtodo.old.ui.settings.autocomplete.AutocompleteEditFragment"
         android:label="AutocompleteEditFragment"
         tools:layout="@layout/autocomplete_edit_fragment" />
 
     <dialog
         android:id="@+id/messageDialog"
-        android:name="com.andraganoid.verymuchtodo.ui.msgDialog.MessageDialog"
+        android:name="com.andraganoid.verymuchtodo.old.ui.msgDialog.MessageDialog"
         android:label="MessageDialog"
         tools:layout="@layout/message_dialog" />
 </navigation>
