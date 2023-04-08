@@ -1,14 +1,15 @@
-package com.andraganoid.verymuchtodo.old.main
+package com.andraganoid.verymuchtodo.viewModel
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.andraganoid.verymuchtodo.old.model.state.AuthState
 import com.andraganoid.verymuchtodo.old.repository.AuthRepository
 import com.andraganoid.verymuchtodo.old.repository.FirestoreRepository
 import com.andraganoid.verymuchtodo.old.repository.ListenersRepository
+import com.draganstojanov.myworld_compose.util.debug.debugLog
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MainViewModel(
@@ -17,30 +18,33 @@ class MainViewModel(
     private val firestoreRepository: FirestoreRepository,
 ) : ViewModel() {
 
-    private val _authState = MutableStateFlow<AuthState?>(null)
-    val authState: StateFlow<AuthState?> get() = _authState
+    //  val bottomMessageState: MutableState<String?> = mutableStateOf(null)
+    val authState: MutableState<AuthState?> = mutableStateOf(null)
 
     init {
         getAuthState()
-        getDocumentError()
+        //   getDocumentError()
     }
 
     private fun getAuthState() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Main) {
             authRepository.loginCheck()
-            authRepository.getAuthState().collect { authState ->
-                _authState.value = authState
+            authRepository.getAuthState().collect {
+
+                debugLog("AUTHSTATE",it)
+
+                authState.value = it
             }
         }
     }
 
-    private fun getDocumentError() {
-        viewModelScope.launch {
-            firestoreRepository.getDocumentState().collect { error ->
-                _authState.value = AuthState.Error(errorMsg = error)
-            }
-        }
-    }
+//    private fun getDocumentError() {
+//        viewModelScope.launch {
+//            firestoreRepository.getDocumentState().collect { error ->
+//                bottomMessageState.value = error
+//            }
+//        }
+//    }
 
     fun setFirestoreListeners() {
         listenersRepository.setFirestoreListeners()

@@ -8,7 +8,6 @@
 /captures
 .idea
 app/google-services.json
-app/src/main/res/values/key.xml
-app/src/main/java/com/andraganoid/verymuchtodo/old/util/Secret.kt
+app/src/main/java/com/andraganoid/verymuchtodo/util/Secret.kt
 
 

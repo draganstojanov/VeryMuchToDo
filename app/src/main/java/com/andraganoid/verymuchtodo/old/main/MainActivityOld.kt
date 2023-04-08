@@ -22,14 +22,14 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class MainActivity : AppCompatActivity() {
+class MainActivityOld : AppCompatActivity() {
 
     companion object {
         lateinit var insetController: WindowInsetsControllerCompat
     }
 
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: MainViewModel by viewModel()
+    private val viewModel: MainViewModelOld by viewModel()
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {

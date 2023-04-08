@@ -6,7 +6,7 @@
 
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.andraganoid.verymuchtodo.old.main.MainActivity"
+        android:name="com.andraganoid.verymuchtodo.old.main.MainActivityOld"
         android:label="MainActivity"
         tools:layout="@layout/activity_main" />
 

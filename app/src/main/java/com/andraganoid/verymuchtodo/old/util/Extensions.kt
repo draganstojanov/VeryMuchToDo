@@ -4,12 +4,12 @@ import android.content.res.Resources
 import android.text.format.DateFormat
 import androidx.fragment.app.Fragment
 import com.andraganoid.verymuchtodo.R
-import com.andraganoid.verymuchtodo.old.main.MainActivity
+import com.andraganoid.verymuchtodo.old.main.MainActivityOld
 import com.andraganoid.verymuchtodo.old.ui.msgDialog.MessageDialogData
 import java.util.*
 
-val Fragment.main: MainActivity
-    get() = activity as MainActivity
+val Fragment.main: MainActivityOld
+    get() = activity as MainActivityOld
 
 fun Fragment.hideKeyboard() {
     main.hideKeyboard()

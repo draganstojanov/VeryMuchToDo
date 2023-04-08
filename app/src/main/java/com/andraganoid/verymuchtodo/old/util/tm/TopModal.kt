@@ -9,7 +9,7 @@ import androidx.core.animation.doOnEnd
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import com.andraganoid.verymuchtodo.databinding.TopModalLayoutBinding
-import com.andraganoid.verymuchtodo.old.main.MainActivity
+import com.andraganoid.verymuchtodo.old.main.MainActivityOld
 import com.andraganoid.verymuchtodo.old.util.toDp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -65,7 +65,7 @@ class TopModal(private val parentView: ViewGroup, customView: View) {
                     requestLayout()
                     requestFocusOnExpand.let {
                         requestFocusFromTouch()
-                        CoroutineScope(Dispatchers.Main).launch { MainActivity.insetController.show(WindowInsetsCompat.Type.ime()) }
+                        CoroutineScope(Dispatchers.Main).launch { MainActivityOld.insetController.show(WindowInsetsCompat.Type.ime()) }
                     }
 
                 }
@@ -88,7 +88,7 @@ class TopModal(private val parentView: ViewGroup, customView: View) {
             doOnEnd {
                 binding.topModalWrapper.isVisible = false
                 binding.overlay.isVisible = false
-                MainActivity.insetController.hide(WindowInsetsCompat.Type.ime())
+                MainActivityOld.insetController.hide(WindowInsetsCompat.Type.ime())
             }
             start()
         }

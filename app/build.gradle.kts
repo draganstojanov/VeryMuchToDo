@@ -13,10 +13,10 @@ android {
     compileSdk = 33
     defaultConfig {
         applicationId = "com.andraganoid.verymuchtodo"
-        minSdk = 23
+        minSdk = 26
         targetSdk = 33
-        versionCode = 17
-        versionName = "3.4.2"
+        versionCode = 18
+        versionName = "4.0.0.COMPOSE.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -91,15 +91,20 @@ dependencies {
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.activity:activity-compose:1.7.0")
-   // implementation("androidx.preference:preference-ktx:1.2.0")
+    // implementation("androidx.preference:preference-ktx:1.2.0")
     implementation("androidx.navigation:navigation-compose:2.5.3")
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
     implementation("androidx.compose.material:material:$materialVersion")
+    
+    //Material icons - use with caution!
+     implementation("androidx.compose.material:material-icons-extended:$materialVersion")
 
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.30.0")
+
+
 
     // Kotlin
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
@@ -115,6 +120,7 @@ dependencies {
 
     // Koin
     implementation("io.insert-koin:koin-android:3.4.0")
+    implementation("io.insert-koin:koin-androidx-compose:3.4.0")
 
 
     implementation("androidx.appcompat:appcompat:1.6.1")//TODO REMOVE AT END
@@ -128,11 +134,10 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")//TODO REMOVE AT END
 
     // Lifecycle
- //   implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
- //   implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
+    //   implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
+    //   implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")//TODO REMOVE AT END
- //   implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
-
+    //   implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
 
 
     // Firebase

@@ -15,7 +15,7 @@ class AuthRepository(private val firebaseAuth: FirebaseAuth) {
 
     fun loginCheck() {
         if (firebaseAuth.currentUser != null) {
-            authState.tryEmit(AuthState.Success)
+            authState.value = AuthState.Success
         } else {
             login()
         }
@@ -24,8 +24,8 @@ class AuthRepository(private val firebaseAuth: FirebaseAuth) {
     private fun login() {
         firebaseAuth.signInWithEmailAndPassword(LOGIN_EMAIL, LOGIN_PASS).addOnCompleteListener { task ->
             when {
-                task.isSuccessful -> authState.tryEmit(AuthState.Success)
-                task.isCanceled -> authState.tryEmit(AuthState.Cancelled)
+                task.isSuccessful -> authState.value = AuthState.Success
+                task.isCanceled -> authState.value = AuthState.Cancelled
                 else -> createUser()
             }
         }
@@ -34,9 +34,9 @@ class AuthRepository(private val firebaseAuth: FirebaseAuth) {
     private fun createUser() {
         firebaseAuth.createUserWithEmailAndPassword(LOGIN_EMAIL, LOGIN_PASS).addOnCompleteListener { task ->
             when {
-                task.isSuccessful -> authState.tryEmit(AuthState.Success)
-                task.isCanceled -> authState.tryEmit(AuthState.Cancelled)
-                else -> authState.tryEmit(AuthState.Error(task.exception?.localizedMessage))
+                task.isSuccessful -> authState.value = AuthState.Success
+                task.isCanceled -> authState.value = AuthState.Cancelled
+                else -> authState.value = AuthState.Error(task.exception?.localizedMessage)
             }
         }
     }
