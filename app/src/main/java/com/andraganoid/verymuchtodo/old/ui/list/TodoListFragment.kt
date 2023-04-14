@@ -87,6 +87,7 @@ class TodoListFragment : Fragment() {
                             main.showTitle(viewModel.listForEdit.title.toString())
                         }
                         is StackState.Error -> main.bottomToast(tlState.errorMsg)
+                        else -> {}
                     }
                 }
             }

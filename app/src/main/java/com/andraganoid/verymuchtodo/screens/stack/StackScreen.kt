@@ -1,33 +1,117 @@
 package com.andraganoid.verymuchtodo.screens.stack
 
-import android.annotation.SuppressLint
-import androidx.compose.material.Scaffold
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.composables.CustomTopAppBar
-import com.andraganoid.verymuchtodo.util.navigation.NavScreens
+import com.andraganoid.verymuchtodo.composables.showToast
+import com.andraganoid.verymuchtodo.old.model.TodoList
+import com.andraganoid.verymuchtodo.old.model.state.StackState
+import com.andraganoid.verymuchtodo.old.util.getFormattedDate
+import com.andraganoid.verymuchtodo.ui.theme.Desc
+import com.andraganoid.verymuchtodo.ui.theme.Info
+import com.andraganoid.verymuchtodo.ui.theme.Title
 import com.andraganoid.verymuchtodo.viewModel.StackViewModel
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+
 @Composable
 fun StackScreen(
     navController: NavHostController,
     viewModel: StackViewModel
 ) {
-    Scaffold(
-        topBar = {
+    val context = LocalContext.current
+    val stackState by viewModel.getSnapshotState().collectAsState(initial = null)
+    val stackListState: MutableState<List<TodoList?>> = remember { mutableStateOf(listOf()) }
+
+    LaunchedEffect(key1 = stackState) {
+        when (stackState) {
+            is StackState.Stack -> {
+                val stackList = (stackState as StackState.Stack).stack
+                stackListState.value = stackList.sortedByDescending { it?.timestamp }
+
+//            binding.clearList.isVisible = viewModel.checkClearVisibilityStack()
+            }
+            is StackState.Error -> showToast(context, (stackState as StackState.Error).errorMsg)
+            null -> {}
+        }
+    }
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.fillMaxWidth()) {
             CustomTopAppBar(
-                title = stringResource(id = R.string.app_name),
+                title = stringResource(id = R.string.todo),
                 navController = navController,
-              //  hasBackButton = false
+                hasBackButton = false,
+                hasCalcButton = true,
+                hasSettingsButton = true
             )
-        }, content = {
+
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                items(items = stackListState.value) { item ->
+                    StackItem(item)
+                }
+                item { Spacer(modifier = Modifier.size(4.dp)) }
+
+            }
 
         }
-    )
+
+
+        //   TopModal()
+    }
 }
+
+@Composable
+fun StackItem(item: TodoList?) {
+    Card(
+        shape = RoundedCornerShape(dimensionResource(id = R.dimen.cornerRadius)),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 4.dp, start = 4.dp, end = 4.dp),
+        backgroundColor = MaterialTheme.colors.primary,
+
+
+        ) {
+
+
+        Column(
+            Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp, horizontal = 12.dp)
+        ) {
+            Text(text = item?.title.toString(), style = Title)
+            if (!item?.description.isNullOrEmpty()) {
+                Text(
+                    modifier = Modifier.padding(top = 4.dp),
+                    text = item?.description.toString(),
+                    style = Desc
+                )
+            }
+            Text(
+                modifier = Modifier.padding(top = 4.dp),
+                text = "${item?.userName}, ${item?.timestamp?.getFormattedDate()}",
+                style = Info
+            )
+        }
+
+
+    }
+
+
+}
+
+

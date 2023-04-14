@@ -43,7 +43,7 @@ class MainViewModelOld(
     }
 
     fun setFirestoreListeners() {
-        listenersRepository.setFirestoreListeners()
+       // listenersRepository.setFirestoreListeners()
     }
 
 }

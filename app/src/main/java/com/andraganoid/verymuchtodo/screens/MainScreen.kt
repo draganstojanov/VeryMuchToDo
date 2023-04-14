@@ -22,15 +22,14 @@ fun MainScreen(
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
-    var authState: AuthState?
     val snackbarState = remember { mutableStateOf<String?>(null) }
 
     Scaffold(snackbarHost = { SnackbarHost(snackbarHostState) }) {
         LaunchedEffect(key1 = AuthState.Unchecked) {
-            authState = viewModel.authState.value
-            when (authState) {
+
+            when ( val authState = viewModel.authState.value) {
                 is AuthState.Success -> {
-                    //  viewModel.setFirestoreListeners()
+                    viewModel.setFirestoreListeners()
                     navController.navigate(NavScreens.StackScreen.name)
                 }
                 is AuthState.Cancelled -> snackbarState.value = CANCELLED

@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.Calculate
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
+import com.andraganoid.verymuchtodo.ui.theme.TopTitle
 
 @Composable
 fun CustomTopAppBar(
@@ -20,7 +21,7 @@ fun CustomTopAppBar(
     navController: NavController
 ) {
     TopAppBar(
-        title = { Text(title.toString()) },
+        title = { Text(title.toString(), style = TopTitle) },
         actions = {
             if (hasCalcButton) {
                 IconButton(onClick = { }) {
