@@ -55,12 +55,12 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
 
@@ -72,11 +72,11 @@ android {
         kotlinCompilerExtensionVersion = "1.4.4"
     }
 
-    packagingOptions {
-        resources {
-            excludes.add("/META-INF/{AL2.0,LGPL2.1}")
-        }
-    }
+//    fun Packaging.() {
+//        resources {
+//            excludes.add("/META-INF/{AL2.0,LGPL2.1}")
+//        }
+//    }
 
 
 }
@@ -141,7 +141,7 @@ dependencies {
 
 
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:31.4.0"))
+    implementation(platform("com.google.firebase:firebase-bom:31.5.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")
