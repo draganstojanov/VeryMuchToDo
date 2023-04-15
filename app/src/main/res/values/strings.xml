@@ -32,4 +32,6 @@
     <string name="calculatorTitle">Price per unit calculator</string>
     <string name="price">Price</string>
     <string name="currency">Currency</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
 </resources>

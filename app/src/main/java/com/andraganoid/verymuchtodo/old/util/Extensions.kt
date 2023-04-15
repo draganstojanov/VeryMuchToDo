@@ -6,7 +6,12 @@ import androidx.fragment.app.Fragment
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.old.main.MainActivityOld
 import com.andraganoid.verymuchtodo.old.ui.msgDialog.MessageDialogData
-import java.util.*
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Calendar
+
 
 val Fragment.main: MainActivityOld
     get() = activity as MainActivityOld
@@ -48,4 +53,13 @@ fun Long.getFormattedDate(): String =
     }
 
 fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()
+
+fun Long.getFormattedDateShort(): String =
+    if (this > 0) {
+        val formatter = DateTimeFormatter.ofPattern("HH:mm dd.MM.yy")
+        val ldt = LocalDateTime.ofInstant(Instant.ofEpochMilli(this), ZoneId.systemDefault())
+        formatter.format(ldt)
+    } else {
+        ""
+    }
 

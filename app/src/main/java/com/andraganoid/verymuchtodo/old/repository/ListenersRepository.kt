@@ -1,6 +1,6 @@
 package com.andraganoid.verymuchtodo.old.repository
 
-import com.andraganoid.verymuchtodo.old.model.TodoList
+import com.andraganoid.verymuchtodo.old.model.TodoStack
 import com.andraganoid.verymuchtodo.old.model.state.StackState
 import com.andraganoid.verymuchtodo.util.COL_LIST
 import com.google.firebase.firestore.FirebaseFirestore
@@ -18,12 +18,12 @@ class ListenersRepository(private val firebaseFirestore: FirebaseFirestore) {
         todoListListener = firebaseFirestore.collection(COL_LIST)
             .addSnapshotListener { snapshots, exc ->
                 if (snapshots != null) {
-                    val todoList = arrayListOf<TodoList?>()
+                    val todoStack = arrayListOf<TodoStack?>()
                     snapshots.documents.forEach { documentSnapshot ->
-                        todoList.add(documentSnapshot.toObject(TodoList::class.java))
+                        todoStack.add(documentSnapshot.toObject(TodoStack::class.java))
                     }
                    // stackState.tryEmit(StackState.Stack(todoList))
-                    stackState.value=StackState.Stack(todoList)
+                    stackState.value=StackState.Stack(todoStack)
                 }
               else  if (exc != null) {
                    // stackState.tryEmit(StackState.Error(exc.localizedMessage))

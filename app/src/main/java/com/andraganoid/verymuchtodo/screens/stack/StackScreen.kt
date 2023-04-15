@@ -1,6 +1,7 @@
 package com.andraganoid.verymuchtodo.screens.stack
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,14 +11,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -31,17 +28,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.composables.CustomTopAppBar
+import com.andraganoid.verymuchtodo.composables.ItemButton
 import com.andraganoid.verymuchtodo.composables.showToast
-import com.andraganoid.verymuchtodo.old.model.TodoList
+import com.andraganoid.verymuchtodo.old.model.TodoStack
+import com.andraganoid.verymuchtodo.old.model.isCompleted
 import com.andraganoid.verymuchtodo.old.model.state.StackState
-import com.andraganoid.verymuchtodo.old.util.getFormattedDate
+import com.andraganoid.verymuchtodo.old.util.getFormattedDateShort
+import com.andraganoid.verymuchtodo.ui.theme.ColorPrimaryLite
 import com.andraganoid.verymuchtodo.ui.theme.ColorPrimaryVariantLite
+import com.andraganoid.verymuchtodo.ui.theme.ColorTaskDone
 import com.andraganoid.verymuchtodo.ui.theme.Desc
 import com.andraganoid.verymuchtodo.ui.theme.Info
 import com.andraganoid.verymuchtodo.ui.theme.Title
@@ -55,7 +55,7 @@ fun StackScreen(
 ) {
     val context = LocalContext.current
     val stackState by viewModel.getSnapshotState().collectAsState(initial = null)
-    val stackListState: MutableState<List<TodoList?>> = remember { mutableStateOf(listOf()) }
+    val stackListState: MutableState<List<TodoStack?>> = remember { mutableStateOf(listOf()) }
 
     LaunchedEffect(key1 = stackState) {
         when (stackState) {
@@ -85,7 +85,7 @@ fun StackScreen(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 items(items = stackListState.value) { item ->
-                    StackItem(item)
+                    StackItem(item, viewModel)
                 }
                 item { Spacer(modifier = Modifier.size(4.dp)) }
 
@@ -99,13 +99,16 @@ fun StackScreen(
 }
 
 @Composable
-fun StackItem(item: TodoList?) {
+fun StackItem(stack: TodoStack?, viewModel: StackViewModel) {
+
+    val isCompleted = stack?.isCompleted() == true
+
     Card(
         shape = RoundedCornerShape(dimensionResource(id = R.dimen.cornerRadius)),
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 4.dp, start = 4.dp, end = 4.dp),
-        backgroundColor = MaterialTheme.colors.primary
+        backgroundColor = if (isCompleted) ColorTaskDone else ColorPrimaryLite
     ) {
         Column(
             Modifier
@@ -118,12 +121,12 @@ fun StackItem(item: TodoList?) {
                     .clip(RoundedCornerShape(8.dp))
                     .background(ColorPrimaryVariantLite)
                     .padding(vertical = 4.dp, horizontal = 8.dp),
-                text = item?.title.toString(), style = Title
+                text = stack?.title.toString(), style = Title
             )
 
-            if (!item?.description.isNullOrEmpty()) {
+            if (!stack?.description.isNullOrEmpty()) {
                 Text(
-                    text = item?.description.toString(),
+                    text = stack?.description.toString(),
                     modifier = Modifier.padding(top = 8.dp, start = 8.dp, end = 8.dp),
                     style = Desc
                 )
@@ -133,51 +136,48 @@ fun StackItem(item: TodoList?) {
                 modifier = Modifier
                     .padding(top = 8.dp)
                     .fillMaxWidth()
-                    .height(32.dp)
-            ) {
+                    .height(32.dp),
+
+
+                ) {
                 Row(
                     modifier = Modifier.padding(start = 4.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    IconButton(modifier = Modifier.width(24.dp),
-                        onClick = { /*TODO*/ }) {
-                        Icon(painterResource(id = R.drawable.ic_delete), contentDescription = "Delete")
-                    }
+                    ItemButton(
+                        content = stringResource(id = R.string.delete).uppercase(),
+                        isEnabled = isCompleted,
+                        onCLick = {}
+                    )
 
-                    IconButton(
+                    ItemButton(
+                        content = stringResource(id = R.string.edit).uppercase(),
+                        isEnabled = true,
+                        onCLick = {}
+                    )
+
+
+                    Column(
                         modifier = Modifier
-                            .padding(start = 24.dp)
-                            .width(24.dp),
-                        onClick = { /*TODO*/ }) {
-                        Icon(painterResource(id = R.drawable.ic_edit), contentDescription = "Edit")
+                            .fillMaxWidth()
+                            .padding(end = 8.dp),
+                        horizontalAlignment = Alignment.End
+                    ) {
+                        Text(
+                            text = stack?.userName.toString(),
+                            style = Info
+                        )
+                        Text(
+                            text = "${stack?.timestamp?.getFormattedDateShort()}",
+                            style = Info
+                        )
                     }
                 }
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = 8.dp),
-                    horizontalAlignment = Alignment.End
-                ) {
-                    Text(
-                        text = item?.userName.toString(),
-                        style = Info
-                    )
-                    Text(
-                        text = "${item?.timestamp?.getFormattedDate()}",
-                        style = Info
-                    )
-                }
-
-
             }
-
-
         }
-
-
     }
-
-
 }
+
 
 

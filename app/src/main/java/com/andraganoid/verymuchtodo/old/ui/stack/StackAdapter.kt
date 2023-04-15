@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.andraganoid.verymuchtodo.databinding.StackItemBinding
-import com.andraganoid.verymuchtodo.old.model.TodoList
+import com.andraganoid.verymuchtodo.old.model.TodoStack
 import com.andraganoid.verymuchtodo.old.model.isCompleted
 
-class StackAdapter(private val fragment: StackFragment) : ListAdapter<TodoList, StackAdapter.StackHolder>(StackCallback()) {
+class StackAdapter(private val fragment: StackFragment) : ListAdapter<TodoStack, StackAdapter.StackHolder>(StackCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StackHolder {
         val binding = StackItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -19,31 +19,31 @@ class StackAdapter(private val fragment: StackFragment) : ListAdapter<TodoList, 
     override fun onBindViewHolder(holder: StackHolder, position: Int) = holder.bind(getItem(position))
 
     inner class StackHolder(private val binding: StackItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(todoList: TodoList?) {
-            binding.todoList = todoList
-            binding.completed = todoList?.isCompleted()
-            binding.root.setOnClickListener { fragment.listSelected(todoList!!.id) }
+        fun bind(todoStack: TodoStack?) {
+            binding.todoList = todoStack
+            binding.completed = todoStack?.isCompleted()
+            binding.root.setOnClickListener { fragment.listSelected(todoStack!!.id) }
             binding.stackEditIcon.setOnClickListener {
-                if (todoList != null) {
-                    fragment.openTodoListEditor(todoList, false)
+                if (todoStack != null) {
+                    fragment.openTodoListEditor(todoStack, false)
                 }
             }
             binding.stackDeleteIcon.setOnClickListener {
-                if (todoList != null) {
-                    fragment.deleteList(todoList)
+                if (todoStack != null) {
+                    fragment.deleteList(todoStack)
                 }
             }
             binding.executePendingBindings()
         }
     }
 
-    class StackCallback : DiffUtil.ItemCallback<TodoList>() {
+    class StackCallback : DiffUtil.ItemCallback<TodoStack>() {
 
-        override fun areItemsTheSame(oldItem: TodoList, newItem: TodoList): Boolean {
+        override fun areItemsTheSame(oldItem: TodoStack, newItem: TodoStack): Boolean {
             return oldItem.id == newItem.id;
         }
 
-        override fun areContentsTheSame(oldItem: TodoList, newItem: TodoList): Boolean {
+        override fun areContentsTheSame(oldItem: TodoStack, newItem: TodoStack): Boolean {
             return oldItem == newItem
         }
     }

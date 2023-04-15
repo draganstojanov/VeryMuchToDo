@@ -6,8 +6,18 @@ val ColorPrimaryLite = Color(0xFF0F2155)
 val ColorPrimaryVariantLite = Color(0xFF134598)
 val ColorSecondaryLite = Color(0xFFFD2851)
 
-val ColorTaskDone =  Color(0xFF033530)
+//val ColorTaskDone = Color(0xFF005C20)
+//val ColorTaskDone = Color(0xFF000135)
+//val ColorTaskDone = Color(0xFF033530)
+val ColorTaskDone = Color(0xFF222222)
 
+val ColorText100 = Color(0xFFFFFFFF)
+val ColorText75 = Color(0xC0FFFFFF)
+val ColorText50 = Color(0x80FFFFFF)
+val ColorText25 = Color(0x40FFFFFF)
+
+val ColorIconActive = Color(0xFFFFFFFF)
+val ColorIconInactive = Color(0x40FFFFFF)
 
 
 //<color name="colorPrimary">@color/primMid</color>

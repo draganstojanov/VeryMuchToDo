@@ -17,10 +17,15 @@ import com.andraganoid.verymuchtodo.databinding.NameLayoutBinding
 import com.andraganoid.verymuchtodo.databinding.StackEditorLayoutBinding
 import com.andraganoid.verymuchtodo.databinding.StackFragmentBinding
 import com.andraganoid.verymuchtodo.old.main.TodoViewModel
-import com.andraganoid.verymuchtodo.old.model.TodoList
+import com.andraganoid.verymuchtodo.old.model.TodoStack
 import com.andraganoid.verymuchtodo.old.model.isCompleted
 import com.andraganoid.verymuchtodo.old.model.state.StackState
-import com.andraganoid.verymuchtodo.old.util.*
+import com.andraganoid.verymuchtodo.old.util.areYouSure
+import com.andraganoid.verymuchtodo.old.util.hideKeyboard
+import com.andraganoid.verymuchtodo.old.util.invisibleToolbar
+import com.andraganoid.verymuchtodo.old.util.main
+import com.andraganoid.verymuchtodo.old.util.showKeyboard
+import com.andraganoid.verymuchtodo.old.util.showMessage
 import com.andraganoid.verymuchtodo.old.util.tm.TopModal
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -70,7 +75,7 @@ class StackFragment : Fragment() {
             adapter = stackAdapter
             itemAnimator = null
         }
-        binding.createNewList.setOnClickListener { openTodoListEditor(TodoList(), true) }
+        binding.createNewList.setOnClickListener { openTodoListEditor(TodoStack(), true) }
         binding.clearList.setOnClickListener { viewModel.deleteMultipleList() }
     }
 
@@ -122,7 +127,7 @@ class StackFragment : Fragment() {
         }
     }
 
-    fun openTodoListEditor(tl: TodoList, isNew: Boolean) {
+    fun openTodoListEditor(tl: TodoStack, isNew: Boolean) {
         viewModel.listForEdit = tl
         isNewList = isNew
         with(stackBinding) {
@@ -167,9 +172,9 @@ class StackFragment : Fragment() {
         findNavController().navigate(R.id.todoListFragment)
     }
 
-    fun deleteList(todoList: TodoList) {
-        if (todoList.isCompleted()) {
-            areYouSure { viewModel.deleteList(todoList) }
+    fun deleteList(todoStack: TodoStack) {
+        if (todoStack.isCompleted()) {
+            areYouSure { viewModel.deleteList(todoStack) }
         } else {
             main.bottomToast(getString(R.string.only_completed_list))
         }

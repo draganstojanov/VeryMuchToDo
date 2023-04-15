@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.andraganoid.verymuchtodo.old.model.Document
 import com.andraganoid.verymuchtodo.old.model.TodoItem
-import com.andraganoid.verymuchtodo.old.model.TodoList
+import com.andraganoid.verymuchtodo.old.model.TodoStack
 import com.andraganoid.verymuchtodo.old.model.isCompleted
 import com.andraganoid.verymuchtodo.old.model.state.StackState
 import com.andraganoid.verymuchtodo.old.repository.FirestoreRepository
@@ -21,9 +21,9 @@ class TodoViewModel(
     private val prefs: Prefs
 ) : ViewModel() {
 
-    var stack: ArrayList<TodoList?> = arrayListOf()
+    var stack: ArrayList<TodoStack?> = arrayListOf()
     var selectedListId: String = ""
-    var listForEdit: TodoList = TodoList()
+    var listForEdit: TodoStack = TodoStack()
     var itemForEdit: TodoItem = TodoItem()
 
     private val _userName = MutableLiveData("")
@@ -105,8 +105,8 @@ class TodoViewModel(
         viewModelScope.launch { firestoreRepository.updateDocument(Document(listForEdit)) }
     }
 
-    fun deleteList(todoList: TodoList) {
-        viewModelScope.launch { firestoreRepository.deleteDocument(Document(todoList)) }
+    fun deleteList(todoStack: TodoStack) {
+        viewModelScope.launch { firestoreRepository.deleteDocument(Document(todoStack)) }
     }
 
     fun deleteMultipleList() {

@@ -34,7 +34,7 @@ object Modules {
     private val composeSingleModule = module {}
 
     private val composeViewModelModule = module {
-        viewModel { StackViewModel(get(), get(), get()) }
+        viewModel { StackViewModel(get(), get(), get(), get()) }
         viewModel { MainViewModel(get(), get(), get()) }
     }
 

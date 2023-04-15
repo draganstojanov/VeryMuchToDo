@@ -9,20 +9,20 @@ class Document(value: Any?) {
     var values: Map<String?, Any?> = mapOf()
 
     init {
-        todoList(value as TodoList)
+        todoList(value as TodoStack)
     }
 
-    private fun todoList(todoList: TodoList) {
+    private fun todoList(todoStack: TodoStack) {
         collection = COL_LIST
-        name = todoList.id
+        name = todoStack.id
         values = mapOf(
-            KEY_TITLE to todoList.title,
-            KEY_ID to todoList.id,
-            KEY_DESCRIPTION to todoList.description,
-            KEY_COMPLETED to todoList.isCompleted(),
-            KEY_USER_NAME to todoList.userName,
-            KEY_ITEM_LIST to todoList.itemList,
-            KEY_TIMESTAMP to todoList.timestamp
+            KEY_TITLE to todoStack.title,
+            KEY_ID to todoStack.id,
+            KEY_DESCRIPTION to todoStack.description,
+            KEY_COMPLETED to todoStack.isCompleted(),
+            KEY_USER_NAME to todoStack.userName,
+            KEY_ITEM_LIST to todoStack.itemList,
+            KEY_TIMESTAMP to todoStack.timestamp
         )
     }
 
