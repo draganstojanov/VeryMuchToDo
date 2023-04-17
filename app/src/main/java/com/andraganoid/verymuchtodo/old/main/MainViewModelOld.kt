@@ -2,10 +2,10 @@ package com.andraganoid.verymuchtodo.old.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.andraganoid.verymuchtodo.old.model.state.AuthState
-import com.andraganoid.verymuchtodo.old.repository.AuthRepository
-import com.andraganoid.verymuchtodo.old.repository.FirestoreRepository
-import com.andraganoid.verymuchtodo.old.repository.ListenersRepository
+import com.andraganoid.verymuchtodo.model.state.AuthState
+import com.andraganoid.verymuchtodo.repository.AuthRepository
+import com.andraganoid.verymuchtodo.repository.FirestoreRepository
+import com.andraganoid.verymuchtodo.repository.ListenersRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

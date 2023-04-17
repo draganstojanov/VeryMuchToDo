@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.andraganoid.verymuchtodo.databinding.StackItemBinding
-import com.andraganoid.verymuchtodo.old.model.TodoStack
-import com.andraganoid.verymuchtodo.old.model.isCompleted
+import com.andraganoid.verymuchtodo.model.TodoStack
+import com.andraganoid.verymuchtodo.model.isCompleted
 
 class StackAdapter(private val fragment: StackFragment) : ListAdapter<TodoStack, StackAdapter.StackHolder>(StackCallback()) {
 

@@ -16,10 +16,10 @@ import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.NameLayoutBinding
 import com.andraganoid.verymuchtodo.databinding.StackEditorLayoutBinding
 import com.andraganoid.verymuchtodo.databinding.StackFragmentBinding
+import com.andraganoid.verymuchtodo.model.TodoStack
+import com.andraganoid.verymuchtodo.model.isCompleted
+import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.old.main.TodoViewModel
-import com.andraganoid.verymuchtodo.old.model.TodoStack
-import com.andraganoid.verymuchtodo.old.model.isCompleted
-import com.andraganoid.verymuchtodo.old.model.state.StackState
 import com.andraganoid.verymuchtodo.old.util.areYouSure
 import com.andraganoid.verymuchtodo.old.util.hideKeyboard
 import com.andraganoid.verymuchtodo.old.util.invisibleToolbar

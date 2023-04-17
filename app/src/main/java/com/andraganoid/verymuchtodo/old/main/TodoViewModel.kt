@@ -4,14 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.andraganoid.verymuchtodo.old.model.Document
-import com.andraganoid.verymuchtodo.old.model.TodoItem
-import com.andraganoid.verymuchtodo.old.model.TodoStack
-import com.andraganoid.verymuchtodo.old.model.isCompleted
-import com.andraganoid.verymuchtodo.old.model.state.StackState
-import com.andraganoid.verymuchtodo.old.repository.FirestoreRepository
-import com.andraganoid.verymuchtodo.old.repository.ListenersRepository
+import com.andraganoid.verymuchtodo.model.Document
+import com.andraganoid.verymuchtodo.model.TodoItem
+import com.andraganoid.verymuchtodo.model.TodoStack
+import com.andraganoid.verymuchtodo.model.isCompleted
+import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.old.util.Prefs
+import com.andraganoid.verymuchtodo.repository.FirestoreRepository
+import com.andraganoid.verymuchtodo.repository.ListenersRepository
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 

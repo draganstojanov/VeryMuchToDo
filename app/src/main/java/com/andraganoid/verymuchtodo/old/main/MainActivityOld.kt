@@ -13,7 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.ActivityMainBinding
-import com.andraganoid.verymuchtodo.old.model.state.AuthState
+import com.andraganoid.verymuchtodo.model.state.AuthState
 import com.andraganoid.verymuchtodo.old.ui.msgDialog.MessageDialogData
 import com.andraganoid.verymuchtodo.util.ARGS_DIALOG_DATA
 import com.andraganoid.verymuchtodo.util.CANCELLED

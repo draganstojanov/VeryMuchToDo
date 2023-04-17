@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.old.model
+package com.andraganoid.verymuchtodo.model
 
 import com.andraganoid.verymuchtodo.util.*
 

@@ -4,10 +4,10 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.andraganoid.verymuchtodo.old.model.state.AuthState
-import com.andraganoid.verymuchtodo.old.repository.AuthRepository
-import com.andraganoid.verymuchtodo.old.repository.FirestoreRepository
-import com.andraganoid.verymuchtodo.old.repository.ListenersRepository
+import com.andraganoid.verymuchtodo.model.state.AuthState
+import com.andraganoid.verymuchtodo.repository.AuthRepository
+import com.andraganoid.verymuchtodo.repository.FirestoreRepository
+import com.andraganoid.verymuchtodo.repository.ListenersRepository
 import com.draganstojanov.myworld_compose.util.debug.debugLog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

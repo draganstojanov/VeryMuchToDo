@@ -13,10 +13,14 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.ItemEditorLayoutBinding
 import com.andraganoid.verymuchtodo.databinding.TodoListFragmentBinding
+import com.andraganoid.verymuchtodo.model.TodoItem
+import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.old.main.TodoViewModel
-import com.andraganoid.verymuchtodo.old.model.TodoItem
-import com.andraganoid.verymuchtodo.old.model.state.StackState
-import com.andraganoid.verymuchtodo.old.util.*
+import com.andraganoid.verymuchtodo.old.util.areYouSure
+import com.andraganoid.verymuchtodo.old.util.hideKeyboard
+import com.andraganoid.verymuchtodo.old.util.main
+import com.andraganoid.verymuchtodo.old.util.showKeyboard
+import com.andraganoid.verymuchtodo.old.util.showMessage
 import com.andraganoid.verymuchtodo.old.util.tm.TopModal
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay

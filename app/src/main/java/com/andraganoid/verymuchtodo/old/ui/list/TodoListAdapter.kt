@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.andraganoid.verymuchtodo.databinding.TodoListItemBinding
-import com.andraganoid.verymuchtodo.old.model.TodoItem
+import com.andraganoid.verymuchtodo.model.TodoItem
 
 class TodoListAdapter(private val fragment: TodoListFragment) : ListAdapter<TodoItem, TodoListAdapter.TodoListHolder>(
    TodoListCallback()

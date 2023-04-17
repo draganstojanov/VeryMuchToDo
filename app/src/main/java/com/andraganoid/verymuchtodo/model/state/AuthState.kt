@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.old.model.state
+package com.andraganoid.verymuchtodo.model.state
 
 sealed class AuthState {
 

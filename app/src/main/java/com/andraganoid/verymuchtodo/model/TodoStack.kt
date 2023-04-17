@@ -1,4 +1,4 @@
-package com.andraganoid.verymuchtodo.old.model
+package com.andraganoid.verymuchtodo.model
 
 data class TodoStack(
     var title: String? = "",

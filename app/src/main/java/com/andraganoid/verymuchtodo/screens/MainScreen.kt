@@ -7,7 +7,7 @@ import androidx.compose.material.SnackbarHost
 import androidx.compose.material.SnackbarHostState
 import androidx.compose.runtime.*
 import androidx.navigation.NavHostController
-import com.andraganoid.verymuchtodo.old.model.state.AuthState
+import com.andraganoid.verymuchtodo.model.state.AuthState
 import com.andraganoid.verymuchtodo.util.CANCELLED
 import com.andraganoid.verymuchtodo.util.ERROR_PLACEHOLDER
 import com.andraganoid.verymuchtodo.util.navigation.NavScreens

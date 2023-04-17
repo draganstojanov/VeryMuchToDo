@@ -1,7 +1,7 @@
-package com.andraganoid.verymuchtodo.old.repository
+package com.andraganoid.verymuchtodo.repository
 
 
-import com.andraganoid.verymuchtodo.old.model.state.AuthState
+import com.andraganoid.verymuchtodo.model.state.AuthState
 import com.andraganoid.verymuchtodo.util.LOGIN_EMAIL
 import com.andraganoid.verymuchtodo.util.LOGIN_PASS
 import com.google.firebase.auth.FirebaseAuth

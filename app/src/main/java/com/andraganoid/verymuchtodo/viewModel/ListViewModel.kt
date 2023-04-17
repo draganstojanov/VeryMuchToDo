@@ -8,25 +8,15 @@ import com.andraganoid.verymuchtodo.repository.FirestoreRepository
 import com.andraganoid.verymuchtodo.repository.ListenersRepository
 import kotlinx.coroutines.flow.StateFlow
 
-class StackViewModel(
+class ListViewModel (
     private val prefs: Prefs,
     private val authRepository: AuthRepository,
     private val listenersRepository: ListenersRepository,
     private val firestoreRepository: FirestoreRepository,
 ) : ViewModel() {
 
-    var selectedListId: String? = null
-
-    val userName:String?
-        get()=prefs.getUserName()
-
-    fun saveUserName(name: String) {
-        prefs.saveUserName(name)
-    }
 
     fun getSnapshotState(): StateFlow<StackState?> = listenersRepository.getStackState()
-
-
 
 
 }

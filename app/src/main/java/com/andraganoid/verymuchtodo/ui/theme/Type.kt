@@ -39,10 +39,16 @@ val Info = TextStyle(
     color = ColorText75
 )
 
-val ButtonStyle = TextStyle(
+val ItemButtonStyle = TextStyle(
     fontFamily = font,
     fontWeight = FontWeight.W300,
     fontSize = 10.sp,
+)
+
+val SmallButtonStyle = TextStyle(
+    fontFamily = font,
+    fontWeight = FontWeight.W500,
+    fontSize = 14.sp,
 )
 
 

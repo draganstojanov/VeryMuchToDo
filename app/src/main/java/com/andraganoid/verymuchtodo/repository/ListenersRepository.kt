@@ -1,7 +1,7 @@
-package com.andraganoid.verymuchtodo.old.repository
+package com.andraganoid.verymuchtodo.repository
 
-import com.andraganoid.verymuchtodo.old.model.TodoStack
-import com.andraganoid.verymuchtodo.old.model.state.StackState
+import com.andraganoid.verymuchtodo.model.TodoStack
+import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.util.COL_LIST
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
@@ -23,11 +23,11 @@ class ListenersRepository(private val firebaseFirestore: FirebaseFirestore) {
                         todoStack.add(documentSnapshot.toObject(TodoStack::class.java))
                     }
                    // stackState.tryEmit(StackState.Stack(todoList))
-                    stackState.value=StackState.Stack(todoStack)
+                    stackState.value= StackState.Stack(todoStack)
                 }
               else  if (exc != null) {
                    // stackState.tryEmit(StackState.Error(exc.localizedMessage))
-                    stackState.value=StackState.Error(exc.localizedMessage)
+                    stackState.value= StackState.Error(exc.localizedMessage)
                 }
             }
     }

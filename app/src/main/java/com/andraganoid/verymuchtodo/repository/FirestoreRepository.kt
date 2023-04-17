@@ -1,7 +1,7 @@
-package com.andraganoid.verymuchtodo.old.repository
+package com.andraganoid.verymuchtodo.repository
 
 
-import com.andraganoid.verymuchtodo.old.model.Document
+import com.andraganoid.verymuchtodo.model.Document
 import com.andraganoid.verymuchtodo.util.DOCUMENT_ERROR
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.MutableSharedFlow

@@ -9,7 +9,7 @@
 
         <variable
             name="todoList"
-            type="com.andraganoid.verymuchtodo.old.model.TodoStack" />
+            type="com.andraganoid.verymuchtodo.model.TodoStack" />
 
         <variable
             name="completed"

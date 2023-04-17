@@ -1,9 +1,5 @@
-package com.andraganoid.verymuchtodo.screens.stack
+package com.andraganoid.verymuchtodo.screens.list
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,6 +14,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -29,40 +27,45 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.andraganoid.verymuchtodo.R
-import com.andraganoid.verymuchtodo.composables.CloseButton
 import com.andraganoid.verymuchtodo.composables.CustomTopAppBar
+import com.andraganoid.verymuchtodo.composables.ItemButton
 import com.andraganoid.verymuchtodo.composables.SmallButton
 import com.andraganoid.verymuchtodo.composables.showToast
-import com.andraganoid.verymuchtodo.model.TodoStack
+import com.andraganoid.verymuchtodo.model.TodoItem
 import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.ui.theme.ColorPrimaryLite
-import com.andraganoid.verymuchtodo.util.navigation.NavScreens
-import com.andraganoid.verymuchtodo.util.noRippleClickable
-import com.andraganoid.verymuchtodo.viewModel.StackViewModel
-
+import com.andraganoid.verymuchtodo.ui.theme.ColorPrimaryVariantLite
+import com.andraganoid.verymuchtodo.ui.theme.ColorTaskDone
+import com.andraganoid.verymuchtodo.ui.theme.Desc
+import com.andraganoid.verymuchtodo.ui.theme.Info
+import com.andraganoid.verymuchtodo.ui.theme.Title
+import com.andraganoid.verymuchtodo.util.getFormattedShortDateAndTimeLocale
+import com.andraganoid.verymuchtodo.viewModel.ListViewModel
 
 @Composable
-fun StackScreen(
+fun ToDoListScreen(
     navController: NavHostController,
-    viewModel: StackViewModel
+    viewModel: ListViewModel,
+    stackId: String?
 ) {
     val context = LocalContext.current
     val stackState by viewModel.getSnapshotState().collectAsState(initial = null)
-    val stackListState: MutableState<List<TodoStack?>> = remember { mutableStateOf(listOf()) }
-
-    var editorState by remember { mutableStateOf(false) }
+    val todoListState: MutableState<List<TodoItem?>> = remember { mutableStateOf(listOf()) }
+    var titleState by remember { mutableStateOf<String?>(null) }
 
     LaunchedEffect(key1 = stackState) {
         when (stackState) {
             is StackState.Stack -> {
                 val stackList = (stackState as StackState.Stack).stack
-                stackListState.value = stackList.sortedByDescending { it?.timestamp }
+                val stack = stackList.first { it?.id.equals(stackId) }
+                todoListState.value = stack?.itemList ?: emptyList()
+                titleState = stack?.title
             }
 
             is StackState.Error -> showToast(context, (stackState as StackState.Error).errorMsg)
@@ -71,14 +74,14 @@ fun StackScreen(
     }
 
     Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.TopCenter
+        contentAlignment = Alignment.TopCenter,
+        modifier = Modifier.fillMaxSize()
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             CustomTopAppBar(
-                title = stringResource(id = R.string.todo),
+                title = titleState,
                 navController = navController,
-                hasBackButton = false,
+                hasBackButton = true,
                 hasCalcButton = true,
                 hasSettingsButton = true
             )
@@ -86,21 +89,10 @@ fun StackScreen(
             LazyColumn(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                items(items = stackListState.value) { item ->
-                    StackItem(
-                        stack = item,
-                        onItemSelected = {
-                            if (!editorState) {
-                                viewModel.selectedListId = it
-                                navController.navigate("${NavScreens.ToDoListScreen.name}/${it}")
-                            }
-                        },
-                        onEditorCLick = { editorState = true },
-                    )
+                items(items = todoListState.value) { item ->
+                    TodoListItem(item, viewModel)
                 }
                 item { Spacer(modifier = Modifier.size(72.dp)) }
-
-
             }
         }
         Box(
@@ -111,48 +103,15 @@ fun StackScreen(
                 modifier = Modifier.padding(bottom = 16.dp),
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                SmallButton(stringResource(id = R.string.new_list)) {
-                    editorState = true
-                }
+                SmallButton(stringResource(id = R.string.new_item)) {}
                 SmallButton(stringResource(id = R.string.clear)) {}
             }
         }
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(if (editorState) Color.Black.copy(alpha = .33f) else Color.Transparent)
-        ) {
-
-            AnimatedVisibility(
-                visible = editorState,
-                enter = expandVertically(animationSpec = tween(delayMillis = 0, durationMillis = 1000)),
-                exit = shrinkVertically(animationSpec = tween(durationMillis = 1000))
-            ) {
-                Box(modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Transparent)
-                    .noRippleClickable { }
-                )
-                Column(
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(bottomStart = 8.dp, bottomEnd = 8.dp))
-                        .background(color = ColorPrimaryLite)
-                        .fillMaxWidth()
-                        .height(350.dp)
-                )
-                {
-                    CloseButton { editorState = false }
 
 
-                }
-            }
-        }
-
-
+        //  TopModal()
     }
 }
-
-
 
 
 

@@ -1,6 +1,6 @@
-package com.andraganoid.verymuchtodo.old.model.state
+package com.andraganoid.verymuchtodo.model.state
 
-import com.andraganoid.verymuchtodo.old.model.TodoStack
+import com.andraganoid.verymuchtodo.model.TodoStack
 
 sealed class StackState {
     data class Error(val errorMsg: String?) : StackState()

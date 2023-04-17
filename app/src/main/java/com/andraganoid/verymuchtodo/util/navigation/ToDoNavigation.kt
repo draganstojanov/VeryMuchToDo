@@ -2,16 +2,21 @@ package com.andraganoid.verymuchtodo.util.navigation
 
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.andraganoid.verymuchtodo.screens.MainScreen
+import com.andraganoid.verymuchtodo.screens.list.ToDoListScreen
 import com.andraganoid.verymuchtodo.screens.stack.StackScreen
+import com.andraganoid.verymuchtodo.util.ARG_SELECTED_STACK_ID
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun ToDoNavigation() {
     val navController = rememberNavController()
+    //   val todoViewModel= koinViewModel<StackViewModel>()
     NavHost(
         navController = navController,
         startDestination = NavScreens.MainScreen.name
@@ -21,6 +26,16 @@ fun ToDoNavigation() {
         }
         composable(NavScreens.StackScreen.name) {
             StackScreen(navController, koinViewModel())
+        }
+        composable(
+            "${NavScreens.ToDoListScreen.name}/{${ARG_SELECTED_STACK_ID}}",
+            arguments = listOf(navArgument(ARG_SELECTED_STACK_ID) { type = NavType.StringType })
+        ) {
+            ToDoListScreen(
+                navController,
+                koinViewModel(),
+                it.arguments?.getString(ARG_SELECTED_STACK_ID)
+            )
         }
 
 
