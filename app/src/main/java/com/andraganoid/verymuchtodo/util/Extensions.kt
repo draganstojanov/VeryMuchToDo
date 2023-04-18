@@ -21,7 +21,8 @@ fun Long.getFormattedShortDateAndTimeLocale(): String {
 }
 
 fun Modifier.noRippleClickable(onClick: () -> Unit): Modifier = composed {
-    clickable(indication = null,
+    clickable(
+        indication = null,
         interactionSource = remember { MutableInteractionSource() }) {
         onClick()
     }
