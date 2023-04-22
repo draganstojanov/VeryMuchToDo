@@ -13,7 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.ItemEditorLayoutBinding
 import com.andraganoid.verymuchtodo.databinding.TodoListFragmentBinding
-import com.andraganoid.verymuchtodo.model.TodoItem
+import com.andraganoid.verymuchtodo.model.TodoList
 import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.old.main.TodoViewModel
 import com.andraganoid.verymuchtodo.old.util.areYouSure
@@ -110,12 +110,12 @@ class TodoListFragment : Fragment() {
         }
     }
 
-    fun checkItem(todoItem: TodoItem) {
-        todoItem.completed = !todoItem.completed
+    fun checkItem(todoList: TodoList) {
+        todoList.completed = !todoList.completed
         viewModel.updateList()
     }
 
-    fun deleteItem(ti: TodoItem) {
+    fun deleteItem(ti: TodoList) {
         if (!ti.completed) {
             if (ti.userName.equals(viewModel.userName.value)) {
                 areYouSure { viewModel.deleteItem(ti) }
@@ -126,10 +126,10 @@ class TodoListFragment : Fragment() {
     }
 
     private fun setNewItem() {
-        openTodoItemEditor(TodoItem(), true)
+        openTodoItemEditor(TodoList(), true)
     }
 
-    fun openTodoItemEditor(ti: TodoItem, isNew: Boolean) {
+    fun openTodoItemEditor(ti: TodoList, isNew: Boolean) {
         viewModel.itemForEdit = ti
         isNewItem = isNew
 

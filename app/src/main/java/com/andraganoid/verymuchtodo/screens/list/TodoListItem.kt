@@ -13,13 +13,13 @@ import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.composables.ItemBottomRow
 import com.andraganoid.verymuchtodo.composables.ItemDescription
 import com.andraganoid.verymuchtodo.composables.ItemTitle
-import com.andraganoid.verymuchtodo.model.TodoItem
+import com.andraganoid.verymuchtodo.model.TodoList
 import com.andraganoid.verymuchtodo.ui.theme.ColorPrimaryLite
 import com.andraganoid.verymuchtodo.ui.theme.ColorTaskDone
 
 @Composable
 fun TodoListItem(
-    item: TodoItem?,
+    item: TodoList?,
     onEditorCLick: () -> Unit,
     onDeleteCLick: () -> Unit,
 ) {

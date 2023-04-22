@@ -5,14 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.andraganoid.verymuchtodo.model.Document
-import com.andraganoid.verymuchtodo.model.TodoItem
+import com.andraganoid.verymuchtodo.model.TodoList
 import com.andraganoid.verymuchtodo.model.TodoStack
 import com.andraganoid.verymuchtodo.model.isCompleted
 import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.old.util.Prefs
 import com.andraganoid.verymuchtodo.repository.FirestoreRepository
 import com.andraganoid.verymuchtodo.repository.ListenersRepository
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
 class TodoViewModel(
@@ -24,7 +24,7 @@ class TodoViewModel(
     var stack: ArrayList<TodoStack?> = arrayListOf()
     var selectedListId: String = ""
     var listForEdit: TodoStack = TodoStack()
-    var itemForEdit: TodoItem = TodoItem()
+    var itemForEdit: TodoList = TodoList()
 
     private val _userName = MutableLiveData("")
     val userName: LiveData<String> get() = _userName
@@ -41,7 +41,7 @@ class TodoViewModel(
         _autocompleteItemList.value = prefs.getAutocompleteIemList() ?: mutableListOf()
     }
 
-    fun getSnapshotState(): StateFlow<StackState?> = listenersRepository.getStackState()
+    fun getSnapshotState(): SharedFlow<StackState?> = listenersRepository.getStackState()
 
     override fun onCleared() {
         listenersRepository.remove()
@@ -60,7 +60,7 @@ class TodoViewModel(
         )
     )
 
-    fun deleteItem(ti: TodoItem) {
+    fun deleteItem(ti: TodoList) {
         listForEdit.itemList.remove(ti)
         updateList()
     }

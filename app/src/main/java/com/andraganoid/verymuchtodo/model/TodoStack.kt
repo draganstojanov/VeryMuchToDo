@@ -3,7 +3,7 @@ package com.andraganoid.verymuchtodo.model
 data class TodoStack(
     var title: String? = "",
     var description: String? = "",
-    var itemList: ArrayList<TodoItem> = arrayListOf(),
+    var itemList: ArrayList<TodoList> = arrayListOf(),
     var timestamp: Long? = 0,
     var userName: String? = "",
     var id: String = ""

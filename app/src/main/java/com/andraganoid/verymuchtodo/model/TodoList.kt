@@ -1,6 +1,6 @@
 package com.andraganoid.verymuchtodo.model
 
-data class TodoItem(
+data class TodoList(
     var content: String? = "",
     var description: String? = "",
     var completed: Boolean = false,

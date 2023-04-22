@@ -3,14 +3,83 @@ package com.andraganoid.verymuchtodo.composables
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
+import com.andraganoid.verymuchtodo.ui.theme.ColorPrimaryLite
+import com.andraganoid.verymuchtodo.ui.theme.ColorPrimaryVariantLite
+import com.andraganoid.verymuchtodo.ui.theme.ColorText50
+import com.andraganoid.verymuchtodo.ui.theme.ColorText75
+import com.andraganoid.verymuchtodo.ui.theme.InputStyle
+
+
+@Composable
+fun InputText(
+    label: String,
+    value: String,
+    onValueChanged: (String) -> Unit
+) {
+    var input by remember { mutableStateOf(TextFieldValue(value)) }
+    TextField(
+        value = input,
+        onValueChange = {
+            input = it
+            onValueChanged.invoke(it.text)
+        },
+        modifier =
+        Modifier
+            .fillMaxWidth()
+            .padding(top = 24.dp, start = 16.dp, end = 16.dp),
+        textStyle = InputStyle,
+        singleLine = false,
+        maxLines = 6,
+        label = {
+            Text(
+                color = ColorText75,
+                text = label
+            )
+        },
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        shape = RoundedCornerShape(8.dp),
+        colors = TextFieldDefaults.textFieldColors(
+            cursorColor = ColorPrimaryLite,
+            backgroundColor = ColorPrimaryVariantLite,
+            placeholderColor = ColorText50
+        )
+    )
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 @Composable
 fun TopModal() {

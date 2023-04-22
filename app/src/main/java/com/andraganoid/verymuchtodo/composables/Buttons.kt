@@ -21,22 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.andraganoid.verymuchtodo.ui.theme.ColorSecondaryLite
 import com.andraganoid.verymuchtodo.ui.theme.SmallButtonStyle
 
-@Composable
-fun SmallButton(
-    label: String,
-    onClick: () -> Unit
-) {
-    Button(
-        onClick = onClick,
-        modifier = Modifier
-            .width(120.dp)
-            .clip(RoundedCornerShape(50))
-            .height(40.dp),
-        colors = ButtonDefaults.buttonColors(backgroundColor = ColorSecondaryLite)
-    ) {
-        Text(text = label.uppercase(), style = SmallButtonStyle)
-    }
-}
+
 
 @Composable
 fun CloseButton(onClose: () -> Unit) {
@@ -51,5 +36,22 @@ fun CloseButton(onClose: () -> Unit) {
                 tint = Color.White
             )
         }
+    }
+}
+
+@Composable
+fun SmallButton(
+    label: String,
+    onClick: () -> Unit
+) {
+    Button(
+        onClick = onClick,
+        modifier = Modifier
+            .width(120.dp)
+            .clip(RoundedCornerShape(50))
+            .height(40.dp),
+        colors = ButtonDefaults.buttonColors(backgroundColor = ColorSecondaryLite)
+    ) {
+        Text(text = label.uppercase(), style = SmallButtonStyle)
     }
 }
