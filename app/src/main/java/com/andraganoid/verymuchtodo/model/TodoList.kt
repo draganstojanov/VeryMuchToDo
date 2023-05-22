@@ -1,5 +1,9 @@
 package com.andraganoid.verymuchtodo.model
 
+import kotlinx.serialization.Serializable
+
+
+@Serializable
 data class TodoList(
     var content: String? = "",
     var description: String? = "",

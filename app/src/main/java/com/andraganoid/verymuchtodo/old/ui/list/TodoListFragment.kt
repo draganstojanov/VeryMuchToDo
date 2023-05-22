@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -14,7 +13,6 @@ import com.andraganoid.verymuchtodo.R
 import com.andraganoid.verymuchtodo.databinding.ItemEditorLayoutBinding
 import com.andraganoid.verymuchtodo.databinding.TodoListFragmentBinding
 import com.andraganoid.verymuchtodo.model.TodoList
-import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.old.main.TodoViewModel
 import com.andraganoid.verymuchtodo.old.util.areYouSure
 import com.andraganoid.verymuchtodo.old.util.hideKeyboard
@@ -78,22 +76,22 @@ class TodoListFragment : Fragment() {
     private fun setObservers() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getSnapshotState().collect { tlState ->
-                    when (tlState) {
-                        is StackState.Stack -> {
-                            viewModel.stack = tlState.stack
-                            val tList = tlState.stack.firstOrNull { it?.id == viewModel.selectedListId }
-                            if (tList != null) {
-                                viewModel.listForEdit = tList
-                                todoAdapter.submitList(viewModel.getSortedItemList())
-                            }
-                            binding.clearItems.isVisible = viewModel.checkClearVisibilityList()
-                            main.showTitle(viewModel.listForEdit.title.toString())
-                        }
-                        is StackState.Error -> main.bottomToast(tlState.errorMsg)
-                        else -> {}
-                    }
-                }
+//                viewModel.getSnapshotState().collect { tlState ->
+//                    when (tlState) {
+//                        is StackState.Stack -> {
+//                            viewModel.stack = tlState.stack as ArrayList<TodoStack?>
+//                            val tList = tlState.stack.firstOrNull { it?.id == viewModel.selectedListId }
+//                            if (tList != null) {
+//                                viewModel.listForEdit = tList
+//                                todoAdapter.submitList(viewModel.getSortedItemList())
+//                            }
+//                            binding.clearItems.isVisible = viewModel.checkClearVisibilityList()
+//                            main.showTitle(viewModel.listForEdit.title.toString())
+//                        }
+//                        is StackState.Error -> main.bottomToast(tlState.errorMsg)
+//                        else -> {}
+//                    }
+//                }
             }
         }
 

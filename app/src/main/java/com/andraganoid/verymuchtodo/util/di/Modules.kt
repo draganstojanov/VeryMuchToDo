@@ -37,7 +37,7 @@ object Modules {
     private val composeViewModelModule = module {
         viewModel { MainViewModel(get(), get(), get()) }
         viewModel { StackViewModel(get(), get(), get(), get()) }
-        viewModel { ListViewModel(get(), get(), get(), get()) }
+        viewModel { ListViewModel(get(), get(), get(), get(), get()) }
     }
 
     val appModule = listOf(

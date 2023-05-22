@@ -6,7 +6,6 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -18,7 +17,6 @@ import com.andraganoid.verymuchtodo.databinding.StackEditorLayoutBinding
 import com.andraganoid.verymuchtodo.databinding.StackFragmentBinding
 import com.andraganoid.verymuchtodo.model.TodoStack
 import com.andraganoid.verymuchtodo.model.isCompleted
-import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.old.main.TodoViewModel
 import com.andraganoid.verymuchtodo.old.util.areYouSure
 import com.andraganoid.verymuchtodo.old.util.hideKeyboard
@@ -82,17 +80,17 @@ class StackFragment : Fragment() {
     private fun setObservers() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.getSnapshotState().collect { tlState ->
-                    when (tlState) {
-                        is StackState.Stack -> {
-                            viewModel.stack = tlState.stack
-                            stackAdapter.submitList(viewModel.stack.sortedByDescending { it?.timestamp })
-                            binding.clearList.isVisible = viewModel.checkClearVisibilityStack()
-                        }
-                        is StackState.Error -> main.bottomToast(tlState.errorMsg)
-                        else -> {}
-                    }
-                }
+//                viewModel.getSnapshotState().collect { tlState ->
+//                    when (tlState) {
+//                        is StackState.Stack -> {
+//                            viewModel.stack = tlState.stack as ArrayList<TodoStack?>
+//                            stackAdapter.submitList(viewModel.stack.sortedByDescending { it?.timestamp })
+//                            binding.clearList.isVisible = viewModel.checkClearVisibilityStack()
+//                        }
+//                        is StackState.Error -> main.bottomToast(tlState.errorMsg)
+//                        else -> {}
+//                    }
+//                }
             }
         }
 

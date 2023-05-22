@@ -1,5 +1,7 @@
 package com.andraganoid.verymuchtodo.viewModel
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.andraganoid.verymuchtodo.model.Document
@@ -9,7 +11,6 @@ import com.andraganoid.verymuchtodo.old.util.Prefs
 import com.andraganoid.verymuchtodo.repository.AuthRepository
 import com.andraganoid.verymuchtodo.repository.FirestoreRepository
 import com.andraganoid.verymuchtodo.repository.ListenersRepository
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 
 class StackViewModel(
@@ -28,8 +29,13 @@ class StackViewModel(
         prefs.saveUserName(name)
     }
 
-    fun getSnapshotState(): SharedFlow<StackState?> = listenersRepository.getStackState()
-
+    fun getSnapshotState(): MutableState<StackState?> = mutableStateOf(
+        when (val stackStateValue = listenersRepository.stackState.value) {
+            is StackState.Stack -> stackStateValue.copy()
+            is StackState.Error -> stackStateValue.copy()
+            else -> null
+        }
+    )
 
     fun changeList(stack: TodoStack?) {
         stack?.apply {

@@ -12,7 +12,7 @@ import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.old.util.Prefs
 import com.andraganoid.verymuchtodo.repository.FirestoreRepository
 import com.andraganoid.verymuchtodo.repository.ListenersRepository
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class TodoViewModel(
@@ -41,7 +41,7 @@ class TodoViewModel(
         _autocompleteItemList.value = prefs.getAutocompleteIemList() ?: mutableListOf()
     }
 
-    fun getSnapshotState(): SharedFlow<StackState?> = listenersRepository.getStackState()
+    fun getSnapshotState(): StateFlow<StackState?> = listenersRepository.stackState
 
     override fun onCleared() {
         listenersRepository.remove()

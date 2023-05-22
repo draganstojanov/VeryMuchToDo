@@ -1,5 +1,8 @@
 package com.andraganoid.verymuchtodo.model
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class TodoStack(
     var title: String? = "",
     var description: String? = "",
@@ -8,19 +11,6 @@ data class TodoStack(
     var userName: String? = "",
     var id: String = ""
 )
-
-//fun TodoList.isCompleted(): Boolean {
-//    if (itemList.isEmpty()) {
-//        return true
-//    } else {
-//        itemList.forEach {
-//            if (!it.completed) {
-//                return false
-//            }
-//        }
-//        return true
-//    }
-//}
 
 fun TodoStack.isCompleted(): Boolean = itemList.count { it.completed } == itemList.size
 

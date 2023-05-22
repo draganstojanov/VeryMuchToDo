@@ -4,7 +4,7 @@ plugins {
     kotlin("kapt")
     id("com.google.firebase.crashlytics")
     id("com.google.gms.google-services")
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.21"
 }
 
 @Suppress("UnstableApiUsage")
@@ -69,7 +69,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.4"
+        kotlinCompilerExtensionVersion = "1.4.7"
     }
 
 //    fun Packaging.() {
@@ -84,13 +84,13 @@ android {
 
 dependencies {
 
-    val composeVersion = "1.4.1"
+    val composeVersion = "1.4.3"
     val lifecycleVersion = "2.6.1"
-    val coroutinesVersion = "1.6.4"
-    val materialVersion = "1.4.1"
+    val coroutinesVersion = "1.7.1"
+    val materialVersion = "1.4.3"
 
-    implementation("androidx.core:core-ktx:1.10.0")
-    implementation("androidx.activity:activity-compose:1.7.0")
+    implementation("androidx.core:core-ktx:1.10.1")
+    implementation("androidx.activity:activity-compose:1.7.1")
     // implementation("androidx.preference:preference-ktx:1.2.0")
     implementation("androidx.navigation:navigation-compose:2.5.3")
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
@@ -98,16 +98,15 @@ dependencies {
     implementation("androidx.compose.ui:ui:$composeVersion")
     implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
     implementation("androidx.compose.material:material:$materialVersion")
-    
+
     //Material icons - use with caution!
-     implementation("androidx.compose.material:material-icons-extended:$materialVersion")
+    implementation("androidx.compose.material:material-icons-extended:$materialVersion")
 
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.30.0")
 
 
-
     // Kotlin
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
     //Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
@@ -117,14 +116,15 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:$lifecycleVersion")
 
     // Koin
     implementation("io.insert-koin:koin-android:3.4.0")
-    implementation("io.insert-koin:koin-androidx-compose:3.4.3")
+    implementation("io.insert-koin:koin-androidx-compose:3.4.4")
 
 
     implementation("androidx.appcompat:appcompat:1.6.1")//TODO REMOVE AT END
-    implementation("com.google.android.material:material:1.8.0")//TODO REMOVE AT END
+    implementation("com.google.android.material:material:1.9.0")//TODO REMOVE AT END
 
 
     //Gson
@@ -141,7 +141,7 @@ dependencies {
 
 
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:31.5.0"))
+    implementation(platform("com.google.firebase:firebase-bom:32.0.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-firestore-ktx")

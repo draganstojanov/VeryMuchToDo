@@ -21,7 +21,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,7 +45,6 @@ import com.andraganoid.verymuchtodo.ui.theme.ColorPrimaryLite
 import com.andraganoid.verymuchtodo.util.navigation.NavScreens
 import com.andraganoid.verymuchtodo.util.noRippleClickable
 import com.andraganoid.verymuchtodo.viewModel.StackViewModel
-import com.draganstojanov.myworld_compose.util.debug.debugLog
 
 
 @Composable
@@ -55,21 +53,22 @@ fun StackScreen(
     viewModel: StackViewModel
 ) {
     val context = LocalContext.current
-    val stackState by viewModel.getSnapshotState().collectAsState(initial = null)
+    val stackState=viewModel.getSnapshotState()
     val stackListState: MutableState<List<TodoStack?>> = remember { mutableStateOf(listOf()) }
 
     var editorState by remember { mutableStateOf(false) }
     var editorItem: TodoStack? by remember { mutableStateOf(null) }
 
     LaunchedEffect(key1 = stackState) {
-        debugLog("SS-LE",stackState)
-        when (stackState) {
+
+        when (val stackStateValue = stackState.value) {
             is StackState.Stack -> {
-                val stackList = (stackState as StackState.Stack).stack
+                val stackList = stackStateValue.stack
                 stackListState.value = stackList.sortedByDescending { it?.timestamp }
             }
 
-            is StackState.Error -> showToast(context, (stackState as StackState.Error).errorMsg)//todo -> bottom msg
+            is StackState.Error -> showToast(context, stackStateValue.errorMsg)//todo -> bottom msg
+
             null -> {}
         }
     }

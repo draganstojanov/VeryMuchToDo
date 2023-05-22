@@ -21,7 +21,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,7 +44,6 @@ import com.andraganoid.verymuchtodo.model.state.StackState
 import com.andraganoid.verymuchtodo.ui.theme.ColorPrimaryLite
 import com.andraganoid.verymuchtodo.util.noRippleClickable
 import com.andraganoid.verymuchtodo.viewModel.ListViewModel
-import com.draganstojanov.myworld_compose.util.debug.debugLog
 
 @Composable
 fun ToDoListScreen(
@@ -54,28 +52,25 @@ fun ToDoListScreen(
     stackId: String?
 ) {
     val context = LocalContext.current
-    val stackState by viewModel.getSnapshotState().collectAsState(initial = null)
+    val stackState = viewModel.getSnapshotState()
     val todoListState: MutableState<List<TodoList?>> = remember { mutableStateOf(listOf()) }
     var titleState by remember { mutableStateOf<String?>(null) }
-
     var editorState by remember { mutableStateOf(false) }
     var editorItem: TodoList? by remember { mutableStateOf(null) }
 
     LaunchedEffect(key1 = stackState) {
 
-
-        debugLog("TLS-LE",stackState)
-
-        when (stackState) {
+        when (val stackStateValue = stackState.value) {
             is StackState.Stack -> {
-                val stackList = (stackState as StackState.Stack).stack
-                val stack = stackList.first { it?.id.equals(stackId) }
-                viewModel.currentStack = stack
-                todoListState.value = stack?.itemList ?: emptyList()
+                val stackList = stackStateValue.stack
+                val stack = stackList.firstOrNull { it?.id.equals(stackId) }
+                viewModel.currentStack = stack?.copy()
+                todoListState.value = stack?.itemList?.toList() ?: emptyList()
                 titleState = stack?.title
             }
 
-            is StackState.Error -> showToast(context, (stackState as StackState.Error).errorMsg)
+            is StackState.Error -> showToast(context, stackStateValue.errorMsg)
+
             null -> {}
         }
     }
