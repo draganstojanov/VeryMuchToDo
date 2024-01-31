@@ -8,7 +8,6 @@ import com.andraganoid.verymuchtodo.model.state.AuthState
 import com.andraganoid.verymuchtodo.repository.AuthRepository
 import com.andraganoid.verymuchtodo.repository.FirestoreRepository
 import com.andraganoid.verymuchtodo.repository.ListenersRepository
-import com.draganstojanov.myworld_compose.util.debug.debugLog
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -22,7 +21,8 @@ class MainViewModel(
     val authState: MutableState<AuthState?> = mutableStateOf(null)
 
     init {
-        getAuthState()
+            getAuthState()
+
         //   getDocumentError()
     }
 
@@ -30,9 +30,6 @@ class MainViewModel(
         viewModelScope.launch(Dispatchers.Main) {
             authRepository.loginCheck()
             authRepository.getAuthState().collect {
-
-                debugLog("AUTHSTATE",it)
-
                 authState.value = it
             }
         }
