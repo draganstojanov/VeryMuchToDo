@@ -49,6 +49,7 @@ val SmallButtonStyle = TextStyle(
     fontFamily = font,
     fontWeight = FontWeight.W500,
     fontSize = 14.sp,
+    color = ColorText100
 )
 
 val InputStyle = TextStyle(

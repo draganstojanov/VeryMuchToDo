@@ -22,7 +22,6 @@ import com.andraganoid.verymuchtodo.ui.theme.ColorSecondaryLite
 import com.andraganoid.verymuchtodo.ui.theme.SmallButtonStyle
 
 
-
 @Composable
 fun CloseButton(onClose: () -> Unit) {
     Box(

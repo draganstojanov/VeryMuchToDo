@@ -5,11 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.view.WindowCompat
 import com.andraganoid.verymuchtodo.ui.theme.ToDoComposeTheme
 import com.andraganoid.verymuchtodo.util.navigation.ToDoNavigation
-import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 
 class MainActivity : ComponentActivity() {
@@ -18,15 +18,17 @@ class MainActivity : ComponentActivity() {
         setContent {
             ToDoComposeTheme {
                 val color = MaterialTheme.colors.primary
-                val systemUiController = rememberSystemUiController()
-                SideEffect {
-                    systemUiController.setStatusBarColor(
-                        color = color,
-                        darkIcons = false
-                    )
+                window.apply {
+                    statusBarColor = color.toArgb()
+                    navigationBarColor = color.toArgb()
+                    WindowCompat.getInsetsController(this, this.decorView).apply {
+                        isAppearanceLightStatusBars = false
+                        isAppearanceLightNavigationBars = false
+                    }
                 }
-                ToDoNavigation()
             }
+
+            ToDoNavigation()
         }
     }
 }

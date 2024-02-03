@@ -77,7 +77,8 @@ fun StackScreen(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.TopCenter
     ) {
-        Column(modifier = Modifier.fillMaxWidth()) {
+        Column(modifier = Modifier.fillMaxWidth()
+        ) {
             CustomTopAppBar(
                 title = stringResource(id = R.string.todo),
                 navController = navController,

@@ -5,11 +5,13 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Calculate
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
+import com.andraganoid.verymuchtodo.ui.theme.ColorIconActive
+import com.andraganoid.verymuchtodo.ui.theme.ColorPrimaryLite
 import com.andraganoid.verymuchtodo.ui.theme.TopTitle
 
 @Composable
@@ -21,6 +23,8 @@ fun CustomTopAppBar(
     navController: NavController
 ) {
     TopAppBar(
+        backgroundColor = ColorPrimaryLite,
+        contentColor = ColorIconActive,
         title = { Text(title.toString(), style = TopTitle) },
         actions = {
             if (hasCalcButton) {
@@ -40,7 +44,7 @@ fun CustomTopAppBar(
         if (hasBackButton) {
             {
                 IconButton(onClick = { navController.popBackStack() }) {
-                    Icon(Icons.Filled.ArrowBack, "Back")
+                    Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back")
                 }
             }
         } else null
