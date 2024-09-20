@@ -1,10 +1,10 @@
 package com.andraganoid.verymuchtodo.screens
 
 import android.annotation.SuppressLint
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.andraganoid.verymuchtodo.model.state.AuthState
-import com.andraganoid.verymuchtodo.util.navigation.NavScreens
+import com.andraganoid.verymuchtodo.util.navigation.Screen
 import com.andraganoid.verymuchtodo.viewModel.MainViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -16,7 +16,7 @@ fun MainScreen(
     when (val authState = viewModel.authState.value) {
         is AuthState.Success -> {
             viewModel.setFirestoreListeners()
-            navController.navigate(NavScreens.StackScreen.name)
+            navController.navigate(Screen.StackScreen)
         }
 
         //  is AuthState.Cancelled -> snackbarState.value = CANCELLED

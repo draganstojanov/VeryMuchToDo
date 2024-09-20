@@ -1,7 +1,25 @@
 package com.andraganoid.verymuchtodo.util.navigation
 
-enum class NavScreens {
-    MainScreen,
-    StackScreen,
-    ToDoListScreen
+import kotlinx.serialization.Serializable
+
+//enum class NavScreens {
+//    MainScreen,
+//    StackScreen,
+//    ToDoListScreen
+//}
+
+sealed interface Screen {
+
+@Serializable
+    object MainScreen
+
+    @Serializable
+    object StackScreen
+
+    @Serializable
+    data class TodoListScreen(
+        val stackId: String?
+    )
+
 }
+

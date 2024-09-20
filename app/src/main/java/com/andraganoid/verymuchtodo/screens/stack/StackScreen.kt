@@ -31,7 +31,7 @@ import com.andraganoid.verymuchtodo.composables.TopModal
 import com.andraganoid.verymuchtodo.composables.showToast
 import com.andraganoid.verymuchtodo.model.TodoStack
 import com.andraganoid.verymuchtodo.model.state.StackState
-import com.andraganoid.verymuchtodo.util.navigation.NavScreens
+import com.andraganoid.verymuchtodo.util.navigation.Screen
 import com.andraganoid.verymuchtodo.viewModel.StackViewModel
 
 
@@ -83,7 +83,7 @@ fun StackScreen(
                         onItemSelected = {
                             if (!editorState) {
                                 viewModel.selectedListId = it
-                                navController.navigate("${NavScreens.ToDoListScreen.name}/${it}")
+                                navController.navigate(Screen.TodoListScreen(it))
                             }
                         },
                         onEditorCLick = {
