@@ -7,13 +7,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 class ListenersRepository(private val firebaseFirestore: FirebaseFirestore) {
 
     private lateinit var todoListListener: ListenerRegistration
 
     private val _stackState: MutableStateFlow<StackState?> = MutableStateFlow(null)
-    val stackState: StateFlow<StackState?> = _stackState
+    val stackState: StateFlow<StackState?> = _stackState.asStateFlow()
 
     fun setFirestoreListeners() {
         todoListListener = firebaseFirestore.collection(COL_LIST)

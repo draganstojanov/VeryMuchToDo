@@ -18,6 +18,19 @@ class MainActivity : ComponentActivity() {
         setContent {
             ToDoComposeTheme {
                 val color = MaterialTheme.colors.primary
+//                enableEdgeToEdge(
+//
+//                    statusBarStyle = SystemBarStyle.auto(
+//                        color.toArgb(),
+//                        color.toArgb()
+//                    ),
+//                    navigationBarStyle = SystemBarStyle.auto(
+//                        color.toArgb(),
+//                        color.toArgb()
+//                    )
+//                )
+
+
                 window.apply {
                     statusBarColor = color.toArgb()
                     navigationBarColor = color.toArgb()
@@ -26,6 +39,9 @@ class MainActivity : ComponentActivity() {
                         isAppearanceLightNavigationBars = false
                     }
                 }
+
+
+
             }
 
             ToDoNavigation()

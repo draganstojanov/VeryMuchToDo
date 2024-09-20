@@ -9,6 +9,7 @@ import com.andraganoid.verymuchtodo.repository.ListenersRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class MainViewModelOld(
@@ -18,7 +19,7 @@ class MainViewModelOld(
 ) : ViewModel() {
 
     private val _authState = MutableStateFlow<AuthState?>(null)
-    val authState: StateFlow<AuthState?> get() = _authState
+    val authState: StateFlow<AuthState?>  = _authState.asStateFlow()
 
     init {
         getAuthState()
