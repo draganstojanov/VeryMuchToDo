@@ -21,7 +21,7 @@ class App : Application() {
             androidLogger()
 
         }
-        Firebase.crashlytics.setCrashlyticsCollectionEnabled(BuildConfig.CRASHLYTICS)
+        Firebase.crashlytics.isCrashlyticsCollectionEnabled = BuildConfig.CRASHLYTICS
         timberInit()
     }
 

@@ -7,3 +7,4 @@ The application works as a todo-service and each change on any device in the tod
 This is a test and training app and a purpose is to test some technologies and services in Android app development, and it will be updatet with new Android stuff...
 
 
+c

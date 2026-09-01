@@ -1,4 +1,4 @@
-package com.draganstojanov.myworld_compose.util.debug
+package com.andraganoid.verymuchtodo.util.debug
 
 import android.util.Log
 
