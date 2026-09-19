@@ -7,10 +7,10 @@ plugins {
 }
 
 android {
-    namespace = "com.andraganoid.verymuchtodo"
+    namespace = "work.stojanov.todo"
     compileSdk = 33
     defaultConfig {
-        applicationId = "com.andraganoid.verymuchtodo"
+        applicationId = "work.stojanov.todo"
         minSdk = 23
         targetSdk = 33
         versionCode = 17
